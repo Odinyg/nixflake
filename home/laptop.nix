@@ -1,6 +1,7 @@
 { inputs, outputs, ... }: {
   imports = [
     ./features/cli
+    ./features/cli/zsh.nix  # Add this line
   ];
 
   wallpaper = outputs.wallpapers.aenami-wait;
