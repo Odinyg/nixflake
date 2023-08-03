@@ -1,6 +1,5 @@
 { inputs, outputs, ... }: {
   imports = [
-    ./universal
     ./features/cli
   ];
 
