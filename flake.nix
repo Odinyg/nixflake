@@ -39,7 +39,7 @@
     homeConfigurations = {
       "none@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        modules = [ ./home/laptop.nix ];
+        modules = [ ./home/laptop.nix ./home/features/cli/zsh.nix ];
 	extraSpecialArgs = { inherit inputs outputs; };
       };
     };
