@@ -8,41 +8,27 @@
     };
 
 
-  outputs = { self, nixpkgs, home-manager,  ... }@inputs:
+  outputs = { self, nixpkgs,  ... }@inputs:
     let
-      inherit (self) outputs;
       system = "x86_64-linux";
-      lib = nixpkgs.lib // home-manager.lib;
       pkgs = import nixpkgs {
-      inherit system;
+        inherit system;
 
-      config = {
+        config = {
         allowUnfree = true;
 	};
       };  
     in
     {
-      inherit lib;
-      nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
-
 
     nixosConfigurations = { 
       myNixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs system; };
+        specialArgs = { inherit inputs system; };
 
 	modules = [
 	./hosts/laptop
 	];
       };
     };
-    homeConfigurations = {
-      "none@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        modules = [ ./home/laptop.nix ./home/features/cli/zsh.nix ];
-	extraSpecialArgs = { inherit inputs outputs; };
-      };
-    };
-
   };
 }
