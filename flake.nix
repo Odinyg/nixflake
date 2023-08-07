@@ -22,7 +22,14 @@
     {
 
     nixosConfigurations = { 
-      myNixos = nixpkgs.lib.nixosSystem {
+      vm = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; };
+
+	modules = [
+	./hosts/vm
+	];
+      };
+      laptop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs system; };
 
 	modules = [
