@@ -1,13 +1,10 @@
 { pkgs, ... }: {
   imports = [
     ./zsh.nix
+    ./git.nix
   ];
-    programs.git = {
-    enable = true;
-    userName = "Odin";
-    userEmail = "git@pytt.io";
-    };
   home.packages = with pkgs; [
+  git
   lf
   bc
   ctop
