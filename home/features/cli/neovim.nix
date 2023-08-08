@@ -1,5 +1,6 @@
 { config, pkgs, ...}:
 {
+   
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -7,14 +8,21 @@
     vimAlias = true;
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
-      nvim-lspconfig
-      mason-lspconfig-nvim
-      mason-nvim
+      nvim-treesitter
       nvim-treesitter.withAllGrammars
+      nvim-lspconfig
       harpoon
       nvim-fzf
-      lazy-nvim
+      telescope-nvim
     ];
-
+    extraPackages = with pkgs; [
+      nixd
+      lua
+      terraform
+      gopls
+      nodePackages.bash-language-server
+      
+    ];
+    
   };
 }
