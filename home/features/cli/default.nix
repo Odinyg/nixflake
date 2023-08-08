@@ -2,6 +2,7 @@
   imports = [
     ./zsh.nix
     ./git.nix
+    ./neovim.nix
   ];
   home.packages = with pkgs; [
   git
