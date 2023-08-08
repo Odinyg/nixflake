@@ -8,10 +8,12 @@
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
+      mason-lspconfig-nvim
+      mason-nvim
       nvim-treesitter.withAllGrammars
       harpoon
-      fzf-vim
-      lazyvim
+      nvim-fzf
+      lazy-nvim
     ];
 
   };

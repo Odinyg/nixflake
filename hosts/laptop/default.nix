@@ -60,8 +60,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
   # Enable sound with pipewire.
+  programs.zsh.enable = true;
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -74,6 +74,7 @@
 
 
   users.users.none = {
+    shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
