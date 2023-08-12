@@ -1,6 +1,7 @@
 {
   imports = [
     ./zsh.nix
+    ./exa.nix
   ];
 
   home = {

@@ -6,8 +6,10 @@
   ];
   home.packages = with pkgs; [
   git
+  bat
   lf
   bc
+  fd
   ctop
   htop
   ripgrep
@@ -15,7 +17,7 @@
   jq
   nil
   nixfmt
-  
+  sshfs
 
 
 
