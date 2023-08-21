@@ -5,7 +5,7 @@
   ];
 
   home = {
-    shellAliases = import ./aliases.nix;
+    zsh.shellAliases = import ./aliases.nix;
   };
 
   programs = {

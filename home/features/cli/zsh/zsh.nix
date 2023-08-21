@@ -8,10 +8,6 @@
 
 
 
-    shellAliases = {
-    nixboot = "sudo nixos-rebuild boot --flake /home/none/nix/#myNixos";
-    nixswitch = "sudo nixos-rebuild switch --flake /home/none/nix/#myNixos";
-    };
 
 
 
