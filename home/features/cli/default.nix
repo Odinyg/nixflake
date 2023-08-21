@@ -1,8 +1,8 @@
 { pkgs, ... }: {
   imports = [
-    ./zsh.nix
+    ./zsh
     ./git.nix
-    ./neovim.nix
+    ./neovim
   ];
   home.packages = with pkgs; [
   git

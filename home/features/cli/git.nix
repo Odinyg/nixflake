@@ -51,5 +51,6 @@
     gm = "git merge";
     gf = "git fetch";
   };
+};
 
 }
