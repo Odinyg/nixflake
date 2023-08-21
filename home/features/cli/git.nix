@@ -9,7 +9,7 @@
     };
   };
 
-  lazygit = {
+  programs.lazygit = {
     enable = true;
     settings.gui = {
       # showFileTree = false;
