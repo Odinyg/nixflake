@@ -1,11 +1,11 @@
 {
   imports = [
     ./zsh.nix
-    ./exa.nix
+    #./exa.nix
   ];
 
   home = {
-    zsh.shellAliases = import ./aliases.nix;
+    shellAliases = import ./aliases.nix;
   };
 
   programs = {
