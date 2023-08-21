@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.git = {
     enable = true;
@@ -5,6 +6,7 @@
     userEmail = "git@pytt.io";
     extraConfig = {
       core.editor = "nvim";
+    };
   };
 
   lazygit = {
@@ -51,6 +53,5 @@
     gm = "git merge";
     gf = "git fetch";
   };
-};
 
 }

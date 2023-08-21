@@ -16,7 +16,7 @@
 
 
   };
-    oh-my-zsh = {
+    programs.oh-my-zsh = {
       enable = true;
       theme = "cloud";
       custom = "$HOME/.config/zsh/oh-my-zsh";
@@ -34,12 +34,7 @@
     home.packages = with pkgs; [
       ueberzugpp
       fzf
-
 ];
-      initExtra = ''
-        eval `gnome-keyring-daemon --start --components=ssh --daemonize 2> /dev/null`
-        export SSH_AUTH_SOCK
-      '';
     # Prompt theme
     starship = {
       enable = true;
