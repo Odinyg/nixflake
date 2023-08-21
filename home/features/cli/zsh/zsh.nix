@@ -15,8 +15,7 @@
 
 
 
-  };
-    programs.oh-my-zsh = {
+    oh-my-zsh = {
       enable = true;
       theme = "cloud";
       custom = "$HOME/.config/zsh/oh-my-zsh";
@@ -29,6 +28,7 @@
           "ripgrep"
       ];
     };
+  };
 
 
     home.packages = with pkgs; [
@@ -36,7 +36,7 @@
       fzf
 ];
     # Prompt theme
-    starship = {
+    programs.starship = {
       enable = true;
 
       settings = {
