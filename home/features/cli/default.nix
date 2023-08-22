@@ -3,6 +3,7 @@
     ./zsh
     ./git.nix
     ./neovim
+    ./zellij.nix
   ];
   home.packages = with pkgs; [
   git
