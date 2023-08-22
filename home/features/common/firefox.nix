@@ -1,31 +1,31 @@
 {
     programs.firefox = {
         enable = true;
-        package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-            extraPolicies = {
-                CaptivePortal = false;
-                DisableFirefoxStudies = true;
-                DisablePocket = true;
-                DisableTelemetry = true;
-                DisableFirefoxAccounts = false;
-                NoDefaultBookmarks = true;
-                OfferToSaveLogins = false;
-                OfferToSaveLoginsDefault = false;
-                PasswordManagerEnabled = false;
-                FirefoxHome = {
-                    Search = true;
-                    Pocket = false;
-                    Snippets = false;
-                    TopSites = false;
-                    Highlights = false;
-                };
-                UserMessaging = {
-                    ExtensionRecommendations = false;
-                    SkipOnboarding = true;
-                };
-            };
-        };
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+#        package = pkgs.wrapFirefox {
+#           extraPolicies = {
+#                CaptivePortal = false;
+#                DisableFirefoxStudies = true;
+#                DisablePocket = true;
+#                DisableTelemetry = true;
+#                DisableFirefoxAccounts = false;
+#                NoDefaultBookmarks = true;
+#                OfferToSaveLogins = false;
+#                OfferToSaveLoginsDefault = false;
+#                PasswordManagerEnabled = false;
+#                FirefoxHome = {
+#                    Search = true;
+#                    Pocket = false;
+#                    Snippets = false;
+#                    TopSites = false;
+#                    Highlights = false;
+#                };
+#                UserMessaging = {
+#                    ExtensionRecommendations = false;
+#                    SkipOnboarding = true;
+#                };
+##            };
+#       };
+        extensions = with pkgs.inputs.firefox-addons; [
             ublock-origin
             https-everywhere
             bitwarden
@@ -54,7 +54,6 @@
                                     { name = "query"; value = "{searchTerms}"; }
                                 ];
                             }];
-                            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                             definedAliases = [ "@np" ];
                         };
                         "NixOS Wiki" = {
@@ -78,12 +77,6 @@
                     user_pref("full-screen-api.ignore-widgets", true);
                     user_pref("media.ffmpeg.vaapi.enabled", true);
                     user_pref("media.rdd-vpx.enabled", true);
-                '';
-                userChrome = ''
-                 # a css 
-                ";
-                userContent = ''
-                 # Here too
                 '';
             };
         };
