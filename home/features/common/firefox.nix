@@ -1,4 +1,6 @@
+{ pkgs, ... }:
 {
+
     programs.firefox = {
         enable = true;
 #        package = pkgs.wrapFirefox {
@@ -25,21 +27,22 @@
 #                };
 ##            };
 #       };
-        extensions = with pkgs.inputs.firefox-addons; [
-            ublock-origin
-            https-everywhere
-            bitwarden
-            clearurls
-            floccus
-            ghostery
-            privacy-redirect
-            languagetool
-            disconnect
-	    proton-pass
-	    proton-vpn
-        ];
         profiles = {
             none = {
+
+              extensions = with pkgs.inputs.firefox-addons; [
+                ublock-origin
+                https-everywhere
+                bitwarden
+                clearurls
+                floccus
+                ghostery
+                privacy-redirect
+                languagetool
+                disconnect
+	        proton-pass
+	        proton-vpn
+              ];
                 id = 0;
                 name = "none";
                 search = {
