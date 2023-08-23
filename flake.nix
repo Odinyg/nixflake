@@ -32,6 +32,12 @@
 	./hosts/vm
 	];
       };
+      vmserver = nixpkgs.lib.nixosSystem { 
+        specialArgs = { inherit inputs system; };
+        modules = [ 
+        ./hosts/vmserver
+        ];
+      };
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs system; };
 
