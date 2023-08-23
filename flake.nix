@@ -10,8 +10,13 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # url = "/home/gaetan/perso/nix/nixvim/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-  outputs = { self, nixpkgs, ... }@inputs:
+    };
+  outputs = { self, nixpkgs, nixvim, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -21,6 +26,9 @@
         allowUnfree = true;
 	};
       };  
+    homeManagerModules = [
+      nixvim.homeManagerModules.nixvim
+    ];
     in
     {
 
