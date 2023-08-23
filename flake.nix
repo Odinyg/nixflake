@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     };
-  outputs = { self, nixpkgs, nixvim, ... }@inputs:
+  outputs = { self, nixpkgs, nixvim, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -26,9 +26,6 @@
         allowUnfree = true;
 	};
       };  
-    homeManagerModules = [
-      nixvim.homeManagerModules.nixvim
-    ];
     in
     {
 
@@ -51,6 +48,12 @@
 
 	modules = [
 	./hosts/laptop
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+        #  home-manager.users.none = import ./home.nix;
+	  }
 	];
       };
     };

@@ -14,9 +14,9 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
-      none = import ../.././home/laptop.nix;
+      none = import ../.././home/laptop.nix;    
     };
-  };
+    };
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";

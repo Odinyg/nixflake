@@ -3,7 +3,4 @@
     ./nixvim.nix
   ];
 
-  home = {
-  };
-
 }
