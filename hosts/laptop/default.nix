@@ -74,7 +74,6 @@
     packages = with pkgs; [
       firefox
       thunderbird
-      neovim
       vim
       kitty
       xclip
@@ -108,6 +107,7 @@
       fontconfig
       gnugrep
       lutris
+      discord
 
       # WM
       bspwm
@@ -132,13 +132,6 @@
 	    })
     ];
   };
-  ## Gaming
-	programs.steam = {
-	  enable = true;
-	  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-	  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-	};
-
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {
@@ -204,7 +197,9 @@ fonts = {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-
+  system.autoUpgrade.channel = "https://channels.nixos.org/nixos-23.05";
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
 
   services.openssh.enable = true;
 

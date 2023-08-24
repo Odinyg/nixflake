@@ -3,7 +3,7 @@
  #    ./autocommands.nix
  #   ./completion.nix
  #   ./keymappings.nix
-    ./options.nix
+#    ./options.nix
  #   ./plugins
  #   ./todo.nix
   ];
@@ -14,15 +14,15 @@
     sessionVariables.EDITOR = "nvim";
   };
 
-  programs.nixvim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
+#  programs.nixvim = {
+ #   enable = true;
+ #   viAlias = true;
+ #   vimAlias = true;
 
-    luaLoader.enable = true;
+ #   luaLoader.enable = true;
 
     # Highlight and remove extra white spaces
-    highlight.ExtraWhitespace.bg = "red";
-    match.ExtraWhitespace = "\\s\\+$";
-  };
+#    highlight.ExtraWhitespace.bg = "red";
+#    match.ExtraWhitespace = "\\s\\+$";
+#  };
 }
