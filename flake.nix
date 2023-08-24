@@ -26,6 +26,9 @@
         allowUnfree = true;
 	};
       };  
+    homeManagerModules = [
+      nixvim.homeManagerModules.nixvim
+    ];
     in
     {
 
@@ -52,7 +55,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-        #  home-manager.users.none = import ./home.nix;
+          home-manager.users.none = import ./hosts/laptop/home.nix;
 	  }
 	];
       };
