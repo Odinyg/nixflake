@@ -8,15 +8,16 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.home-manager
+      ../../home/laptop.nix
     ];
-
+  programs.home-manager.enable = true;
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
       none = import ../.././home/laptop.nix;
     };
   };
+
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
@@ -130,22 +131,8 @@
       xorg.xinit
 
       xorg.xinput
-	(lutris.override {
-	       extraPkgs = pkgs: [
-		 # List package dependencies here
-		 wineWowPackages.stable
-		 winetricks
-	       ];
-	    })
     ];
   };
-  ## Gaming
-	programs.steam = {
-	  enable = true;
-	  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-	  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-	};
-
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {

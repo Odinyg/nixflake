@@ -27,10 +27,6 @@
   };
 
 
-    home.packages = with pkgs; [
-      ueberzugpp
-      fzf
-];
     # Prompt theme
     programs.starship = {
       enable = true;
