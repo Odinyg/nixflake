@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   imports = [
-    ./zsh
-    ./git.nix
-    ./neovim
-    ./zellij.nix
+#    ./zsh
+#    ./git.nix
+#    ./neovim
+#    ./zellij.nix
   ];
   home.packages = with pkgs; [
   git

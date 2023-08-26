@@ -8,9 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../home/laptop.nix
+      inputs.home-manager.nixosModules.home-manager
     ];
-  programs.home-manager.enable = true;
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
