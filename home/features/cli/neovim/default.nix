@@ -9,7 +9,7 @@
  #   ./todo.nix
   ];
 
-  home-manager = {
+  home= {
     shellAliases.v = "nvim";
 
     sessionVariables.EDITOR = "nvim";
@@ -19,7 +19,6 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
-
     luaLoader.enable = true;
 
     # Highlight and remove extra white spaces

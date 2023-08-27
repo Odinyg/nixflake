@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs,inputs, nur, ...}:
 {
 
     programs.firefox = {
@@ -30,19 +30,19 @@
         profiles = {
             none = {
 
-              extensions = with pkgs.inputs.firefox-addons; [
-                ublock-origin
-                https-everywhere
-                bitwarden
-                clearurls
-                floccus
-                ghostery
-                privacy-redirect
-                languagetool
-                disconnect
-	        proton-pass
-	        proton-vpn
-              ];
+#              extensions = with nur.repos.rycee.firefox-addons; [
+#                ublock-origin
+#                https-everywhere
+#                bitwarden
+#                clearurls
+#                floccus
+#                ghostery
+#                privacy-redirect
+#                languagetool
+#                disconnect
+#	        proton-pass
+#	        proton-vpn
+#              ];
                 id = 0;
                 name = "none";
                 search = {

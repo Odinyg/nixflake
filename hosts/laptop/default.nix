@@ -9,13 +9,23 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
+{
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.none.imports= [
+              ../../home/laptop.nix
+];
+              home-manager.extraSpecialArgs = {
+              inherit inputs;
+              };
+            }
     ];
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      none = import ../.././home/laptop.nix;
-    };
-  };
+#  home-manager = {
+#    extraSpecialArgs = { inherit inputs; };
+#    users = {
+#      none = import ../.././home/laptop.nix;
+#    };
+#  };
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -79,7 +89,6 @@
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
       thunderbird
       neovim
       vim

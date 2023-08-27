@@ -17,8 +17,9 @@
       # url = "/home/gaetan/perso/nix/nixvim/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/NUR";
     };
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager,nur, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -49,7 +50,18 @@
         specialArgs = { inherit inputs system; };
 
 	modules = [
+        { nixpkgs.overlays = [ nur.overlay ]; }
+        ({ pkgs, ... }:
+          let
+            nur-no-pkgs = import nur {
+              nurpkgs = import nixpkgs { system = "x86_64-linux"; };
+            };
+          in {
+            imports = [ nur-no-pkgs.repos.iopq.modules.xraya  ];
+            services.xraya.enable = true;
+          })
 	./hosts/laptop
+        nur.nixosModules.nur
      
 	  
 	];	

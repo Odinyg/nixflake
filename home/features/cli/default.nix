@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }: {
   imports = [
-#    ./zsh
-#    ./git.nix
+    ./zsh
+    ./git.nix
 #    ./neovim
 #    ./zellij.nix
   ];

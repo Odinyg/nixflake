@@ -7,8 +7,6 @@
   v="nvim";
   grep="grep --color=auto";
   # update='sudo pacman -Syu';
-  la="ls -a";
-  ll="ls -la";
   psgrep="ps aux | grep -v grep | grep -i -e VSZ -e";
   workvpn="sudo openvpn --compat-mode 2.4.9 --config $workvpn --auth-user-pass $passwordvpn";
 
