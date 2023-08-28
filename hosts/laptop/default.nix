@@ -11,10 +11,8 @@
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
-
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -54,7 +52,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   # Enable sound with pipewire.
-  programs.zsh.enable = true;
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -67,7 +64,7 @@
 
 
   users.users.none = {
-    shell = pkgs.zsh;
+    shell = pkgs.bash;
     isNormalUser = true;
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];

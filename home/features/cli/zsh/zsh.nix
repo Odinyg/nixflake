@@ -1,23 +1,17 @@
-{ config, pkgs, ... }: {
+{ config, home-manager,pkgs, ... }: {
    programs.zsh = {
     enable = true; 
     history.path = "${config.xdg.stateHome}/zsh_history";
     dotDir = ".config/zsh";
     enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
-
-
-
-
-
-
     oh-my-zsh = {
       enable = true;
       theme = "cloud";
       custom = "$HOME/.config/zsh/oh-my-zsh";
       plugins = [
           "fzf"		
-	        "sudo"
+	  "sudo"
           "git"
           "docker"
           "1password"
