@@ -56,6 +56,19 @@
 	  }
 	];
       };
+      p53= nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; };
+
+	modules = [
+	./hosts/p53
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.none = import ./home/laptop.nix;
+	  }
+	];
+      };
     };
   };
 }
