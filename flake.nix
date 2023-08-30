@@ -65,7 +65,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.none = import ./home/laptop.nix;
+          home-manager.users.odin= import ./home/laptop.nix;
 	  }
 	];
       };

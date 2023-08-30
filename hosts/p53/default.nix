@@ -13,8 +13,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efiSysMountPoint="mnt/efi";
-  networking.hostName = "nixos"; # Define your hostname.
+  boot.loader.efi.efiSysMountPoint = "/mnt/boot/efi";
+  networking.hostName = "VNPC-21"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -61,14 +61,22 @@
     pulse.enable = true;
   };
 
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    # Certain features, including CLI integration and system authentication support,
+    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+    polkitPolicyOwners = [ "odin" ];
+  };
 
-  users.users.none = {
+  users.users.odin = {
     shell = pkgs.bash;
     isNormalUser = true;
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
+      remmina
       thunderbird
       neovim
       vim
@@ -103,6 +111,12 @@
       gnugrep
       lutris
 
+      # WORK
+
+      remmina
+      ferdium
+
+
       # WM
       bspwm
       sxhkd
@@ -115,7 +129,7 @@
       xorg.libXft
       xorg.libXinerama
       xorg.xinit
-
+      font-manager
       xorg.xinput
 	(lutris.override {
 	       extraPkgs = pkgs: [
@@ -163,7 +177,7 @@ fonts = {
       source-han-sans
       source-han-sans-japanese
       source-han-serif-japanese
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
+      nerdfonts
     ];
     fontconfig = {
       enable = true;
@@ -189,7 +203,7 @@ fonts = {
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "none";
+  services.xserver.displayManager.autoLogin.user = "odin";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;

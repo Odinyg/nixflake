@@ -11,8 +11,8 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
-    username = "none";
-    homeDirectory = "/home/none";
+    username = "odin";
+    homeDirectory = "/home/odin";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
