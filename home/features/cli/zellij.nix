@@ -15,6 +15,7 @@
       themes.nord.cyan = "#88C0D0";
       themes.nord.white = "#E5E9F0";
       themes.nord.orange = "#D08770";
+      pane-frames = false;
     };
     };
 }

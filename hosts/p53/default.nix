@@ -112,10 +112,12 @@
       lutris
 
       # WORK
-
+      teams
+      masterpdfeditor
       remmina
       ferdium
-
+      tangram
+      ungoogled-chromium
 
       # WM
       bspwm
@@ -191,6 +193,8 @@ fonts = {
 
 
   environment.systemPackages = with pkgs; [
+  autorandr
+  openvpn
   ];
 
 
