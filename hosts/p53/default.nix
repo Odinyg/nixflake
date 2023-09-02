@@ -31,22 +31,22 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.picom.enable = true;
+#  services.xserver.enable = true;
+ # services.picom.enable = true;
  # Enable the GNOME Desktop Environment.
-  services.xserver.windowManager.bspwm.enable = true;
-  services.xserver.displayManager = { 
-    defaultSession = "none+bspwm";
-    lightdm = { 
-    enable = true; 
-    greeter.enable = true; 
-    }; 
-  }; 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+ # services.xserver.windowManager.bspwm.enable = true;
+  programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      enableNvidiaPatches = true;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
+  programs.waybar.enable = true;
+  # Configure keymap in X11
+ # services.xserver = {
+ #   layout = "us";
+ #   xkbVariant = "";
+ # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -64,18 +64,16 @@
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
-    # Certain features, including CLI integration and system authentication support,
-    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
     polkitPolicyOwners = [ "odin" ];
   };
-
+  programs.zsh.enable = true;
   users.users.odin = {
-    shell = pkgs.bash;
+    shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
+      firefox-wayland
       remmina
       thunderbird
       neovim
@@ -90,7 +88,7 @@
       flatpak
       flameshot
       ripgrep
-      powershell
+#      powershell
       protonup-ng
       qemu
       st
@@ -100,75 +98,23 @@
       feh
       vim
       plocate
-      nodejs
+#      nodejs
       openssl
       pavucontrol
       tmux
-      synergy 
-      xdg-desktop-portal-gtk
-      polkit_gnome
+#      xdg-desktop-portal-gtk
+#      polkit_gnome
       fontconfig
       gnugrep
-      lutris
 
       # WORK
       teams
-      masterpdfeditor
       remmina
       ferdium
-      tangram
       ungoogled-chromium
-
-      # WM
-      bspwm
-      sxhkd
-      rofi
-      picom
-      polybar
-      xorg.libX11
-      xorg.libX11.dev
-      xorg.libxcb
-      xorg.libXft
-      xorg.libXinerama
-      xorg.xinit
-      font-manager
-      xorg.xinput
-	(lutris.override {
-	       extraPkgs = pkgs: [
-		 # List package dependencies here
-		 wineWowPackages.stable
-		 winetricks
-	       ];
-	    })
+      wofi
     ];
   };
-  ## Gaming
-	programs.steam = {
-	  enable = true;
-	  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-	  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-	};
-
-  security.polkit.enable = true;
- systemd = {
-  user.services.polkit-gnome-authentication-agent-1 = {
-    description = "polkit-gnome-authentication-agent-1";
-    wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-  };
-   extraConfig = ''
-     DefaultTimeoutStopSec=10s
-   '';
-}; 
-
 
 fonts = {
     fonts = with pkgs; [
@@ -205,13 +151,6 @@ fonts = {
 
 
 
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "odin";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

@@ -5,6 +5,15 @@
     dotDir = ".config/zsh";
     enableAutosuggestions = true;
     syntaxHighlighting.enable = true;
+    dirHashes = {
+    dl = "$HOME/Downloads";
+    docs = "$HOME/Documents";
+    doc = "$HOME/Documents";
+    };
+    envExtra = ''
+    export PASS=$HOME/.secrets/pass
+
+    '';
     oh-my-zsh = {
       enable = true;
       theme = "cloud";
@@ -25,18 +34,5 @@
       ueberzugpp
       fzf
 ];
-    # Prompt theme
-    programs.starship = {
-      enable = true;
-
-      settings = {
-        character = {
-          success_symbol = "[❯](bold green)";
-          error_symbol = "[✗](bold red)";
-        };
-      };
-    };
-
-
 
 }
