@@ -10,10 +10,8 @@
       relativenumber = true;
       shiftwidth = 2;
     };
-    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    vimdiffAlias = true;
     plugins = {
       telescope.enable = true;
       treesitter.enable = true;

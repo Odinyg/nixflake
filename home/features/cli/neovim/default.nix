@@ -6,6 +6,7 @@
  #  ./options.nix
  #   ./plugins
  #   ./todo.nix
+     ./nixvim.nix
   ];
 
   home = {
@@ -14,7 +15,7 @@
     sessionVariables.EDITOR = "nvim";
   };
 
-  programs.neovim = {
+  programs.nixvim= {
     enable = true;
   };
 }

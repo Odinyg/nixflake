@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs,nixvim,lib, ... }:
 
 {
   imports =
@@ -47,7 +47,6 @@
  #   layout = "us";
  #   xkbVariant = "";
  # };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
   # Enable sound with pipewire.
@@ -76,8 +75,6 @@
       firefox-wayland
       remmina
       thunderbird
-      neovim
-      vim
       kitty
       xclip
       unzip
@@ -143,11 +140,15 @@ fonts = {
   openvpn
   ];
 
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
+      "experimental-features = nix-command flakes";
+  };
+#  nix.settings.experimental-features = [
+#    "nix-command"
+#    "flakes"
+#  ];
 
 
 

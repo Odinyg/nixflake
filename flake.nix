@@ -12,14 +12,16 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      # url = "/home/gaetan/perso/nix/nixvim/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
     };
-  outputs = { self, nixpkgs,home-manager, ... }@inputs:
+  outputs = { self, nixpkgs,home-manager,nixvim, ... }@inputs:
     let
       system = "x86_64-linux";
+    nixpkgs-outPath = {
+      environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+    };
       pkgs = import nixpkgs {
         inherit system;
 
@@ -27,6 +29,9 @@
         allowUnfree = true;
 	};
       };  
+    homeManagerModules = [
+      nixvim.homeManagerModules.nixvim
+    ];
     in
     {
 
@@ -62,12 +67,19 @@
 
 	modules = [
 	./hosts/p53
+	nixpkgs-outPath
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.odin= import ./home/laptop.nix;
-	  }
+          home-manager = {
+	  useGlobalPkgs = true;
+          useUserPackages = true;
+          users.odin.imports =
+          [
+	  ./home/laptop.nix
+	  ]
+	  ++ homeManagerModules;
+	  };
+	}
 	];
       };
     };
