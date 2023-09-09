@@ -13,43 +13,32 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  networking.hostName = "XPS"; # Define your hostname.
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
   time.timeZone = "Europe/Oslo";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.picom.enable = true;
- # Enable the GNOME Desktop Environment.
- # services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.windowManager.bspwm.enable = true;
-  services.xserver.displayManager = { 
-    defaultSession = "none+bspwm";
-    lightdm = { 
-    enable = true; 
-    greeter.enable = true; 
-    }; 
-  }; 
-  # Configure keymap in X11
+###### Configure X11 and WindowManager ######## 
+
   services.xserver = {
+    enable = true;
+    windowManager.bspwm.enable = true;
+    displayManager = {
+      defaultSession = "none+bspwm";
+      autoLogin.enable = true;
+      autoLogin.user = "none";
+      lightdm = { 
+        enable = true; 
+        greeter.enable = true; 
+      }; 
+    };
+#### Keyboard Layout ###
     layout = "us";
     xkbVariant = "";
   };
-
-  # Enable CUPS to print documents.
+  services.picom.enable = true;
+##############################################
   services.printing.enable = true;
   # Enable sound with pipewire.
   sound.enable = true;
@@ -63,8 +52,8 @@
   };
 
 
+  programs.zsh.enable = true;
   users.users.none = {
-    programs.zsh.enable = true;
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
@@ -72,7 +61,6 @@
     packages = with pkgs; [
       firefox
       thunderbird
-      neovim
       vim
       kitty
       xclip
@@ -91,12 +79,8 @@
       xfce.thunar
       stdenv
       virt-manager
-      eww
       feh
-      firefox
-      vim
       plocate
-      nodejs
       openssl
       pavucontrol
       tmux
@@ -105,13 +89,10 @@
       polkit_gnome
       fontconfig
       gnugrep
-      lutris
 
       # WM
-      bspwm
       sxhkd
       rofi
-      picom
       polybar
       xorg.libX11
       xorg.libX11.dev
@@ -131,12 +112,6 @@
     ];
   };
   ## Gaming
-	programs.steam = {
-	  enable = true;
-	  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-	  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-	};
-
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {
@@ -191,21 +166,14 @@ fonts = {
 
 
 
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "none";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+#  systemd.services."getty@tty1".enable = false;
+#  systemd.services."autovt@tty1".enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-
-
   services.openssh.enable = true;
-
   system.stateVersion = "23.05"; # Did you read the comment?
 
 }
