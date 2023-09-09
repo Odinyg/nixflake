@@ -55,10 +55,17 @@
 	modules = [
 	./hosts/laptop
         home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.none = import ./home/laptop.nix;
+
+          {
+          home-manager = {
+	  useGlobalPkgs = true;
+          useUserPackages = true;
+          users.none.imports =
+          [
+	  ./home/laptop.nix
+	  ]
+	  ++ homeManagerModules;
+	  };
 	  }
 	];
       };
@@ -75,7 +82,7 @@
           useUserPackages = true;
           users.odin.imports =
           [
-	  ./home/laptop.nix
+	  ./home/p53.nix
 	  ]
 	  ++ homeManagerModules;
 	  };

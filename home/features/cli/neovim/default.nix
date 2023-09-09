@@ -15,7 +15,4 @@
     sessionVariables.EDITOR = "nvim";
   };
 
-  programs.nixvim= {
-    enable = true;
-  };
 }

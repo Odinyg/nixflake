@@ -6,8 +6,8 @@
 nixpkgs.config.allowUnfree = true;
 
   home = {
-    username = "none";
-    homeDirectory = "/home/none";
+    username = "odin";
+    homeDirectory = "/home/odin";
     stateVersion = "23.11";
   };
 programs.home-manager.enable = true;

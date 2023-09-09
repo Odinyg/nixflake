@@ -64,7 +64,8 @@
 
 
   users.users.none = {
-    shell = pkgs.bash;
+    programs.zsh.enable = true;
+    shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
