@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config,lib,nur, ... }:
 {
 
     programs.firefox = {
@@ -30,7 +30,7 @@
         profiles = {
             none = {
 
-              extensions = with pkgs.inputs.firefox-addons; [
+              extensions =  with pkgs.nur.repos.rycee.firefox-addons;[
                 ublock-origin
                 https-everywhere
                 bitwarden

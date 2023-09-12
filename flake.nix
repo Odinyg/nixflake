@@ -4,6 +4,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:nixos/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons = {
@@ -16,7 +17,7 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     };
-  outputs = { self, nixpkgs,home-manager,nixvim, ... }@inputs:
+  outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware, ... }@inputs:
     let
       system = "x86_64-linux";
     nixpkgs-outPath = {
@@ -74,6 +75,7 @@
 
 	modules = [
 	./hosts/p53
+	nixos-hardware.nixosModules.lenovo-thinkpad-p53
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager
         {

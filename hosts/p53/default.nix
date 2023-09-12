@@ -16,7 +16,6 @@
   boot.loader.efi.efiSysMountPoint = "/mnt/boot/efi";
   networking.hostName = "VNPC-21"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -39,9 +38,13 @@
       enable = true;
       xwayland.enable = true;
       enableNvidiaPatches = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
   programs.waybar.enable = true;
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
+  };
   # Configure keymap in X11
  # services.xserver = {
  #   layout = "us";
@@ -59,7 +62,25 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
+  security.polkit.enable = true;
+ systemd = {
+  user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+  };
+     extraConfig = ''
+     DefaultTimeoutStopSec=10s
+   '';
+};
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
@@ -72,12 +93,12 @@
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox-wayland
+      firefox
       remmina
       thunderbird
       kitty
-      xclip
       unzip
+      wl-clipboard
       git
       gcc
       gh
@@ -95,21 +116,31 @@
       feh
       vim
       plocate
+      swaylock
+      partition-manager
 #      nodejs
       openssl
       pavucontrol
+      networkmanagerapplet
+      networkmanager-openvpn
       tmux
-#      xdg-desktop-portal-gtk
-#      polkit_gnome
+      polkit_gnome
       fontconfig
       gnugrep
-
+      xdg-desktop-portal-hyprland
       # WORK
+      teams-for-linux
+      vivaldi
       teams
+      discord
       remmina
       ferdium
+      tangram
       ungoogled-chromium
       wofi
+      dbeaver
+      grim
+      slurp
     ];
   };
 
@@ -134,10 +165,13 @@ fonts = {
     };
 };
 
-
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
   autorandr
   openvpn
+  lshw
+  mesa
+  station
   ];
 
   nix = {
@@ -160,6 +194,36 @@ fonts = {
 
   services.openssh.enable = true;
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia = {
+
+    # Modesetting is needed most of the time
+    modesetting.enable = true;
+
+	# Enable power management (do not disable this unless you have a reason to).
+	# Likely to cause problems on laptops and with screen tearing if disabled.
+	powerManagement.enable = true;
+
+    # Use the NVidia open source kernel module (which isn't “nouveau”).
+    # Support is limited to the Turing and later architectures. Full list of 
+    # supported GPUs is at: 
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+    # Only available from driver 515.43.04+
+    open = true;
+
+    # Enable the Nvidia settings menu,
+	# accessible via `nvidia-settings`.
+    nvidiaSettings = true;
+
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+  };
 }
