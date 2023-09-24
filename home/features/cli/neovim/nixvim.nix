@@ -14,6 +14,40 @@
     viAlias = true;
     vimAlias = true;
     plugins = {
+      comment-nvim.enable = true;
+      toggleterm = {
+        enable = true;
+        openMapping = "<c-t>";
+	direction = "float";
+	floatOpts = { border = "single"; };
+      };
+    #   cmp-nvim-lsp.enable = true;
+    #   nvim-cmp = {
+    #     enable = true;
+    #     sources = [
+    #       {name = "path";}
+    #       {name = "nvim_lsp";}
+    #       {name = "luasnip";}
+    #       {name = "crates";}
+    #       {name = "buffer";}
+    #     ];
+    #     mapping = {
+    #       "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+    #       "<C-f>" = "cmp.mapping.scroll_docs(4)";
+    #       "<C-Space>" = "cmp.mapping.complete()";
+    #       "<C-e>" = "cmp.mapping.abort()";
+    #       "<CR>" = "cmp.mapping.confirm({ select = true })";
+    #       "<Tab>" = {
+    #         action = "cmp.mapping.select_next_item()";
+    #         modes = ["i" "s"];
+    #       };
+    #       "<S-Tab>" = {
+    #         action = "cmp.mapping.select_prev_item()";
+    #         modes = ["i" "s"];
+    #       };
+    #     };
+    #     snippet.expand = "luasnip";
+    # };
       telescope = {
       enable = true;
       };
@@ -27,12 +61,14 @@
         enable = true;
 	servers = {
 	pylsp.enable = true;
-	rnix-lsp.enable = true;
 	gopls.enable = true;
 	bashls.enable = true;
 	cmake.enable = true;
 	lua-ls.enable = true;
-	nil_ls.enable = true;
+	nil_ls = {
+	enable = true;
+	autostart = true;
+	};
 	terraformls.enable = true;
 	csharp-ls.enable = true;
 	eslint.enable = true;

@@ -4,6 +4,8 @@
      ./harpoon.nix
      ./telescope.nix
      ./nvim-tree.nix
+     ./cmp.nix
+     ./maps.nix
   ];
 
   home = {

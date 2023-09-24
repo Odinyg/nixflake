@@ -1,17 +1,15 @@
 {
-  maps = {
+  programs.nixvim.maps = {
     normal = {
-      "<leader>g" = {
-        desc = "  Git";
-      };
-
-      "<leader>l" = {
-        desc = "  Lsp";
-      };
 
       "<leader>w" = {
         desc = "Save";
         action = "<cmd>w<CR>";
+        silent = true;
+      };
+      "<leader>t" = {
+        desc = "toggleterm";
+        action = "<cmd>ToggleTerm direction=float<cr>";
         silent = true;
       };
 
