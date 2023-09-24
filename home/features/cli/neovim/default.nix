@@ -1,6 +1,7 @@
 {
   imports = [
      ./nixvim.nix
+     ./lsp.nix
      ./harpoon.nix
      ./telescope.nix
      ./nvim-tree.nix
