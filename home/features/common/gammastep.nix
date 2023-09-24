@@ -9,10 +9,10 @@ services.gammastep = {
     general = {
       brightness=0.9;
       brightness-day=0.9;
-      brightness-night=0.4;
+      brightness-night=0.7;
       gamma=0.8;
       gamma-day=0.8;
-      gamma-night=0.6;
+      gamma-night=0.7;
       adjustment-method = "randr";
     };
     randr = {

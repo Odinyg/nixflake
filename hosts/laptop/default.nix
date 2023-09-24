@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -50,7 +50,8 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
+  # For Chromecast to work
+  services.avahi.enable = true;
 
   programs.zsh.enable = true;
   users.users.none = {
@@ -60,6 +61,9 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
+      google-chrome
+      chromium
+      go-chromecast
       thunderbird
       vim
       kitty
@@ -76,6 +80,7 @@
       protonup-ng
       qemu
       st
+      fzf
       xfce.thunar
       stdenv
       virt-manager
@@ -92,6 +97,7 @@
 
       # WM
       sxhkd
+      bspwm
       rofi
       polybar
       xorg.libX11
@@ -134,7 +140,7 @@
 
 
 fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji

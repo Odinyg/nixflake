@@ -1,12 +1,9 @@
 {
   imports = [
- #    ./autocommands.nix
- #   ./completion.nix
- #   ./keymappings.nix
- #  ./options.nix
- #   ./plugins
- #   ./todo.nix
      ./nixvim.nix
+     ./harpoon.nix
+     ./telescope.nix
+     ./nvim-tree.nix
   ];
 
   home = {
