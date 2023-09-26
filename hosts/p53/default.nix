@@ -34,6 +34,22 @@
  # services.picom.enable = true;
  # Enable the GNOME Desktop Environment.
  # services.xserver.windowManager.bspwm.enable = true;
+  services.xserver = {
+    enable = true;
+    windowManager.bspwm.enable = true;
+    displayManager = {
+      defaultSession = "none+bspwm";
+      autoLogin.enable = true;
+      autoLogin.user = "none";
+      lightdm = { 
+        enable = true; 
+        greeter.enable = true; 
+      }; 
+    };
+#### Keyboard Layout ###
+    layout = "us";
+    xkbVariant = "";
+  };
   programs.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -141,11 +157,14 @@
       dbeaver
       grim
       slurp
+      rofi
+      polybar
+
     ];
   };
 
 fonts = {
-    fonts = with pkgs; [
+    packages= with pkgs; [
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
@@ -172,6 +191,8 @@ fonts = {
   lshw
   mesa
   station
+  xorg.randr
+  arandr
   ];
 
   nix = {
