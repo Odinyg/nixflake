@@ -15,22 +15,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/mnt/boot/efi";
   networking.hostName = "VNPC-21"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable the X11 windowing system.
-#  services.xserver.enable = true;
- # services.picom.enable = true;
- # Enable the GNOME Desktop Environment.
- # services.xserver.windowManager.bspwm.enable = true;
+###### Configure X11 and WindowManager ######## 
+
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
@@ -47,23 +38,8 @@
     layout = "us";
     xkbVariant = "";
   };
-  programs.hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      enableNvidiaPatches = true;
-  };
-  programs.waybar.enable = true;
-  security.pam.services.swaylock = {
-    text = ''
-      auth include login
-    '';
-  };
-  # Configure keymap in X11
- # services.xserver = {
- #   layout = "us";
- #   xkbVariant = "";
- # };
-  # Enable CUPS to print documents.
+  services.picom.enable = true;
+##############################################
   services.printing.enable = true;
   # Enable sound with pipewire.
   sound.enable = true;
@@ -107,11 +83,12 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
+      google-chrome
       remmina
       thunderbird
       kitty
+      xclip
       unzip
-      wl-clipboard
       git
       gcc
       gh
@@ -128,39 +105,32 @@
       virt-manager
       feh
       plocate
-      swaylock
-      partition-manager
 #      nodejs
       openssl
       pavucontrol
       networkmanagerapplet
       networkmanager-openvpn
       tmux
+      synergy 
+      xdg-desktop-portal-gtk
       polkit_gnome
       fontconfig
       gnugrep
-      xdg-desktop-portal-hyprland
       # WORK
       teams-for-linux
-      vivaldi
       teams
-      discord
       remmina
       ferdium
-      tangram
-      ungoogled-chromium
-      wofi
       dbeaver
       grim
       slurp
       rofi
       polybar
-
     ];
   };
 
 fonts = {
-    packages= with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
@@ -180,13 +150,9 @@ fonts = {
     };
 };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
   autorandr
   openvpn
-  lshw
-  mesa
-  station
   xorg.randr
   arandr
   ];
@@ -202,6 +168,9 @@ fonts = {
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  lshw
+  mesa
+  station
   services.openssh.enable = true;
 
   system.stateVersion = "23.11"; # Did you read the comment?

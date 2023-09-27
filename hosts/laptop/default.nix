@@ -163,7 +163,6 @@ fonts = {
     };
 };
 
-
   environment.systemPackages = with pkgs; [
   autorandr
   openvpn
@@ -181,6 +180,7 @@ fonts = {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   services.openssh.enable = true;
+
   system.stateVersion = "23.05"; # Did you read the comment?
 
 }
