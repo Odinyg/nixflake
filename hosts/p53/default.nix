@@ -108,8 +108,6 @@
 #      nodejs
       openssl
       pavucontrol
-      networkmanagerapplet
-      networkmanager-openvpn
       tmux
       synergy 
       xdg-desktop-portal-gtk
@@ -126,6 +124,7 @@
       slurp
       rofi
       polybar
+      sxhkd
     ];
   };
 
