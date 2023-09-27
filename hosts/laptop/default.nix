@@ -53,6 +53,11 @@
   # For Chromecast to work
   services.avahi.enable = true;
 
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "odin" ];
+  };
   programs.zsh.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
@@ -62,10 +67,8 @@
     packages = with pkgs; [
       firefox
       google-chrome
-      chromium
-      go-chromecast
+      remmina
       thunderbird
-      vim
       kitty
       xclip
       unzip
@@ -76,7 +79,6 @@
       flatpak
       flameshot
       ripgrep
-      powershell
       protonup-ng
       qemu
       st
@@ -86,6 +88,7 @@
       virt-manager
       feh
       plocate
+#      nodejs
       openssl
       pavucontrol
       tmux
@@ -162,6 +165,8 @@ fonts = {
 
 
   environment.systemPackages = with pkgs; [
+  autorandr
+  openvpn
   ];
 
 
@@ -172,10 +177,6 @@ fonts = {
 
 
 
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-#  systemd.services."getty@tty1".enable = false;
-#  systemd.services."autovt@tty1".enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

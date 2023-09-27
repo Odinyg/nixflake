@@ -22,10 +22,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
   time.timeZone = "Europe/Oslo";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -122,15 +119,14 @@
       flatpak
       flameshot
       ripgrep
-#      powershell
       protonup-ng
       qemu
       st
+      fzf
       xfce.thunar
       stdenv
       virt-manager
       feh
-      vim
       plocate
       swaylock
       partition-manager
@@ -200,19 +196,12 @@ fonts = {
     extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
       "experimental-features = nix-command flakes";
   };
-#  nix.settings.experimental-features = [
-#    "nix-command"
-#    "flakes"
-#  ];
 
 
 
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-
-
   services.openssh.enable = true;
 
   system.stateVersion = "23.11"; # Did you read the comment?
