@@ -1,4 +1,4 @@
-{ config, home-manager,pkgs, ... }: {
+{ config, pkgs, ... }: {
    programs.zsh = {
     enable = true; 
     history.path = "${config.xdg.stateHome}/zsh_history";

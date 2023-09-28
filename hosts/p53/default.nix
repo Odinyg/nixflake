@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs,nixvim,lib, ... }:
+{ config, pkgs,lib, ... }:
 
 {
   imports =
@@ -28,16 +28,16 @@
     displayManager = {
       defaultSession = "none+bspwm";
       autoLogin.enable = true;
-      autoLogin.user = "none";
+      autoLogin.user = "odin";
       lightdm = { 
         enable = true; 
-        greeter.enable = true; 
       }; 
     };
 #### Keyboard Layout ###
     layout = "us";
     xkbVariant = "";
   };
+  services.tlp.enable = false; 
   services.picom.enable = true;
 ##############################################
   services.printing.enable = true;
@@ -105,6 +105,7 @@
       virt-manager
       feh
       plocate
+      killall
 #      nodejs
       openssl
       pavucontrol
@@ -152,7 +153,8 @@ fonts = {
   environment.systemPackages = with pkgs; [
   autorandr
   openvpn
-  xorg.randr
+  xorg.xrandr
+  pciutils
   arandr
   ];
 
@@ -167,17 +169,9 @@ fonts = {
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  lshw
-  mesa
-  station
   services.openssh.enable = true;
 
   system.stateVersion = "23.11"; # Did you read the comment?
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
@@ -201,7 +195,10 @@ fonts = {
     # Enable the Nvidia settings menu,
 	# accessible via `nvidia-settings`.
     nvidiaSettings = true;
+    
+    prime.sync.enable = true;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    prime.nvidiaBusId = "PCI:01:00:0";
+    prime.intelBusId = "PCI:00:02:0";
   };
 }
