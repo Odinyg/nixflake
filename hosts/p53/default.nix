@@ -116,8 +116,8 @@
       fontconfig
       gnugrep
       # WORK
-      teams-for-linux
       teams
+      anydesk
       remmina
       ferdium
       dbeaver
@@ -155,6 +155,7 @@ fonts = {
   openvpn
   xorg.xrandr
   pciutils
+  lshw
   arandr
   ];
 
@@ -164,41 +165,24 @@ fonts = {
       "experimental-features = nix-command flakes";
   };
 
-
-
-
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   services.openssh.enable = true;
 
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  # Load nvidia driver for Xorg and Wayland
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
   services.xserver.videoDrivers = ["nvidia"];
-
   hardware.nvidia = {
-
-    # Modesetting is needed most of the time
     modesetting.enable = true;
-
-	# Enable power management (do not disable this unless you have a reason to).
-	# Likely to cause problems on laptops and with screen tearing if disabled.
-	powerManagement.enable = true;
-
-    # Use the NVidia open source kernel module (which isn't “nouveau”).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
+	powerManagement.enable = false;
     open = true;
-
-    # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
     nvidiaSettings = true;
-    
     prime.sync.enable = true;
-
-    prime.nvidiaBusId = "PCI:01:00:0";
-    prime.intelBusId = "PCI:00:02:0";
+    prime.nvidiaBusId = "PCI:1:0:0";
+    prime.intelBusId = "PCI:0:2:0";
   };
 }
