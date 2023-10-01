@@ -106,6 +106,7 @@
       feh
       plocate
       killall
+      networkmanagerapplet
 #      nodejs
       openssl
       pavucontrol
