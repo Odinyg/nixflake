@@ -107,6 +107,7 @@
       plocate
       killall
       networkmanagerapplet
+      inetutils 
 #      nodejs
       openssl
       pavucontrol
@@ -122,6 +123,7 @@
       remmina
       ferdium
       dbeaver
+      onlyoffice-bin
       grim
       slurp
       rofi
