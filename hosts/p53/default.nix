@@ -15,6 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/mnt/boot/efi";
   networking.hostName = "VNPC-21"; # Define your hostname.
+  boot.supportedFilesystems = [ "ntfs" ];
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   # Select internationalisation properties.
@@ -75,6 +76,11 @@
     enable = true;
     polkitPolicyOwners = [ "odin" ];
   };
+  services.flatpak.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
   programs.zsh.enable = true;
   users.users.odin = {
     shell = pkgs.zsh;
@@ -83,6 +89,9 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
+      sublime
+      vscode
+      go
       google-chrome
       remmina
       thunderbird
@@ -118,7 +127,8 @@
       fontconfig
       gnugrep
       # WORK
-      teams
+    #  teams
+      teams-for-linux
       anydesk
       remmina
       ferdium
