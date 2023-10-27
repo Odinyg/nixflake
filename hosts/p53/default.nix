@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/mnt/boot/efi";
   networking.hostName = "VNPC-21"; # Define your hostname.
-  boot.supportedFilesystems = [ "ntfs" ];
+ # boot.supportedFilesystems = [ "ntfs" ];
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   # Select internationalisation properties.
@@ -81,16 +81,22 @@
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
+  services.tailscale = {
+    enable = true;
+
+  };
+
   programs.zsh.enable = true;
   users.users.odin = {
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
       firefox
       sublime
       vscode
+      libreoffice
       go
       google-chrome
       remmina
@@ -139,6 +145,7 @@
       rofi
       polybar
       sxhkd
+      ledger-live-desktop
     ];
   };
 
@@ -166,10 +173,13 @@ fonts = {
   environment.systemPackages = with pkgs; [
   autorandr
   openvpn
+  networkmanager-openvpn
+
   xorg.xrandr
   pciutils
   lshw
   arandr
+  tailscale
   ];
 
   nix = {
