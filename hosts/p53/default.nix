@@ -111,6 +111,8 @@
       flatpak
       flameshot
       ripgrep
+      syncthingtray
+      syncthing
       protonup-ng
       qemu
       st
@@ -146,6 +148,7 @@
       polybar
       sxhkd
       ledger-live-desktop
+      betterlockscreen
     ];
   };
 
