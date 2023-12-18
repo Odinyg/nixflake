@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+#]; Edim this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -45,6 +45,7 @@
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
+  hardware.acpilight.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -98,6 +99,7 @@
       vscode
       libreoffice
       go
+      acpilight
       google-chrome
       remmina
       thunderbird
@@ -125,6 +127,7 @@
       killall
       networkmanagerapplet
       inetutils 
+      etcher
 #      nodejs
       openssl
       pavucontrol
@@ -134,6 +137,8 @@
       polkit_gnome
       fontconfig
       gnugrep
+      gitkraken
+      xorg.xbacklight
       # WORK
     #  teams
       teams-for-linux
@@ -211,4 +216,5 @@ fonts = {
     prime.nvidiaBusId = "PCI:1:0:0";
     prime.intelBusId = "PCI:0:2:0";
   };
+   permittedInsecurePackages = ["electron-19.1.9"];
 }
