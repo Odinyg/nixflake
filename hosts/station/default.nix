@@ -8,12 +8,15 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/mnt/boot/efi";
-  networking.hostName = "VNPC-21"; # Define your hostname.
- # boot.supportedFilesystems = [ "ntfs" ];
-  networking.networkmanager.enable = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+  networking = {
+    hostName = "Station"; # Define your hostName
+    nameservers = [ "192.168.1.253" ];
+    networkmanager.enable = true;
+  };
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
   services.trezord.enable = true;
@@ -26,7 +29,7 @@
     displayManager = {
       defaultSession = "none+bspwm";
       autoLogin.enable = true;
-      autoLogin.user = "odin";
+      autoLogin.user = "none";
       lightdm = { 
         enable = true; 
       }; 
@@ -47,7 +50,6 @@ services.udisks2.enable = true;
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
-  hardware.acpilight.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -55,10 +57,6 @@ services.udisks2.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-    nixpkgs.config.permittedInsecurePackages = [
-    "electron-19.1.9"
-    "electron-25.9.0"
-    ];
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {
@@ -82,7 +80,7 @@ services.udisks2.enable = true;
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
-    polkitPolicyOwners = [ "odin" ];
+    polkitPolicyOwners = [ "none" ];
   };
   services.flatpak.enable = true;
   xdg.portal = {
@@ -102,7 +100,7 @@ services.udisks2.enable = true;
   dedicatedServer.openFirewall = true;
   };
   programs.zsh.enable = true;
-  users.users.odin = {
+  users.users.none= {
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
@@ -114,7 +112,6 @@ services.udisks2.enable = true;
       vscode
       filezilla
       go
-      acpilight
       google-chrome
       remmina
       thunderbird
@@ -144,7 +141,6 @@ services.udisks2.enable = true;
       networkmanagerapplet
       inetutils 
       etcher
-      meld
 #      nodejs
       openssl
       pavucontrol
@@ -154,10 +150,13 @@ services.udisks2.enable = true;
       polkit_gnome
       fontconfig
       gnugrep
+      gitkraken
       xorg.xbacklight
       gvfs
       # WORK
     #  teams
+      discord
+      libreoffice
       teams-for-linux
       anydesk
       remmina
@@ -169,7 +168,19 @@ services.udisks2.enable = true;
       sxhkd
       ledger-live-desktop
       betterlockscreen
-      ventoy-full
+      dbeaver
+      nmap
+      #Gaming
+      lutris
+      wine64
+      steam
+
+      steamPackages.steam
+      steam-run
+      wine
+      #Cryptro
+      trezor-suite
+      ledger-live-desktop
     ];
   };
 
@@ -222,13 +233,4 @@ fonts = {
     driSupport32Bit = true;
   };
   services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia = {
-    modesetting.enable = true;
-	powerManagement.enable = false;
-    open = true;
-    nvidiaSettings = true;
-    prime.sync.enable = true;
-    prime.nvidiaBusId = "PCI:1:0:0";
-    prime.intelBusId = "PCI:0:2:0";
-  };
 }

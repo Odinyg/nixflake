@@ -88,6 +88,26 @@
 	}
 	];
       };
+      station = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs system; };
+
+	modules = [
+	./hosts/station
+	nixpkgs-outPath
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+	  useGlobalPkgs = true;
+          useUserPackages = true;
+          users.none.imports =
+          [
+	  ./home/station.nix
+	  ]
+	  ++ homeManagerModules;
+	  };
+	}
+	];
+      };
     };
   };
 }
