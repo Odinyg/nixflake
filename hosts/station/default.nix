@@ -14,7 +14,6 @@
   };
   networking = {
     hostName = "Station"; # Define your hostName
-    nameservers = [ "192.168.1.253" ];
     networkmanager.enable = true;
   };
   time.timeZone = "Europe/Oslo";
@@ -93,7 +92,6 @@ services.udisks2.enable = true;
   };
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "none" ];
-  nixpkgs.config.virtualbox.enableExtensionPack = true;
   programs.steam = {
   enable = true;
   remotePlay.openFirewall = true;
@@ -121,6 +119,7 @@ services.udisks2.enable = true;
       git
       gcc
       gh
+      deluge
       obsidian
       flatpak
       flameshot
@@ -222,10 +221,18 @@ fonts = {
       "experimental-features = nix-command flakes";
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config = { 
+      allowUnfree = true;
+      permittedInsecurePackages = ["electron-19.1.9"];
+      virtualbox.enableExtensionPack = true;
+
+    };
+    
+  };
   services.openssh.enable = true;
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.04"; # Did you read the comment?
 
   hardware.opengl = {
     enable = true;
