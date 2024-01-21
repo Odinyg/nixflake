@@ -40,6 +40,11 @@
   };
   services.tlp.enable = false; 
   services.picom.enable = true;
+  #### AutoMount ####
+services.devmon.enable = true;
+services.gvfs.enable = true; 
+services.udisks2.enable = true;
+
 ##############################################
   services.printing.enable = true;
   # Enable sound with pipewire.
@@ -53,6 +58,10 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+    nixpkgs.config.permittedInsecurePackages = [
+    "electron-19.1.9"
+    "electron-25.9.0"
+    ];
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {
@@ -96,6 +105,7 @@
     packages = with pkgs; [
       firefox
       sublime
+      expect
       vscode
       libreoffice
       go
@@ -128,6 +138,7 @@
       networkmanagerapplet
       inetutils 
       etcher
+      meld
 #      nodejs
       openssl
       pavucontrol
@@ -137,8 +148,8 @@
       polkit_gnome
       fontconfig
       gnugrep
-      gitkraken
       xorg.xbacklight
+      gvfs
       # WORK
     #  teams
       teams-for-linux
@@ -154,6 +165,7 @@
       sxhkd
       ledger-live-desktop
       betterlockscreen
+      ventoy-full
     ];
   };
 
@@ -216,5 +228,4 @@ fonts = {
     prime.nvidiaBusId = "PCI:1:0:0";
     prime.intelBusId = "PCI:0:2:0";
   };
-   permittedInsecurePackages = ["electron-19.1.9"];
 }

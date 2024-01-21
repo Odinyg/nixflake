@@ -5,6 +5,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nix-colors.url = "github:misterio77/nix-colors";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons = {
@@ -17,7 +18,7 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     };
-  outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware, ... }@inputs:
+  outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
     let
       system = "x86_64-linux";
     nixpkgs-outPath = {
@@ -32,6 +33,7 @@
       };  
     homeManagerModules = [
       nixvim.homeManagerModules.nixvim
+      nix-colors.homeManagerModules.default
     ];
     in
     {
@@ -51,7 +53,7 @@
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+        specialArgs = { inherit inputs system nix-colors; };
 
 	modules = [
 	./hosts/laptop

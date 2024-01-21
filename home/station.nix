@@ -4,6 +4,7 @@
     ./features/common
   ];
 nixpkgs.config.allowUnfree = true;
+
   home = {
     username = "none";
     homeDirectory = "/home/none";

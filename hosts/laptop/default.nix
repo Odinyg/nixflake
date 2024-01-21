@@ -16,11 +16,14 @@
   networking.hostName = "XPS"; # Define your hostname.
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  hardware.ledger.enable = true;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
+   
 ###### Configure X11 and WindowManager ######## 
-
+  services.tailscale.enable = true;
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
@@ -52,6 +55,7 @@
   };
   # For Chromecast to work
   services.avahi.enable = true;
+  services.udisks2.enable = true;
 
   programs._1password.enable = true;
   programs._1password-gui = {
@@ -66,7 +70,11 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
+      inetutils
+      nmapsi4
+      nmap
       google-chrome
+      chromium
       remmina
       thunderbird
       kitty
@@ -74,7 +82,10 @@
       unzip
       git
       gcc
+      vlc
+      tailscale
       gh
+      deluge
       obsidian
       flatpak
       flameshot
@@ -88,6 +99,13 @@
       virt-manager
       feh
       plocate
+      anydesk
+      remmina
+      killall
+      usermount
+      transmission
+
+      networkmanagerapplet
 #      nodejs
       openssl
       pavucontrol
@@ -97,7 +115,9 @@
       polkit_gnome
       fontconfig
       gnugrep
-
+      ledger-live-desktop
+      discord
+      zoom-us
       # WM
       sxhkd
       bspwm
@@ -141,7 +161,6 @@
    '';
 }; 
 
-
 fonts = {
     packages = with pkgs; [
       noto-fonts
@@ -178,9 +197,14 @@ fonts = {
 
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "electron-25.9.0"
+    ];
+  };
   services.openssh.enable = true;
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }

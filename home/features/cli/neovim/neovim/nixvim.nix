@@ -28,7 +28,7 @@
       };
       indent-blankline = {
         enable = true;
-        whitespace.removeBlanklineTrail = true;
+        showTrailingBlanklineIndent = true;
   };
       toggleterm = {
         enable = true;
