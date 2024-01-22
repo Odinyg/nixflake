@@ -3,6 +3,7 @@
 #    ./firefox.nix
 #    ./work
      ./gammastep.nix
-    ./thunar.nix
+     ./thunar.nix
+     ./tailscale.nix.nix
   ];
 }

@@ -1,17 +1,12 @@
-{pkgs, ...}: {
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-      thunar-media-tags-plugin
-    ];
-  };
-  services = {
-    gvfs.enable = true;
-    udisks2.enable = true; 
-    tumbler.enable = true;
-    # devmon.enable = true; # automount
-  };
-}
+{pkgs, ...}:
 
+{
+  home.packages = with pkgs; [
+    xfce.exo 
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xfce.tumbler 
+    gvfs
+  ];
+}

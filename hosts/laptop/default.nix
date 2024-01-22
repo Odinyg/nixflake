@@ -23,7 +23,7 @@
 
    
 ###### Configure X11 and WindowManager ######## 
-  services.tailscale.enable = true;
+ # services.tailscale.enable = true;
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
@@ -94,7 +94,6 @@
       qemu
       st
       fzf
-      xfce.thunar
       stdenv
       virt-manager
       feh
