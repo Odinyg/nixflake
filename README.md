@@ -4,5 +4,5 @@
 
 
 ToDo: 
- [] Get another file viewer
+ [ ] Get another file viewer
  
