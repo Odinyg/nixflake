@@ -20,6 +20,7 @@
     };
   outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
     let
+        user = "none";
       system = "x86_64-linux";
     nixpkgs-outPath = {
       environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
@@ -40,7 +41,7 @@
 
     nixosConfigurations = { 
       vm = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+        specialArgs = { inherit inputs system user; };
 
 	modules = [
 	./hosts/vm
@@ -53,16 +54,14 @@
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system nix-colors; };
+        specialArgs = { inherit inputs system nix-colors user; };
 
 	modules = [
 	./hosts/laptop
     ./modules/common
 
-
     inputs.home-manager.nixosModules.home-manager
     home-manager.nixosModules.home-manager
-
           {
           home-manager = {
 	  useGlobalPkgs = true;
