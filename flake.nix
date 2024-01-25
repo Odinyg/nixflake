@@ -57,7 +57,11 @@
 
 	modules = [
 	./hosts/laptop
-        home-manager.nixosModules.home-manager
+    ./modules/common
+
+
+    inputs.home-manager.nixosModules.home-manager
+    home-manager.nixosModules.home-manager
 
           {
           home-manager = {

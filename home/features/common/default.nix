@@ -4,6 +4,6 @@
 #    ./work
      ./gammastep.nix
      ./thunar.nix
-     ./tailscale.nix.nix
+#     ./tailscale.nix
   ];
 }

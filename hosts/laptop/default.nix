@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
     ];
 
   # Bootloader.
@@ -53,10 +54,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  # For Chromecast to work
-  services.avahi.enable = true;
-  services.udisks2.enable = true;
-
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
@@ -115,7 +112,6 @@
       fontconfig
       gnugrep
       ledger-live-desktop
-      discord
       zoom-us
       # WM
       sxhkd
