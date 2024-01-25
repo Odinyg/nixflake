@@ -25,13 +25,6 @@
     nixpkgs-outPath = {
       environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
     };
-      pkgs = import nixpkgs {
-        inherit system;
-
-        config = {
-        allowUnfree = true;
-	};
-      };  
     homeManagerModules = [
       nixvim.homeManagerModules.nixvim
       nix-colors.homeManagerModules.default
@@ -41,7 +34,7 @@
 
     nixosConfigurations = { 
       vm = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system user; };
+        specialArgs = { inherit inputs system ; };
 
 	modules = [
 	./hosts/vm
@@ -60,7 +53,6 @@
 	./hosts/laptop
     ./modules/common
 
-    inputs.home-manager.nixosModules.home-manager
     home-manager.nixosModules.home-manager
           {
           home-manager = {

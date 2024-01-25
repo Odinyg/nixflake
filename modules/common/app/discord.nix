@@ -1,5 +1,4 @@
 { config, pkgs, lib, ... }: {
-
   options = {
     discord = {
       enable = lib.mkEnableOption {
@@ -11,11 +10,11 @@
 
   config = lib.mkIf config.discord.enable {
     unfreePackages = [ "discord" ];
-    home-manager.users.${config.user} = {
+    home-manager.users.none = {
       home.packages = with pkgs; [ discord ];
       xdg.configFile."discord/settings.json".text = ''
         {
-          "BACKGROUND_COLOR": "#202225",
+          "BACKGROUND_COLOR": "#162e52",
           "IS_MAXIMIZED": false,
           "IS_MINIMIZED": false,
           "OPEN_ON_STARTUP": false,
