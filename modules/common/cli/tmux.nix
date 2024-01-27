@@ -22,8 +22,7 @@ in
     };
   };
 
-  config.home-manager.users.none = lib.mkIf config.tmux.enable {
-
+  config.home-manager.users.${config.user} = lib.mkIf config.tmux.enable {
   programs.tmux = {
     enable = true;
     baseIndex = 1;

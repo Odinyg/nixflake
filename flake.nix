@@ -20,7 +20,9 @@
     };
   outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
     let
+      globals1 = {
         user = "none";
+      };
       system = "x86_64-linux";
     nixpkgs-outPath = {
       environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
@@ -47,11 +49,12 @@
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system nix-colors user; };
+        specialArgs = { inherit inputs system nix-colors globals1; };
 
 	modules = [
 	./hosts/laptop
     ./modules/common
+    globals1
 
     home-manager.nixosModules.home-manager
           {

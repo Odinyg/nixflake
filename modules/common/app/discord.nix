@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.discord.enable {
     unfreePackages = [ "discord" ];
-    home-manager.users.none = {
+    home-manager.users.${config.user} = {
       home.packages = with pkgs; [ discord ];
       xdg.configFile."discord/settings.json".text = ''
         {

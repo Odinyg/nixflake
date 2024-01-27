@@ -10,9 +10,9 @@
       ./hardware-configuration.nix
 
     ];
-
   discord.enable = true;
   tmux.enable = true;
+  crypt.enable = true;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -20,7 +20,6 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-  hardware.ledger.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
