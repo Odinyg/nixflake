@@ -12,6 +12,7 @@
     ];
 
   discord.enable = true;
+  tmux.enable = true;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -69,9 +70,9 @@
     packages = with pkgs; [
       firefox
       inetutils
-      nmapsi4
       nmap
       google-chrome
+      krabby
       chromium
       remmina
       thunderbird

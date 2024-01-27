@@ -18,7 +18,7 @@
     customPaneNavigationAndResize = true;
     shortcut = "a";
     plugins = with pkgs.tmuxPlugins; [
-      gruvbox
+      nord   
     ];
 
     extraConfig = ''
