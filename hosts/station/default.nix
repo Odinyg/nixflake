@@ -224,7 +224,10 @@ fonts = {
   nixpkgs = {
     config = { 
       allowUnfree = true;
-      permittedInsecurePackages = ["electron-19.1.9"];
+      permittedInsecurePackages = [
+        "electron-19.1.9"
+        "electron-25.9.0"
+      ];
       virtualbox.enableExtensionPack = true;
 
     };
@@ -232,7 +235,7 @@ fonts = {
   };
   services.openssh.enable = true;
 
-  system.stateVersion = "24.04"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
   hardware.opengl = {
     enable = true;
