@@ -11,9 +11,13 @@
   config.home-manager.users.none = lib.mkIf config.tmux.enable {
   programs.tmux = {
     enable = true;
+    baseIndex = 1;
+    resizeAmount = 10;
+    shell = "${pkgs.zsh}/bin/zsh";
     aggressiveResize = true;
     clock24 = true;
-    escapeTime = 50;
+    escapeTime = 0;
+    terminal = "screen-256color";
     keyMode = "vi";
     customPaneNavigationAndResize = true;
     shortcut = "a";
@@ -22,21 +26,14 @@
     ];
 
     extraConfig = ''
-      # Enable mouse
       set -g mouse on
-
-      # 2x C-a goes back and fourth between most recent windows
       bind-key C-a last-window
-
-      # For neovim
       set -g focus-events on
-
-      # Update the status line every seconds
       set -g status-interval 1
-
-      # auto window rename
       set -g automatic-rename
       set -g automatic-rename-format '#{pane_current_command}'
+      bind \\ split-window -h -c '#{pane_current_path}'
+      bind - split-window -v -c '#{pane_current_path}'
     '';
   };
 

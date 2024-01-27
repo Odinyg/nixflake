@@ -110,7 +110,6 @@ services.udisks2.enable = true;
     packages = with pkgs; [
       firefox
       sublime
-      expect
       vscode
       filezilla
       go
@@ -119,7 +118,6 @@ services.udisks2.enable = true;
       remmina
       thunderbird
       kitty
-      xclip
       unzip
       git
       gcc
@@ -127,29 +125,24 @@ services.udisks2.enable = true;
       obsidian
       flatpak
       flameshot
-      ripgrep
       syncthingtray
       syncthing
       protonup-ng
       qemu
       st
+      stdenv
+      plocate
+      ripgrep
+      killall
       fzf
       xfce.thunar
-      stdenv
       burpsuite
       virt-manager
       feh
-      plocate
-      killall
       networkmanagerapplet
-      inetutils 
       etcher
-      meld
-#      nodejs
       openssl
       pavucontrol
-      tmux
-      synergy 
       xdg-desktop-portal-gtk
       polkit_gnome
       fontconfig
@@ -158,7 +151,6 @@ services.udisks2.enable = true;
       gvfs
       # WORK
     #  teams
-      teams-for-linux
       anydesk
       remmina
       ferdium
