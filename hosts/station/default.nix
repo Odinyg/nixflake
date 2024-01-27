@@ -15,11 +15,14 @@
   networking = {
     hostName = "Station"; # Define your hostName
     networkmanager.enable = true;
+    nameservers = [ "9.9.9.9" "1.1.1.1" ];
   };
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
   services.trezord.enable = true;
 
+  discord.enable = true;
+  tmux.enable = true;
 ###### Configure X11 and WindowManager ######## 
 
   services.xserver = {
@@ -43,7 +46,7 @@
 services.devmon.enable = true;
 services.gvfs.enable = true; 
 services.udisks2.enable = true;
-
+hardware.keyboard.zsa.enable = true;
 ##############################################
   services.printing.enable = true;
   # Enable sound with pipewire.
@@ -117,6 +120,8 @@ services.udisks2.enable = true;
       xclip
       unzip
       git
+      zsa-udev-rules
+      wally-cli
       gcc
       gh
       deluge
@@ -143,7 +148,6 @@ services.udisks2.enable = true;
 #      nodejs
       openssl
       pavucontrol
-      tmux
       synergy 
       xdg-desktop-portal-gtk
       polkit_gnome

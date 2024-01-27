@@ -19,22 +19,17 @@
     shortcut = "a";
 
     plugins = with pkgs.tmuxPlugins; [
-      gruvbox
+      nord
+      tpm
+      tmux-sensible
     ];
 
     extraConfig = ''
-      # Enable mouse
       set -g mouse on
-
-      # 2x C-a goes back and fourth between most recent windows
       bind-key C-a last-window
-
-      # For neovim
       set -g focus-events on
-
-      # Update the status line every seconds
       set -g status-interval 1
-
+      set -g base-index 1
       # auto window rename
       set -g automatic-rename
       set -g automatic-rename-format '#{pane_current_command}'

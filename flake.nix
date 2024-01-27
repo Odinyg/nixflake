@@ -72,6 +72,7 @@
 
 	modules = [
 	./hosts/p53
+    ./modules/common
 	nixos-hardware.nixosModules.lenovo-thinkpad-p53
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager
@@ -93,6 +94,7 @@
 
 	modules = [
 	./hosts/station
+    ./modules/common
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager
         {
