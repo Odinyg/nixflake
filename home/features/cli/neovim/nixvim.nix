@@ -23,6 +23,7 @@
       comment-nvim.enable = true;
       nix.enable = true;
       mini.enable = true;
+      which-key.enable = true;
       lualine = {
         enable = true;
       };

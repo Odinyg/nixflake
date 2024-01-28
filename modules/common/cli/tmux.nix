@@ -1,4 +1,18 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: 
+
+      let
+      tmux-sessionx= pkgs.tmuxPlugins.mkTmuxPlugin {
+      pluginName = "tmux-sessionx";
+      version = "unstable-2023-01-06";
+      src = pkgs.fetchFromGitHub {
+        owner = "omerxx";
+        repo = "tmux-sessionx";
+        rev = "86efe3af2298c43c48480247677717b0d911d880";
+        sha256 = "sha256-tzRtDKJ88Ch1zDgFUJM3BKACt3dDGWfEtqbhqifmqso";
+      };
+    };
+in
+{
   options = {
     tmux = {
       enable = lib.mkEnableOption {
@@ -23,6 +37,18 @@
     shortcut = "a";
     plugins = with pkgs.tmuxPlugins; [
       nord   
+      tmux-sessionx
+      sensible
+      yank
+      resurrect
+      yank
+      continuum
+      vim-tmux-navigator
+      tmux-thumbs
+      tmux-fzf
+      prefix-highlight
+      fzf-tmux-url
+      catppuccin
     ];
 
     extraConfig = ''
@@ -34,6 +60,10 @@
       set -g automatic-rename-format '#{pane_current_command}'
       bind \\ split-window -h -c '#{pane_current_path}'
       bind - split-window -v -c '#{pane_current_path}'
+      set -g @sessionx-bind 'o'
+      set -g @sessionx-window-height '85%'
+      set -g @sessionx-window-width '75%'
+      set -g @sessionx-zoxide-mode 'on'
     '';
   };
 
