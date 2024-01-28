@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./zsh
+#    ./zsh
     ./git.nix
 #    ./neovim
   ];
