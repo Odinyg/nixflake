@@ -1,7 +1,7 @@
 {
   imports = [
-  ../../home/features/cli/neovim	
-  ../../home/features/cli	
+ # ../../home/features/cli/neovim	
+ # ../../home/features/cli	
   ../../home/features/desktop	
   ];
 

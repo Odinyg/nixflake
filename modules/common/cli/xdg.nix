@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib,pkgs, ... }: {
 
   options = {
     xdg = {
@@ -10,10 +10,7 @@
   };
   config.home-manager.users.${config.user} = lib.mkIf config.xdg.enable {
 
-  config,
-  pkgs,
-  ...
-}: {
+
   home.packages = [pkgs.xdg-utils];
 
   xdg = {
