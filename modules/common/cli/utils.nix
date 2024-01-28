@@ -28,7 +28,7 @@
       consul
       noti # Create notifications programmatically
       xclip
-      unzipA
+      unzip
       qemu
       st
       stdenv
@@ -39,6 +39,12 @@
       xfce.thunar
       burpsuite
       virt-manager
+      bat
+      lf
+      htop
+      ctop
+      fd
+
     ];
     };
   } 

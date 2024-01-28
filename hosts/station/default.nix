@@ -1,4 +1,3 @@
-
 { config, pkgs,lib, ... }:
 
 {
@@ -23,6 +22,7 @@
 
   discord.enable = true;
   tmux.enable = true;
+  utils.enable = true;
 ###### Configure X11 and WindowManager ######## 
 
   services.xserver = {
@@ -132,27 +132,16 @@ hardware.keyboard.zsa.enable = true;
       syncthingtray
       syncthing
       protonup-ng
-      qemu
-      st
-      fzf
       xfce.thunar
-      stdenv
       burpsuite
       virt-manager
       feh
-      plocate
-      killall
       networkmanagerapplet
-      inetutils 
       etcher
-#      nodejs
-      openssl
       pavucontrol
-      synergy 
       xdg-desktop-portal-gtk
       polkit_gnome
       fontconfig
-      gnugrep
       gitkraken
       xorg.xbacklight
       gvfs
