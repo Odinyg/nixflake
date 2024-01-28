@@ -1,6 +1,6 @@
 {
-  nixboot = "sudo nixos-rebuild boot --flake /home/none/nix/#myNixos";
-  nixswitch = "sudo nixos-rebuild switch --flake /home/none/nix/#myNixos";
+  nixb = "sudo nixos-rebuild boot --flake /home/none/nix/#myNixos";
+  nixs = "sudo nixos-rebuild switch --flake /home/none/nix/#myNixos";
   vim="nvim";
   dcpshow="docker ps --format '{{.Names}}'\t'{{.Ports}}'";
   sshmain="ssh -Y $server";
