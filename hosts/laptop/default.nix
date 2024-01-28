@@ -15,7 +15,9 @@
   crypt.enable = true;
   neovim.enable = true;
   zsh.enable = true;
-#  git.enable = true;
+  thunar.enable = true;
+  gammastep.enable = true;
+  git.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;
