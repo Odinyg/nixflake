@@ -1,4 +1,15 @@
-{
+{ config, lib, ... }: {
+
+  options = {
+    zellij = {
+      enable = lib.mkEnableOption {
+        description = "Enable several zellij";
+        default = false;
+      }; 
+    };
+  };
+  config.home-manager.users.${config.user} = lib.mkIf config.zellij.enable {
+
   programs.zellij = {
     enable = true;
     enableZshIntegration = true;
@@ -17,6 +28,7 @@
       themes.nord.orange = "#D08770";
       pane-frames = false;
     };
-    };
+  };
+  };
 }
 

@@ -1,5 +1,4 @@
-{  ... }:
-{ config, pkgs, lib, ... }: {
+{ config, lib, ... }: {
 
   options = {
     git = {
@@ -9,9 +8,6 @@
       }; 
     };
   };
-
-
-
   config.home-manager.users.${config.user} = lib.mkIf config.git.enable {
 
 
@@ -67,6 +63,7 @@
     gbl = "git branch --list";
     gm = "git merge";
     gf = "git fetch";
+  };
   };
 
 }

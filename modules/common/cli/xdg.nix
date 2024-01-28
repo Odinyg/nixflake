@@ -1,4 +1,15 @@
-{
+{ config, lib, ... }: {
+
+  options = {
+    xdg = {
+      enable = lib.mkEnableOption {
+        description = "Enable several xdg";
+        default = false;
+      }; 
+    };
+  };
+  config.home-manager.users.${config.user} = lib.mkIf config.xdg.enable {
+
   config,
   pkgs,
   ...
@@ -47,5 +58,6 @@
         "video/x-ms-wmv" = "vlc.desktop"; # .wmv
       };
     };
+  };
   };
 }
