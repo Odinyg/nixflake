@@ -13,6 +13,8 @@
   discord.enable = true;
   tmux.enable = true;
   crypt.enable = true;
+  neovim.enable = true;
+  zsh.enable = true;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

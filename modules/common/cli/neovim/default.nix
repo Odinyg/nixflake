@@ -12,9 +12,6 @@
 
 
   config.home-manager.users.${config.user} = lib.mkIf config.neovim.enable {
-
-{
-
   imports = [
      ./nixvim.nix
      ./lsp.nix
@@ -29,6 +26,7 @@
     shellAliases.v = "nvim";
 
     sessionVariables.EDITOR = "nvim";
+  };
   };
 
 }
