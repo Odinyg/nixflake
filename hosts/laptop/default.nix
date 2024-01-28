@@ -15,10 +15,10 @@
   crypt.enable = true;
   neovim.enable = true;
   zsh.enable = true;
-  git.enable = true;
-  xdg.enable = false;
-  zellij.enable = true;
-  direnv.enable = false;
+#  git.enable = true;
+#  xdg.enable = false;
+#  zellij.enable = true;
+#  direnv.enable = false;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
