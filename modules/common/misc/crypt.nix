@@ -1,6 +1,4 @@
 { lib,pkgs,config,... }: {
-
-  config.home-manager.users.${config.user} = lib.mkIf config.crypt.enable {
   options = {
     crypt = {
       enable = lib.mkEnableOption {
@@ -9,10 +7,10 @@
       }; 
     };
   };
-
-  hardware.ledger.enable = true;
+config = lib.mkIf  config.crypt.enable{
   services.trezord.enable = true;
-    packages = with pkgs; [
+  hardware.ledger.enable = true;
+    environment.systemPackages = with pkgs; [
       trezor-suite
       ledger-live-desktop
     ];

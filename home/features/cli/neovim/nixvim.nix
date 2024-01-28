@@ -21,6 +21,7 @@
 
     plugins = {
       comment-nvim.enable = true;
+      tmux-navigator.enable = true;
       nix.enable = true;
       mini.enable = true;
       which-key.enable = true;

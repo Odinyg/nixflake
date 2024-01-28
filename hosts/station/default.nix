@@ -18,9 +18,6 @@
   };
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-  services.trezord.enable = true;
-
-  discord.enable = true;
   tmux.enable = true;
   utils.enable = true;
 ###### Configure X11 and WindowManager ######## 
@@ -95,11 +92,6 @@ hardware.keyboard.zsa.enable = true;
   };
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "none" ];
-  programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true;
-  dedicatedServer.openFirewall = true;
-  };
   programs.zsh.enable = true;
   users.users.none= {
     shell = pkgs.zsh;
@@ -145,11 +137,8 @@ hardware.keyboard.zsa.enable = true;
       gitkraken
       xorg.xbacklight
       gvfs
-      # WORK
-    #  teams
       discord
       libreoffice
-      teams-for-linux
       anydesk
       remmina
       ferdium

@@ -57,11 +57,12 @@ in
       set -g status-interval 1
       set -g automatic-rename
       set -g automatic-rename-format '#{pane_current_command}'
+      set -g @catppuccin_flavour 'frappe'
+      set -g @catppuccin_pane_border_status "top"
       bind \\ split-window -h -c '#{pane_current_path}'
       bind - split-window -v -c '#{pane_current_path}'
-      set -g @sessionx-bind 'o'
-      set -g @sessionx-window-height '85%'
-      set -g @sessionx-window-width '75%'
+      set -g @continuum-restore 'on'
+      set -g @resurrect-strategy-nvim 'session'
       set -g @catppuccin_window_left_separator ""
       set -g @catppuccin_window_right_separator " "
       set -g @catppuccin_window_middle_separator " █"
