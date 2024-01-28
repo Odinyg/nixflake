@@ -78,7 +78,7 @@ in
       set -g @catppuccin_status_right_separator_inverse "no"
       set -g @catppuccin_status_fill "icon"
       set -g @catppuccin_status_connect_separator "no"
-    '';
+  '';
   };
 
   home.shellAliases = {
