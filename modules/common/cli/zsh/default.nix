@@ -33,4 +33,5 @@
 
     fzf.enable = true;
   };
+  };
 }
