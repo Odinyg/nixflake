@@ -1,7 +1,5 @@
-
 {
-  description = "A very basic flake";
-
+  description = "Heime Flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
@@ -20,8 +18,8 @@
     };
   outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
     let
-      globals1 = {
-        user = "none";
+      homeUser = "none";
+      workUser = "odin";
       };
       system = "x86_64-linux";
     nixpkgs-outPath = {
@@ -54,12 +52,11 @@
 	modules = [
 	./hosts/laptop
     ./modules/common
-    globals1
 
     home-manager.nixosModules.home-manager
           {
           home-manager = {
-	  useGlobalPkgs = true;
+    	  useGlobalPkgs = true;
           useUserPackages = true;
           users.none.imports =
           [
@@ -71,7 +68,7 @@
 	];
       };
       p53= nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+        specialArgs = { inherit inputs system workUser; };
 
 	modules = [
 	./hosts/p53
@@ -81,19 +78,16 @@
         home-manager.nixosModules.home-manager
         {
           home-manager = {
-	  useGlobalPkgs = true;
+          useGlobalPkgs = true;
           useUserPackages = true;
-          users.odin.imports =
-          [
-	  ./home/p53.nix
-	  ]
+          users.odin.imports = [ ./home/p53.nix ]
 	  ++ homeManagerModules;
 	  };
 	}
 	];
       };
       station = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system; };
+        specialArgs = { inherit inputs system workUser; };
 
 	modules = [
 	./hosts/station
