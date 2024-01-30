@@ -1,5 +1,51 @@
 {
   description = "Heime Flake";
+  outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,... }@inputs:
+    let
+      user = "none";
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+      config = { allowUnfree = true;
+                 allowUnfreePredicate = (_: true); };
+    };
+
+    # configure lib
+    lib = nixpkgs.lib;
+    in {
+
+
+    homeConfigurations = {
+      laptop = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ 
+            ./home/laptop.nix
+          ];
+          extraSpecialArgs = {
+          inherit (inputs) nixvim;
+          inherit pkgs;
+          };
+      };
+    };
+    nixosConfigurations = {
+      laptop = lib.nixosSystem {
+        modules = [ 
+          ./hosts/laptop
+          ./modules/common
+        ]; 
+        specialArgs = {
+          inherit system;
+          inherit user;
+        };
+      };
+    };
+    };
+
+
+
+
+
+
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
@@ -16,101 +62,4 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     };
-  outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
-    let
-      userInfo = {
-      homeUser = "none";
-      user = "none";
-      workUser = "odin";
-    };
-      system = "x86_64-linux";
-    nixpkgs-outPath = {
-      environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
-    };
-    homeManagerModules = [
-      nixvim.homeManagerModules.nixvim
-      nix-colors.homeManagerModules.default
-    ];
-    in
-    {
-
-    nixosConfigurations = { 
-      vm = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system ; };
-
-	modules = [
-	./hosts/vm
-	];
-      };
-      vmserver = nixpkgs.lib.nixosSystem { 
-        specialArgs = { inherit inputs system; };
-        modules = [ 
-        ./hosts/vmserver
-        ];
-      };
-      laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system nix-colors ; };
-
-	modules = [
-	./hosts/laptop
-    ./modules/common
-    userInfo
-
-
-    home-manager.nixosModules.home-manager
-          {
-          home-manager = {
-    	  useGlobalPkgs = true;
-          useUserPackages = true;
-          users.none.imports =
-          [
-	  ./home/laptop.nix
-	  ]
-	  ++ homeManagerModules;
-	  };
-	  }
-	];
-      };
-      p53= nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system ; };
-
-	modules = [
-	./hosts/p53
-    ./modules/common
-	nixos-hardware.nixosModules.lenovo-thinkpad-p53
-	nixpkgs-outPath
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          users.odin.imports = [ ./home/p53.nix ]
-	  ++ homeManagerModules;
-	  };
-	}
-	];
-      };
-      station = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system ; };
-
-	modules = [
-	./hosts/station
-    ./modules/common
-	nixpkgs-outPath
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-	  useGlobalPkgs = true;
-          useUserPackages = true;
-          users.none.imports =
-          [
-	  ./home/station.nix
-	  ]
-	  ++ homeManagerModules;
-	  };
-	}
-	];
-      };
-    };
-  };
 }
