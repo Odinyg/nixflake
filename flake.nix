@@ -1,36 +1,23 @@
 {
   description = "Heime Flake";
-  outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,... }@inputs:
+  outputs = inputs@{ nixpkgs, home-manager, nixvim, nixos-hardware, self, ... }:
+
     let
       user = "none";
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-      config = { allowUnfree = true;
-                 allowUnfreePredicate = (_: true); };
-    };
+      pkgs = nixpkgs.legacyPackages.${system};
 
     # configure lib
-    lib = nixpkgs.lib;
+    lib = nixpkgs.lib // home-manager.lib;
     in {
 
-
-    homeConfigurations = {
-      laptop = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ 
-            ./home/laptop.nix
-          ];
-          extraSpecialArgs = {
-          inherit (inputs) nixvim;
-          inherit pkgs;
-          };
-      };
-    };
     nixosConfigurations = {
       laptop = lib.nixosSystem {
+        extraSpecialArgs = {inherit inputs;};
         modules = [ 
           ./hosts/laptop
-          ./modules/common
+          ./modules/common   
+         inputs.home-manager.nixosModules.laptop
         ]; 
         specialArgs = {
           inherit system;
@@ -38,8 +25,20 @@
         };
       };
     };
-    };
 
+
+#    homeConfigurations = {
+#      laptop = inputs.home-manager.lib.homeManagerConfiguration {
+#          inherit pkgs;
+#          modules = [ 
+#            ./home/laptop.nix
+#          ];
+#          extraSpecialArgs = {
+#          inherit inputs ;
+#          inherit pkgs;
+#          };
+#      };
+#    };
 
 
 
@@ -61,5 +60,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
+    };
     };
 }
