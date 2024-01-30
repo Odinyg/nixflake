@@ -18,9 +18,11 @@
     };
   outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
     let
+      userInfo = {
       homeUser = "none";
+      user = "none";
       workUser = "odin";
-      };
+    };
       system = "x86_64-linux";
     nixpkgs-outPath = {
       environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
@@ -47,11 +49,13 @@
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system nix-colors globals1; };
+        specialArgs = { inherit inputs system nix-colors ; };
 
 	modules = [
 	./hosts/laptop
     ./modules/common
+    userInfo
+
 
     home-manager.nixosModules.home-manager
           {
@@ -68,7 +72,7 @@
 	];
       };
       p53= nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system workUser; };
+        specialArgs = { inherit inputs system ; };
 
 	modules = [
 	./hosts/p53
@@ -87,12 +91,11 @@
 	];
       };
       station = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system workUser; };
+        specialArgs = { inherit inputs system ; };
 
 	modules = [
 	./hosts/station
     ./modules/common
-    globals1
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager
         {
