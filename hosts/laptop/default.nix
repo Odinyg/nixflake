@@ -2,13 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by prunninrg ‘nixos-help’).
 
-{ pkgs,... }:
+{ pkgs,inputs,config, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-
+      inputs.home-manager.nixosModules.default
     ];
   discord.enable = true;
   tmux.enable = true;
@@ -18,10 +18,22 @@
   thunar.enable = true;
   gammastep.enable = true;
   git.enable = true;
+  _1password.enable = true;
+  work.enable = true;
+
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;
   # Bootloader.
+  
+  home-manager = { 
+    extraSpecialArgs = {
+      inherit inputs; 
+      user = "none";
+      };
+    users = { none = import ./home.nix; };
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "XPS"; # Define your hostname.
@@ -47,7 +59,7 @@
       }; 
     };
 #### Keyboard Layout ###
-    layout = "us";
+    layout = "username us";
     xkbVariant = "";
   };
   services.picom.enable = true;
@@ -63,11 +75,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "odin" ];
-  };
   programs.zsh.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
@@ -76,52 +83,30 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
-      inetutils
       nmap
       google-chrome
-      krabby
-      chromium
-      remmina
-      thunderbird
       kitty
-      xclip
-      unzip
-      git
       gcc
       vlc
       tailscale
-      gh
       deluge
       obsidian
       flatpak
       flameshot
       ripgrep
       protonup-ng
-      qemu
-      st
-      fzf
-      stdenv
       virt-manager
       feh
       plocate
-      anydesk
-      remmina
       killall
       usermount
-      transmission
-
       networkmanagerapplet
-#      nodejs
       openssl
       pavucontrol
-      tmux
-      synergy 
       xdg-desktop-portal-gtk
       polkit_gnome
-      fontconfig
       gnugrep
       ledger-live-desktop
-      zoom-us
       # WM
       sxhkd
       bspwm
@@ -133,15 +118,7 @@
       xorg.libXft
       xorg.libXinerama
       xorg.xinit
-
       xorg.xinput
-	(lutris.override {
-	       extraPkgs = pkgs: [
-		 # List package dependencies here
-		 wineWowPackages.stable
-		 winetricks
-	       ];
-	    })
     ];
   };
   ## Gaming

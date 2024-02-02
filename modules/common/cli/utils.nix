@@ -12,6 +12,14 @@
 
 
   config.home-manager.users.${config.user} = lib.mkIf config.utils.enable {
+  environment.systemPackages = with pkgs; [
+      autorandr
+      openvpn
+      nmap
+      ripgrep
+      vlc
+      ripgrep
+    ];
 
     home.packages = with pkgs; [
       dos2unix # Convert Windows text files
