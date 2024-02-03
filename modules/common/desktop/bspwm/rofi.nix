@@ -16,7 +16,8 @@
 
     xdg.configFile."sxhkd/sxhkdrc".source = ./dotfiles/sxhkdrc;
     xdg.configFile."polybar/config".source = ./dotfiles/config;
-    xdg.configFile."rofi/rofi-nord.rasi".source = ./dotfiles/nord.rasi;
+    xdg.configFile."rofi/nord.rasi".source = ./dotfiles/rofi-nord.rasi;
+    xdg.configFile."rofi/rounded-common.rasi".source = ./dotfiles/rounded-common.rasi;
     xdg.configFile."bspwm/bspwmrc".source = ./dotfiles/bspwmrc;
     programs.rofi = {
       enable = true; 
