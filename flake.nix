@@ -20,6 +20,7 @@
     let
       userInfo = {
       user = "none";
+      myhostname = "XPS";
     };
       system = "x86_64-linux";
     nixpkgs-outPath = {
@@ -53,6 +54,7 @@
 	./hosts/laptop
     ./modules/common
     userInfo
+
 
 
     home-manager.nixosModules.home-manager
