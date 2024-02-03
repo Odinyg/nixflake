@@ -15,9 +15,10 @@
     services.sxhkd.enable = true;
 
     xdg.configFile."sxhkd/sxhkdrc".source = ./sxhkdrc;
+    xdg.configFile."polybar/config".source = ./config;
     programs.rofi = {
       enable = true; 
-      theme = "rounded-nord-dark";
+      theme = "Nord";
     };
   };
 }
