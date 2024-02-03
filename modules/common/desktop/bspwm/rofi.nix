@@ -14,11 +14,13 @@
     services.polybar.script = "polybar example"; 
     services.sxhkd.enable = true;
 
-    xdg.configFile."sxhkd/sxhkdrc".source = ./sxhkdrc;
-    xdg.configFile."polybar/config".source = ./config;
+    xdg.configFile."sxhkd/sxhkdrc".source = ./dotfiles/sxhkdrc;
+    xdg.configFile."polybar/config".source = ./dotfiles/config;
+    xdg.configFile."rofi/rofi-nord.rasi".source = ./dotfiles/nord.rasi;
+    xdg.configFile."bspwm/bspwmrc".source = ./dotfiles/bspwmrc;
     programs.rofi = {
       enable = true; 
-      theme = "Nord";
+      theme = "nord";
     };
   };
 }
