@@ -25,6 +25,7 @@
   work.enable = true;
   kitty.enable = true;
   bspwm.enable = true;
+  rofi.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
@@ -34,7 +35,8 @@
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
   programs.zsh.enable = true;
-
+  xdg.portal.enable = true;
+  xdg.portal.config.common.default = "gtk";
 #  services.xserver = {
 #    enable = true;
 #    windowManager.bspwm.enable = true;
@@ -72,7 +74,6 @@
       feh
       killall
       pavucontrol
-      xdg-desktop-portal-gtk
       polkit_gnome
 #      sxhkd
 #      bspwm

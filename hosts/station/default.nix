@@ -31,6 +31,7 @@
   work.enable = true;
   kitty.enable = true;
   bspwm.enable = true;
+  rofi.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;

@@ -9,10 +9,8 @@
     };
   };
 
-    config = lib.mkIf  config.wireless.enable{
+    config = lib.mkIf  config.bspwm.enable{
     services = {
-      sxhkd.enable = true;
-      polybar.enable = true;
       picom.enable = true;
       xserver = {
         enable = true;
