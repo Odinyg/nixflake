@@ -95,6 +95,7 @@
 	modules = [
 	./hosts/station
     ./modules/common
+    userInfo
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager
         {

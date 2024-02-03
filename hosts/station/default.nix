@@ -18,8 +18,18 @@
   };
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-  tmux.enable = true;
   utils.enable = true;
+  discord.enable = true;
+  tmux.enable = true;
+  crypt.enable = true;
+  neovim.enable = true;
+  zsh.enable = true;
+  thunar.enable = true;
+  gammastep.enable = true;
+  git.enable = true;
+#  xdg.enable = false;
+#  zellij.enable = true;
+#  direnv.enable = false;
 ###### Configure X11 and WindowManager ######## 
 
   services.xserver = {

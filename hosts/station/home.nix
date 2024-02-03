@@ -1,7 +1,5 @@
 { ... }: {
   imports = [
-    ./features/cli
-    ./features/common
   ];
 nixpkgs.config.allowUnfree = true;
 
