@@ -1,20 +1,25 @@
 { lib,pkgs,config,... }: {
   options = {
-    wireless = {
+    audio = {
       enable = lib.mkEnableOption {
-        description = "Enable wireless";
+        description = "Enable audio";
         default = false;
       }; 
     };
   };
-config = lib.mkIf  config.wireless.enable{
-  networking.hostName = "${config.myhostname}"; 
-  networking.networkmanager.enable = true;
-  hardware.bluetooth.enable = true; 
-  hardware.bluetooth.powerOnBoot = true; 
+config = lib.mkIf  config.audio.enable{
 
-    home.packages = with pkgs; [
-      networkmanagerapplet
-    ];
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+
+
 };
 }

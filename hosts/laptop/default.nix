@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by prunninrg ‘nixos-help’).
 
-{pkgs,inputs,... }:
+{pkgs,...}:
 
 {
   imports =
@@ -15,31 +15,23 @@
   crypt.enable = true;
   neovim.enable = true;
   zsh.enable = true;
-  #thunar.enable = true;
+  thunar.enable = true;
   gammastep.enable = true;
   git.enable = true;
- # _1password.enable = true;
-#  work.enable = true;
+  audio.enable = true;
+  wireless.enable = true;
+  _1password.enable = true;
+  work.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
-#  home-manager = { 
-#    extraSpecialArgs = {
-#      inherit inputs; 
-#      user = "none";
-#      };
-#    users = { none = import ./home.nix; };
-#  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  networking.hostName = "XPS"; 
-  networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-  hardware.bluetooth.enable = true; 
-  hardware.bluetooth.powerOnBoot = true; 
+  programs.zsh.enable = true;
 
-   
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
@@ -58,16 +50,6 @@
   };
   services.picom.enable = true;
   services.printing.enable = true;
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-  programs.zsh.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
     isNormalUser = true;
@@ -75,7 +57,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
-      nmap
       google-chrome
       kitty
       gcc
@@ -85,31 +66,17 @@
       obsidian
       flatpak
       flameshot
-      ripgrep
       protonup-ng
       virt-manager
       feh
-      plocate
       killall
-      usermount
-      networkmanagerapplet
-      openssl
       pavucontrol
       xdg-desktop-portal-gtk
       polkit_gnome
-      gnugrep
-      ledger-live-desktop
       sxhkd
       bspwm
       rofi
       polybar
-      xorg.libX11
-      xorg.libX11.dev
-      xorg.libxcb
-      xorg.libXft
-      xorg.libXinerama
-      xorg.xinit
-      xorg.xinput
     ];
   };
   ## Gaming

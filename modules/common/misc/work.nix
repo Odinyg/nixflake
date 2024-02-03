@@ -12,6 +12,7 @@ config = lib.mkIf  config.work.enable{
 
   environment.systemPackages = with pkgs; [
     anydesk
+    openvpn
     zoom-us
     remmina
     inetutils
