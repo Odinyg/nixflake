@@ -13,8 +13,6 @@
   };
   networking = {
     hostName = "Station"; # Define your hostName
-    networkmanager.enable = true;
-    nameservers = [ "9.9.9.9" "1.1.1.1" ];
   };
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -27,45 +25,39 @@
   thunar.enable = true;
   gammastep.enable = true;
   git.enable = true;
+  audio.enable = true;
+  wireless.enable = true;
+  _1password.enable = true;
+  work.enable = true;
+  kitty.enable = true;
+  bspwm.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;
 ###### Configure X11 and WindowManager ######## 
 
-  services.xserver = {
-    enable = true;
-    windowManager.bspwm.enable = true;
-    displayManager = {
-      defaultSession = "none+bspwm";
-      autoLogin.enable = true;
-      autoLogin.user = "none";
-      lightdm = { 
-        enable = true; 
-      }; 
-    };
-#### Keyboard Layout ###
-    layout = "us";
-    xkbVariant = "";
-  };
-  services.tlp.enable = false; 
-  services.picom.enable = true;
-  #### AutoMount ####
+#  services.xserver = {
+#    enable = true;
+#    windowManager.bspwm.enable = true;
+#    displayManager = {
+#      defaultSession = "none+bspwm";
+#      autoLogin.enable = true;
+#      autoLogin.user = "none";
+#      lightdm = { 
+#        enable = true; 
+#      }; 
+#    };
+##### Keyboard Layout ###
+#    layout = "us";
+#    xkbVariant = "";
+#  };
 services.devmon.enable = true;
 services.gvfs.enable = true; 
 services.udisks2.enable = true;
-hardware.keyboard.zsa.enable = true;
 ##############################################
   services.printing.enable = true;
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {
@@ -85,12 +77,6 @@ hardware.keyboard.zsa.enable = true;
      DefaultTimeoutStopSec=10s
    '';
 };
-  hardware.ledger.enable = true;
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "none" ];
-  };
   services.flatpak.enable = true;
   xdg.portal = {
     enable = true;
@@ -100,8 +86,6 @@ hardware.keyboard.zsa.enable = true;
     enable = true;
 
   };
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "none" ];
   programs.zsh.enable = true;
   users.users.none= {
     shell = pkgs.zsh;
@@ -110,68 +94,25 @@ hardware.keyboard.zsa.enable = true;
     extraGroups = [ "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
       firefox
-      sublime
-      expect
-      vscode
-      filezilla
-      go
       google-chrome
-      remmina
-      thunderbird
-      kitty
-      xclip
-      unzip
-      git
-      zsa-udev-rules
-      wally-cli
       gcc
-      gh
       deluge
       obsidian
       flatpak
-      flameshot
-      ripgrep
       syncthingtray
       syncthing
       protonup-ng
-      xfce.thunar
-      burpsuite
-      virt-manager
-      feh
       networkmanagerapplet
-      etcher
       pavucontrol
       xdg-desktop-portal-gtk
       polkit_gnome
       fontconfig
-      gitkraken
       xorg.xbacklight
       gvfs
-      discord
-      libreoffice
-      anydesk
-      remmina
-      ferdium
-      dbeaver
-      onlyoffice-bin
-      rofi
-      polybar
-      sxhkd
-      ledger-live-desktop
-      betterlockscreen
-      dbeaver
-      nmap
-      #Gaming
-      lutris
-      wine64
-      steam
-
-      steamPackages.steam
-      steam-run
-      wine
-      #Cryptro
-      trezor-suite
-      ledger-live-desktop
+#      rofi
+#      polybar
+#      sxhkd
+#      betterlockscreen
     ];
   };
 
@@ -196,16 +137,6 @@ fonts = {
     };
 };
 
-  environment.systemPackages = with pkgs; [
-  autorandr
-  openvpn
-  networkmanager-openvpn
-  xorg.xrandr
-  pciutils
-  lshw
-  arandr
-  tailscale
-  ];
 
   nix = {
     package = pkgs.nixFlakes;
@@ -217,11 +148,8 @@ fonts = {
     config = { 
       allowUnfree = true;
       permittedInsecurePackages = [
-        "electron-19.1.9"
         "electron-25.9.0"
       ];
-      virtualbox.enableExtensionPack = true;
-
     };
     
   };

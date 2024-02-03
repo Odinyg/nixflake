@@ -8,7 +8,7 @@
     };
   };
 config = lib.mkIf  config.wireless.enable{
-  networking.hostName = "XPS"; 
+#  networking.hostName = "XPS"; 
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true; 
   hardware.bluetooth.powerOnBoot = true; 

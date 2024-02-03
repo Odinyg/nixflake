@@ -9,22 +9,28 @@
     };
   };
 
-  config.home-manager.users.none = lib.mkIf config.bspwm.enable {
-
-  services.picom.enable = true;
-  services.xserver = {
-    enable = true;
-    windowManager.bspwm.enable = true;
-    displayManager = {
-      defaultSession = "none+bspwm";
-      autoLogin.enable = true;
-      autoLogin.user = "none";
-      lightdm = { 
-        enable = true; 
-        greeter.enable = true; 
-      }; 
+    config = lib.mkIf  config.wireless.enable{
+    services = {
+      sxhkd.enable = true;
+      polybar.enable = true;
+      picom.enable = true;
+      xserver = {
+        enable = true;
+        windowManager.bspwm.enable = true;
+        displayManager = {
+          defaultSession = "none+bspwm";
+          autoLogin.enable = true;
+          autoLogin.user = "none";
+          lightdm = { 
+            enable = true; 
+            greeter.enable = true; 
+          }; 
+        };
+        xkb.layout = "us";
+        xkb.variant = "";
+      };
     };
-    layout = "us";
-    xkbVariant = "";
   };
+}
+  
     

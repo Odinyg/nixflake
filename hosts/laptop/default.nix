@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
 #      inputs.home-manager.nixosModules.default
     ];
+  utils.enable = true;
   discord.enable = true;
   tmux.enable = true;
   crypt.enable = true;
@@ -23,6 +24,7 @@
   _1password.enable = true;
   work.enable = true;
   kitty.enable = true;
+  bspwm.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
@@ -33,23 +35,22 @@
   i18n.defaultLocale = "en_US.UTF-8";
   programs.zsh.enable = true;
 
-  services.xserver = {
-    enable = true;
-    windowManager.bspwm.enable = true;
-    displayManager = {
-      defaultSession = "none+bspwm";
-      autoLogin.enable = true;
-      autoLogin.user = "none";
-      lightdm = { 
-        enable = true; 
-        greeter.enable = true; 
-      }; 
-    };
-#### Keyboard Layout ###
-    layout = "us";
-    xkbVariant = "";
-  };
-  services.picom.enable = true;
+#  services.xserver = {
+#    enable = true;
+#    windowManager.bspwm.enable = true;
+#    displayManager = {
+#      defaultSession = "none+bspwm";
+#      autoLogin.enable = true;
+#      autoLogin.user = "none";
+#      lightdm = { 
+#        enable = true; 
+#        greeter.enable = true; 
+#      }; 
+#    };
+#    layout = "us";
+#    xkbVariant = "";
+#  };
+#  services.picom.enable = true;
   services.printing.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
@@ -73,10 +74,10 @@
       pavucontrol
       xdg-desktop-portal-gtk
       polkit_gnome
-      sxhkd
-      bspwm
-      rofi
-      polybar
+#      sxhkd
+#      bspwm
+ #     rofi
+#      polybar
     ];
   };
   ## Gaming
