@@ -19,6 +19,7 @@
         name = "JetBrainsMono Nerd Font";
         size = 13;
       };
+      extraConfig = "confirm_os_window_close 0";
       shellIntegration.enableZshIntegration = true;
 
     };

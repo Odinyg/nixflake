@@ -32,6 +32,11 @@
   kitty.enable = true;
   bspwm.enable = true;
   rofi.enable = true;
+  randr.enable = true;
+#  xdg.enable = false;
+#  zellij.enable = true;
+#  direnv.enable = false;
+###### Configure X11 and WindowManager ######## 
 
 
 
@@ -87,15 +92,10 @@ services.udisks2.enable = true;
       protonup-ng
       networkmanagerapplet
       pavucontrol
-      xdg-desktop-portal-gtk
       polkit_gnome
       fontconfig
-      xorg.xbacklight
       gvfs
-#      rofi
-#      polybar
-#      sxhkd
-#      betterlockscreen
+      betterlockscreen
     ];
   };
 
