@@ -1,4 +1,4 @@
-{ pkgs, config, lib,... }: {
+{config, lib,pkgs,... }: {
 
   options = {
     thunar = {
@@ -8,7 +8,7 @@
       }; 
     };
   };
-  config.home-manager.users.none = lib.mkIf config.thunar.enable {
+  config.home-manager.users.${config.user}= lib.mkIf config.thunar.enable {
 
     home.packages = with pkgs; [
     xfce.exo 

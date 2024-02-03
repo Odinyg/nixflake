@@ -8,20 +8,14 @@
       }; 
     };
   };
-
-
-
-  config.home-manager.users.${config.user} = lib.mkIf config.utils.enable {
-  environment.systemPackages = with pkgs; [
+  config.home-manager.users.${config.user}= lib.mkIf config.utils.enable {
+    home.packages = with pkgs; [
       autorandr
       openvpn
       nmap
       ripgrep
       vlc
       ripgrep
-    ];
-
-    home.packages = with pkgs; [
       dos2unix # Convert Windows text files
       inetutils # Includes telnet
       youtube-dl # Convert web videos

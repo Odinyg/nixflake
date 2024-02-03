@@ -2,50 +2,44 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by prunninrg ‘nixos-help’).
 
-{ pkgs,inputs,config, ... }:
+{pkgs,inputs,... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
+#      inputs.home-manager.nixosModules.default
     ];
   discord.enable = true;
   tmux.enable = true;
   crypt.enable = true;
   neovim.enable = true;
   zsh.enable = true;
-  thunar.enable = true;
+  #thunar.enable = true;
   gammastep.enable = true;
   git.enable = true;
-  _1password.enable = true;
-  work.enable = true;
-
+ # _1password.enable = true;
+#  work.enable = true;
 #  xdg.enable = false;
-#  zellij.enable = true;
+  #zellij.enable = true;
 #  direnv.enable = false;
-  # Bootloader.
-  
-  home-manager = { 
-    extraSpecialArgs = {
-      inherit inputs; 
-      user = "none";
-      };
-    users = { none = import ./home.nix; };
-  };
-
+#  home-manager = { 
+#    extraSpecialArgs = {
+#      inherit inputs; 
+#      user = "none";
+#      };
+#    users = { none = import ./home.nix; };
+#  };
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  networking.hostName = "XPS"; # Define your hostname.
+  networking.hostName = "XPS"; 
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.enable = true; 
+  hardware.bluetooth.powerOnBoot = true; 
 
    
-###### Configure X11 and WindowManager ######## 
- # services.tailscale.enable = true;
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
@@ -59,13 +53,11 @@
       }; 
     };
 #### Keyboard Layout ###
-    layout = "username us";
+    layout = "us";
     xkbVariant = "";
   };
   services.picom.enable = true;
-##############################################
   services.printing.enable = true;
-  # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -107,7 +99,6 @@
       polkit_gnome
       gnugrep
       ledger-live-desktop
-      # WM
       sxhkd
       bspwm
       rofi
@@ -163,21 +154,10 @@ fonts = {
     };
 };
 
-  environment.systemPackages = with pkgs; [
-  autorandr
-  openvpn
-  ];
-
-
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-
-
-
-
-  # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [
