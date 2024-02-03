@@ -24,6 +24,7 @@
   };
 
   programs = {
+    zsh.enable = true;
     autojump.enable = true;
 
     direnv = {

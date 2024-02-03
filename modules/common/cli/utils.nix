@@ -13,7 +13,6 @@
       autorandr
       openvpn
       nmap
-      ripgrep
       vlc
       ripgrep
       dos2unix # Convert Windows text files
@@ -37,6 +36,9 @@
       plocate
       ripgrep
       killall
+      usermount
+      gnugrep
+      openssl
       fzf
       xfce.thunar
       burpsuite
@@ -46,6 +48,15 @@
       htop
       ctop
       fd
+      nmap
+      plocate
+      xorg.libX11
+      xorg.libX11.dev
+      xorg.libxcb
+      xorg.libXft
+      xorg.libXinerama
+      xorg.xinit
+      xorg.xinput
 
     ];
     };

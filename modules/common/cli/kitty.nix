@@ -14,7 +14,7 @@
   config.home-manager.users.${config.user} = lib.mkIf config.kitty.enable {
     programs.kitty = {
       enable = true;
-      theme = nord;
+      theme = "Nord";
       shellIntegration.enableZshIntegration = true;
 
     };

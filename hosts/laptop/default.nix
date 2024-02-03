@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by prunninrg ‘nixos-help’).
 
-{pkgs,...}:
+{ pkgs,... }:
 
 {
   imports =
@@ -22,6 +22,7 @@
   wireless.enable = true;
   _1password.enable = true;
   work.enable = true;
+  kitty.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
@@ -58,7 +59,6 @@
     packages = with pkgs; [
       firefox
       google-chrome
-      kitty
       gcc
       vlc
       tailscale
