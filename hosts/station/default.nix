@@ -33,6 +33,7 @@
   bspwm.enable = true;
   rofi.enable = true;
   randr.enable = true;
+  zsa.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;
