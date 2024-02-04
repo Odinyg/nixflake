@@ -1,7 +1,6 @@
 {
   imports = [
     ./bspwm
-    ./randr.nix
   ];
 }
 

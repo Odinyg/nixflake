@@ -2,7 +2,7 @@
   imports = [
 #    ./features/cli
 #    ./features/common
-     ./../../modules/common/misc/firefox.nix
+     ./../../modules/home-manager/misc/firefox.nix
   ];
   home = {
     username = "none";

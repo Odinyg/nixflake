@@ -4,6 +4,7 @@
     ./work.nix
     ./password.nix
     ./crypt.nix
+    ./hardware
 
   ];
 }

@@ -8,7 +8,7 @@
       }; 
     };
   };
-    config = lib.mkIf  config.wireless.enable{
+    config = lib.mkIf  config.randr.enable{
       environment.systemPackages = [ pkgs.xorg.xrandr ];
       services = {
         autorandr = { 

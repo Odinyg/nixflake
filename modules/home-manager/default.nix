@@ -4,7 +4,6 @@
     ./cli
     ./misc
     ./desktop
-    ./hardware
   ];
   options = {
     user = lib.mkOption {
