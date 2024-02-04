@@ -32,33 +32,15 @@
   kitty.enable = true;
   bspwm.enable = true;
   rofi.enable = true;
-#  xdg.enable = false;
-#  zellij.enable = true;
-#  direnv.enable = false;
-###### Configure X11 and WindowManager ######## 
 
-#  services.xserver = {
-#    enable = true;
-#    windowManager.bspwm.enable = true;
-#    displayManager = {
-#      defaultSession = "none+bspwm";
-#      autoLogin.enable = true;
-#      autoLogin.user = "none";
-#      lightdm = { 
-#        enable = true; 
-#      }; 
-#    };
-##### Keyboard Layout ###
-#    layout = "us";
-#    xkbVariant = "";
-#  };
+
+
 services.devmon.enable = true;
 services.gvfs.enable = true; 
 services.udisks2.enable = true;
 ##############################################
   services.printing.enable = true;
   # Enable sound with pipewire.
-  sound.enable = true;
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {

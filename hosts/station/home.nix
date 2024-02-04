@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    ../modules/common/misc/firefox.nix
   ];
 nixpkgs.config.allowUnfree = true;
 

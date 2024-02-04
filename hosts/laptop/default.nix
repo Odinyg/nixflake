@@ -26,6 +26,7 @@
   kitty.enable = true;
   bspwm.enable = true;
   rofi.enable = true;
+#  firefox.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
@@ -35,24 +36,11 @@
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
   programs.zsh.enable = true;
-  xdg.portal.enable = true;
-  xdg.portal.config.common.default = "gtk";
-#  services.xserver = {
-#    enable = true;
-#    windowManager.bspwm.enable = true;
-#    displayManager = {
-#      defaultSession = "none+bspwm";
-#      autoLogin.enable = true;
-#      autoLogin.user = "none";
-#      lightdm = { 
-#        enable = true; 
-#        greeter.enable = true; 
-#      }; 
-#    };
-#    layout = "us";
-#    xkbVariant = "";
-#  };
-#  services.picom.enable = true;
+  xdg.portal = {
+    enable = true;
+    config.common.default = "gtk";
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
   services.printing.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
@@ -60,10 +48,10 @@
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
       google-chrome
       gcc
       vlc
+      xdg-desktop-portal-gtk
       tailscale
       deluge
       obsidian

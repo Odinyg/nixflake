@@ -2,6 +2,7 @@
   imports = [
 #    ./features/cli
 #    ./features/common
+     ./../../modules/common/misc/firefox.nix
   ];
   home = {
     username = "none";
@@ -10,4 +11,3 @@
   };
 programs.home-manager.enable = true;
 }
-

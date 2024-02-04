@@ -16,7 +16,8 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     };
-  outputs = { self, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
+  outputs = { self, firefox-addons, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
+
     let
       userInfo = {
       user = "none";
@@ -47,7 +48,7 @@
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system nix-colors ; };
+        specialArgs = { inherit inputs system nix-colors; extraSpecialArg = inputs ; };
 
 	modules = [
 	./hosts/laptop
@@ -64,6 +65,7 @@
           users.none.imports =
           [
 	  ./hosts/laptop/home.nix
+      ./modules/common/misc/firefox.nix
 	  ]
 	  ++ homeManagerModules;
 	  };

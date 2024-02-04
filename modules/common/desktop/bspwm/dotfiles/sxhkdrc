@@ -14,7 +14,7 @@ super + n
 
 # program launcher
 super + d
-	rofi -show drun  
+    rofi -i -show drun -modi drun -show-icons
 
 # show open window
 super + ctrl + d
