@@ -24,8 +24,10 @@
             greeter.enable = true; 
           }; 
         };
+        ## Perfect with zsa macros ##
         xkb.layout = "us";
-        xkb.variant = "";
+        xkb.variant = "altgr-intl";
+        xkb.options = "compose:ralt";
       };
     };
   };
