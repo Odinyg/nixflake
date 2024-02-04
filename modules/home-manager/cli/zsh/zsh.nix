@@ -11,7 +11,6 @@
     doc = "$HOME/Documents";
     };
     envExtra = ''
-    export PASS=$HOME/.secrets/pass
 
     '';
     oh-my-zsh = {

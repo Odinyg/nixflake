@@ -52,7 +52,7 @@
 
 	modules = [
 	./hosts/laptop
-    ./modules/common
+    ./modules
     userInfo
 
 
@@ -65,7 +65,6 @@
           users.none.imports =
           [
 	  ./hosts/laptop/home.nix
-      ./modules/common/misc/firefox.nix
 	  ]
 	  ++ homeManagerModules;
 	  };
@@ -77,7 +76,7 @@
 
 	modules = [
 	./hosts/p53
-    ./modules/common
+    ./modules
 	nixos-hardware.nixosModules.lenovo-thinkpad-p53
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager
@@ -96,7 +95,7 @@
 
 	modules = [
 	./hosts/station
-    ./modules/common
+    ./modules
     userInfo
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager
