@@ -20,6 +20,7 @@
     vimAlias = true;   
 
     plugins = {
+      noice.cmdline.enabled = true;
       comment-nvim.enable = true;
       tmux-navigator.enable = true;
       nix.enable = true;

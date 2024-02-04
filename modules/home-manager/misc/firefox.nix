@@ -15,7 +15,7 @@
         "browser.startup.homepage" = "https://start.duckduckgo.com";
         "browser.urlbar.showSearchSuggestionsFirst" = false;
         "browser.uiCustomization.state" = 
-        ''{"placements":{"widget-overflow-fixed-list":[],"nav-bar":["back-button","forward-button","stop-reload-button","home-button",
+        ''{"placements":{"widget-overflow-fixed-list":[],"nav-bar":["back-button","forward-button","stop-reload-button",
         "urlbar-container","downloads-button","library-button","ublock0_raymondhill_net-browser-action","_testpilot-containers-browser-action"],
         "toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],
         "PersonalToolbar":["import-button","personal-bookmarks"]},"seen":["save-to-pocket-button","developer-button",

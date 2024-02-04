@@ -26,7 +26,7 @@
   kitty.enable = true;
   bspwm.enable = true;
   rofi.enable = true;
-#  firefox.enable = true;
+  firefox.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
@@ -35,7 +35,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-  programs.zsh.enable = true;
+#  programs.zsh.enable = true;
   xdg.portal = {
     enable = true;
     config.common.default = "gtk";
