@@ -1,5 +1,4 @@
-{ lib,inputs ,pkgs,config,... }: {
-
+{ lib,pkgs,config,... }: {
   programs.browserpass.enable = true;
   programs.firefox = {
     enable = true;
@@ -28,7 +27,7 @@
       };
            search = {
             force = true;
-            default = "Searx";
+            default = "Google";
             order = [ "Google" "Searx" ];
             engines = {
               "Nix Packages" = {
@@ -47,12 +46,6 @@
                 iconUpdateURL = "https://nixos.wiki/favicon.png";
                 updateInterval = 24 * 60 * 60 * 1000; # every day
                 definedAliases = [ "@nw" ];
-              };
-              "Searx" = {
-                urls = [{ template = "https://searx.aicampground.com/?q={searchTerms}"; }];
-                iconUpdateURL = "https://nixos.wiki/favicon.png";
-                updateInterval = 24 * 60 * 60 * 1000; # every day
-                definedAliases = [ "@searx" ];
               };
               "Bing".metaData.hidden = true;
               "Google".metaData.alias = "@g"; # builtin engines only support specifying one additional alias

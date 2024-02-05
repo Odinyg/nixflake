@@ -48,7 +48,7 @@
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs system nix-colors; extraSpecialArg = inputs ; };
+        specialArgs = { inherit inputs system ;};
 
 	modules = [
 	./hosts/laptop

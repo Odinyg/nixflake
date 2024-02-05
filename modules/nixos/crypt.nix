@@ -13,6 +13,7 @@ config = lib.mkIf  config.crypt.enable{
     environment.systemPackages = with pkgs; [
       trezor-suite
       ledger-live-desktop
+
     ];
   };
 }

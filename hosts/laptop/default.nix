@@ -26,11 +26,12 @@
   kitty.enable = true;
   bspwm.enable = true;
   rofi.enable = true;
-  firefox.enable = true;
+#  firefox.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
 
+  programs.zsh.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   time.timeZone = "Europe/Oslo";
