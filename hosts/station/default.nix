@@ -37,6 +37,7 @@
   game.enable = true;
   tailscale.enable = true;
   chromium.enable = true;
+  syncthing.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;
@@ -79,8 +80,6 @@ services.udisks2.enable = true;
       deluge
       obsidian
       flatpak
-      syncthingtray
-      syncthing
       protonup-ng
       networkmanagerapplet
       pavucontrol
