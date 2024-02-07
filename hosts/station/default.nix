@@ -34,6 +34,7 @@
   rofi.enable = true;
   randr.enable = true;
   zsa.enable = true;
+  game.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;

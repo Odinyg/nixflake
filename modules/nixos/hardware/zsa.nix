@@ -8,7 +8,6 @@
     };
   };
 config = lib.mkIf  config.zsa.enable{
-#  networking.hostName = "XPS"; 
   hardware.keyboard.zsa.enable = true;
   environment.systemPackages = with pkgs; [
     wally-cli
