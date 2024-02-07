@@ -4,7 +4,8 @@
     ./work.nix
     ./password.nix
     ./crypt.nix
-    ./crypt.nix
+    ./hardware
+    ./fonts.nix
     ./syncthing.nix
 
   ];

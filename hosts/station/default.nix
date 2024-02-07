@@ -76,15 +76,9 @@ services.udisks2.enable = true;
     extraGroups = [ "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
       firefox
-      google-chrome
       deluge
       obsidian
       flatpak
-      protonup-ng
-      networkmanagerapplet
-      pavucontrol
-      polkit_gnome
-      betterlockscreen
     ];
   };
 

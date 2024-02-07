@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
 
   options = {
     bspwm = {
@@ -30,6 +30,12 @@
         xkb.options = "compose:ralt";
       };
     };
+
+  environment.systemPackages = with pkgs; [
+      polkit_gnome
+      betterlockscreen
+    ];
+    
   };
 }
   
