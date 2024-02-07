@@ -1,14 +1,14 @@
 {config, lib, ... }: {
 
   options = {
-    chromeium = {
+    chromium = {
       enable = lib.mkEnableOption {
-        description = "Enable several chromeium";
+        description = "Enable several chromium";
         default = false;
       }; 
     };
   };
-  config.home-manager.users.${config.user}= lib.mkIf config.chromeium.enable {
+  config.home-manager.users.${config.user}= lib.mkIf config.chromium.enable {
 
   programs.chromium = {
     enable = true;

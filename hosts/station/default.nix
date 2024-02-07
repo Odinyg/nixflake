@@ -36,6 +36,7 @@
   zsa.enable = true;
   game.enable = true;
   tailscale.enable = true;
+  chromium.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;
@@ -66,10 +67,6 @@ services.udisks2.enable = true;
      DefaultTimeoutStopSec=10s
    '';
 };
-  services.tailscale = {
-    enable = true;
-
-  };
   programs.zsh.enable = true;
   users.users.none= {
     shell = pkgs.zsh;
@@ -79,7 +76,6 @@ services.udisks2.enable = true;
     packages = with pkgs; [
       firefox
       google-chrome
-      gcc
       deluge
       obsidian
       flatpak
@@ -89,8 +85,6 @@ services.udisks2.enable = true;
       networkmanagerapplet
       pavucontrol
       polkit_gnome
-      fontconfig
-      gvfs
       betterlockscreen
     ];
   };
