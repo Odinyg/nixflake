@@ -1,18 +1,16 @@
-{ config, pkgs,lib, ... }:
+{ config, pkgs,lib, ... }: {
 
-{
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
     ];
 
-  # Bootloader.
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "Station"; # Define your hostName
+  networking.hostName = "Station"; 
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -43,10 +41,6 @@
   xdg.enable = false;
   zellij.enable = false;
   direnv.enable = false;
-
-services.devmon.enable = true;
-services.gvfs.enable = true; 
-services.udisks2.enable = true;
 
   programs.zsh.enable = true;
   users.users.none= {
