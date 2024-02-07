@@ -7,6 +7,7 @@
     ./hardware
     ./fonts.nix
     ./syncthing.nix
+    ./polkit.nix
 
   ];
 }

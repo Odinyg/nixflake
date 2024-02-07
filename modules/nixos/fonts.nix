@@ -1,13 +1,13 @@
 { lib,pkgs,config,... }: {
   options = {
-    zsa = {
+    fonts = {
       enable = lib.mkEnableOption {
-        description = "Enable zsa";
+        description = "Enable fonts";
         default = false;
       }; 
     };
   };
-config = lib.mkIf  config.zsa.enable{
+config = lib.mkIf  config.fonts.enable{
 fonts = {
     packages = with pkgs; [
       noto-fonts
