@@ -70,7 +70,6 @@
 #      polybar
     ];
   };
-  ## Gaming
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {
