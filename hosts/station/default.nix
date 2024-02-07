@@ -40,9 +40,9 @@
   syncthing.enable = true;
   fonts.enable = true;
   polkit.enable = true;
-#  xdg.enable = false;
-#  zellij.enable = true;
-#  direnv.enable = false;
+  xdg.enable = false;
+  zellij.enable = false;
+  direnv.enable = false;
 
 
 

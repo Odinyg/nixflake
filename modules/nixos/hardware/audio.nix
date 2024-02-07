@@ -1,4 +1,4 @@
-{ lib,config,... }: {
+{ lib, config, pkgs ,... }: {
   options = {
     audio = {
       enable = lib.mkEnableOption {
@@ -18,6 +18,9 @@ config = lib.mkIf  config.audio.enable{
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+      pavucontrol
+    ];
 
 
 

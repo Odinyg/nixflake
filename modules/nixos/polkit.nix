@@ -28,11 +28,5 @@ config = lib.mkIf  config.polkit.enable{
      DefaultTimeoutStopSec=10s
    '';
 };
-
-
-
-
-
-
 };
 }
