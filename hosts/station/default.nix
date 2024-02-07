@@ -35,19 +35,18 @@
   randr.enable = true;
   zsa.enable = true;
   game.enable = true;
+  tailscale.enable = true;
 #  xdg.enable = false;
 #  zellij.enable = true;
 #  direnv.enable = false;
-###### Configure X11 and WindowManager ######## 
 
 
 
 services.devmon.enable = true;
 services.gvfs.enable = true; 
 services.udisks2.enable = true;
-##############################################
-  services.printing.enable = true;
   # Enable sound with pipewire.
+
   security.polkit.enable = true;
  systemd = {
   user.services.polkit-gnome-authentication-agent-1 = {
@@ -67,11 +66,6 @@ services.udisks2.enable = true;
      DefaultTimeoutStopSec=10s
    '';
 };
-  services.flatpak.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
   services.tailscale = {
     enable = true;
 
