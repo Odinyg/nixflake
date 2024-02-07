@@ -11,11 +11,11 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
-  networking = {
-    hostName = "Station"; # Define your hostName
-  };
+
+  networking.hostName = "Station"; # Define your hostName
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
+
   utils.enable = true;
   discord.enable = true;
   tmux.enable = true;
@@ -44,12 +44,9 @@
   zellij.enable = false;
   direnv.enable = false;
 
-
-
 services.devmon.enable = true;
 services.gvfs.enable = true; 
 services.udisks2.enable = true;
-  # Enable sound with pipewire.
 
   programs.zsh.enable = true;
   users.users.none= {
@@ -65,23 +62,16 @@ services.udisks2.enable = true;
     ];
   };
 
-
-
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
       "experimental-features = nix-command flakes";
   };
 
-  nixpkgs = {
-    config = { 
+  nixpkgs.config = { 
       allowUnfree = true;
-      permittedInsecurePackages = [
-        "electron-25.9.0"
-      ];
+      permittedInsecurePackages = [ "electron-25.9.0" ];
     };
-    
-  };
   services.openssh.enable = true;
 
   system.stateVersion = "24.05"; # Did you read the comment?
