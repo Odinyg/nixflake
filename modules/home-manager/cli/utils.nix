@@ -33,6 +33,7 @@
       qemu
       st
       stdenv
+      xclip
       plocate
       ripgrep
       killall

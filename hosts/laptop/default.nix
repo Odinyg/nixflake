@@ -25,7 +25,15 @@
   work.enable = true;
   kitty.enable = true;
   bspwm.enable = true;
+  hyprland.enable = false;
   rofi.enable = true;
+  randr.enable = true;
+  zsa.enable = true;
+  tailscale.enable = true;
+  chromium.enable = true;
+  syncthing.enable = true;
+  fonts.enable = true;
+  polkit.enable = true;
 #  firefox.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
