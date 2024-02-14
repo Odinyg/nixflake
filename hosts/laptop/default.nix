@@ -25,7 +25,7 @@
   work.enable = true;
   kitty.enable = true;
   bspwm.enable = true;
-  hyprland.enable = false;
+  hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
   zsa.enable = true;
