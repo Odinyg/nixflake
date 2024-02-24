@@ -8,13 +8,12 @@
       }; 
     };
   };
-  config.home-manager.users.${config.user}= lib.mkIf config.thunar.enable {
+config = lib.mkIf  config.thunar.enable{
 
-    home.packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
     xfce.exo 
     xfce.thunar
     xfce.thunar-archive-plugin
-    xfce.thunar-volman
     xfce.tumbler 
     gvfs
   ];

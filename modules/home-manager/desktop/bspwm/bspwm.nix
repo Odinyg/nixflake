@@ -16,9 +16,9 @@
         enable = true;
         windowManager.bspwm.enable = true;
         displayManager = {
+          defaultSession = "none+bspwm";
           autoLogin.enable = false;
-          autoLogin.user = "none";
-          sddm = { 
+          lightdm = { 
             enable = true; 
           }; 
         };

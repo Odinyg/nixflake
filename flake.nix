@@ -22,6 +22,9 @@
       userInfo = {
       user = "none";
     };
+      userInfoWork = {
+        user = "odin";
+      };
       system = "x86_64-linux";
     nixpkgs-outPath = {
       environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
@@ -77,6 +80,7 @@
 	modules = [
 	./hosts/p53
     ./modules
+    userInfoWork
 	nixos-hardware.nixosModules.lenovo-thinkpad-p53
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager

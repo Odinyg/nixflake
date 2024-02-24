@@ -10,11 +10,19 @@
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
    home.packages = [
+     pkgs.grim
+     pkgs.slurp
       pkgs.waybar
     ];
     xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
     xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
-    wayland.windowManager.hyprland.enable = true;
+    programs.swaylock.enable = true;
+    wayland.windowManager.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      systemd.enable = true;
+
+    };
 
   };
 }

@@ -12,6 +12,8 @@ config = lib.mkIf  config.work.enable{
 
   environment.systemPackages = with pkgs; [
     anydesk
+    dbeaver
+    flameshot
     openvpn
     zoom-us
     remmina

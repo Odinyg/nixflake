@@ -12,7 +12,6 @@
   boot.initrd.kernelModules = [ "nvidia" ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/c3ffcd87-ba8f-4397-a7cb-6a5956a828f3";
       fsType = "ext4";

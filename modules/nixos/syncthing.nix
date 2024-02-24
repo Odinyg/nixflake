@@ -4,7 +4,7 @@
     syncthing = {
       enable = lib.mkEnableOption {
         description = "Enable several syncthing";
-        default = false;
+        default = true;
       }; 
     };
   };
