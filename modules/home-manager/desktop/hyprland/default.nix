@@ -17,12 +17,12 @@
     xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
     xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
     programs.swaylock.enable = true;
-    wayland.windowManager.hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      systemd.enable = true;
-
-    };
+#    wayland.windowManager.hyprland = {
+#      enable = true;
+#      xwayland.enable = true;
+#      systemd.enable = true;
+#
+#    };
 
   };
 }

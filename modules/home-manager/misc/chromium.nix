@@ -26,6 +26,21 @@
     ];
   };
 
+  programs.brave= {
+    enable = true;
+    extensions = [
+      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+      { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # dark reader
+      { id = "nkgllhigpcljnhoakjkgaieabnkmgdkb"; } # dont f with past
+      { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # idka coockies
+      { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
+      { id = "abehfkkfjlplnjadfcjiflnejblfmmpj"; } # Nord
+      { id = "fkhfakakdbjcdipdgnbfngaljiecclaf"; } # unhoocked 
+      { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # pass
+      { id = "ankepacjgoajhjpenegknbefpmfffdic"; } # hide shorts
+      { id = "difoiogjjojoaoomphldepapgpbgkhkb"; } # sider gpt
+    ];
+  };
 
 
 

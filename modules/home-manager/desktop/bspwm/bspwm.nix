@@ -18,7 +18,8 @@
         displayManager = {
           defaultSession = "none+bspwm";
           autoLogin.enable = false;
-          lightdm = { 
+          sddm = { 
+          enableHidpi = true;
             enable = true; 
           }; 
         };

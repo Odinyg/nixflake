@@ -10,10 +10,9 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/mnt/boot/efi";
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.supportedFilesystems = ["ntfs"];
   networking.hostName = "VNPC-21"; # Define your hostname.
- # boot.supportedFilesystems = [ "ntfs" ];
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -33,7 +32,7 @@
   _1password.enable = true;
   work.enable = true;
   kitty.enable = true;
-  bspwm.enable = false;
+  bspwm.enable = true; 
   rofi.enable = true;
   randr.enable = true;
   zsa.enable = true;
@@ -42,7 +41,7 @@
   syncthing.enable = true;
   fonts.enable = true;
   polkit.enable = true;
-  hyprland.enable = true;
+  hyprland.enable = false;
   xdg.enable = false;
   zellij.enable = false;
   direnv.enable = false;
@@ -50,6 +49,7 @@
 
   #### AutoMount ####
 services.gvfs.enable = true; 
+
 
 ##############################################
   services.printing.enable = true;
@@ -74,46 +74,18 @@ services.gvfs.enable = true;
       teamviewer
       remmina
       intune-portal
-      p7zip
       peazip
-      xdg-desktop-portal-hyprland
-      wl-clipboard
       drawio
-      xwayland
       dconf
       filezilla
-      rofi-wayland
       thunderbird
       obsidian
       flameshot
       qemu
-      # WORK
-    #  teams
       betterlockscreen
       ventoy-full
     ];
   };
-
-fonts = {
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      font-awesome
-      source-han-sans
-      source-han-sans-japanese
-      source-han-serif-japanese
-      nerdfonts
-    ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
-	      serif = [ "Noto Serif" "Source Han Serif" ];
-	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
-      };
-    };
-};
 
   environment.systemPackages = with pkgs; [
   autorandr
@@ -135,7 +107,7 @@ fonts = {
   nixpkgs.config.allowUnfree = true;
   services.openssh.enable = true;
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
   hardware.opengl = {
     enable = true;
@@ -147,6 +119,7 @@ fonts = {
     modesetting.enable = true;
 	powerManagement.enable = false;
     open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = true;
     prime.sync.enable = true;
     prime.nvidiaBusId = "PCI:1:0:0";
