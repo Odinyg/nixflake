@@ -27,7 +27,7 @@
   wireless.enable = true;
   _1password.enable = true;
   work.enable = true;
-  virutalbox.enable = true;
+  virtualbox.enable = true;
   kitty.enable = true;
   bspwm.enable = true;
   rofi.enable = true;
@@ -54,6 +54,7 @@
       deluge
       obsidian
       flatpak
+      libreoffice
     ];
   };
 

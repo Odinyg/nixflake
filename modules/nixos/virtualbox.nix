@@ -15,7 +15,6 @@ config = lib.mkIf  config.virtualbox.enable{
       # urg, takes so long to build, but needed for macOS guest
       # enableExtensionPack = true;
     };
-
-    user.extraGroups = [ "vboxusers" ];
+users.extraGroups.vboxusers.members = [ "none" ];
   };
 }
