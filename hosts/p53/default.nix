@@ -19,6 +19,7 @@
   services.trezord.enable = true;
 
   utils.enable = true;
+  virtualbox.enable = true;
   discord.enable = true;
   tmux.enable = true;
   crypt.enable = true;
