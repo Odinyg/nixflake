@@ -24,7 +24,7 @@
   _1password.enable = true;
   work.enable = true;
   kitty.enable = true;
-  bspwm.enable = true;
+  bspwm.enable = false;
   hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
@@ -39,6 +39,10 @@
   #zellij.enable = true;
 #  direnv.enable = false;
 
+services.xserver.displayManager.gdm = {
+  enable = true;
+  wayland = true ;
+};
   programs.zsh.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -60,7 +64,7 @@
       google-chrome
       gcc
       vlc
-      xdg-desktop-portal-gtk
+      xdg-desktop-portal-hyprland
       tailscale
       deluge
       obsidian
