@@ -11,7 +11,7 @@
 
   config.home-manager.users.${config.user} = lib.mkIf config.rofi.enable {
     services.polybar.enable = true;
-    services.polybar.script = "polybar bar &"; 
+    services.polybar.script = "polybar example"; 
     services.sxhkd.enable = true;
 
     xdg.configFile."sxhkd/sxhkdrc".source = ./dotfiles/sxhkdrc;

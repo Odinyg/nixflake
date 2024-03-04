@@ -21,12 +21,12 @@
     xdg.configFile."hypr/hyprshade.toml".source = ./shader/hyprshade.toml;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./shader/blue-light-filter.glsl;
     programs.swaylock.enable = true;
-#    wayland.windowManager.hyprland = {
-#      enable = true;
-#      xwayland.enable = true;
-#      systemd.enable = true;
-#
-#    };
+    wayland.windowManager.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      systemd.enable = true;
+
+    };
 
   };
 }

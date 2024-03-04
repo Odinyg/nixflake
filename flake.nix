@@ -14,7 +14,6 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
     };
   outputs = { self, firefox-addons, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
 

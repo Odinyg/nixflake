@@ -24,7 +24,7 @@
   _1password.enable = true;
   work.enable = true;
   kitty.enable = true;
-  bspwm.enable = false;
+  bspwm.enable = true;
   hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
