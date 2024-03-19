@@ -18,7 +18,7 @@
      ./harpoon.nix
      ./telescope.nix
      ./nvim-tree.nix
-     ./cmp.nix
+#     ./cmp.nix
      ./maps.nix
   ];
 

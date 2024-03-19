@@ -125,9 +125,8 @@ XF86MonBrightnessDown
   xbacklight -dec 5
 
 # Screenshot
-Print
-  scrot -s ~/Pictures/screenshot/Screenshot-$(date +%F_%T).png
-
+super + shift + S
+  flameshot gui
 
 
 

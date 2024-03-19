@@ -19,6 +19,7 @@
     xdg.configFile."rofi/nord.rasi".source = ./dotfiles/rofi-nord.rasi;
     xdg.configFile."rofi/rounded-common.rasi".source = ./dotfiles/rounded-common.rasi;
     xdg.configFile."bspwm/bspwmrc".source = ./dotfiles/bspwmrc;
+    xdg.configFile."bspwm/monitor.sh".source = ./dotfiles/monitor.sh;
     programs.rofi = {
       enable = true; 
       theme = "nord";

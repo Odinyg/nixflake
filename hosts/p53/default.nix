@@ -11,7 +11,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.supportedFilesystems = ["ntfs"];
   networking.hostName = "VNPC-21"; # Define your hostname.
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
@@ -75,7 +74,7 @@ services.gvfs.enable = true;
       teamviewer
       remmina
       intune-portal
-      peazip
+ #     peazip
       drawio
       dconf
       filezilla
@@ -119,8 +118,7 @@ services.gvfs.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
 	powerManagement.enable = false;
-    open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = true;
     nvidiaSettings = true;
     prime.sync.enable = true;
     prime.nvidiaBusId = "PCI:1:0:0";

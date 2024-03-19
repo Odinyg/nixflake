@@ -14,6 +14,8 @@
       openvpn
       nmap
       vlc
+      todoist
+      planify
       ripgrep
       dos2unix # Convert Windows text files
       inetutils # Includes telnet
