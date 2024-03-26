@@ -4,7 +4,7 @@ super + Return
   kitty
 
 super + w 
-  firefox
+  brave
 
 super + n 
   thunar  

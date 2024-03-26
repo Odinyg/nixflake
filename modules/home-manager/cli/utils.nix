@@ -12,6 +12,8 @@
     home.packages = with pkgs; [
       autorandr
       openvpn
+      vagrant
+      magic-wormhole
       nmap
       vlc
       todoist
@@ -24,8 +26,6 @@
       mpd # TUI slideshows
       mpv # Video player
       gnupg # Encryption
-      awscli2
-      awslogs
       ansible
       expect
       consul

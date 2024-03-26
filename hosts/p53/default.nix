@@ -18,7 +18,7 @@
   services.trezord.enable = true;
 
   utils.enable = true;
-  virtualbox.enable = true;
+  virtualbox.enable = false;
   discord.enable = true;
   tmux.enable = true;
   crypt.enable = true;
@@ -45,7 +45,6 @@
   xdg.enable = false;
   zellij.enable = false;
   direnv.enable = false;
-  services.intune.enable = true;
 
   #### AutoMount ####
 services.gvfs.enable = true; 
@@ -86,6 +85,7 @@ services.gvfs.enable = true;
       ventoy-full
     ];
   };
+   services.teamviewer.enable = true;
 
   environment.systemPackages = with pkgs; [
   autorandr
