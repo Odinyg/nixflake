@@ -54,6 +54,8 @@
       deluge
       obsidian
       flatpak
+      ansible
+      ansible-lint
       libreoffice
     ];
   };
