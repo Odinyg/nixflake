@@ -45,6 +45,14 @@
   xdg.enable = false;
   zellij.enable = false;
   direnv.enable = false;
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.qemu = {
+    swtpm.enable = true;
+    ovmf.enable = true;
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
+
 
   #### AutoMount ####
 services.gvfs.enable = true; 
@@ -69,7 +77,12 @@ services.gvfs.enable = true;
       firefox
       sublime
       libreoffice
+      libsForQt5.okular
+      virt-manager
+      OVMF
+      swtpm
       syncthing
+      
       teamviewer
       remmina
       intune-portal

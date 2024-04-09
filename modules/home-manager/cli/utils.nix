@@ -10,6 +10,7 @@
   };
   config.home-manager.users.${config.user}= lib.mkIf config.utils.enable {
     home.packages = with pkgs; [
+      gnome.gnome-calculator
       autorandr
       openvpn
       vagrant
