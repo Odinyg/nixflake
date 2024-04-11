@@ -16,6 +16,8 @@ super + n
 super + d
     rofi -i -show drun -modi drun -show-icons
 
+super + f
+    rofi -i -show drun -modi drun -show-icons
 # show open window
 super + ctrl + d
 	rofi -modi drun -show window -line-padding 4 \

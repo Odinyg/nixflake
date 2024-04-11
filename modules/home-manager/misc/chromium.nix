@@ -27,6 +27,8 @@
       { id = "hgenngnjgfkdggambccohomebieocekm"; } # open list
       { id = "nbdfpcokndmapcollfpjdpjlabnibjdi"; } # saka
       { id = "becfinhbfclcgokjlobojlnldbfillpf"; } # Chat
+      { id = "ijihchgjhagfhdkhagnmlebpepjlecml"; } # Chat
+
     ];
   };
 

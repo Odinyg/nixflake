@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ./tailscale.nix
-    ./virutalbox.nix
+    ./virt-man.nix
     ./work.nix
     ./password.nix
     ./crypt.nix
