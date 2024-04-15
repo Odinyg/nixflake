@@ -43,6 +43,8 @@
   zellij.enable = false;
   direnv.enable = false;
 
+  services.syncthing.enable = true;
+
   programs.zsh.enable = true;
   users.users.none= {
     shell = pkgs.zsh;
