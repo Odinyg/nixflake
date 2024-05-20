@@ -17,6 +17,11 @@
   i18n.defaultLocale = "en_US.UTF-8";
   services.trezord.enable = true;
 
+  virtualisation.docker.enable = true;
+
+
+
+
   utils.enable = true;
   virt-man.enable = true;
   discord.enable = true;
@@ -64,7 +69,7 @@ services.gvfs.enable = true;
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "odin";
-    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
       firefox
       sublime

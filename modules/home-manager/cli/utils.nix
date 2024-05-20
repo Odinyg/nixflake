@@ -12,10 +12,15 @@
     home.packages = with pkgs; [
       gnome.gnome-calculator
       autorandr
+      docker
+      docker-compose
       openvpn
       vagrant
+      nomachine-client
       magic-wormhole
+      zip   
       nmap
+      go
       vlc
       todoist
       planify

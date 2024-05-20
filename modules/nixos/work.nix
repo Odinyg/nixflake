@@ -14,6 +14,7 @@ config = lib.mkIf  config.work.enable{
     anydesk
     dbeaver
     flameshot
+    kuro
     openvpn
     zoom-us
     remmina
