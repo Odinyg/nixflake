@@ -15,7 +15,6 @@
       waybar
       hyprshade
     ];
-    xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
     xdg.configFile."wallpaper.png".source = ./wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
     xdg.configFile."hypr/hyprshade.toml".source = ./shader/hyprshade.toml;

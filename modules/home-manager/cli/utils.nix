@@ -11,6 +11,8 @@
   config.home-manager.users.${config.user}= lib.mkIf config.utils.enable {
     home.packages = with pkgs; [
       gnome.gnome-calculator
+      evolution-ews
+      evolution
       autorandr
       docker
       docker-compose

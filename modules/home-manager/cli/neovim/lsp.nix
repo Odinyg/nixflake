@@ -18,4 +18,5 @@
 	yamlls.enable = true;
         };
       };
+      programs.nixvim.plugins.packer.enable = true;
 }

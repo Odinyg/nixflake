@@ -25,11 +25,11 @@
   git.enable = true;
   audio.enable = true;
   wireless.enable = true;
-  _1password.enable = true;
+  _1password.enable = false;
   work.enable = true;
-  virtualbox.enable = true;
   kitty.enable = true;
   bspwm.enable = true;
+  hyprland.enable = false;
   rofi.enable = true;
   randr.enable = true;
   zsa.enable = true;
@@ -42,8 +42,14 @@
   xdg.enable = false;
   zellij.enable = false;
   direnv.enable = false;
-
   services.syncthing.enable = true;
+  ############## HYPRLAND SETTING################
+  programs.hyprland = { # or wayland.windowManager.hyprland
+  enable = true;
+  xwayland.enable = true;
+};
+
+  ########################################
 
   programs.zsh.enable = true;
   users.users.none= {
@@ -81,5 +87,21 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-  services.xserver.videoDrivers = ["nvidia"];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "#nvidia-x11"
+    ];
+
+  hardware.nvidia = {
+    #modesetting.enable = true;
+    open = false;
+
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
+  };
+
+
+  services.xserver ={ 
+    videoDrivers = ["nvidia"];
+  };
 }

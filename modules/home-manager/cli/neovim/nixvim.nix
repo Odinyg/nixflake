@@ -33,12 +33,6 @@
         enable = true;
         whitespace.removeBlanklineTrail = true;
   };
-      toggleterm = {
-        enable = true;
-        openMapping = "<c-t>";
-	direction = "float";
-	floatOpts = { border = "single"; };
-      };
       telescope = {
       enable = true;
       };

@@ -28,6 +28,7 @@
       { id = "nbdfpcokndmapcollfpjdpjlabnibjdi"; } # saka
       { id = "becfinhbfclcgokjlobojlnldbfillpf"; } # Chat
       { id = "ijihchgjhagfhdkhagnmlebpepjlecml"; } # Chat
+      { id = "bfhkfdnddlhfippjbflipboognpdpoeh"; } # Chat
 
     ];
   };
