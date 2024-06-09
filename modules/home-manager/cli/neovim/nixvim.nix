@@ -21,6 +21,7 @@
 
     plugins = {
       noice.cmdline.enabled = true;
+      autoclose.enable = true;
       comment-nvim.enable = true;
       tmux-navigator.enable = true;
       nix.enable = true;

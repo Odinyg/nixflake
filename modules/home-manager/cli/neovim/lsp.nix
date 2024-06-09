@@ -2,7 +2,6 @@
       programs.nixvim.plugins.lsp = {
         enable = true;
 	servers = {
-	pylsp.enable = true;
 	gopls.enable = true;
 	bashls.enable = true;
 	cmake.enable = true;
@@ -16,6 +15,8 @@
 	eslint.enable = true;
 	html.enable = true;
 	yamlls.enable = true;
+	pyright.enable = true;
+    
         };
       };
       programs.nixvim.plugins.packer.enable = true;

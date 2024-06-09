@@ -13,6 +13,7 @@
       gnome.gnome-calculator
       evolution-ews
       evolution
+      xarchiver
       autorandr
       docker
       docker-compose
@@ -40,6 +41,7 @@
       noti # Create notifications programmatically
       xclip
       unzip
+      unrar
       qemu
       st
       stdenv

@@ -12,7 +12,7 @@ config = lib.mkIf  config.work.enable{
 
   environment.systemPackages = with pkgs; [
     anydesk
-    dbeaver
+    dbeaver-bin
     flameshot
     kuro
     openvpn
