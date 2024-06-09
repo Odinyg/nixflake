@@ -17,11 +17,11 @@
         windowManager.bspwm.enable = true;
         displayManager = {
           defaultSession = "none+bspwm";
-          autoLogin.user = "odin";
+          autoLogin.user = "$config.user";
           autoLogin.enable = true;
-          lightdm = { 
+          gdm = { 
+
             enable = true; 
-            greeter.enable = true;
           }; 
         };
         ## Perfect with zsa macros ##

@@ -8,13 +8,13 @@
         action = "<cmd>w<CR>";
       #  silent = true;
         }
-        {
-        mode = "n";
-        key = "<leader>t";
+        #{
+#        mode = "n";
+#        key = "<leader>t";
         #desc = "toggleterm";
-        action = "<cmd>ToggleTerm direction=float<cr>";
+#        action = "<cmd>ToggleTerm direction=float<cr>";
       #  silent = true;
-        }
+       # }
         {
         mode = "n";
         key = "<leader>q";
