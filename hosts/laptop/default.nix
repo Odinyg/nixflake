@@ -34,12 +34,14 @@
   syncthing.enable = true;
   fonts.enable = true;
   polkit.enable = true;
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper.png;
 #  firefox.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
   # Enable Display Manager
-  qt.platformTheme = "gtk2";
   services.greetd = {
     enable = true;
     settings = {
@@ -54,6 +56,7 @@
   environment.systemPackages = with pkgs; [
     greetd.tuigreet
   ];
+
 programs.hyprland.enable = true;
 programs.light.enable = true;
   programs.zsh.enable = true;

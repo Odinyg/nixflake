@@ -30,48 +30,6 @@
     xdg.configFile."hypr/hyprland.conf".source = ./config/hyprland.conf;
     programs.swaylock.enable = true;
 
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-      };
-    };
-  };
-
-    gtk = {
-      enable = true;
-      theme = {
-        package = pkgs.nightfox-gtk-theme;
-        name = "Nightfox-Dusk-B";
-      };
-      iconTheme = {
-        package = pkgs.zafiro-icons;
-        name = "Zafiro-icons-Dark";
-      };
-      cursorTheme = {
-        package = pkgs.graphite-cursors;
-        name = "graphite-dark";
-        size = 17;
-
-      };
-
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-
-    gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-    };
-    home.sessionVariables.GTK_THEME = "Nightfox-Dusk-B";
-    qt.enable = true;
-    qt.platformTheme.name = "gtk";
-    qt.style.name = "adwaita-dark";
 
 
 

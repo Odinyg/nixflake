@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
-    nix-colors.url = "github:misterio77/nix-colors";
+    stylix.url = "github:danth/stylix";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
@@ -54,6 +54,7 @@
 
 	modules = [
 	./hosts/laptop
+    stylix.nixosModules.stylix
     ./modules
     userInfo
 	nixos-hardware.nixosModules.dell-xps-15-9560
