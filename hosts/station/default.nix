@@ -28,8 +28,8 @@
   _1password.enable = false;
   work.enable = true;
   kitty.enable = true;
-  bspwm.enable = true;
-  hyprland.enable = false;
+  bspwm.enable = false;
+  hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
   zsa.enable = true;
@@ -42,13 +42,15 @@
   xdg.enable = false;
   zellij.enable = false;
   direnv.enable = false;
+  #gtk.enable = false;
   services.syncthing.enable = true;
   ############## HYPRLAND SETTING################
-  programs.hyprland = { # or wayland.windowManager.hyprland
-  enable = true;
-  xwayland.enable = true;
-};
 
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+#  stylix.base16scheme = "${pkgs.base16-Scheme}/share/themes/porple.yaml";
+  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper.png;
+  stylix.autoEnable = true;
   ########################################
 
   programs.zsh.enable = true;
@@ -62,12 +64,20 @@
       deluge
       obsidian
       flatpak
+      polkit
       ansible
       ansible-lint
       libreoffice
+      xdg-desktop-portal-hyprland
     ];
   };
-
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+    ];
+  };
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
@@ -80,24 +90,24 @@
     };
   services.openssh.enable = true;
 
-  system.stateVersion = "24.05"; 
-
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+  system.stateVersion = "24.11"; 
+  environment.variables = {
+    GBM_BACKEND = "nvidia-drm";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "#nvidia-x11"
-    ];
-
+  boot.kernelParams = lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
+    "nvidia-drm.modeset=1"
+    "nvidia_drm.fbdev=1"
+  ];
   hardware.nvidia = {
     #modesetting.enable = true;
     open = false;
+    modesetting.enable = true;
 
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
 

@@ -4,14 +4,14 @@
       programs.nixvim.plugins.cmp= {
 
         enable = true;
-        extraOptions.sources =
-        [
-          { name = "nvim_lsp"; }
-          { name = "path"; }
-          { name = "buffer"; }
-          { name = "luasnip"; }
-          { name = "cmdline"; }
-        ];
+     #   extraOptions.sources =
+     #   [
+     #     { name = "nvim_lsp"; }
+     #     { name = "path"; }
+     #     { name = "buffer"; }
+     #     { name = "luasnip"; }
+     #     { name = "cmdline"; }
+     #   ];
         settings = {
           mapping = {
             "<C-d>" = "cmp.mapping.scroll_docs(-4)";

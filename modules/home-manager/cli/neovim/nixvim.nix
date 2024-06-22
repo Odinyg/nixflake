@@ -6,7 +6,7 @@
     enable = true;
     colorschemes.nord.enable = true;
     clipboard.register = "unnamedplus";
-    options = { 
+    opts = { 
       number = true;
       relativenumber = true;
       shiftwidth = 2;
@@ -22,7 +22,7 @@
     plugins = {
       noice.cmdline.enabled = true;
       autoclose.enable = true;
-      comment-nvim.enable = true;
+      comment.enable = true;
       tmux-navigator.enable = true;
       nix.enable = true;
       mini.enable = true;
@@ -32,7 +32,7 @@
       };
       indent-blankline = {
         enable = true;
-        whitespace.removeBlanklineTrail = true;
+        settings.whitespace.remove_blankline_trail = true;
   };
       telescope = {
       enable = true;

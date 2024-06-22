@@ -6,7 +6,7 @@
 	bashls.enable = true;
 	cmake.enable = true;
 	lua-ls.enable = true;
-	nil_ls = {
+	nil-ls = {
 	  enable = true;
 	  autostart = true;
 	};

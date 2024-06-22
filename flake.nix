@@ -6,6 +6,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.url = "github:danth/stylix";
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     };
-  outputs = { self, firefox-addons, nixpkgs,home-manager,nixvim,nixos-hardware,nix-colors, ... }@inputs:
+  outputs = { self, firefox-addons, nixpkgs,home-manager,nixvim,nixos-hardware,stylix, ... }@inputs:
 
     let
       userInfo = {
@@ -30,7 +31,6 @@
     };
     homeManagerModules = [
       nixvim.homeManagerModules.nixvim
-      nix-colors.homeManagerModules.default
     ];
     in
     {
@@ -100,6 +100,7 @@
 	modules = [
 	./hosts/station
     ./modules
+    inputs.stylix.nixosModules.stylix
     userInfo
 	nixpkgs-outPath
         home-manager.nixosModules.home-manager

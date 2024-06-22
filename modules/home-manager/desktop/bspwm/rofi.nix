@@ -22,7 +22,7 @@
     xdg.configFile."bspwm/monitor.sh".source = ./dotfiles/monitor.sh;
     programs.rofi = {
       enable = true; 
-      theme = "nord";
+#      theme = "nord";
     };
   };
 }

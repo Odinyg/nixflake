@@ -3,7 +3,7 @@
     enable = true; 
     history.path = "${config.xdg.stateHome}/zsh_history";
     dotDir = ".config/zsh";
-    enableAutosuggestions = true;
+    autosuggestion.enable= true;
     syntaxHighlighting.enable = true;
     dirHashes = {
     dl = "$HOME/Downloads";
