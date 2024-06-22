@@ -17,16 +17,16 @@
   neovim.enable = true;
   zsh.enable = true;
   thunar.enable = true;
-  gammastep.enable = true;
+  gammastep.enable = false;
   git.enable = true;
   audio.enable = true;
   wireless.enable = true;
-  _1password.enable = true;
+  _1password.enable = false;
   work.enable = true;
   kitty.enable = true;
-  bspwm.enable = true;
+#  bspwm.enable = true;
   hyprland.enable = true;
-  rofi.enable = true;
+#  rofi.enable = true;
   randr.enable = true;
   zsa.enable = true;
   tailscale.enable = true;
@@ -38,11 +38,24 @@
 #  xdg.enable = false;
   #zellij.enable = true;
 #  direnv.enable = false;
+  # Enable Display Manager
+  qt.platformTheme = "gtk2";
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
+        user = "greeter";
+      };
+    };
+  };
 
-services.xserver.displayManager.gdm = {
-  enable = true;
-  wayland = true ;
-};
+
+  environment.systemPackages = with pkgs; [
+    greetd.tuigreet
+  ];
+programs.hyprland.enable = true;
+programs.light.enable = true;
   programs.zsh.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -65,6 +78,11 @@ services.xserver.displayManager.gdm = {
       gcc
       vlc
       xdg-desktop-portal-hyprland
+      gtk3
+      gtk4
+      nwg-look
+      themix-gui  
+      gnome.nautilus 
       tailscale
       deluge
       obsidian
@@ -76,6 +94,7 @@ services.xserver.displayManager.gdm = {
       killall
       pavucontrol
       polkit_gnome
+      libreoffice
 #      sxhkd
 #      bspwm
  #     rofi

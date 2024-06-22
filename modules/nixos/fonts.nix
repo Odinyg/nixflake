@@ -19,14 +19,14 @@ fonts = {
       source-han-serif-japanese
       nerdfonts
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
-	      serif = [ "Noto Serif" "Source Han Serif" ];
-	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
-      };
-    };
+#    fontconfig = {
+#      enable = true;
+#      defaultFonts = {
+#	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
+#	      serif = [ "Noto Serif" "Source Han Serif" ];
+#	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
+#      };
+#    };
 };
 };
 }

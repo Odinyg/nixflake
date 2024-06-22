@@ -19,7 +19,7 @@
           defaultSession = "none+bspwm";
           autoLogin.user = "$config.user";
           autoLogin.enable = true;
-          gdm = { 
+          sddm = { 
 
             enable = true; 
           }; 
@@ -34,6 +34,7 @@
   environment.systemPackages = with pkgs; [
       polkit_gnome
       betterlockscreen
+      xorg.xbacklight
     ];
     
   };
