@@ -5,13 +5,14 @@
     dotDir = ".config/zsh";
     autosuggestion.enable= true;
     syntaxHighlighting.enable = true;
+
+    
     dirHashes = {
     dl = "$HOME/Downloads";
     docs = "$HOME/Documents";
     doc = "$HOME/Documents";
     };
     envExtra = ''
-
     '';
     oh-my-zsh = {
       enable = true;
@@ -24,6 +25,7 @@
           "docker"
           "1password"
           "ripgrep"
+          "direnv"
       ];
     };
   };

@@ -21,6 +21,27 @@
         key = "<leader>mp";
         action = "<cmd>lua require('harpoon.ui').nav_prev()<CR>";
         }
+        {
+        mode = "n";
+        key = "<leader>mh";
+        action = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>";
+
+        }
+        {
+        mode = "n";
+        key = "<leader>mj";
+        action = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>";
+        }
+        {
+        mode = "n";
+        key = "<leader>mk";
+        action = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>";
+        }
+        {
+        mode = "n";
+        key = "<leader>ml";
+        action = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>";
+        }
       ];
     plugins = {
       harpoon.enable = true; 

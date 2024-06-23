@@ -18,7 +18,7 @@
       { id = "nkgllhigpcljnhoakjkgaieabnkmgdkb"; } # dont f with past
       { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # idka coockies
      # { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
-      { id = "abehfkkfjlplnjadfcjiflnejblfmmpj"; } # Nord
+    #  { id = "abehfkkfjlplnjadfcjiflnejblfmmpj"; } # Nord
       { id = "fkhfakakdbjcdipdgnbfngaljiecclaf"; } # unhoocked 
       { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # pass
       { id = "ankepacjgoajhjpenegknbefpmfffdic"; } # hide shorts
@@ -41,10 +41,17 @@
       { id = "nkgllhigpcljnhoakjkgaieabnkmgdkb"; } # dont f with past
       { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # idka coockies
      # { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # vimium
-      { id = "abehfkkfjlplnjadfcjiflnejblfmmpj"; } # Nord
+    #  { id = "abehfkkfjlplnjadfcjiflnejblfmmpj"; } # Nord
       { id = "fkhfakakdbjcdipdgnbfngaljiecclaf"; } # unhoocked 
       { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # pass
       { id = "ankepacjgoajhjpenegknbefpmfffdic"; } # hide shorts
+      { id = "ijaabbaphikljkkcbgpbaljfjpflpeoo"; } # Favicon changer
+      { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
+      { id = "hgenngnjgfkdggambccohomebieocekm"; } # open list
+      { id = "nbdfpcokndmapcollfpjdpjlabnibjdi"; } # saka
+      { id = "becfinhbfclcgokjlobojlnldbfillpf"; } # Chat
+      { id = "ijihchgjhagfhdkhagnmlebpepjlecml"; } # Chat
+      { id = "bfhkfdnddlhfippjbflipboognpdpoeh"; } # Chat
     ];
   };
 

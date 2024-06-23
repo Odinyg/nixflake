@@ -49,9 +49,9 @@
 
 
 #  firefox.enable = true;
-#  xdg.enable = false;
+   xdg.enable = true;
   #zellij.enable = true;
-#  direnv.enable = false;
+  direnv.enable = true;
   # Enable Display Manager
   services.greetd = {
     enable = true;

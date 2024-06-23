@@ -11,10 +11,8 @@
   config.home-manager.users.${config.user}= lib.mkIf config.utils.enable {
     home.packages = with pkgs; [
       gnome.gnome-calculator
-      evolution-ews
       feh
       python3
-      evolution
       xarchiver
       autorandr
       docker
@@ -27,7 +25,6 @@
       nmap
       go
       vlc
-      todoist
       planify
       ripgrep
       dos2unix # Convert Windows text files
@@ -41,7 +38,6 @@
       expect
       consul
       noti # Create notifications programmatically
-      xclip
       unzip
       unrar
       qemu
