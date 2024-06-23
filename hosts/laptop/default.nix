@@ -24,6 +24,7 @@
   wireless.enable = true;
   zsa.enable = true;
 
+
   ##### CLI #####
   neovim.enable = true;
   zsh.enable = true;
