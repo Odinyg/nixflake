@@ -37,7 +37,7 @@
   styling.enable = true;
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper.png;
+  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper/wallpaper.png;
   stylix.polarity = "dark";
   stylix.opacity.terminal = 0.92;
   stylix.cursor.package = pkgs.bibata-cursors;

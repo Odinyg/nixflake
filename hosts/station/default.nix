@@ -49,7 +49,7 @@
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
 #  stylix.base16scheme = "${pkgs.base16-Scheme}/share/themes/porple.yaml";
-  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper.png;
+  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper/wallpaper.png;
   stylix.autoEnable = true;
   ########################################
 

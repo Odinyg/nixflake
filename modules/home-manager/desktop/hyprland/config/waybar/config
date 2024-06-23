@@ -12,9 +12,9 @@
         "modules-right": [
             "pulseaudio",
         "network",
-        "temperature",
         "battery",
         "clock",
+        "tray",
         ],
         "hyprland/window": {
             "format": "{}",
@@ -33,12 +33,16 @@
             "sort-by-number": true,
             "persistent-workspaces": {
                 "*": 4, // 5 workspaces by default on every monitor
-                "HDMI-A-1": 3 // but only three on HDMI-A-1
             },
         },
         "clock": {
+            "format": "{:%d-%m 󱨴 %V  %H:%M}",
             "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-            "format-alt": "{:%Y-%m-%d}"
+            "format-alt": "{:%d-%m-%Y}"
+        },
+        "tray": {
+               "icon-size": 16,
+               "spacing": 5 
         },
         "cpu": {
             "format": "  {usage}%",

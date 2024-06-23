@@ -13,6 +13,7 @@
       gnome.gnome-calculator
       evolution-ews
       feh
+      python3
       evolution
       xarchiver
       autorandr

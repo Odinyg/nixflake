@@ -7,7 +7,8 @@
     enable = true;
     colorschemes.nord.enable = true;
     clipboard.register = "unnamedplus";
-    opts = { 
+    clipboard.providers.wl-copy.enable = true;
+   opts = { 
       number = true;
       relativenumber = true;
       shiftwidth = 2;

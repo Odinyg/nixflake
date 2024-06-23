@@ -12,9 +12,14 @@
     home.packages = with pkgs; [
       grim
       eww
-      wofi-emoji
       wofi
-      tofi
+      #mako
+      lxqt.lxqt-policykit
+      copyq
+      swaynotificationcenter
+      ulauncher
+      wmctrl
+      wl-clipboard
       slurp
       waybar
       hyprshade
@@ -22,10 +27,9 @@
       gtk-engine-murrine
       sassc
       gtk3
-      walker
       gnome.gnome-themes-extra
     ];
-    xdg.configFile."wallpaper.png".source = ./wallpaper.png;
+    xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
