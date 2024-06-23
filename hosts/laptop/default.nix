@@ -10,30 +10,49 @@
       ./hardware-configuration.nix
 #      inputs.home-manager.nixosModules.default
     ];
-  utils.enable = true;
-  discord.enable = true;
-  tmux.enable = true;
-  crypt.enable = true;
-  neovim.enable = true;
-  zsh.enable = true;
-  thunar.enable = true;
-  gammastep.enable = false;
-  git.enable = true;
+
+  ##### Desktop #####
+  bspwm.enable = false;
+  hyprland.enable = true;
+  rofi.enable = false;
+  randr.enable = true;
+  fonts.enable = true;
+  
+  ##### Hardware #####
   audio.enable = true;
   wireless.enable = true;
-  _1password.enable = false;
-  work.enable = true;
-  kitty.enable = true;
-#  bspwm.enable = true;
-  hyprland.enable = true;
-#  rofi.enable = true;
-  randr.enable = true;
   zsa.enable = true;
-  tailscale.enable = true;
+
+  ##### CLI #####
+  neovim.enable = true;
+  zsh.enable = true;
+  tmux.enable = true;
+  kitty.enable = true;
+
+  ##### Random Desktop Apps #####
+  discord.enable = true;
+  thunar.enable = true;
   chromium.enable = true;
+  
+  
+  #####  Work  ######
+  _1password.enable = false;
+  work.enable = true;        #TODO Split into smaller and add/remove/move apps
+  
+  #####  Code  #####
+  git.enable = true;
+  direnv.enable = true;
+
+  ##### Everything Else #####
+  crypt.enable = true;
+  gammastep.enable = false;
+  tailscale.enable = true;
   syncthing.enable = true;
-  fonts.enable = true;
   polkit.enable = true;
+  utils.enable = true;
+  xdg.enable = true;
+
+  ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
@@ -48,10 +67,6 @@
   home-manager.backupFileExtension = "backup";
 
 
-#  firefox.enable = true;
-   xdg.enable = true;
-  #zellij.enable = true;
-  direnv.enable = true;
   # Enable Display Manager
   services.greetd = {
     enable = true;
@@ -62,7 +77,6 @@
       };
     };
   };
-
 
   environment.systemPackages = with pkgs; [
     greetd.tuigreet
@@ -109,10 +123,6 @@ programs.light.enable = true;
       pavucontrol
       polkit_gnome
       libreoffice
-#      sxhkd
-#      bspwm
- #     rofi
-#      polybar
     ];
   };
   security.polkit.enable = true;
@@ -135,26 +145,26 @@ programs.light.enable = true;
    '';
 }; 
 
-fonts = {
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      font-awesome
-      source-han-sans
-      source-han-sans-japanese
-      source-han-serif-japanese
-      (nerdfonts.override { fonts = [ "Meslo" ]; })
-    ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
-	      serif = [ "Noto Serif" "Source Han Serif" ];
-	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
-      };
-    };
-};
+#fonts = {
+#    packages = with pkgs; [
+#      noto-fonts
+#      noto-fonts-cjk
+#      noto-fonts-emoji
+#      font-awesome
+#      source-han-sans
+#      source-han-sans-japanese
+#      source-han-serif-japanese
+#      (nerdfonts.override { fonts = [ "Meslo" ]; })
+#    ];
+#    fontconfig = {
+#      enable = true;
+#      defaultFonts = {
+#	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
+#	      serif = [ "Noto Serif" "Source Han Serif" ];
+#	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
+#      };
+#    };
+#};
 
   nix.settings.experimental-features = [
     "nix-command"

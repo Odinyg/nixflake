@@ -20,7 +20,7 @@
       custom = "$HOME/.config/zsh/oh-my-zsh";
       plugins = [
           "fzf"		
-	  "sudo"
+	      "sudo"
           "git"
           "docker"
           "1password"

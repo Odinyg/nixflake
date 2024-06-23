@@ -10,7 +10,7 @@
     clipboard.providers.wl-copy.enable = true;
    opts = { 
       number = true;
-      relativenumber = true;
+    relativenumber = true;
       shiftwidth = 2;
       smartcase = true;
       smartindent = true;
@@ -23,6 +23,23 @@
 
     plugins = {
       noice.cmdline.enabled = true;
+      lint = {
+        enable = true;
+        lintersByFt =   {
+    text = ["vale"];
+    json = ["jsonlint"];
+    markdown = ["vale"];
+    rst = ["vale"];
+    ruby = ["ruby"];
+    janet = ["janet"];
+    inko = ["inko"];
+    clojure = ["clj-kondo"];
+    dockerfile = ["hadolint"];
+    terraform = ["tflint"];
+    nix = ["nix"];
+  };
+  #
+      };
       autoclose.enable = true;
       comment.enable = true;
       tmux-navigator.enable = true;
