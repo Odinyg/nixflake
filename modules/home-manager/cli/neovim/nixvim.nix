@@ -2,6 +2,7 @@
 {
    
   programs.nixvim = {
+    colorschemes.nord.settings.disable_background = true;
     globals.mapleader = " ";
     enable = true;
     colorschemes.nord.enable = true;

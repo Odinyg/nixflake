@@ -34,9 +34,20 @@
   syncthing.enable = true;
   fonts.enable = true;
   polkit.enable = true;
+  styling.enable = true;
   stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
   stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper.png;
+  stylix.polarity = "dark";
+  stylix.opacity.terminal = 0.92;
+  stylix.cursor.package = pkgs.bibata-cursors;
+  stylix.cursor.name = "Bibata-Modern-Ice";
+  stylix.cursor.size = 18;
+
+
+  home-manager.backupFileExtension = "backup";
+
+
 #  firefox.enable = true;
 #  xdg.enable = false;
   #zellij.enable = true;

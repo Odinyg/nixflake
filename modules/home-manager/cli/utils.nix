@@ -12,6 +12,7 @@
     home.packages = with pkgs; [
       gnome.gnome-calculator
       evolution-ews
+      feh
       evolution
       xarchiver
       autorandr
