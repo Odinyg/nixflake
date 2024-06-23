@@ -9,9 +9,12 @@
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+    
+    services.swayidle.enable = true;
     home.packages = with pkgs; [
       grim
       eww
+      swayidle
       wofi
       #mako
       lxqt.lxqt-policykit
