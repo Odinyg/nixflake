@@ -17,6 +17,7 @@
   rofi.enable = false;
   randr.enable = true;
   fonts.enable = true;
+  gammastep.enable = false;
   
   ##### Hardware #####
   audio.enable = true;
@@ -33,7 +34,7 @@
   discord.enable = true;
   thunar.enable = true;
   chromium.enable = true;
-  
+
   
   #####  Work  ######
   _1password.enable = false;
@@ -45,7 +46,6 @@
 
   ##### Everything Else #####
   crypt.enable = true;
-  gammastep.enable = false;
   tailscale.enable = true;
   syncthing.enable = true;
   polkit.enable = true;
