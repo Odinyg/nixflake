@@ -1,5 +1,5 @@
 
-{ config, pkgs, lib, ... }: {
+{ config, lib, ... }: {
   options = {
     game = {
       enable = lib.mkEnableOption {

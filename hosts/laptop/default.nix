@@ -30,6 +30,7 @@
   zsh.enable = true;
   tmux.enable = true;
   kitty.enable = true;
+  termUtils.enable = true;
 
   ##### Random Desktop Apps #####
   discord.enable = true;

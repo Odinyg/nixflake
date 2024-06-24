@@ -16,9 +16,8 @@
 
   imports = [
     ./zsh.nix
-    #./exa.nix
+    ./eza.nix
   ];
-
   home = {
     shellAliases = import ./aliases.nix;
   };
@@ -26,13 +25,8 @@
   programs = {
     zsh.enable = true;
     autojump.enable = true;
-
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-    };
-
+    starship.enable = true;
     fzf.enable = true;
-  };
+    };
   };
 }

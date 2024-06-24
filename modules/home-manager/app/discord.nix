@@ -9,10 +9,8 @@
   };
 
   config = lib.mkIf config.discord.enable {
-    unfreePackages = [ "discord" ];
     home-manager.users.${config.user} = {
       home.packages = with pkgs; [
-        discord
         vesktop
 
       ];

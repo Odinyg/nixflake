@@ -12,62 +12,16 @@
     home.packages = with pkgs; [
       gnome.gnome-calculator
       feh
-      python3
       xarchiver
-      autorandr
-      docker
-      docker-compose
-      openvpn
-      vagrant
       nomachine-client
-      magic-wormhole
-      zip   
-      nmap
-      go
       vlc
       planify
-      ripgrep
-      dos2unix # Convert Windows text files
-      inetutils # Includes telnet
-      youtube-dl # Convert web videos
-      pandoc # Convert text documents
-      mpd # TUI slideshows
-      mpv # Video player
-      gnupg # Encryption
-      ansible
-      expect
-      consul
-      noti # Create notifications programmatically
-      unzip
-      unrar
+   
+
+      #### virt-manager ####
       qemu
-      st
-      stdenv
-      xclip
-      plocate
-      ripgrep
-      killall
-      usermount
-      gnugrep
-      openssl
-      fzf
-      xfce.thunar
-      burpsuite
       virt-manager
-      bat
-      lf
-      htop
-      ctop
-      fd
-      nmap
-      plocate
-      xorg.libX11
-      xorg.libX11.dev
-      xorg.libxcb
-      xorg.libXft
-      xorg.libXinerama
-      xorg.xinit
-      xorg.xinput
+      xfce.thunar
 
     ];
     };

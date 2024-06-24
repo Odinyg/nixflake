@@ -10,6 +10,7 @@
     ./git.nix
     ./kitty.nix
     ./direnv.nix
+    ./termUtils.nix
   ];
 
 }
