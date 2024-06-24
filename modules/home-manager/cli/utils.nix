@@ -23,8 +23,8 @@
    
 
       #### virt-manager ####
-      qemu
-      virt-manager
+#     qemu
+#      virt-manager
       xfce.thunar
 
     ];
