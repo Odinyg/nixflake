@@ -24,7 +24,6 @@
   wireless.enable = true;
   zsa.enable = true;
 
-
   ##### CLI #####
   neovim.enable = true;
   zsh.enable = true;
@@ -36,7 +35,6 @@
   discord.enable = true;
   thunar.enable = true;
   chromium.enable = true;
-
   
   #####  Work  ######
   _1password.enable = false;
@@ -53,6 +51,7 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
+  greetd.nix = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -67,22 +66,6 @@
 
 
   home-manager.backupFileExtension = "backup";
-
-
-  # Enable Display Manager
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
-        user = "greeter";
-      };
-    };
-  };
-
-  environment.systemPackages = with pkgs; [
-    greetd.tuigreet
-  ];
 
 programs.hyprland.enable = true;
 programs.light.enable = true;
