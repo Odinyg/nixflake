@@ -16,6 +16,10 @@
       nomachine-client
       vlc
       planify
+      teamviewer
+      remmina
+      filezilla
+      thunderbird
    
 
       #### virt-manager ####

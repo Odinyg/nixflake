@@ -9,6 +9,7 @@
     ./fonts.nix
     ./syncthing.nix
     ./polkit.nix
+    ./greetd.nix
 
   ];
 }

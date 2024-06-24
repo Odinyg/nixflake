@@ -7,6 +7,65 @@
       ./hardware-configuration.nix
     ];
 
+
+
+  ##### Desktop #####
+  bspwm.enable = false;
+  hyprland.enable = true;
+  rofi.enable = false;
+  randr.enable = true;
+  fonts.enable = true;
+  gammastep.enable = false;
+  
+  ##### Hardware #####
+  audio.enable = true;
+  wireless.enable = true;
+  zsa.enable = true;
+
+  ##### CLI #####
+  neovim.enable = true;
+  zsh.enable = true;
+  tmux.enable = true;
+  kitty.enable = true;
+  termUtils.enable = true;
+
+  ##### Random Desktop Apps #####
+  discord.enable = true;
+  thunar.enable = true;
+  chromium.enable = true;
+  
+  #####  Work  ######
+  _1password.enable = false;
+  work.enable = true;        #TODO Split into smaller and add/remove/move apps
+  
+  #####  Code  #####
+  git.enable = true;
+  direnv.enable = true;
+
+  ##### Everything Else #####
+  crypt.enable = true;
+  tailscale.enable = true;
+  syncthing.enable = true;
+  polkit.enable = true;
+  utils.enable = true;
+  xdg.enable = true;
+  virt-man.enable = true;
+  greetd.enable = true;
+
+  ##### Theme Color ##### Cant move own module yet check back 23.06.24
+  styling.enable = true;
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper/wallpaper.png;
+  stylix.polarity = "dark";
+  stylix.opacity.terminal = 0.92;
+  stylix.cursor.package = pkgs.bibata-cursors;
+  stylix.cursor.name = "Bibata-Modern-Ice";
+  stylix.cursor.size = 18;
+  home-manager.backupFileExtension = "backup";
+
+
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -16,47 +75,8 @@
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
   services.trezord.enable = true;
-  services.locate.enable =true;
-  services.locate.locate = pkgs.mlocate;
 
   virtualisation.docker.enable = true;
-  programs.evolution = {
-    enable = true;
-    plugins = [ pkgs.evolution-ews ];
-  };
-
-
-
-
-
-  utils.enable = true;
-  virt-man.enable = true;
-  discord.enable = true;
-  tmux.enable = true;
-  crypt.enable = true;
-  neovim.enable = true;
-  zsh.enable = true;
-  thunar.enable = true;
-  gammastep.enable = true;
-  git.enable = true;
-  audio.enable = true;
-  wireless.enable = true;
-  _1password.enable = true;
-  work.enable = true;
-  kitty.enable = true;
-  bspwm.enable = true; 
-  rofi.enable = true;
-  randr.enable = true;
-  zsa.enable = true;
-  tailscale.enable = true;
-  chromium.enable = true;
-  syncthing.enable = true;
-  fonts.enable = true;
-  polkit.enable = true;
-  hyprland.enable = false;
-  xdg.enable = false;
-  zellij.enable = false;
-  direnv.enable = false;
 
   #### AutoMount ####
 services.gvfs.enable = true; 
@@ -82,37 +102,20 @@ services.gvfs.enable = true;
       sublime
       libreoffice
       libsForQt5.okular
-      virt-manager
       OVMF
       swtpm
       syncthing
-      feh
-      
-      teamviewer
-      remmina
-      intune-portal
- #     peazip
       drawio
       dconf
-      filezilla
-      thunderbird
       obsidian
       flameshot
-      qemu
-      betterlockscreen
-      ventoy-full
     ];
   };
    services.teamviewer.enable = true;
 
   environment.systemPackages = with pkgs; [
-  autorandr
-  openvpn
-  networkmanager-openvpn
-  xorg.xrandr
   pciutils
   lshw
-  arandr
   tailscale
   ];
 
@@ -125,13 +128,8 @@ services.gvfs.enable = true;
   nixpkgs.config.allowUnfree = true;
   services.openssh.enable = true;
 
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
