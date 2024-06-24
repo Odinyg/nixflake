@@ -16,8 +16,15 @@
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
   services.trezord.enable = true;
+  services.locate.enable =true;
+  services.locate.locate = pkgs.mlocate;
 
   virtualisation.docker.enable = true;
+  programs.evolution = {
+    enable = true;
+    plugins = [ pkgs.evolution-ews ];
+  };
+
 
 
 
@@ -79,6 +86,7 @@ services.gvfs.enable = true;
       OVMF
       swtpm
       syncthing
+      feh
       
       teamviewer
       remmina
