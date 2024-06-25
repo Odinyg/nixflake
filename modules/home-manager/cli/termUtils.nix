@@ -61,6 +61,7 @@
       xfce.thunar
       htop
       ctop
+      nvtopPackages.full
 #      xorg.libX11
 #      xorg.libX11.dev
 #      xorg.libxcb
