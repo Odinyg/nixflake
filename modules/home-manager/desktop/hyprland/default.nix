@@ -42,7 +42,7 @@
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
-    xdg.configFile."hypr/hyprland.conf".source = ./config/hyprland.conf;
+#    xdg.configFile."hypr/hyprland.conf".source = ./config/hyprland.conf;
     programs.swaylock.enable = true;
 
 

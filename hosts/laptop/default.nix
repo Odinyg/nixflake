@@ -51,7 +51,7 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
-  greetd.nix = true;
+  greetd.enable= true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -63,8 +63,6 @@
   stylix.cursor.package = pkgs.bibata-cursors;
   stylix.cursor.name = "Bibata-Modern-Ice";
   stylix.cursor.size = 18;
-
-
   home-manager.backupFileExtension = "backup";
 
 programs.hyprland.enable = true;

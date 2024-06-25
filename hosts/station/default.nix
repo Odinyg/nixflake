@@ -19,6 +19,7 @@
   ##### Desktop #####
   bspwm.enable = false;
   hyprland.enable = true;
+programs.hyprland.enable = true;
   rofi.enable = false;
   randr.enable = true;
   fonts.enable = true;
@@ -56,7 +57,7 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
-  greetd.nix = true;
+  greetd.enable = true;
   services.syncthing.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
@@ -74,7 +75,7 @@
 
   #gtk.enable = false;
   ############## HYPRLAND SETTING################
-
+nixpkgs.config.allowUnfree = true;
   ########################################
 
   programs.zsh.enable = true;

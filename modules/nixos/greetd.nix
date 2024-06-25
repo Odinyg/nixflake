@@ -1,7 +1,6 @@
-
 { lib,pkgs,config,... }: {
   options = {
-    fonts = {
+    greetd = {
       enable = lib.mkEnableOption {
         description = "Enable greetd";
         default = false;
