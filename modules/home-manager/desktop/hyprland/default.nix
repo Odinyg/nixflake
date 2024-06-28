@@ -34,10 +34,6 @@
     ];
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
-    xdg.configFile."hypr/suspend.sh" = {
-      source = ./config/suspend.sh;
-      executable = true;
-      };
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;

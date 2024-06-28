@@ -13,7 +13,7 @@
     doc = "$HOME/Documents";
     };
 
-    programs.zsh.shellInit = ''
+    initExtra = ''
     $HOME/.config/zsh/quote.sh
     '';
     envExtra = ''
@@ -35,6 +35,7 @@
   };
 
 
+  xdg.configFile."zsh/quotes".source = ./scripts/quotes;
   xdg.configFile."zsh/quote.sh" = {
       source = ./scripts/quote.sh;
       executable = true;
