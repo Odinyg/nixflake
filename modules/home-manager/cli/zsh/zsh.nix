@@ -12,6 +12,10 @@
     docs = "$HOME/Documents";
     doc = "$HOME/Documents";
     };
+
+    programs.zsh.shellInit = ''
+    $HOME/.config/zsh/quote.sh
+    '';
     envExtra = ''
     '';
     oh-my-zsh = {
@@ -31,6 +35,10 @@
   };
 
 
+  xdg.configFile."zsh/quote.sh" = {
+      source = ./scripts/quote.sh;
+      executable = true;
+      };
     home.packages = with pkgs; [
       ueberzugpp
       fzf
