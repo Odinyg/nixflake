@@ -14,12 +14,15 @@
       feh
       xarchiver
       nomachine-client
+      pyprland
       vlc
       planify
       teamviewer
       remmina
       filezilla
       thunderbird
+      rpi-imager
+      wget
    
 
       #### virt-manager ####

@@ -10,11 +10,12 @@
             "hyprland/workspaces",
         ],
         "modules-right": [
+            "backlight",
             "pulseaudio",
-        "network",
-        "battery",
-        "clock",
-        "tray",
+            "network",
+            "battery",
+            "clock",
+            "tray",
         ],
         "hyprland/window": {
             "format": "{}",
@@ -107,4 +108,9 @@
             },
             "on-click": "pavucontrol"
         },
+        "backlight": {
+            "device": "intel_backlight",
+            "format": "{percent}% {icon}",
+            "format-icons": ["", ""]
+}
 }
