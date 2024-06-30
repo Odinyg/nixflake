@@ -17,6 +17,7 @@
       pyprland
       tgpt
       vlc
+      anbox
       planify
       teamviewer
       remmina
@@ -24,6 +25,7 @@
       thunderbird
       rpi-imager
       wget
+      kubernetes
    
 
       #### virt-manager ####
