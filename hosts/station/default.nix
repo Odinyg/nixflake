@@ -41,6 +41,7 @@ programs.hyprland.enable = true;
   discord.enable = true;
   thunar.enable = true;
   chromium.enable = true;
+ # anbox.enable = true;
   
   #####  Work  ######
   _1password.enable = false;
