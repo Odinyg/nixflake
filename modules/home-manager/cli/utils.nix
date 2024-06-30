@@ -15,6 +15,7 @@
       xarchiver
       nomachine-client
       pyprland
+      tgpt
       vlc
       planify
       teamviewer

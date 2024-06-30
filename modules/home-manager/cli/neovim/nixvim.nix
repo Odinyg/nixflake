@@ -22,6 +22,7 @@
     vimAlias = true;   
 
     plugins = {
+#      obsidian.enable = true;
       noice.cmdline.enabled = true;
       lint = {
         enable = true;

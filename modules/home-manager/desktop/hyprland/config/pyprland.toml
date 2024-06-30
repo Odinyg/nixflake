@@ -20,3 +20,29 @@ command = "[term_classed] main-dropterm"
 class = "main-dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"
+
+
+
+[scratchpads.gpt]
+animation = "fromTop"
+command = "kitty --class secound-dropterm tgpt -m"
+class = "secound-dropterm"
+size = "75% 60%"
+max_size = "1920px 100%"
+lazy = true
+
+[scratchpads.notes]
+command = "obsidian --disable-gpu"
+class = "obsidian"
+animation = "fromTop"
+size = "75% 60%"
+max_size = "1920px 100%"
+lazy = true
+
+[scratchpads.todo]
+command = "io.github.alainm23.planify"
+class = "io.github.alainm23.planify"
+animation = "fromTop"
+size = "75% 60%"
+max_size = "1920px 100%"
+lazy = true
