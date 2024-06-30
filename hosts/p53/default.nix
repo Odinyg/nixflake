@@ -16,6 +16,7 @@
   randr.enable = true;
   fonts.enable = true;
   gammastep.enable = false;
+  programs.hyprland.enable = true;
   
   ##### Hardware #####
   audio.enable = true;
@@ -65,7 +66,6 @@
   home-manager.backupFileExtension = "backup";
 
 
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -103,6 +103,8 @@ services.gvfs.enable = true;
       libreoffice
       libsForQt5.okular
       OVMF
+      xdg-desktop-portal-hyprland
+      
       swtpm
       syncthing
       drawio
@@ -132,6 +134,7 @@ services.gvfs.enable = true;
 
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     modesetting.enable = true;
 	powerManagement.enable = false;
     open = true;
@@ -139,5 +142,11 @@ services.gvfs.enable = true;
     prime.sync.enable = true;
     prime.nvidiaBusId = "PCI:1:0:0";
     prime.intelBusId = "PCI:0:2:0";
+  };
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    WLR_DRM_DEVICES = "$HOME/.config/hypr/card";
+
   };
 }

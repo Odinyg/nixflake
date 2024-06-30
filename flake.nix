@@ -80,6 +80,7 @@
 	modules = [
 	./hosts/p53
     ./modules
+    stylix.nixosModules.stylix
     userInfoWork
 	nixos-hardware.nixosModules.lenovo-thinkpad-p53
 	nixpkgs-outPath
