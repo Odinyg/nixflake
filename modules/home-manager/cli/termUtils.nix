@@ -14,6 +14,7 @@
 
       #### ProgramStuff ####
       python3
+      python312Packages.pip
       go
       docker
       docker-compose

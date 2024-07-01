@@ -143,10 +143,18 @@ services.gvfs.enable = true;
     prime.nvidiaBusId = "PCI:1:0:0";
     prime.intelBusId = "PCI:0:2:0";
   };
-
-  environment.sessionVariables = {
+  environment.variables = {
+    GBM_BACKEND = "nvidia-drm";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NIXOS_OZONE_WL = "1";
-    WLR_DRM_DEVICES = "$HOME/.config/hypr/card";
-
+    WLR_DRM_DEVICES = "$HOME/.config/hypr/card:$HOME/.config/hypr/otherCard";
   };
+  boot.kernelParams = lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
+    "nvidia-drm.modeset=1"
+    "nvidia_drm.fbdev=1"
+  ];
+
+
 }

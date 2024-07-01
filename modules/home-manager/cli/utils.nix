@@ -18,8 +18,12 @@
       tgpt
       vlc
       anbox
+      pgadmin4-desktopmode
+
       planify
       teamviewer
+      ytui-music
+      youtube-music
       remmina
       filezilla
       thunderbird
