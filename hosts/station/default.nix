@@ -19,7 +19,7 @@
   ##### Desktop #####
   bspwm.enable = false;
   hyprland.enable = true;
-  programs.hyprlandstation.enable = true;
+  hyprlandstation.enable = true;
   rofi.enable = false;
   randr.enable = true;
   fonts.enable = true;
@@ -111,6 +111,7 @@ nixpkgs.config.allowUnfree = true;
   };
 
   services.openssh.enable = true;
+  xdg.portal.config.common.default = "*";
 
   environment.variables = {
     GBM_BACKEND = "nvidia-drm";
