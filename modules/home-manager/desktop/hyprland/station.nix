@@ -1,9 +1,6 @@
 { config, lib, pkgs, ... }: {
-  imports = [
-    ./station.nix
-  ];
   options = {
-    hyprland = {
+    hyprlandstation = {
       enable = lib.mkEnableOption {
         description = "Enable  hyprland.";
         default = false;
@@ -11,7 +8,7 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+  config.home-manager.users.${config.user} = lib.mkIf config.hyprlandstation.enable {
     
     services.swayidle.enable = true;
     home.packages = with pkgs; [
@@ -44,7 +41,7 @@
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
-    xdg.configFile."hypr/hyprland.conf".source = ./config/hyprland.conf;
+#    xdg.configFile."hypr/hyprland.conf".source = ./config/hyprland.conf;
     programs.swaylock.enable = true;
 
 

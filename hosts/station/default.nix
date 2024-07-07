@@ -19,7 +19,7 @@
   ##### Desktop #####
   bspwm.enable = false;
   hyprland.enable = true;
-programs.hyprland.enable = true;
+  programs.hyprlandstation.enable = true;
   rofi.enable = false;
   randr.enable = true;
   fonts.enable = true;
@@ -84,7 +84,7 @@ nixpkgs.config.allowUnfree = true;
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
-    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
+    extraGroups = [ "networkmanager" "wheel" "plugdev" "docker"];
     packages = with pkgs; [
       firefox
       deluge

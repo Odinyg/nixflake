@@ -20,6 +20,7 @@
       docker-compose
       vagrant
       ansible
+      nushell
 
       openvpn
       noti # Create notifications programmatically

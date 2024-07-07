@@ -30,6 +30,7 @@
       rpi-imager
       wget
       kubernetes
+      minikube
    
 
       #### virt-manager ####

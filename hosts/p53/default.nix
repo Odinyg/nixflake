@@ -77,6 +77,10 @@
   services.trezord.enable = true;
 
   virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+  enable = true;
+  setSocketVariable = true;
+};
 
   #### AutoMount ####
 services.gvfs.enable = true; 
