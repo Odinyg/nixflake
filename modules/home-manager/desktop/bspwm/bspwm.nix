@@ -39,7 +39,7 @@
 
   environment.systemPackages = with pkgs; [
       polkit_gnome
-      tdrop
+      xinit
       betterlockscreen
       xorg.xbacklight
     ];
