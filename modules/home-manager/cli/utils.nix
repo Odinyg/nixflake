@@ -19,6 +19,7 @@
       vlc
       anbox
       pgadmin4-desktopmode
+      autokey
 
       planify
       teamviewer

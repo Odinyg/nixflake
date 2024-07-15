@@ -10,9 +10,9 @@
 
 
   ##### Desktop #####
-  bspwm.enable = false;
+  bspwm.enable = true;
   hyprland.enable = true;
-  rofi.enable = false;
+  rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
   gammastep.enable = false;
@@ -36,7 +36,7 @@
   chromium.enable = true;
   
   #####  Work  ######
-  _1password.enable = false;
+  _1password.enable = true;
   work.enable = true;        #TODO Split into smaller and add/remove/move apps
   
   #####  Code  #####
@@ -149,11 +149,11 @@ services.gvfs.enable = true;
   };
   environment.variables = {
     GBM_BACKEND = "nvidia-drm";
+    WLR_DRM_DEVICES = "$HOME/.config/hypr/card:$HOME/.config/hypr/otherCard";
     WLR_NO_HARDWARE_CURSORS = "1";
     LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NIXOS_OZONE_WL = "1";
-    WLR_DRM_DEVICES = "$HOME/.config/hypr/card:$HOME/.config/hypr/otherCard";
   };
   boot.kernelParams = lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
     "nvidia-drm.modeset=1"
