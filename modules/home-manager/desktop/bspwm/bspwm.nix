@@ -21,14 +21,15 @@
       xserver = {
         enable = true;
         windowManager.bspwm.enable = true;
-          displayManager = {
+        displayManager = {
           defaultSession = "none+bspwm";
           autoLogin.user = "$config.user";
-          autoLogin.enable = true;
-          gdm = { 
-                   enable = true; 
-                 }; 
-               };
+          autoLogin.enable = false;
+          sddm = { 
+
+            enable = true; 
+          }; 
+        };
         ## Perfect with zsa macros ##
         xkb.layout = "us";
         xkb.variant = "altgr-intl";

@@ -39,7 +39,6 @@
       zellij
       teamviewer
       ytui-music
-      youtube-music
       remmina
       filezilla
       thunderbird
