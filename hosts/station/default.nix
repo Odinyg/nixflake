@@ -18,7 +18,7 @@
 
   ##### Desktop #####
   bspwm.enable = false;
-  hyprland.enable = true;
+  programs.hyprland.enable = true;
   hyprlandstation.enable = true;
   rofi.enable = false;
   randr.enable = true;
@@ -41,6 +41,7 @@
   discord.enable = true;
   thunar.enable = true;
   chromium.enable = true;
+  game.enable = true;
  # anbox.enable = true;
   
   #####  Work  ######
