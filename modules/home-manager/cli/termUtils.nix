@@ -1,15 +1,20 @@
-
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
   options = {
-    termUtils= {
+    termUtils = {
       enable = lib.mkEnableOption {
         description = "Enable several TerminalExtra";
         default = false;
-      }; 
+      };
     };
   };
-  config.home-manager.users.${config.user}= lib.mkIf config.termUtils.enable {
+  config.home-manager.users.${config.user} = lib.mkIf config.termUtils.enable {
     home.packages = with pkgs; [
 
       #### ProgramStuff ####
@@ -30,8 +35,7 @@
       #### ZIP etc ####
       unzip
       unrar
-      zip   
-
+      zip
 
       #### Terminal Improvments ####
       lf
@@ -39,9 +43,6 @@
       bat
       ripgrep
       magic-wormhole
-
-
-
 
       #### Terminal essentials####
       gnupg # Encryption
@@ -54,9 +55,6 @@
       inetutils # Includes telnet
       fzf
 
-
-
-
       youtube-dl # Convert web videos
       pandoc # Convert text documents
       usermount
@@ -64,14 +62,14 @@
       htop
       ctop
       nvtopPackages.full
-#      xorg.libX11
-#      xorg.libX11.dev
-#      xorg.libxcb
-#      xorg.libXft
-#      xorg.libXinerama
-#      xorg.xinit
-#      xorg.xinput
+      #      xorg.libX11
+      #      xorg.libX11.dev
+      #      xorg.libxcb
+      #      xorg.libXft
+      #      xorg.libXinerama
+      #      xorg.xinit
+      #      xorg.xinput
 
     ];
-    };
-  } 
+  };
+}

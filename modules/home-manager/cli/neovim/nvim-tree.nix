@@ -11,12 +11,12 @@
   };
 
   programs.nixvim.keymaps = [
-      {
+    {
       mode = "n";
       key = "<leader>e";
       action = "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>";
       options.desc = "Toggle Tree";
       options.silent = true;
-      }
+    }
   ];
 }

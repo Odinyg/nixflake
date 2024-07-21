@@ -1,6 +1,6 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
-#   
+  #   
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -21,8 +21,8 @@
       terraform
       gopls
       nodePackages.bash-language-server
-      
+
     ];
-    
+
   };
 }

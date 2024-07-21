@@ -111,6 +111,12 @@ nixpkgs.config.allowUnfree = true;
       "experimental-features = nix-command flakes";
   };
 
+    nixpkgs.config.permittedInsecurePackages = [
+    "electron-19.1.9"
+    "electron-25.9.0"
+    "python3.12-youtube-dl-2021.12.17"
+    ];
+
   services.openssh.enable = true;
   xdg.portal.config.common.default = "*";
 

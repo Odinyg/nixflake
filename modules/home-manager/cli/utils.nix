@@ -1,14 +1,20 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
   options = {
     utils = {
       enable = lib.mkEnableOption {
         description = "Enable several utils";
         default = false;
-      }; 
+      };
     };
   };
-  config.home-manager.users.${config.user}= lib.mkIf config.utils.enable {
+  config.home-manager.users.${config.user} = lib.mkIf config.utils.enable {
     home.packages = with pkgs; [
       gnome.gnome-calculator
       feh
@@ -32,13 +38,12 @@
       wget
       kubernetes
       minikube
-   
 
       #### virt-manager ####
-#     qemu
-#      virt-manager
+      #     qemu
+      #      virt-manager
       xfce.thunar
 
     ];
-    };
-  } 
+  };
+}

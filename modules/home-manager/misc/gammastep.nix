@@ -1,35 +1,36 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
 
   options = {
     gammastep = {
       enable = lib.mkEnableOption {
         description = "Enable several gammastep";
         default = false;
-      }; 
+      };
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.gammastep.enable {
 
-services.gammastep = {
-  enable = true;
-  provider = "manual";
-  latitude = 61.9;
-  longitude = 6.5;
-  settings = {
+    services.gammastep = {
+      enable = true;
+      provider = "manual";
+      latitude = 61.9;
+      longitude = 6.5;
+      settings = {
 
-    general = {
-      brightness=0.95;
-      brightness-day=0.95;
-      brightness-night=0.85;
-      gamma=0.9;
-      gamma-day=0.95;
-      gamma-night=0.9;
-      adjustment-method = "randr";
+        general = {
+          brightness = 0.95;
+          brightness-day = 0.95;
+          brightness-night = 0.85;
+          gamma = 0.9;
+          gamma-day = 0.95;
+          gamma-night = 0.9;
+          adjustment-method = "randr";
+        };
+        randr = {
+          screen = 0;
+        };
+      };
     };
-    randr = {
-      screen = 0;
-  };
-};
-  };
   };
 }

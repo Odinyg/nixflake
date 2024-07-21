@@ -1,17 +1,18 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
 
   options = {
     rofi = {
       enable = lib.mkEnableOption {
         description = "Enable polybar,sxhkd and rofi.";
         default = false;
-      }; 
+      };
     };
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.rofi.enable {
     services.polybar.enable = true;
-    services.polybar.script = "polybar example"; 
+    services.polybar.script = "polybar example";
     services.sxhkd.enable = true;
 
     xdg.configFile."sxhkd/sxhkdrc".source = ./dotfiles/sxhkdrc;
@@ -21,7 +22,7 @@
     xdg.configFile."bspwm/bspwmrc".source = ./dotfiles/bspwmrc;
     xdg.configFile."bspwm/monitor.sh".source = ./dotfiles/monitor.sh;
     programs.rofi = {
-      enable = true; 
+      enable = true;
     };
   };
 }
