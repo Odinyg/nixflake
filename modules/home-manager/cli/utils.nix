@@ -25,9 +25,11 @@
       vlc
       anbox
       pgadmin4-desktopmode
+      nixfmt-rfc-style
       autokey
-
       planify
+      tldr
+      just
       teamviewer
       ytui-music
       youtube-music

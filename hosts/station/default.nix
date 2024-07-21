@@ -72,8 +72,8 @@
   stylix.cursor.package = pkgs.bibata-cursors;
   stylix.cursor.name = "Bibata-Modern-Ice";
   stylix.cursor.size = 18;
-  home-manager.backupFileExtension = "backup";
   stylix.autoEnable = true;
+  home-manager.backupFileExtension = "backup";
 
   #gtk.enable = false;
   ############## HYPRLAND SETTING################
