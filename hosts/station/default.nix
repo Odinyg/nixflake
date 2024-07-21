@@ -10,7 +10,7 @@
     efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "Station"; 
+  networking.hostName = "station"; 
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
 

@@ -78,7 +78,7 @@
             }
           ];
         };
-        p53 = nixpkgs.lib.nixosSystem {
+        VNPC-21 = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs system;
           };
