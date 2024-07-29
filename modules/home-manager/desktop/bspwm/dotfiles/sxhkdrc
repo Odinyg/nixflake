@@ -4,8 +4,7 @@ super + Return
   kitty
 
 super + w 
-  chromium 
-
+  chromium-browser --enable-features=UseOzonePlatform --ozone-platform=x11
 super + n 
   tdrop -ma -w 50% -x 23% -y 5% -s dropdown kitty
 

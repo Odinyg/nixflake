@@ -51,7 +51,7 @@
   utils.enable = true;
   xdg.enable = true;
   virt-man.enable = true;
-  greetd.enable = true;
+ # greetd.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -91,6 +91,7 @@ services.gvfs.enable = true;
   # Enable sound with pipewire.
     nixpkgs.config.permittedInsecurePackages = [
     "electron-19.1.9"
+    "python3.12-youtube-dl-2021.12.17"
     "electron-25.9.0"
     ];
 

@@ -17,6 +17,7 @@
   config.home-manager.users.${config.user} = lib.mkIf config.utils.enable {
     home.packages = with pkgs; [
       feh
+      autokey
       xarchiver
       xclip
       pyprland
@@ -27,6 +28,8 @@
       pgadmin4-desktopmode
       nixfmt-rfc-style
       autokey
+
+      zoxide
       planify
       tldr
       just
