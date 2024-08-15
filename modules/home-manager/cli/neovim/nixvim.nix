@@ -23,6 +23,7 @@
 
     plugins = {
       #      obsidian.enable = true;
+      flash.enable = true;
       noice.cmdline.enabled = true;
       lint = {
         enable = true;
