@@ -37,11 +37,12 @@
       };
     };
 
-    #  environment.systemPackages = with pkgs; [
-    #      polkit_gnome
-    #      betterlockscreen
-    #      xorg.xbacklight
-    #    ];
-    #    
+  environment.systemPackages = with pkgs; [
+      polkit_gnome
+      tdrop
+      betterlockscreen
+      xorg.xbacklight
+    ];
+    
   };
 }
