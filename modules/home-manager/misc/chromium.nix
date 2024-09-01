@@ -11,6 +11,7 @@
   };
   config.home-manager.users.${config.user} = lib.mkIf config.chromium.enable {
 
+    programs.google-chrome.enable = true;
     programs.chromium = {
       enable = true;
       commandLineArgs = [

@@ -37,7 +37,7 @@
       gtk-engine-murrine
       sassc
       gtk3
-      gnome.gnome-themes-extra
+#      gnome.gnome-themes-extra
     ];
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;

@@ -17,10 +17,10 @@
 
 
   ##### Desktop #####
-  bspwm.enable = false;
-  programs.hyprland.enable = true;
-  hyprlandstation.enable = true;
-  rofi.enable = false;
+  bspwm.enable = true;
+  programs.hyprland.enable = false;
+  hyprlandstation.enable = false;
+  rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
   gammastep.enable = false;
@@ -59,8 +59,9 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
-  greetd.enable = true;
+  greetd.enable = false;
   services.syncthing.enable = true;
+  bluetooth.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -68,7 +69,7 @@
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
   stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper/wallpaper.png;
   stylix.polarity = "dark";
-  stylix.opacity.terminal = 0.92;
+  stylix.opacity.terminal = 0.85;
   stylix.cursor.package = pkgs.bibata-cursors;
   stylix.cursor.name = "Bibata-Modern-Ice";
   stylix.cursor.size = 18;
@@ -95,7 +96,7 @@ nixpkgs.config.allowUnfree = true;
       ansible
       ansible-lint
       libreoffice
-      xdg-desktop-portal-hyprland
+ #     xdg-desktop-portal-hyprland
     ];
   };
   xdg.portal = {
@@ -114,6 +115,7 @@ nixpkgs.config.allowUnfree = true;
     nixpkgs.config.permittedInsecurePackages = [
     "electron-19.1.9"
     "electron-25.9.0"
+    "electron-29.4.6"
     "python3.12-youtube-dl-2021.12.17"
     ];
 

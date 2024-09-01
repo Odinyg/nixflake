@@ -42,9 +42,12 @@
 
         defaultApplications =
           let
-            browser = [ "chromium.desktop" ];
+            browser = [ "firefox.desktop" ];
             photo = [ "feh.desktop" ];
             video = [ "vlc.desktop" ];
+            office = [ "libreoffice.desktop" ];
+            audio = [ "vlc.desktop" ];
+            archive = [ "xarchiver.desktop" ];
           in
           {
             # Applications
@@ -63,14 +66,30 @@
             "application/octet-stream" = photo; # matplotlib figures
 
             # Videos
-            "video/mp4" = "vlc.desktop"; # .mp4
-            "video/quicktime" = "vlc.desktop"; # .mov
-            "video/x-matroska" = "vlc.desktop"; # .mkv
-            "video/x-ms-wmv" = "vlc.desktop"; # .wmv
+            "video/mp4" = video; # .mp4
+            "video/quicktime" = video; # .mov
+            "video/x-matroska" = video; # .mkv
+            "video/x-ms-wmv" = video; # .wmv
             "x-scheme-handler/http" = browser;
             "x-scheme-handler/https" = browser;
             "x-scheme-handler/discord" = [ "vesktop.desktop" ];
-
+            # Documents
+            "application/msword" = office;
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = office;
+            "application/vnd.ms-excel" = office;
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = office;
+            "application/vnd.ms-powerpoint" = office;
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation" = office;
+            "application/vnd.oasis.opendocument.text" = office;
+            "application/vnd.oasis.opendocument.spreadsheet" = office;
+            "application/vnd.oasis.opendocument.presentation" = office;
+            "application/zip" = archive;
+            "application/x-rar" = archive;
+            "application/x-tar" = archive;
+            "application/x-7z-compressed" = archive;
+            "audio/mpeg" = audio;
+            "audio/x-wav" = audio;
+            "audio/flac" = audio;
           };
       };
     };

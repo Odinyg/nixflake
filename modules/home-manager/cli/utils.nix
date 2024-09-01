@@ -16,13 +16,13 @@
   };
   config.home-manager.users.${config.user} = lib.mkIf config.utils.enable {
     home.packages = with pkgs; [
-      gnome.gnome-calculator
       feh
       xarchiver
-      nomachine-client
+     # nomachine-client
       pyprland
       tgpt
       vlc
+      protonmail-desktop
       anbox
       pgadmin4-desktopmode
       nixfmt-rfc-style

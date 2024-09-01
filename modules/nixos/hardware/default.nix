@@ -6,6 +6,7 @@
     ./audio.nix
     ./randr.nix
     ./zsa.nix
+    ./bluetooth.nix
   ];
 
 }
