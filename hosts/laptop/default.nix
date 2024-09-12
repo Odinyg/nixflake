@@ -12,9 +12,9 @@
     ];
 
   ##### Desktop #####
-  bspwm.enable = false;
+  bspwm.enable = true;
   hyprland.enable = true;
-  rofi.enable = false;
+  rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
   gammastep.enable = false;
@@ -51,7 +51,7 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
-  greetd.enable = true;
+#greetd.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -157,9 +157,12 @@ programs.light.enable = true;
     allowUnfree = true;
     permittedInsecurePackages = [
       "electron-25.9.0"
+      "python3.12-youtube-dl-2021.12.17"
+      "electron-29.4.6"
     ];
   };
   services.openssh.enable = true;
+  hardware.nvidia.open = true;
 
   system.stateVersion = "24.11"; # Did you read the comment?
 

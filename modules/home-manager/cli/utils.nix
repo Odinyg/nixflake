@@ -18,7 +18,6 @@
     home.packages = with pkgs; [
       feh
       xarchiver
-     # nomachine-client
       pyprland
       tgpt
       vlc
