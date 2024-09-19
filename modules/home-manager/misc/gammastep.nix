@@ -19,8 +19,8 @@
       settings = {
 
         general = {
-          brightness = 0.95;
-          brightness-day = 0.95;
+          brightness = 1.00;
+          brightness-day = 1.0;
           brightness-night = 0.85;
           gamma = 0.9;
           gamma-day = 0.95;

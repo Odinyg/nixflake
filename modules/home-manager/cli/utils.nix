@@ -18,6 +18,7 @@
     home.packages = with pkgs; [
       feh
       autokey
+      termscp
       xarchiver
       xclip
       pyprland
@@ -26,8 +27,16 @@
       proton-pass
       anbox
       pgadmin4-desktopmode
+      curaengine_stable
       nixfmt-rfc-style
       autokey
+      sshs
+      ripgrep
+
+
+      ###### tdrop dependencys ######
+      xorg.xwininfo
+      xdotool
 
       zoxide
       planify

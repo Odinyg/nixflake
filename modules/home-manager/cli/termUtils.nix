@@ -50,7 +50,6 @@
       consul
       st
       stdenv
-      plocate
       killall
       inetutils # Includes telnet
       fzf

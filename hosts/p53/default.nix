@@ -11,12 +11,12 @@
 
   ##### Desktop #####
   bspwm.enable = true;
-  hyprland.enable = true;
+  hyprland.enable = false;
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
   gammastep.enable = false;
-  programs.hyprland.enable = true;
+  programs.hyprland.enable = false;
   
   ##### Hardware #####
   audio.enable = true;
@@ -65,7 +65,9 @@
   stylix.cursor.size = 18;
   home-manager.backupFileExtension = "backup";
 
-
+  services.flatpak.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.enable = true;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -84,6 +86,7 @@
 
   #### AutoMount ####
 services.gvfs.enable = true; 
+services.locate.enable = true;
 
 
 ##############################################
@@ -91,8 +94,10 @@ services.gvfs.enable = true;
   # Enable sound with pipewire.
     nixpkgs.config.permittedInsecurePackages = [
     "electron-19.1.9"
+    "electron-29.4.6"
     "python3.12-youtube-dl-2021.12.17"
     "electron-25.9.0"
+    "openssl-1.1.1w"
     ];
 
   users.extraGroups.vboxusers.members = [ "odin" ];
@@ -104,12 +109,11 @@ services.gvfs.enable = true;
     extraGroups = [ "docker" "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
       firefox
-      sublime
+      sublime4
       libreoffice
       libsForQt5.okular
       OVMF
       xdg-desktop-portal-hyprland
-      
       swtpm
       syncthing
       drawio
