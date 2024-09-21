@@ -18,6 +18,7 @@
     home.packages = with pkgs; [
       feh
       xarchiver
+      xclip
       pyprland
       tgpt
       vlc

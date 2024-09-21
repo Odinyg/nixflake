@@ -66,7 +66,7 @@
             stylix.nixosModules.stylix
             ./modules
             userInfo
-            nixos-hardware.nixosModules.dell-xps-15-9560
+        #    nixos-hardware.nixosModules.dell-xps-15-9560
 
             home-manager.nixosModules.home-manager
             {

@@ -11,9 +11,29 @@
 #      inputs.home-manager.nixosModules.default
     ];
 
-  ##### Desktop #####
-  bspwm.enable = true;
-  hyprland.enable = true;
+ ##### Desktop #####
+
+  services.xserver = {
+    enable = true;
+    windowManager.bspwm.enable = true;
+    displayManager = {
+      defaultSession = "none+bspwm";
+      autoLogin.enable = true;
+      autoLogin.user = "none";
+      lightdm = { 
+        enable = true; 
+      }; 
+    };
+#### Keyboard Layout ###
+    layout = "us";
+    xkbVariant = "";
+  };
+
+
+
+
+#  bspwm.enable = true;
+# hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
@@ -73,11 +93,6 @@ programs.light.enable = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
 #  programs.zsh.enable = true;
-  xdg.portal = {
-    enable = true;
-    config.common.default = "gtk";
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
   services.printing.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
@@ -88,12 +103,21 @@ programs.light.enable = true;
       google-chrome
       gcc
       vlc
-      xdg-desktop-portal-hyprland
       gtk3
       gtk4
       nwg-look
       themix-gui  
       gnome.nautilus 
+      sxhkd
+      bspwm
+      rofi
+      polybar
+      xorg.libX11
+      xorg.libX11.dev
+      xorg.libxcb
+      xorg.libXft
+      xorg.libXinerama
+      xorg.xinit
       tailscale
       deluge
       obsidian
@@ -162,7 +186,6 @@ programs.light.enable = true;
     ];
   };
   services.openssh.enable = true;
-  hardware.nvidia.open = true;
 
   system.stateVersion = "24.11"; # Did you read the comment?
 

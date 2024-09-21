@@ -7,8 +7,9 @@
     enable = true;
     colorschemes.nord.enable = true;
     clipboard.register = "unnamedplus";
-    clipboard.providers.wl-copy.enable = true;
+   clipboard.providers.xclip.enable= true;
     opts = {
+      conceallevel = 2;
       number = true;
       relativenumber = true;
       shiftwidth = 2;
@@ -43,6 +44,23 @@
         #
       };
       autoclose.enable = true;
+      obsidian = {
+        enable = true;
+        settings =
+        {
+          completion = {
+            min_chars = 2;
+            nvim_cmp = true;
+          };
+          new_notes_location = "current_dir";
+          workspaces = [
+            {
+              name = "main";
+              path = "~/Documents/Main";
+            }
+          ];
+      };
+      };
       comment.enable = true;
       tmux-navigator.enable = true;
       nix.enable = true;

@@ -1,15 +1,24 @@
 {
+
+      obsidian = {
+        enable = true;
+        settings =
+        {
+          completion = {
+            min_chars = 2;
+            nvim_cmp = true;
+          };
+          new_notes_location = "current_dir";
+          workspaces = [
+            {
+              name = "main";
+              path = "~/Documents/Main";
+            }
+          ];
+      };
+      };
   programs.nixvim.keymaps = [
-    {
-      mode = "n";
-      key = "<leader>w";
-      action = "<cmd>w<CR>";
-    }
-    {
-      mode = "n";
-      key = "<leader>q";
-      action = "<cmd>q<CR>";
-    }
+
     { 
       mode = "n";
       key =" <leader>on"; 
@@ -43,27 +52,6 @@
       options.desc = "Show location list of backlinks";
       mode = "n";
     }
-    { 
-      key = "s";
-      action = "<cmd>lua require('flash').jump()<cr>";
-      options.desc = "Flash";
-      mode = "n";
-    }
-    { 
-      key = "S";
-      action = "<cmd>lua require('flash').treesitter()<cr>";
-      options.desc = "Flash Treesitter";
-      mode = "n";
-    }
-    { 
-      key = "<c-s>";
-      action = "<cmd>require('flash').toggle()<cr>";
-      options.desc = "";
-      mode = "n";
-    }
 
   ];
-  # ">" = ">gv";
-  # "<" = "<gv";
-
-}
+  }

@@ -24,6 +24,7 @@
       ./nvim-tree.nix
       ./cmp.nix
       ./maps.nix
+      ./flash.nix
     ];
 
     home = {
