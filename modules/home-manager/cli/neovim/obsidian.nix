@@ -9,9 +9,9 @@
             min_chars = 2;
             nvim_cmp = true;
           };
-          new_notes_location = "current_dir";
+          new_notes_location = "notes_subdir";
           daily_notes = {
-            folder = "~/Documents/Main/dailyNotes";
+            folder = "dailyNotes";
             date_format = "%Y-%m-%d";
             alias_format = "%B %-d, %Y";
   };

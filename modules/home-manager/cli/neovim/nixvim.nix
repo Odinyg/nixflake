@@ -31,6 +31,10 @@
     vimAlias = true;
 
     plugins = {
+
+      cmp_yanky.enable = true;
+
+
       noice.cmdline.enabled = true;
       autoclose.enable = true;
       comment.enable = true;

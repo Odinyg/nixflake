@@ -56,6 +56,35 @@
         options.desc = "File 4 harpoon";
         options.remap = true;
       }
+      {
+        mode = "n";
+        key = "<leader>m1";
+        action = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>";
+        options.desc = "File 1 harpoon";
+        options.remap = true;
+
+      }
+      {
+        mode = "n";
+        key = "<leader>m2";
+        action = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>";
+        options.desc = "File 2 harpoon";
+        options.remap = true;
+      }
+      {
+        mode = "n";
+        key = "<leader>m3";
+        action = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>";
+        options.desc = "File 3 harpoon";
+        options.remap = true;
+      }
+      {
+        mode = "n";
+        key = "<leader>m4";
+        action = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>";
+        options.desc = "File 4 harpoon";
+        options.remap = true;
+      }
     ];
   };
 }

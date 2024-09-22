@@ -7,7 +7,7 @@ super + w
   chromium 
 
 super + n 
-  thunar  
+  tdrop -ma -w 50% -x "33.3%" -s dropdown kitty
 
 
 ###---Shortcuts LAUNCHER---###

@@ -30,7 +30,12 @@
       planify
       tldr
       just
-      
+      xdotool      
+      procps
+      tdrop
+      xorg.xprop
+      xorg.xwininfo
+      zellij
       teamviewer
       ytui-music
       youtube-music

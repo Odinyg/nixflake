@@ -78,7 +78,7 @@ in
         bind \\ split-window -h -c '#{pane_current_path}'
         bind - split-window -v -c '#{pane_current_path}'
         set -s extended-keys on
-        set-option -g xterm-keys on
+        set -g xterm-keys on
         set -as terminal-features 'xterm*:extkeys'
         set -g @continuum-restore 'on'
         set -g @resurrect-strategy-nvim 'session'
