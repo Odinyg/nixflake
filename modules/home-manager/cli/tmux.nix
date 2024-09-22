@@ -77,6 +77,9 @@ in
         set -g @catppuccin_pane_border_status "top"
         bind \\ split-window -h -c '#{pane_current_path}'
         bind - split-window -v -c '#{pane_current_path}'
+        set -s extended-keys on
+        set-option -g xterm-keys on
+        set -as terminal-features 'xterm*:extkeys'
         set -g @continuum-restore 'on'
         set -g @resurrect-strategy-nvim 'session'
         set -g @catppuccin_window_left_separator ""
