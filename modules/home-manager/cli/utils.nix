@@ -33,6 +33,7 @@
       xdotool      
       procps
       tdrop
+      planify
       xorg.xprop
       xorg.xwininfo
       zellij

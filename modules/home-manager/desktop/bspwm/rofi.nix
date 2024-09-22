@@ -24,6 +24,10 @@
       source = ./dotfiles/monitor.sh;
       executable = true;
     };
+    xdg.configFile."bspwm/launch.sh" = {
+      source = ./dotfiles/launch.sh;
+      executable = true;
+    };
     programs.rofi = {
       enable = true;
     };

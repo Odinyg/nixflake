@@ -7,9 +7,11 @@ super + w
   chromium 
 
 super + n 
-  tdrop -ma -w 50% -x "33.3%" -s dropdown kitty
+  tdrop -ma -w 50% -x 23% -y 5% -s dropdown kitty
 
 
+super + t 
+  io.github.alainm23.planify.quick-add
 ###---Shortcuts LAUNCHER---###
 
 # program launcher
