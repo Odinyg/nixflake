@@ -1,5 +1,6 @@
 {
-  programs.nixvim.plugins.nvim-tree = {
+  programs.nixvim = {
+  plugins.nvim-tree = {
     enable = true;
     git = {
       enable = true;
@@ -10,7 +11,7 @@
     updateFocusedFile.enable = true;
   };
 
-  programs.nixvim.keymaps = [
+    keymaps = [
     {
       mode = "n";
       key = "<leader>e";
@@ -19,4 +20,5 @@
       options.silent = true;
     }
   ];
+  };
 }

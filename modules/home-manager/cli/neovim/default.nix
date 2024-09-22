@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -25,6 +24,8 @@
       ./cmp.nix
       ./maps.nix
       ./flash.nix
+      ./lint.nix
+      ./obsidian.nix
     ];
 
     home = {

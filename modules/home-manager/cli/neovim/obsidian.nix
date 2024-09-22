@@ -1,6 +1,7 @@
 {
 
-      obsidian = {
+  programs.nixvim = {
+      plugins.obsidian = {
         enable = true;
         settings =
         {
@@ -15,10 +16,10 @@
               path = "~/Documents/Main";
             }
           ];
+        };
       };
-      };
-  programs.nixvim.keymaps = [
 
+      keymaps = [
     { 
       mode = "n";
       key =" <leader>on"; 
@@ -54,4 +55,5 @@
     }
 
   ];
+  };
   }

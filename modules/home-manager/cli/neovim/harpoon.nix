@@ -1,5 +1,6 @@
 {
   programs.nixvim = {
+    plugins.harpoon.enable = true;
     keymaps = [
       {
         mode = "n";
@@ -28,32 +29,29 @@
       }
       {
         mode = "n";
-        key = "<leader>mh";
+        key = "<C-h>";
         action = "<cmd>lua require('harpoon.ui').nav_file(1)<CR>";
         options.desc = "File 1 harpoon";
 
       }
       {
         mode = "n";
-        key = "<leader>mj";
+        key = "<C-j>";
         action = "<cmd>lua require('harpoon.ui').nav_file(2)<CR>";
         options.desc = "File 2 harpoon";
       }
       {
         mode = "n";
-        key = "<leader>mk";
+        key = "<C-k>";
         action = "<cmd>lua require('harpoon.ui').nav_file(3)<CR>";
         options.desc = "File 3 harpoon";
       }
       {
         mode = "n";
-        key = "<leader>ml";
+        key = "<C-l>";
         action = "<cmd>lua require('harpoon.ui').nav_file(4)<CR>";
         options.desc = "File 4 harpoon";
       }
     ];
-    plugins = {
-      harpoon.enable = true;
-    };
   };
 }

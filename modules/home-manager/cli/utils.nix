@@ -22,7 +22,7 @@
       pyprland
       tgpt
       vlc
-      protonmail-desktop
+      proton-pass
       anbox
       pgadmin4-desktopmode
       nixfmt-rfc-style
@@ -30,6 +30,7 @@
       planify
       tldr
       just
+      
       teamviewer
       ytui-music
       youtube-music

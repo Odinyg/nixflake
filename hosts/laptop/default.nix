@@ -12,23 +12,25 @@
     ];
 
  ##### Desktop #####
+  services.displayManager = {
+      defaultSession = "none+bspwm";
+      autoLogin.enable = true;
+      autoLogin.user = "none";
 
+  };
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
     displayManager = {
-      defaultSession = "none+bspwm";
-      autoLogin.enable = true;
-      autoLogin.user = "none";
       lightdm = { 
         enable = true; 
       }; 
     };
-#### Keyboard Layout ###
-    layout = "us";
-    xkbVariant = "";
-  };
 
+#### Keyboard Layout ###
+    xkb.layout = "us";
+    xkb.variant = "";
+  };
 
 
 
@@ -107,7 +109,7 @@ programs.light.enable = true;
       gtk4
       nwg-look
       themix-gui  
-      gnome.nautilus 
+      nautilus 
       sxhkd
       bspwm
       rofi

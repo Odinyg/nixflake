@@ -1,12 +1,13 @@
 {
-  programs.nixvim.plugins.cmp-nvim-lsp.enable = true;
-  programs.nixvim.plugins.cmp-buffer.enable = true;
-  programs.nixvim.plugins.cmp = {
-
-    enable = true;
-    settings = {
-      completion.keyword_length = 2;
-      sources = [
+  programs.nixvim = {
+    plugins = {
+      cmp-nvim-lsp.enable = true;
+      cmp-buffer.enable = true;
+      cmp = {
+        enable = true;
+        settings = {
+        completion.keyword_length = 2;
+        sources = [
         {
           name = "nvim_lsp";
           keyword_length = 3;
@@ -33,7 +34,9 @@
         "<CR>" = "cmp.mapping.confirm({ select = false })";
         "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
         "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-      };
+    };
+    };
+    };
     };
   };
 }
