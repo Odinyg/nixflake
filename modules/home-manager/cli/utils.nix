@@ -15,6 +15,13 @@
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.utils.enable {
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+  };
+
+
+
     home.packages = with pkgs; [
       feh
       autokey

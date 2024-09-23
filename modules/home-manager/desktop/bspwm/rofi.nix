@@ -11,6 +11,7 @@
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.rofi.enable {
+    services.picom.enable = true;
     services.polybar= {
       enable = true;
       script = "~/.config/polybar/launch.sh";
