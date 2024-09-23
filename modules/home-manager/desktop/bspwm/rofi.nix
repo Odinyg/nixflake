@@ -15,11 +15,17 @@
     services.polybar.script = "polybar example";
     services.sxhkd.enable = true;
 
-    xdg.configFile."sxhkd/sxhkdrc".source = ./dotfiles/sxhkdrc;
+    xdg.configFile."sxhkd/sxhkdrc" = {
+      source = ./dotfiles/sxhkdrc;
+      executable = true;
+    };
     xdg.configFile."polybar/config".source = ./dotfiles/config;
     xdg.configFile."rofi/nord.rasi".source = ./dotfiles/rofi-nord.rasi;
     xdg.configFile."rofi/rounded-common.rasi".source = ./dotfiles/rounded-common.rasi;
-    xdg.configFile."bspwm/bspwmrc".source = ./dotfiles/bspwmrc;
+    xdg.configFile."bspwm/bspwmrc" = {
+      source = ./dotfiles/bspwmrc;
+      executable = true;
+    };
     xdg.configFile."bspwm/monitor.sh" = {
       source = ./dotfiles/monitor.sh;
       executable = true;
