@@ -33,10 +33,6 @@
       executable = true;
     };
     xdg.configFile."polybar/launch.sh" = {
-      source = ./dotfiles/launch.sh;
-      executable = true;
-    };
-    xdg.configFile."polybar/launch.sh" = {
       source = ./dotfiles/polybar-launch.sh;
       executable = true;
     };

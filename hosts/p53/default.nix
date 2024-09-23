@@ -65,6 +65,7 @@
   stylix.cursor.size = 18;
   home-manager.backupFileExtension = "backup";
 
+  programs.nix-ld.enable = true;
   services.flatpak.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   xdg.portal.enable = true;

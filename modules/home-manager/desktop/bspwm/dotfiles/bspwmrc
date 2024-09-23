@@ -8,15 +8,15 @@ feh --bg-fill /home/none/Pictures/background/mountain.jpg &
 picom &
 setxkbmap -option caps:escape,shift:both_capslock &
 
-
+EDP_DISPLAY=$(xrandr | grep -E "^eDP[-0-9]+ connected" | cut -d ' ' -f1)
 if xrandr | grep "HDMI-0 connected"; then
     bspc monitor HDMI-0 -d I II III IV V VI VII
-    bspc monitor eDP1-1 -d VIII IX X
+    bspc monitor "$EDP_DISPLAY" -d VIII IX X
     xrandr --output HDMI-0 --primary   bspc monitor HDMI-0 -d 1 2 3 4 5 6 7
     autorandr docked
 else
     # If HDMI-1 is not connected, use default configuration
-    bspc monitor eDP1-1 -d I II III IV V VI VII VIII IX X
+    bspc monitor "$EDP_DISPLAY" -d I II III IV V VI VII VIII IX X
 fi
 
 

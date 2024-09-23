@@ -11,6 +11,7 @@
 #      inputs.home-manager.nixosModules.default
     ];
 
+  networking.hostName = "laptop"; 
  ##### Desktop #####
   services.displayManager = {
       defaultSession = "none+bspwm";
@@ -86,7 +87,9 @@
   stylix.cursor.name = "Bibata-Modern-Ice";
   stylix.cursor.size = 18;
   home-manager.backupFileExtension = "backup";
-
+  programs.nix-ld.enable = true;
+  services.flatpak.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 programs.hyprland.enable = true;
 programs.light.enable = true;
   programs.zsh.enable = true;

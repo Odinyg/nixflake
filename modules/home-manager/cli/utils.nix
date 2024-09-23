@@ -26,7 +26,6 @@
       vlc
       proton-pass
       anbox
-      pgadmin4-desktopmode
       curaengine_stable
       nixfmt-rfc-style
       autokey
