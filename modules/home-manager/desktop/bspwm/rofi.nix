@@ -11,8 +11,10 @@
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.rofi.enable {
-    services.polybar.enable = true;
-    services.polybar.script = "polybar example";
+    services.polybar= {
+      enable = true;
+      script = "~/.config/polybar/launch.sh";
+    };
     services.sxhkd.enable = true;
 
     xdg.configFile."sxhkd/sxhkdrc" = {
@@ -34,6 +36,11 @@
       source = ./dotfiles/launch.sh;
       executable = true;
     };
+    xdg.configFile."polybar/launch.sh" = {
+      source = ./dotfiles/polybar-launch.sh;
+      executable = true;
+    };
+
     programs.rofi = {
       enable = true;
     };
