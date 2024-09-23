@@ -32,7 +32,7 @@
       source = ./dotfiles/monitor.sh;
       executable = true;
     };
-    xdg.configFile."bspwm/launch.sh" = {
+    xdg.configFile."polybar/launch.sh" = {
       source = ./dotfiles/launch.sh;
       executable = true;
     };
