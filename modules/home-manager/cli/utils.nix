@@ -33,6 +33,7 @@
       sshs
       ripgrep
 
+      code-cursor
 
       ###### tdrop dependencys ######
       xorg.xwininfo
