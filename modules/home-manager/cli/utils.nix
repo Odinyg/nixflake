@@ -38,6 +38,7 @@
       autokey
       sshs
       ripgrep
+      arandr
 
       code-cursor
 
