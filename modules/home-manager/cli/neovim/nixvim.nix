@@ -49,9 +49,6 @@
         enable = true;
         settings.whitespace.remove_blankline_trail = true;
       };
-      telescope = {
-        enable = true;
-      };
       treesitter = {
         enable = true;
         nixGrammars = true;

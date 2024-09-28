@@ -2,8 +2,8 @@
   imports = [
 #    ./features/cli
 #    ./features/common
-     ./../../modules/home-manager/misc/firefox.nix
   ];
+nixpkgs.config.allowUnfree = true;
   home = {
     username = "none";
     homeDirectory = "/home/none";

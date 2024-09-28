@@ -77,6 +77,8 @@ in
         set -g @catppuccin_pane_border_status "top"
         bind \\ split-window -h -c '#{pane_current_path}'
         bind - split-window -v -c '#{pane_current_path}'
+        set-option -g default-terminal "xterm-kitty"
+        set-option -ga terminal-overrides ",xterm-kitty:Tc"
         set -s extended-keys on
         set -g xterm-keys on
         set -as terminal-features 'xterm*:extkeys'
