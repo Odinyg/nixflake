@@ -27,7 +27,9 @@
       autokey
       termscp
       xarchiver
+      hugo
       xclip
+      bat
       pyprland
       tgpt
       vlc
@@ -39,6 +41,7 @@
       sshs
       ripgrep
       arandr
+      wine
 
       code-cursor
 

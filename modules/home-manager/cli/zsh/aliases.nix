@@ -9,5 +9,5 @@
   psgrep = "ps aux | grep -v grep | grep -i -e VSZ -e";
   workvpn = "sudo openvpn --config /root/vpn.ovpn --auth-user-pass /root/pass --allow-compression asym";
   telreset = "/usr/bin/telreset";
-
+  cat = "bat";
 }

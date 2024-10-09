@@ -1,6 +1,5 @@
 { ... }:
 {
-
   programs.nixvim = {
     enable = true;
     globals.mapleader = " ";
@@ -32,6 +31,7 @@
 
     plugins = {
 
+      web-devicons.enable = true;
       cmp_yanky.enable = true;
 
 

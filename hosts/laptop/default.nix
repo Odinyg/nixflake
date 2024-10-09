@@ -13,6 +13,7 @@
 
   networking.hostName = "laptop"; 
  ##### Desktop #####
+ programs.steam.enable = true;
   services.displayManager = {
       defaultSession = "none+bspwm";
       autoLogin.enable = true;
@@ -35,6 +36,7 @@
 
 
 
+  services.playerctld.enable = true;
 #  bspwm.enable = true;
 # hyprland.enable = true;
   rofi.enable = true;
@@ -104,6 +106,7 @@ programs.light.enable = true;
     isNormalUser = true;
     description = "none";
     extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
       google-chrome
       gcc

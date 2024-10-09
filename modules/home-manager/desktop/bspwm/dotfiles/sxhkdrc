@@ -143,6 +143,8 @@ XF86MonBrightnessDown
 super + ctrl + s
     flameshot gui 
 
+XF86AudioPlay
+    playerctl play-pause
 
 
 
