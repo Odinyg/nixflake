@@ -16,7 +16,9 @@
     initExtra = ''
       $HOME/.config/zsh/quote.sh
     '';
-    envExtra = '''';
+    envExtra = ''
+      export TERM="xterm-256color"
+    '';
     oh-my-zsh = {
       enable = true;
       theme = "cloud";

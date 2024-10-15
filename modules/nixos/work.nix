@@ -20,6 +20,9 @@
       anydesk
       dbeaver-bin
       flameshot
+      rpiboot
+      gnumake
+      gcc
       kuro
       openvpn
       zoom-us

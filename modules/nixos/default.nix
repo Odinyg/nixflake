@@ -2,6 +2,7 @@
 {
   imports = [
     ./tailscale.nix
+    ./onedrive.nix
     ./virt-man.nix
     ./work.nix
     ./password.nix

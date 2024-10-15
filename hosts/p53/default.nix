@@ -38,6 +38,7 @@
   #####  Work  ######
   _1password.enable = true;
   work.enable = true;        #TODO Split into smaller and add/remove/move apps
+  onedrive.enable = true;
   
   #####  Code  #####
   git.enable = true;
