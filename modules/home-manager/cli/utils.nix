@@ -38,6 +38,7 @@
       curaengine_stable
       nixfmt-rfc-style
       autokey
+      rustdesk
       sshs
       ripgrep
       arandr

@@ -21,6 +21,7 @@
       xfce.thunar
       xfce.thunar-archive-plugin
       xfce.tumbler
+      xfce.xfconf
       gvfs
     ];
   };
