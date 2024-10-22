@@ -14,7 +14,7 @@
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
 
-
+services.xserver.dpi = 125;
 
   ##### Desktop #####
   bspwm.enable = true;
@@ -81,6 +81,7 @@
 nixpkgs.config.allowUnfree = true;
   ########################################
 
+  services.flatpak.enable = true;
   programs.zsh.enable = true;
   users.users.none= {
     shell = pkgs.zsh;
