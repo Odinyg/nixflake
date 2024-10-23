@@ -3,7 +3,7 @@
 #pgrep -x sxhkd > /dev/null || sxhkd &
 sxhkd &
 nm-applet &
-"$HOME/.config/polybar/launch.sh" &
+~/.config/polybar/launch.sh &
 feh --bg-fill /home/none/Pictures/background/mountain.jpg &
 picom &
 setxkbmap -option caps:escape,shift:both_capslock &
