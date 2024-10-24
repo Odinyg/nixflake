@@ -15,27 +15,27 @@
   };
   config = lib.mkIf config.bspwm.enable {
 
-  fonts.enable = true;
-  rofi.enable = true;
-  randr.enable = true;
-  services.displayManager = {
+    fonts.enable = true;
+    rofi.enable = true;
+    randr.enable = true;
+    services.displayManager = {
       defaultSession = "none+bspwm";
       autoLogin.enable = true;
       autoLogin.user = "none";
-  };
-  services.xserver = {
-    enable = true;
-    windowManager.bspwm.enable = true;
-    displayManager = {
-      lightdm = { 
-        enable = true; 
-      }; 
     };
+    services.xserver = {
+      enable = true;
+      windowManager.bspwm.enable = true;
+      displayManager = {
+        lightdm = {
+          enable = true;
+        };
+      };
 
-#### Keyboard Layout ###
-    xkb.layout = "us";
-    xkb.variant = "";
-  };
+      #### Keyboard Layout ###
+      xkb.layout = "us";
+      xkb.variant = "";
+    };
     environment.systemPackages = with pkgs; [
       sxhkd
       bspwm

@@ -1,24 +1,24 @@
 {
   programs.nixvim = {
-  plugins.nvim-tree = {
-    enable = true;
-    git = {
+    plugins.nvim-tree = {
       enable = true;
-      ignore = false;
+      git = {
+        enable = true;
+        ignore = false;
+      };
+      renderer.indentWidth = 1;
+      diagnostics.enable = true;
+      updateFocusedFile.enable = true;
     };
-    renderer.indentWidth = 1;
-    diagnostics.enable = true;
-    updateFocusedFile.enable = true;
-  };
 
     keymaps = [
-    {
-      mode = "n";
-      key = "<leader>e";
-      action = "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>";
-      options.desc = "Toggle Tree";
-      options.silent = true;
-    }
-  ];
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>";
+        options.desc = "Toggle Tree";
+        options.silent = true;
+      }
+    ];
   };
 }

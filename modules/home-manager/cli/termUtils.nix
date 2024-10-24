@@ -54,9 +54,6 @@
       inetutils # Includes telnet
       fzf
 
-
-
-
       pandoc # Convert text documents
       usermount
       xfce.thunar

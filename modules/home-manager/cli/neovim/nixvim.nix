@@ -3,16 +3,16 @@
   programs.nixvim = {
     enable = true;
     globals.mapleader = " ";
-    
+
     colorschemes = {
       nord.enable = true;
       nord.settings.disable_background = true;
     };
 
     clipboard = {
-     register = "unnamedplus";
-     providers.xclip.enable= true;
-   };
+      register = "unnamedplus";
+      providers.xclip.enable = true;
+    };
 
     opts = {
       conceallevel = 2;
@@ -33,7 +33,6 @@
 
       web-devicons.enable = true;
       cmp_yanky.enable = true;
-
 
       noice.cmdline.enabled = true;
       autoclose.enable = true;

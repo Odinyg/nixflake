@@ -18,18 +18,14 @@
 
     #  sound.enable = true;
     hardware = {
-  bluetooth.enable = true; # enables support for Bluetooth
-  bluetooth.powerOnBoot = true;
-  bluetooth.input.General.UserspaceHID = true;
-  };
-  services.blueman.enable = true;
+      bluetooth.enable = true; # enables support for Bluetooth
+      bluetooth.powerOnBoot = true;
+      bluetooth.input.General.UserspaceHID = true;
+    };
+    services.blueman.enable = true;
     environment.systemPackages = with pkgs; [
-    libinput
-  ];
+      libinput
+    ];
 
   };
 }
-
-
-
-

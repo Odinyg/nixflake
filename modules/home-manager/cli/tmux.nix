@@ -16,7 +16,7 @@ let
       sha256 = "sha256-tzRtDKJ88Ch1zDgFUJM3BKACt3dDGWfEtqbhqifmqso";
     };
   };
-  tmux-which-key= pkgs.tmuxPlugins.mkTmuxPlugin {
+  tmux-which-key = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "tmux-which-key";
     version = "unstable-2023-01-06";
     src = pkgs.fetchFromGitHub {

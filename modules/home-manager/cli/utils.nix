@@ -18,9 +18,7 @@
     programs.zoxide = {
       enable = true;
       enableZshIntegration = true;
-  };
-
-
+    };
 
     home.packages = with pkgs; [
       feh
@@ -54,7 +52,7 @@
       planify
       tldr
       just
-      xdotool      
+      xdotool
       procps
       tdrop
       planify
@@ -62,7 +60,6 @@
       xorg.xwininfo
       zellij
       teamviewer
-      ytui-music
       remmina
       filezilla
       thunderbird

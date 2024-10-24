@@ -25,10 +25,10 @@
           defaultSession = "none+bspwm";
           autoLogin.user = "$config.user";
           autoLogin.enable = false;
-          lightdm = { 
-            enable = true; 
+          lightdm = {
+            enable = true;
             greeter.enable = true;
-          }; 
+          };
         };
         ## Perfect with zsa macros ##
         xkb.layout = "us";
@@ -37,12 +37,12 @@
       };
     };
 
-  environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       polkit_gnome
       xorg.xinit
       betterlockscreen
       xorg.xbacklight
     ];
-    
+
   };
 }
