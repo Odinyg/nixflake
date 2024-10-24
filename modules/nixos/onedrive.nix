@@ -1,5 +1,9 @@
-
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options = {
     onedrive = {
@@ -11,8 +15,8 @@
   };
   config = lib.mkIf config.onedrive.enable {
     environment.systemPackages = with pkgs; [
-    onedrive
-    onedrivegui
+      onedrive
+      onedrivegui
     ];
-    };
+  };
 }
