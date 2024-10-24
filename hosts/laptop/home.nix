@@ -1,13 +1,14 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
-#    ./features/cli
-#    ./features/common
+    #    ./features/cli
+    #    ./features/common
   ];
-nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
   home = {
     username = "none";
     homeDirectory = "/home/none";
     stateVersion = "24.11";
   };
-programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 }

@@ -1,13 +1,15 @@
-
-{ config, pkgs,lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
-
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   ##### Desktop #####
   bspwm.enable = true;
@@ -17,7 +19,7 @@
   fonts.enable = true;
   gammastep.enable = false;
   programs.hyprland.enable = false;
-  
+
   ##### Hardware #####
   audio.enable = true;
   wireless.enable = true;
@@ -34,13 +36,11 @@
   discord.enable = true;
   thunar.enable = true;
   chromium.enable = true;
-  
+
   #####  Work  ######
   _1password.enable = true;
-  work.enable = true;        #TODO Split into smaller and add/remove/move apps
-  onedrive.enable = true;
-  programs.dconf.enable = true; 
-  
+  work.enable = true; # TODO Split into smaller and add/remove/move apps
+
   #####  Code  #####
   git.enable = true;
   direnv.enable = true;
@@ -53,7 +53,7 @@
   utils.enable = true;
   xdg.enable = true;
   virt-man.enable = true;
- # greetd.enable = true;
+  # greetd.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -83,25 +83,24 @@
 
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless = {
-  enable = true;
-  setSocketVariable = true;
-};
+    enable = true;
+    setSocketVariable = true;
+  };
 
   #### AutoMount ####
-services.gvfs.enable = true; 
-services.locate.enable = true;
+  services.gvfs.enable = true;
+  services.locate.enable = true;
 
-
-##############################################
+  ##############################################
   services.printing.enable = true;
   # Enable sound with pipewire.
-    nixpkgs.config.permittedInsecurePackages = [
+  nixpkgs.config.permittedInsecurePackages = [
     "electron-19.1.9"
     "electron-29.4.6"
     "python3.12-youtube-dl-2021.12.17"
     "electron-25.9.0"
     "openssl-1.1.1w"
-    ];
+  ];
 
   users.extraGroups.vboxusers.members = [ "odin" ];
   programs.zsh.enable = true;
@@ -109,7 +108,12 @@ services.locate.enable = true;
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "odin";
-    extraGroups = [ "docker" "networkmanager" "wheel" "plugdev" ];
+    extraGroups = [
+      "docker"
+      "networkmanager"
+      "wheel"
+      "plugdev"
+    ];
     packages = with pkgs; [
       firefox
       sublime4
@@ -125,18 +129,19 @@ services.locate.enable = true;
       flameshot
     ];
   };
-   services.teamviewer.enable = true;
+  services.teamviewer.enable = true;
 
   environment.systemPackages = with pkgs; [
-  pciutils
-  lshw
-  tailscale
+    pciutils
+    lshw
+    tailscale
   ];
 
   nix = {
     package = pkgs.nixFlakes;
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-      "experimental-features = nix-command flakes";
+    extraOptions = lib.optionalString (
+      config.nix.package == pkgs.nixFlakes
+    ) "experimental-features = nix-command flakes";
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -144,11 +149,11 @@ services.locate.enable = true;
 
   system.stateVersion = "24.11"; # Did you read the comment?
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.beta;
     modesetting.enable = true;
-	powerManagement.enable = false;
+    powerManagement.enable = false;
     open = true;
     nvidiaSettings = true;
     prime.sync.enable = true;
@@ -167,6 +172,5 @@ services.locate.enable = true;
     "nvidia-drm.modeset=1"
     "nvidia_drm.fbdev=1"
   ];
-
 
 }

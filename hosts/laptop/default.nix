@@ -2,48 +2,46 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by prunninrg ‘nixos-help’).
 
-{ pkgs,... }:
+{ pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-#      inputs.home-manager.nixosModules.default
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    #      inputs.home-manager.nixosModules.default
+  ];
 
-  networking.hostName = "laptop"; 
- ##### Desktop #####
- programs.steam.enable = true;
+  networking.hostName = "laptop";
+  ##### Desktop #####
+  programs.steam.enable = true;
   services.displayManager = {
-      defaultSession = "none+bspwm";
-      autoLogin.enable = true;
-      autoLogin.user = "none";
+    defaultSession = "none+bspwm";
+    autoLogin.enable = true;
+    autoLogin.user = "none";
 
   };
   services.xserver = {
     enable = true;
     windowManager.bspwm.enable = true;
     displayManager = {
-      lightdm = { 
-        enable = true; 
-      }; 
+      lightdm = {
+        enable = true;
+      };
     };
 
-#### Keyboard Layout ###
+    #### Keyboard Layout ###
     xkb.layout = "us";
     xkb.variant = "";
   };
 
-
-
   services.playerctld.enable = true;
-#  bspwm.enable = true;
-# hyprland.enable = true;
+  #  bspwm.enable = true;
+  # hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
   gammastep.enable = false;
-  
+
   ##### Hardware #####
   audio.enable = true;
   wireless.enable = true;
@@ -60,11 +58,11 @@
   discord.enable = true;
   thunar.enable = true;
   chromium.enable = true;
-  
+
   #####  Work  ######
   _1password.enable = false;
-  work.enable = true;        #TODO Split into smaller and add/remove/move apps
-  
+  work.enable = true; # TODO Split into smaller and add/remove/move apps
+
   #####  Code  #####
   git.enable = true;
   direnv.enable = true;
@@ -76,7 +74,7 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
-#greetd.enable = true;
+  #greetd.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -92,21 +90,23 @@
   programs.nix-ld.enable = true;
   services.flatpak.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-programs.hyprland.enable = true;
-programs.light.enable = true;
+  programs.hyprland.enable = true;
+  programs.light.enable = true;
   programs.zsh.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-#  programs.zsh.enable = true;
+  #  programs.zsh.enable = true;
   services.printing.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
-    extraGroups = [ "networkmanager" "wheel" ];
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       google-chrome
       gcc
@@ -114,8 +114,8 @@ programs.light.enable = true;
       gtk3
       gtk4
       nwg-look
-      themix-gui  
-      nautilus 
+      themix-gui
+      nautilus
       sxhkd
       bspwm
       rofi
@@ -141,45 +141,45 @@ programs.light.enable = true;
     ];
   };
   security.polkit.enable = true;
- systemd = {
-  user.services.polkit-gnome-authentication-agent-1 = {
-    description = "polkit-gnome-authentication-agent-1";
-    wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;
       };
+    };
+    extraConfig = ''
+      DefaultTimeoutStopSec=10s
+    '';
   };
-   extraConfig = ''
-     DefaultTimeoutStopSec=10s
-   '';
-}; 
 
-#fonts = {
-#    packages = with pkgs; [
-#      noto-fonts
-#      noto-fonts-cjk
-#      noto-fonts-emoji
-#      font-awesome
-#      source-han-sans
-#      source-han-sans-japanese
-#      source-han-serif-japanese
-#      (nerdfonts.override { fonts = [ "Meslo" ]; })
-#    ];
-#    fontconfig = {
-#      enable = true;
-#      defaultFonts = {
-#	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
-#	      serif = [ "Noto Serif" "Source Han Serif" ];
-#	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
-#      };
-#    };
-#};
+  #fonts = {
+  #    packages = with pkgs; [
+  #      noto-fonts
+  #      noto-fonts-cjk
+  #      noto-fonts-emoji
+  #      font-awesome
+  #      source-han-sans
+  #      source-han-sans-japanese
+  #      source-han-serif-japanese
+  #      (nerdfonts.override { fonts = [ "Meslo" ]; })
+  #    ];
+  #    fontconfig = {
+  #      enable = true;
+  #      defaultFonts = {
+  #	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
+  #	      serif = [ "Noto Serif" "Source Han Serif" ];
+  #	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
+  #      };
+  #    };
+  #};
 
   nix.settings.experimental-features = [
     "nix-command"

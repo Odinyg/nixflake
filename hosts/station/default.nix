@@ -1,20 +1,23 @@
-{ config, pkgs,lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "station"; 
+  networking.hostName = "station";
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-
-services.xserver.dpi = 125;
 
   ##### Desktop #####
   bspwm.enable = true;
@@ -24,7 +27,7 @@ services.xserver.dpi = 125;
   randr.enable = true;
   fonts.enable = true;
   gammastep.enable = false;
-  
+
   ##### Hardware #####
   audio.enable = true;
   wireless.enable = true;
@@ -42,12 +45,12 @@ services.xserver.dpi = 125;
   thunar.enable = true;
   chromium.enable = true;
   game.enable = true;
- # anbox.enable = true;
-  
+  # anbox.enable = true;
+
   #####  Work  ######
   _1password.enable = false;
-  work.enable = true;        #TODO Split into smaller and add/remove/move apps
-  
+  work.enable = true; # TODO Split into smaller and add/remove/move apps
+
   #####  Code  #####
   git.enable = true;
   direnv.enable = true;
@@ -78,16 +81,21 @@ services.xserver.dpi = 125;
 
   #gtk.enable = false;
   ############## HYPRLAND SETTING################
-nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
   ########################################
 
   services.flatpak.enable = true;
   programs.zsh.enable = true;
-  users.users.none= {
+  users.users.none = {
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
-    extraGroups = [ "networkmanager" "wheel" "plugdev" "docker"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "plugdev"
+      "docker"
+    ];
     packages = with pkgs; [
       firefox
       deluge
@@ -97,7 +105,7 @@ nixpkgs.config.allowUnfree = true;
       ansible
       ansible-lint
       libreoffice
- #     xdg-desktop-portal-hyprland
+      #     xdg-desktop-portal-hyprland
     ];
   };
   xdg.portal = {
@@ -109,16 +117,17 @@ nixpkgs.config.allowUnfree = true;
   };
   nix = {
     package = pkgs.nixFlakes;
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixFlakes)
-      "experimental-features = nix-command flakes";
+    extraOptions = lib.optionalString (
+      config.nix.package == pkgs.nixFlakes
+    ) "experimental-features = nix-command flakes";
   };
 
-    nixpkgs.config.permittedInsecurePackages = [
+  nixpkgs.config.permittedInsecurePackages = [
     "electron-19.1.9"
     "electron-25.9.0"
     "electron-29.4.6"
     "python3.12-youtube-dl-2021.12.17"
-    ];
+  ];
 
   services.openssh.enable = true;
   xdg.portal.config.common.default = "*";
@@ -143,8 +152,8 @@ nixpkgs.config.allowUnfree = true;
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
-  services.xserver ={ 
-    videoDrivers = ["nvidia"];
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
   };
-  system.stateVersion = "24.11"; 
+  system.stateVersion = "24.11";
 }
