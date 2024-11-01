@@ -123,7 +123,6 @@
       xdg-desktop-portal-hyprland
       swtpm
       syncthing
-      drawio
       dconf
       obsidian
       flameshot
@@ -138,10 +137,9 @@
   ];
 
   nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = lib.optionalString (
-      config.nix.package == pkgs.nixFlakes
-    ) "experimental-features = nix-command flakes";
+    package = pkgs.nixVersions.stable;
+    extraOptions = lib.optionalString (config.nix.package == pkgs.nixVersions.stable)
+      "experimental-features = nix-command flakes";
   };
 
   nixpkgs.config.allowUnfree = true;

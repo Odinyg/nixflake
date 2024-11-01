@@ -23,7 +23,6 @@
       go
       docker
       docker-compose
-      vagrant
       ansible
       nushell
 
