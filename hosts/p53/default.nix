@@ -23,7 +23,7 @@
   ##### Hardware #####
   audio.enable = true;
   wireless.enable = true;
-  zsa.enable = true;
+  zsa.enable = false;
 
   ##### CLI #####
   neovim.enable = true;
@@ -33,20 +33,22 @@
   termUtils.enable = true;
 
   ##### Random Desktop Apps #####
-  discord.enable = true;
+  discord.enable = false;
   thunar.enable = true;
   chromium.enable = true;
 
   #####  Work  ######
   _1password.enable = true;
-  work.enable = true; # TODO Split into smaller and add/remove/move apps
-
+  work.enable = true;        #TODO Split into smaller and add/remove/move apps
+  onedrive.enable = false;
+  programs.dconf.enable = true; 
+  
   #####  Code  #####
   git.enable = true;
   direnv.enable = true;
 
   ##### Everything Else #####
-  crypt.enable = true;
+  crypt.enable = false;
   tailscale.enable = true;
   syncthing.enable = true;
   polkit.enable = true;
@@ -79,7 +81,7 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
-  services.trezord.enable = true;
+  services.trezord.enable = false;
 
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless = {
