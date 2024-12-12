@@ -25,6 +25,7 @@
       autokey
       xarchiver
       hugo
+      ksnip
       xclip
       cloudflared
       bat
@@ -36,7 +37,6 @@
       curaengine_stable
       nixfmt-rfc-style
       autokey
-      rustdesk
       sshs
       ripgrep
       arandr

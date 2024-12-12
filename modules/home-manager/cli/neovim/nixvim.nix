@@ -34,7 +34,7 @@
       web-devicons.enable = true;
       cmp_yanky.enable = true;
 
-      noice.cmdline.enabled = true;
+      noice.settings.cmdline.enabled = true;
       autoclose.enable = true;
       comment.enable = true;
       tmux-navigator.enable = true;

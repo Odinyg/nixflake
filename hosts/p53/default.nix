@@ -55,6 +55,7 @@
   utils.enable = true;
   xdg.enable = true;
   virt-man.enable = true;
+  programs.kdeconnect.enable = true;
   # greetd.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
@@ -125,6 +126,7 @@
       xdg-desktop-portal-hyprland
       swtpm
       syncthing
+      kdePackages.kdeconnect-kde
       dconf
       obsidian
       flameshot
