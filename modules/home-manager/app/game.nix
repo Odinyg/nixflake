@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   options = {
     game = {
@@ -10,6 +10,9 @@
   };
 
   config = lib.mkIf config.game.enable {
+ #     home.packages = with pkgs; [
+ #       lutris
+ #     ];
     programs.gamescope.enable = true;
     programs.steam = {
       enable = true;

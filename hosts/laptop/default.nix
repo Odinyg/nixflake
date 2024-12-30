@@ -53,6 +53,7 @@
   tmux.enable = true;
   kitty.enable = true;
   termUtils.enable = true;
+  bluetooth.enable = true;
 
   ##### Random Desktop Apps #####
   discord.enable = true;
@@ -117,6 +118,7 @@
       themix-gui
       nautilus
       sxhkd
+      lutris
       bspwm
       rofi
       polybar

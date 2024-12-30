@@ -18,7 +18,6 @@
     home-manager.users.${config.user} = {
       home.packages = with pkgs; [
         vesktop
-
       ];
       xdg.configFile."discord/settings.json".text = ''
         {

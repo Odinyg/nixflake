@@ -23,12 +23,15 @@
     home.packages = with pkgs; [
       feh
       autokey
+      nixd
       xarchiver
       hugo
       ksnip
       xclip
       cloudflared
       bat
+      drawio
+      freecad
       pyprland
       tgpt
       vlc
