@@ -23,10 +23,10 @@
     home.packages = with pkgs; [
       feh
       autokey
-      termscp
       xarchiver
       hugo
       xclip
+      cloudflared
       bat
       pyprland
       tgpt
@@ -41,6 +41,10 @@
       ripgrep
       arandr
       wine
+      ######## kubernetes
+      k9s
+      kubectx
+      fluxcd
 
       code-cursor
 

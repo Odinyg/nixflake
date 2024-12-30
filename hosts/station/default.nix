@@ -20,9 +20,9 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   ##### Desktop #####
-  bspwm.enable = true;
-  programs.hyprland.enable = false;
-  hyprlandstation.enable = false;
+  bspwm.enable = false;
+  programs.hyprland.enable = true;
+  hyprlandstation.enable = true;
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
@@ -65,6 +65,9 @@
   greetd.enable = false;
   services.syncthing.enable = true;
   bluetooth.enable = true;
+  #### AutoMount ####
+  services.gvfs.enable = true;
+  services.locate.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
@@ -79,10 +82,19 @@
   stylix.autoEnable = true;
   home-manager.backupFileExtension = "backup";
 
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    openFirewall = true;
+    capSysAdmin = true;
+  };
+  services.avahi.publish.enable = true;
+services.avahi.publish.userServices = true;
   #gtk.enable = false;
   ############## HYPRLAND SETTING################
   nixpkgs.config.allowUnfree = true;
   ########################################
+
 
   services.flatpak.enable = true;
   programs.zsh.enable = true;
@@ -99,6 +111,7 @@
     packages = with pkgs; [
       firefox
       deluge
+      lutris
       obsidian
       flatpak
       polkit
@@ -116,9 +129,9 @@
     ];
   };
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = lib.optionalString (
-      config.nix.package == pkgs.nixFlakes
+      config.nix.package == pkgs.nixVersions.stable
     ) "experimental-features = nix-command flakes";
   };
 
@@ -132,28 +145,9 @@
   services.openssh.enable = true;
   xdg.portal.config.common.default = "*";
 
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    WLR_NO_HARDWARE_CURSORS = "1";
-    LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
-
-  boot.kernelParams = lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
-    "nvidia-drm.modeset=1"
-    "nvidia_drm.fbdev=1"
-  ];
-  hardware.nvidia = {
-    #modesetting.enable = true;
-    open = false;
-    modesetting.enable = true;
-
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-  };
-
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    enable = true;
+    videoDrivers = [ "amdgpu" ];
   };
   system.stateVersion = "24.11";
 }
