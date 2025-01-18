@@ -1,8 +1,4 @@
 {
-  imports =
-    [
-    ];
-  nixpkgs.config.allowUnfree = true;
 
   home = {
     username = "odin";
