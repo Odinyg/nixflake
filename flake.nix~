@@ -119,7 +119,6 @@
                useGlobalPkgs = true;
                useUserPackages = true;
                users.none = {
-                 imports = [ ./hosts/station/home.nix ] ++ homeManagerModules;
                  home = {
                  username = "none";
                  homeDirectory = "/home/none";

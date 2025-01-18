@@ -7,6 +7,7 @@
     ./randr.nix
     ./zsa.nix
     ./bluetooth.nix
+    ./nas.nix
   ];
 
 }

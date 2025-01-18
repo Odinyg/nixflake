@@ -12,7 +12,6 @@
     ./syncthing.nix
     ./polkit.nix
     ./greetd.nix
-    ./anbox.nix
 
   ];
 }

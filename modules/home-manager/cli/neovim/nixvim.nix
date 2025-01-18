@@ -4,10 +4,10 @@
     enable = true;
     globals.mapleader = " ";
 
-    colorschemes = {
-      nord.enable = true;
-      nord.settings.disable_background = true;
-    };
+    #    colorschemes = {
+    #      nord.enable = true;
+    #      nord.settings.disable_background = true;
+    #    };
 
     clipboard = {
       register = "unnamedplus";
@@ -35,7 +35,7 @@
       cmp_yanky.enable = true;
 
       noice.settings.cmdline.enabled = true;
-      autoclose.enable = true;
+      autoclose.enable = false;
       comment.enable = true;
       tmux-navigator.enable = true;
       nix.enable = true;

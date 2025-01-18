@@ -14,7 +14,7 @@
     };
   };
   config = lib.mkIf config.bluetooth.enable {
-    services.xserver.libinput.enable = true;
+    services.libinput.enable = true;
 
     #  sound.enable = true;
     hardware = {

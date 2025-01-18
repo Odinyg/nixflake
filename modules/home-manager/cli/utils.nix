@@ -36,7 +36,6 @@
       tgpt
       vlc
       proton-pass
-      anbox
       curaengine_stable
       nixfmt-rfc-style
       autokey

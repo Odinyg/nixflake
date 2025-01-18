@@ -1,9 +1,5 @@
 { ... }:
 {
-  imports =
-    [
-    ];
-  nixpkgs.config.allowUnfree = true;
 
   home = {
     username = "none";

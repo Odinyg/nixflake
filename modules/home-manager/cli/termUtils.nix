@@ -23,7 +23,6 @@
       go
       docker
       docker-compose
-      ansible
       nushell
 
       openvpn
@@ -41,7 +40,6 @@
       fd
       bat
       ripgrep
-      magic-wormhole
 
       #### Terminal essentials####
       gnupg # Encryption

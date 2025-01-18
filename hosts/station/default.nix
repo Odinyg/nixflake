@@ -10,9 +10,13 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/nvme0n1";
+    useOSProber = true;
+
+    #  systemd-boot.enable = true;
+    #  efi.canTouchEfiVariables = true;
   };
 
   networking.hostName = "station";
@@ -32,6 +36,7 @@
   audio.enable = true;
   wireless.enable = true;
   zsa.enable = true;
+  smbmount.enable = false;
 
   ##### CLI #####
   neovim.enable = true;
@@ -45,7 +50,6 @@
   thunar.enable = true;
   chromium.enable = true;
   game.enable = true;
-  # anbox.enable = true;
 
   #####  Work  ######
   _1password.enable = false;
@@ -89,12 +93,11 @@
     capSysAdmin = true;
   };
   services.avahi.publish.enable = true;
-services.avahi.publish.userServices = true;
+  services.avahi.publish.userServices = true;
   #gtk.enable = false;
   ############## HYPRLAND SETTING################
   nixpkgs.config.allowUnfree = true;
   ########################################
-
 
   services.flatpak.enable = true;
   programs.zsh.enable = true;
@@ -111,12 +114,18 @@ services.avahi.publish.userServices = true;
     packages = with pkgs; [
       firefox
       deluge
+      protonup-qt
       lutris
+      (lutris.override {
+        extraPkgs = pkgs: [
+          pkgs.libnghttp2
+          pkgs.winetricks
+        ];
+      })
       obsidian
       flatpak
       polkit
       ansible
-      ansible-lint
       libreoffice
       #     xdg-desktop-portal-hyprland
     ];
