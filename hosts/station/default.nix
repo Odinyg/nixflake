@@ -86,6 +86,11 @@
   stylix.autoEnable = true;
   home-manager.backupFileExtension = "backup";
 
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
   services.sunshine = {
     enable = true;
     autoStart = true;
@@ -124,6 +129,8 @@
       })
       obsidian
       flatpak
+      beszel
+      docker
       polkit
       ansible
       libreoffice

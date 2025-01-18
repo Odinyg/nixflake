@@ -67,6 +67,7 @@ in
       ];
 
       extraConfig = ''
+        set -g default-terminal "screen-256color"
         set -g mouse on
         bind-key C-a last-window
         set -g focus-events on

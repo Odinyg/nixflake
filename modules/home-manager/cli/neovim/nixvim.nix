@@ -33,6 +33,7 @@
 
       web-devicons.enable = true;
       cmp_yanky.enable = true;
+      lazygit.enable = true;
 
       noice.settings.cmdline.enabled = true;
       autoclose.enable = false;

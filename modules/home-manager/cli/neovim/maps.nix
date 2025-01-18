@@ -10,6 +10,12 @@
       key = "<leader>q";
       action = "<cmd>q<CR>";
     }
+    {
+      key = "<C-g>";
+      action = "<cmd>LazyGit<cr>";
+      options.desc = "Lazygit";
+      mode = "n";
+    }
 
   ];
 

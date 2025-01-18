@@ -14,12 +14,7 @@
       doc = "$HOME/Documents";
     };
 
-    initExtra = ''
-      $HOME/.config/zsh/quote.sh
-      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=*      r:|=*' 'l:|=* r:|=*'
-      setopt NO_CASE_GLOB
-      source <(kubectl completion zsh)
-    '';
+    initExtra = '''';
     envExtra = ''
       source <(kubectl completion zsh)
       export TERM="xterm-256color"
@@ -27,16 +22,27 @@
     oh-my-zsh = {
       enable = true;
       theme = "cloud";
-      custom = "$HOME/.config/zsh/oh-my-zsh";
+      #    custom = "$HOME/.config/zsh/oh-my-zsh";
       plugins = [
         "fzf"
+        "tmux"
         "sudo"
         "git"
         "docker"
         "1password"
         "ripgrep"
         "direnv"
-        "kubectl-autocomplete"
+        "kubectl"
+        "kubectx"
+        "fluxcd"
+        "gh"
+        "minikube"
+        "ssh"
+        "tldr"
+        "tmuxinator"
+        "zsh-interactive-cd"
+        "zoxide"
+        "tailscale"
       ];
     };
   };
@@ -49,6 +55,8 @@
   home.packages = with pkgs; [
     ueberzugpp
     fzf
+    ripgrep
+    #  kubectl-autocomplete
   ];
 
 }

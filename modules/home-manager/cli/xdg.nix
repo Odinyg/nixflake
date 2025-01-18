@@ -42,7 +42,7 @@
 
         defaultApplications =
           let
-            browser = [ "firefox.desktop" ];
+            browser = [ "app.zen_browser.zen" ];
             photo = [ "feh.desktop" ];
             video = [ "vlc.desktop" ];
             office = [ "libreoffice.desktop" ];
