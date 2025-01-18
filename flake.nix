@@ -39,7 +39,7 @@
       nixpkgs-outPath = {
         environment.etc."nix/inputs/nixpkgs".source = nixpkgs.outPath;
       };
-      homeManagerModules = [ nixvim.homeManagerModules.nixvim];
+      homeManagerModules = [ nixvim.homeManagerModules.nixvim ];
     in
     {
 
@@ -116,18 +116,18 @@
             home-manager.nixosModules.home-manager
             {
               home-manager = {
-               useGlobalPkgs = true;
-               useUserPackages = true;
-               users.none = {
-                 imports = [ ./hosts/station/home.nix ] ++ homeManagerModules;
-                 home = {
-                 username = "none";
-                 homeDirectory = "/home/none";
-                 stateVersion = "24.11";
-               };
-              programs.home-manager.enable = true;
-              programs.nixvim.enable = true;
-              };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.none = {
+                  imports = [ ./hosts/station/home.nix ] ++ homeManagerModules;
+                  home = {
+                    username = "none";
+                    homeDirectory = "/home/none";
+                    stateVersion = "24.11";
+                  };
+                  programs.home-manager.enable = true;
+                  programs.nixvim.enable = true;
+                };
               };
             }
           ];
