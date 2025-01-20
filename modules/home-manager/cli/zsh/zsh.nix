@@ -30,7 +30,6 @@
         "git"
         "docker"
         "1password"
-        "ripgrep"
         "direnv"
         "kubectl"
         "kubectx"

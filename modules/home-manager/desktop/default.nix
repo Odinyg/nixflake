@@ -1,7 +1,7 @@
 {
   imports = [
-    ./bspwm
-    ./hyprland
     ./styling.nix
+    ./hyprland
+    ./bspwm
   ];
 }

@@ -23,7 +23,7 @@
       swayidle
       wofi
       brightnessctl
-      #mako
+      pyprland
       lxqt.lxqt-policykit
       copyq
       swaynotificationcenter
@@ -33,21 +33,19 @@
       slurp
       waybar
       hyprshade
+      swww
       hyprpaper
       gtk-engine-murrine
       sassc
       gtk3
-      #      gnome.gnome-themes-extra
     ];
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
     xdg.configFile."hypr/pyprland.toml".source = ./config/pyprland.toml;
-    #   xdg.configFile."hypr/hyprland.conf".source = ./config/hyprland.conf;
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
-    #    xdg.configFile."hypr/hyprland.conf".source = ./config/hyprland.conf;
     programs.swaylock.enable = true;
 
   };

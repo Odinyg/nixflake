@@ -19,19 +19,22 @@
   networking.hostName = "station";
 
   ##### Desktop #####
-  bspwm.enable = false;
-  programs.hyprland.enable = true;
-  hyprlandstation.enable = true;
+  home-manager.backupFileExtension = "backup";
+  general.enable = true;
+  # hyprlandstation.enable = true;
+  hyprland.enable = true;
   rofi.enable = true;
-  randr.enable = true;
   fonts.enable = true;
-  gammastep.enable = false;
+  #### X11 Destktop ###
+  randr.enable = false;
+  bspwm.enable = false;
 
   ##### Hardware #####
   audio.enable = true;
   wireless.enable = true;
   zsa.enable = true;
   smbmount.enable = false;
+  bluetooth.enable = true;
 
   ##### CLI #####
   neovim.enable = true;
@@ -61,9 +64,7 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
-  greetd.enable = false;
   services.syncthing.enable = true;
-  bluetooth.enable = true;
   #### AutoMount ####
   services.gvfs.enable = true;
   services.locate.enable = true;
@@ -79,9 +80,8 @@
   stylix.cursor.name = "Bibata-Modern-Ice";
   stylix.cursor.size = 18;
   stylix.autoEnable = true;
-  home-manager.backupFileExtension = "backup";
+  # home-manager.backupFileExtension = "backup";
 
-  #gtk.enable = false;
   ############## HYPRLAND SETTING################
   ########################################
 

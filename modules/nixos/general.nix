@@ -30,9 +30,39 @@
         config.nix.package == pkgs.nixVersions.stable
       ) "experimental-features = nix-command flakes";
     };
-    packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
+      openvpn
+      noti # Create notifications programmatically
+      nmap
+      #### ZIP etc ####
+      unzip
+      unrar
+      zip
+
+      #### Terminal Improvments ####
+      lf
+      fd
+      bat
+
+      #### Terminal essentials####
+      gnupg # Encryption
+      expect
+      consul
+      st
+      stdenv
+      killall
+      inetutils # Includes telnet
+      fzf
+
+      pandoc # Convert text documents
+      usermount
+      xfce.thunar
+      htop
+      ctop
+      nvtop
       firefox
       deluge
+      ripgrep
       protonup-qt
       lutris
       (lutris.override {
@@ -41,6 +71,17 @@
           pkgs.winetricks
         ];
       })
+      nixfmt-rfc-style
+      nixd
+      sshs
+      ripgrep
+      zoxide
+      tldr
+      just
+
+      age
+      sops
+      fluxcd
       obsidian
       flatpak
       beszel
@@ -52,6 +93,7 @@
     ];
     services.flatpak.enable = true;
     programs.zsh.enable = true;
+    programs.hyprland.enable = true;
 
     time.timeZone = "Europe/Oslo";
     i18n.defaultLocale = "en_US.UTF-8";

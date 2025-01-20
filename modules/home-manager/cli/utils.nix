@@ -22,26 +22,14 @@
 
     home.packages = with pkgs; [
       feh
-      autokey
-      nixd
       xarchiver
-      hugo
-      ksnip
-      xclip
       cloudflared
-      bat
       drawio
       freecad
-      pyprland
-      tgpt
       vlc
       proton-pass
       curaengine_stable
-      nixfmt-rfc-style
       autokey
-      sshs
-      ripgrep
-      arandr
       wine
       ######## kubernetes
       k9s
@@ -52,31 +40,18 @@
 
       ###### tdrop dependencys ######
       xorg.xwininfo
-      xdotool
 
-      zoxide
       planify
-      tldr
-      just
-      xdotool
+
       procps
-      tdrop
-      planify
       xorg.xprop
       xorg.xwininfo
-      zellij
-      teamviewer
       remmina
       filezilla
-      thunderbird
       rpi-imager
       wget
       kubernetes
       minikube
-
-      #### virt-manager ####
-      #     qemu
-      #      virt-manager
       xfce.thunar
 
     ];

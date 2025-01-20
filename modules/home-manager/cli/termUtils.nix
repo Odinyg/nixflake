@@ -21,48 +21,6 @@
       python3
       python312Packages.pip
       go
-      docker
-      docker-compose
-      nushell
-
-      openvpn
-      noti # Create notifications programmatically
-      dos2unix # Convert Windows text files
-      nmap
-
-      #### ZIP etc ####
-      unzip
-      unrar
-      zip
-
-      #### Terminal Improvments ####
-      lf
-      fd
-      bat
-      ripgrep
-
-      #### Terminal essentials####
-      gnupg # Encryption
-      expect
-      consul
-      st
-      stdenv
-      killall
-      inetutils # Includes telnet
-      fzf
-
-      pandoc # Convert text documents
-      usermount
-      xfce.thunar
-      htop
-      ctop
-      #      xorg.libX11
-      #      xorg.libX11.dev
-      #      xorg.libxcb
-      #      xorg.libXft
-      #      xorg.libXinerama
-      #      xorg.xinit
-      #      xorg.xinput
 
     ];
   };

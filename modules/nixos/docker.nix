@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options = {
     docker = {
@@ -15,6 +20,10 @@
       enable = true;
       setSocketVariable = true;
     };
+    environment.systemPackages = with pkgs; [
+      docker
+      docker-compose
+    ];
 
   };
 }
