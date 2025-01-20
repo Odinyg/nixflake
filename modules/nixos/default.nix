@@ -12,6 +12,8 @@
     ./syncthing.nix
     ./polkit.nix
     ./greetd.nix
+    ./sunshine.nix
+    ./general.nix
 
   ];
 }

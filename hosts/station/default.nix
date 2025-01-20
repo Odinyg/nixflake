@@ -14,14 +14,9 @@
     enable = true;
     device = "/dev/nvme0n1";
     useOSProber = true;
-
-    #  systemd-boot.enable = true;
-    #  efi.canTouchEfiVariables = true;
   };
 
   networking.hostName = "station";
-  time.timeZone = "Europe/Oslo";
-  i18n.defaultLocale = "en_US.UTF-8";
 
   ##### Desktop #####
   bspwm.enable = false;
@@ -86,26 +81,10 @@
   stylix.autoEnable = true;
   home-manager.backupFileExtension = "backup";
 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    openFirewall = true;
-    capSysAdmin = true;
-  };
-  services.avahi.publish.enable = true;
-  services.avahi.publish.userServices = true;
   #gtk.enable = false;
   ############## HYPRLAND SETTING################
-  nixpkgs.config.allowUnfree = true;
   ########################################
 
-  services.flatpak.enable = true;
-  programs.zsh.enable = true;
   users.users.none = {
     shell = pkgs.zsh;
     isNormalUser = true;
@@ -116,26 +95,6 @@
       "plugdev"
       "docker"
     ];
-    packages = with pkgs; [
-      firefox
-      deluge
-      protonup-qt
-      lutris
-      (lutris.override {
-        extraPkgs = pkgs: [
-          pkgs.libnghttp2
-          pkgs.winetricks
-        ];
-      })
-      obsidian
-      flatpak
-      beszel
-      docker
-      polkit
-      ansible
-      libreoffice
-      #     xdg-desktop-portal-hyprland
-    ];
   };
   xdg.portal = {
     enable = true;
@@ -144,23 +103,7 @@
       pkgs.xdg-desktop-portal-hyprland
     ];
   };
-  nix = {
-    package = pkgs.nixVersions.stable;
-    extraOptions = lib.optionalString (
-      config.nix.package == pkgs.nixVersions.stable
-    ) "experimental-features = nix-command flakes";
-  };
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-19.1.9"
-    "electron-25.9.0"
-    "electron-29.4.6"
-    "python3.12-youtube-dl-2021.12.17"
-  ];
-
-  services.openssh.enable = true;
   xdg.portal.config.common.default = "*";
-
   services.xserver = {
     enable = true;
     videoDrivers = [ "amdgpu" ];
