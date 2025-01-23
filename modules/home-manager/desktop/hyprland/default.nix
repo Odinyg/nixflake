@@ -112,7 +112,7 @@
           "$mainMod, M, exit,"
           "$mainMod, E, exec, thunar"
           "$mainMod, V, togglefloating,"
-          "$mainMod, D, exec, wofi --show drun"
+          "$mainMod, D, exec, pgrep rofi >/dev/null 2>&1 && killall rofi || rofi -show drun"
           "$mainMod, P, pseudo,"
           "$mainMod, O, togglesplit,"
           # Focus window bindings
@@ -208,7 +208,6 @@
       grim
       eww
       swayidle
-      wofi
       brightnessctl
       pyprland
       swaynotificationcenter
@@ -224,7 +223,7 @@
       grim
       slurp
       wl-clipboard
-      rofi
+      rofi-wayland
     ];
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
@@ -232,6 +231,9 @@
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;
+    xdg.configFile."rofi/nord.rasi".source = ./config/rofi-nord.rasi;
+    xdg.configFile."rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;
+    xdg.configFile."rofi/config.rasi".source = ./config/rofi.rasi;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
     programs.swaylock.enable = true;
 

@@ -35,8 +35,11 @@
       k9s
       kubectx
       fluxcd
+      kubernetes-helm
+      openssl
 
       code-cursor
+      ventoy-full
 
       ###### tdrop dependencys ######
       xorg.xwininfo

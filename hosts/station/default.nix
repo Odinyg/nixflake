@@ -23,7 +23,7 @@
   general.enable = true;
   # hyprlandstation.enable = true;
   hyprland.enable = true;
-  rofi.enable = true;
+  rofi.enable = false;
   fonts.enable = true;
   #### X11 Destktop ###
   randr.enable = false;
@@ -42,6 +42,7 @@
   tmux.enable = true;
   kitty.enable = true;
   termUtils.enable = true;
+  zellij.enable = true;
 
   ##### Random Desktop Apps #####
   discord.enable = true;
@@ -85,6 +86,9 @@
   ############## HYPRLAND SETTING################
   ########################################
 
+  environment.systemPackages = [
+    pkgs.moonlight-qt
+  ];
   users.users.none = {
     shell = pkgs.zsh;
     isNormalUser = true;

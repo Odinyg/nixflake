@@ -10,7 +10,7 @@
         search_method = "cover_or_next";
       };
       comment = { };
-      completion = { };
+      #      completion = { };
 
       bracketed = { };
       files = { };

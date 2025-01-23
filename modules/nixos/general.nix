@@ -15,7 +15,9 @@
     };
   };
   config = lib.mkIf config.general.enable {
+    xdg.mime.defaultApplications = {
 
+    };
     nixpkgs.config.allowUnfree = true;
     services.openssh.enable = true;
     nixpkgs.config.permittedInsecurePackages = [
@@ -28,7 +30,8 @@
       package = pkgs.nixVersions.stable;
       extraOptions = lib.optionalString (
         config.nix.package == pkgs.nixVersions.stable
-      ) "experimental-features = nix-command flakes";
+      ) "experimental-features = nix-command flakes
+           warn-dirty = false";
     };
     environment.systemPackages = with pkgs; [
       openvpn
@@ -59,7 +62,7 @@
       xfce.thunar
       htop
       ctop
-      nvtop
+      nvtopPackages.full
       firefox
       deluge
       ripgrep

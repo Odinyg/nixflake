@@ -15,6 +15,11 @@
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.xdg.enable {
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "app.zen_browser.zen";
+      TERMINAL = "kitty";
+    };
 
     home.packages = [
       pkgs.xdg-utils
@@ -48,6 +53,7 @@
             office = [ "libreoffice.desktop" ];
             audio = [ "vlc.desktop" ];
             archive = [ "xarchiver.desktop" ];
+            terminal = [ "kitty.desktop" ];
           in
           {
             # Applications

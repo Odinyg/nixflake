@@ -62,8 +62,9 @@ in
         tmux-fzf
         prefix-highlight
         fzf-tmux-url
-        catppuccin
+        nord
         tmux-which-key
+        better-mouse-mode
       ];
 
       extraConfig = ''

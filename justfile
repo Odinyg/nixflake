@@ -1,21 +1,26 @@
+HOST := `hostname`
+
 default:
   @just --list
 
 #add .nix to git -- used as pre-step in rebuild --
-rebuild-pre: 
+rebuild-pre:
   git add *.nix
 
 #Rebuild nixos and switch
 rebuild: rebuild-pre
-  sudo nixos-rebuild --flake .#$HOST switch
+  sudo nixos-rebuild --flake .#{{HOST}} switch
 
 #Rebuild nixos boot
 boot: rebuild-pre
-  sudo nixos-rebuild --flake .#$HOST boot
+  sudo nixos-rebuild --flake .#{{HOST }}boot
 
+#Rebuild verbose
+verbose: rebuild-pre
+  sudo nixos-rebuild --flake .#{{HOST}} switch --verbose
 #Update nixos flake
-update:
-  nix flake update
+upgrade:
+  sudo nixos-rebuild --flake .#{{HOST}} switch --upgrade
 
 # See diffrence from lock file
 diff:
