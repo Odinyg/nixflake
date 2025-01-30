@@ -34,6 +34,7 @@
     xkb.variant = "";
   };
 
+  general.enable = true;
   services.playerctld.enable = true;
   #  bspwm.enable = true;
   # hyprland.enable = true;

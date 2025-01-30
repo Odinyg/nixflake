@@ -6,7 +6,8 @@ nm-applet &
 ~/.config/polybar/launch.sh &
 feh --bg-fill /home/none/Pictures/background/mountain.jpg &
 picom &
-setxkbmap -option caps:escape,shift:both_capslock &
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape'
 
 EDP_DISPLAY=$(xrandr | grep -E "^eDP[-0-9]+ connected" | cut -d ' ' -f1)
 if xrandr | grep "HDMI-0 connected"; then

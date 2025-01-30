@@ -62,7 +62,7 @@
       xfce.thunar
       htop
       ctop
-      nvtopPackages.full
+      #nvtopPackages.full
       firefox
       deluge
       ripgrep

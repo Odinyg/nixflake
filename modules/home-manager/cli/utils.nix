@@ -21,6 +21,10 @@
     };
 
     home.packages = with pkgs; [
+
+      open-webui
+      xcape
+
       feh
       xarchiver
       cloudflared

@@ -38,6 +38,23 @@ in
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.tmux.enable {
+    programs.k9s = {
+      hotkey = {
+        hotKey = {
+          alt-d = {
+            shortCut = "Alt-d";
+            description = "Viewing pods";
+            command = "pods";
+          };
+          alt-k = {
+            shortCut = "Alt-k";
+            description = "Viewing pods";
+            command = "pods";
+          };
+        };
+      };
+
+    };
     programs.tmux = {
       enable = true;
       baseIndex = 1;
@@ -55,7 +72,6 @@ in
         sensible
         yank
         resurrect
-        yank
         continuum
         vim-tmux-navigator
         tmux-thumbs
@@ -68,6 +84,25 @@ in
       ];
 
       extraConfig = ''
+
+        set -g prefix C-a
+        unbind C-b
+        bind C-a send-prefix
+
+        bind -n M-h select-pane -L
+        bind -n M-j select-pane -D
+        bind -n M-k select-pane -U
+        bind -n M-l select-pane -R
+
+
+        bind-key -T copy-mode-vi 'M-h' select-pane -L
+        bind-key -T copy-mode-vi 'M-j' select-pane -D
+        bind-key -T copy-mode-vi 'M-k' select-pane -U
+        bind-key -T copy-mode-vi 'M-l' select-pane -R
+        bind-key -T copy-mode-vi 'M-\' select-pane -l
+        bind-key -T copy-mode-vi 'M-Space' select-pane -t:.+
+
+
         set -g default-terminal "screen-256color"
         set -g mouse on
         bind-key C-a last-window
