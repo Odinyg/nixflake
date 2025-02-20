@@ -22,14 +22,9 @@
 
     home.packages = with pkgs; [
 
-      open-webui
       xcape
-
       feh
       xarchiver
-      cloudflared
-      drawio
-      freecad
       vlc
       proton-pass
       curaengine_stable
@@ -40,16 +35,14 @@
       kubectx
       fluxcd
       kubernetes-helm
+      kubernetes
       openssl
-
       code-cursor
-      ventoy-full
 
+      tcpdump
       ###### tdrop dependencys ######
       xorg.xwininfo
-
       planify
-
       procps
       xorg.xprop
       xorg.xwininfo
@@ -57,8 +50,6 @@
       filezilla
       rpi-imager
       wget
-      kubernetes
-      minikube
       xfce.thunar
 
     ];

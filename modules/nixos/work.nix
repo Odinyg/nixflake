@@ -22,6 +22,7 @@
       flameshot
       rpiboot
       gnumake
+      insync
       gcc
       kuro
       openvpn

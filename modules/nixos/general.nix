@@ -16,6 +16,9 @@
   };
   config = lib.mkIf config.general.enable {
     xdg.mime.defaultApplications = {
+      "application/msword" = "libreoffice-writer.desktop";
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
+        "libreoffice-writer.desktop";
 
     };
     nixpkgs.config.allowUnfree = true;
@@ -41,12 +44,11 @@
       unzip
       unrar
       zip
-
+      kitty
       #### Terminal Improvments ####
       lf
       fd
       bat
-
       #### Terminal essentials####
       gnupg # Encryption
       expect
@@ -56,7 +58,6 @@
       killall
       inetutils # Includes telnet
       fzf
-
       pandoc # Convert text documents
       usermount
       xfce.thunar
@@ -66,14 +67,6 @@
       firefox
       deluge
       ripgrep
-      protonup-qt
-      lutris
-      (lutris.override {
-        extraPkgs = pkgs: [
-          pkgs.libnghttp2
-          pkgs.winetricks
-        ];
-      })
       nixfmt-rfc-style
       nixd
       sshs
@@ -81,13 +74,11 @@
       zoxide
       tldr
       just
-
       age
       sops
       fluxcd
       obsidian
       flatpak
-      beszel
       docker
       polkit
       ansible

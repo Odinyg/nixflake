@@ -14,6 +14,6 @@
     ./greetd.nix
     ./sunshine.nix
     ./general.nix
-
+    ./password.nix
   ];
 }

@@ -13,7 +13,7 @@ rebuild: rebuild-pre
 
 #Rebuild nixos boot
 boot: rebuild-pre
-  sudo nixos-rebuild --flake .#{{HOST }}boot
+  sudo nixos-rebuild --flake .#{{HOST }} boot
 
 #Rebuild verbose
 verbose: rebuild-pre

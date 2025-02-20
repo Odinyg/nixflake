@@ -14,5 +14,11 @@
       enable = true;
       polkitPolicyOwners = [ "odin" ];
     };
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "1password-gui"
+        "1password"
+      ];
   };
 }

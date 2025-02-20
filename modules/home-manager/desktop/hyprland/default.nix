@@ -23,11 +23,9 @@
         "$mainMod" = "SUPER";
         exec-once = [
           "waybar & hyprpaper & swaync"
-          "ulauncher --hide-window"
           "hyprctl setcursor Bibate-Modern-Ice 18"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "systemctl --user import-environment"
-          "ulauncher --hide-window"
           "lxqt-policykit-agent"
           "copyq --start-server"
           "swayidle -w"
@@ -36,15 +34,28 @@
 
         exec = [ "hyprshade auto" ];
 
-        monitor = [
-          "HDMI-A-2,3840x2160@119.88,1920x0,1.25"
-          "DP-2,1920x1080@119.88,0x0,1"
-        ];
+        monitor =
+          if config.user == "none" then
+            [
+              "HDMI-A-2,3840x2160@119.88,1920x0,1.25"
+              "DP-2,1920x1080@119.88,0x0,1"
+            ]
+          else if config.user == "odin" then
+            [
+              "eDP-1,preferred,auto,1"
+              "DP-3,1920x1080@59,auto,1"
+              "HDMI-A-1,1920x1080@59,auto,1"
+            ]
+          else
+            [ ];
 
         env = [
           "XDG_SESSION_TYPE,wayland"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
           "XDG_CURRENT_DESKTOP,sway"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          "GBM_BACKEND,nvidia-drm"
+          "LIBVA_DRIVER_NAME,nvidia"
         ];
 
         input = {
@@ -223,7 +234,6 @@
       grim
       slurp
       wl-clipboard
-      rofi-wayland
     ];
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
@@ -231,9 +241,6 @@
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;
-    xdg.configFile."rofi/nord.rasi".source = ./config/rofi-nord.rasi;
-    xdg.configFile."rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;
-    xdg.configFile."rofi/config.rasi".source = ./config/rofi.rasi;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
     programs.swaylock.enable = true;
 

@@ -12,13 +12,13 @@
   ];
 
   ##### Desktop #####
-  bspwm.enable = true;
-  hyprland.enable = false;
+
+  bspwm.enable = false;
+  hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
-  gammastep.enable = false;
-  programs.hyprland.enable = false;
+  general.enable = true;
 
   ##### Hardware #####
   audio.enable = true;
@@ -38,11 +38,10 @@
   chromium.enable = true;
 
   #####  Work  ######
+  services.onedrive.enable = true;
   _1password.enable = true;
-  work.enable = true;        #TODO Split into smaller and add/remove/move apps
-  onedrive.enable = false;
-  programs.dconf.enable = true; 
-  
+  work.enable = true; # TODO Split into smaller and add/remove/move apps
+  programs.dconf.enable = true;
   #####  Code  #####
   git.enable = true;
   direnv.enable = true;
@@ -50,12 +49,11 @@
   ##### Everything Else #####
   crypt.enable = false;
   tailscale.enable = true;
-  syncthing.enable = true;
+  syncthing.enable = false;
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
   virt-man.enable = true;
-  programs.kdeconnect.enable = true;
   # greetd.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
@@ -116,6 +114,7 @@
       "networkmanager"
       "wheel"
       "plugdev"
+      "polkituser"
     ];
     packages = with pkgs; [
       firefox
@@ -125,8 +124,6 @@
       OVMF
       xdg-desktop-portal-hyprland
       swtpm
-      syncthing
-      kdePackages.kdeconnect-kde
       dconf
       obsidian
       flameshot
@@ -139,12 +136,6 @@
     lshw
     tailscale
   ];
-
-  nix = {
-    package = pkgs.nixVersions.stable;
-    extraOptions = lib.optionalString (config.nix.package == pkgs.nixVersions.stable)
-      "experimental-features = nix-command flakes";
-  };
 
   nixpkgs.config.allowUnfree = true;
   services.openssh.enable = true;

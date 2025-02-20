@@ -16,7 +16,7 @@
   config = lib.mkIf config.bspwm.enable {
 
     fonts.enable = true;
-    rofi.enable = true;
+    #rofi.enable = true;
     randr.enable = true;
     services.displayManager = {
       defaultSession = "none+bspwm";

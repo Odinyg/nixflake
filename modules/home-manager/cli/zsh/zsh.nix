@@ -14,7 +14,9 @@
       doc = "$HOME/Documents";
     };
 
-    initExtra = '''';
+    initExtra = ''
+      export PATH=$PATH:/usr/local/bin
+    '';
     envExtra = ''
       source <(kubectl completion zsh)
       export TERM="xterm-256color"

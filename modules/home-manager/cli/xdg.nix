@@ -50,7 +50,7 @@
             browser = [ "app.zen_browser.zen" ];
             photo = [ "feh.desktop" ];
             video = [ "vlc.desktop" ];
-            office = [ "libreoffice.desktop" ];
+            office = [ "libreoffice-write.desktop" ];
             audio = [ "vlc.desktop" ];
             archive = [ "xarchiver.desktop" ];
             terminal = [ "kitty.desktop" ];
@@ -62,8 +62,6 @@
             # Text
             "text/html" = browser;
             "text/xml" = browser;
-
-            # Images
             "image/gif" = photo;
             "image/heif" = photo;
             "image/jpeg" = photo;

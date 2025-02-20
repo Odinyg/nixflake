@@ -16,6 +16,12 @@
   config = lib.mkIf config.polkit.enable {
 
     security.polkit.enable = true;
+    services.gnome.gnome-keyring.enable = true;
+    security.pam.services.login.enableGnomeKeyring = true;
+    environment.systemPackages = with pkgs; [
+      polkit_gnome
+      gnome-keyring
+    ];
     systemd = {
       user.services.polkit-gnome-authentication-agent-1 = {
         description = "polkit-gnome-authentication-agent-1";
