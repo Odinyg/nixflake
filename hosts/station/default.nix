@@ -110,7 +110,7 @@
   xdg.portal.config.common.default = "*";
   services.xserver = {
     enable = true;
-    videoDrivers = [ "amdgpu" ];
+    videoDrivers = [ "nvidia" ];
   };
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }
