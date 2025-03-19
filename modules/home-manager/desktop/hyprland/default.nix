@@ -22,18 +22,19 @@
       settings = {
         "$mainMod" = "SUPER";
         exec-once = [
+          "pypr"
           "waybar & hyprpaper & swaync"
           "hyprctl setcursor Bibate-Modern-Ice 18"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          "nm-applet --indicator"
           "systemctl --user import-environment"
           "lxqt-policykit-agent"
-          "copyq --start-server"
+          # "copyq --start-server"
           "swayidle -w"
           "/etc/profiles/per-user/none/bin/pypr"
         ];
 
         exec = [ "hyprshade auto" ];
-
         monitor =
           if config.user == "none" then
             [
@@ -42,12 +43,15 @@
             ]
           else if config.user == "odin" then
             [
-              "eDP-1,preferred,auto,1"
-              "DP-3,1920x1080@59,auto,1"
-              "HDMI-A-1,1920x1080@59,auto,1"
+              "eDP-1,disable,auto,1"
+              "HDMI-A-1,1920x1080,auto,1,transform,1"
+              "DP-4,2560x1440,auto,1"
+              "DP-5,1920x1080,auto,1"
             ]
           else
-            [ ];
+            [
+              "eDP-1,preferred,auto,1"
+            ];
 
         env = [
           "XDG_SESSION_TYPE,wayland"
@@ -116,14 +120,16 @@
         ];
 
         bind = [
-          "$mainMod, W, exec, app.zen_browser.zen"
+          "$mainMod, W, exec, brave"
           "ALT CTRL, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+          "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
           "$mainMod, return, exec, kitty"
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, E, exec, thunar"
           "$mainMod, V, togglefloating,"
           "$mainMod, D, exec, pgrep rofi >/dev/null 2>&1 && killall rofi || rofi -show drun"
+
           "$mainMod, P, pseudo,"
           "$mainMod, O, togglesplit,"
           # Focus window bindings
@@ -244,5 +250,42 @@
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
     programs.swaylock.enable = true;
 
+    services.kanshi = {
+      enable = true;
+      profiles = {
+        # Profile when external monitors are connected to HDMI-A-1
+        external-monitors = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+            {
+              criteria = "HDMI-A-1";
+              mode = "1920x1080";
+              transform = "90"; # transform 1 means rotate 90 degrees
+            }
+            {
+              criteria = "DP-4";
+              mode = "2560x1440";
+            }
+            {
+              criteria = "DP-5";
+              mode = "1920x1080";
+            }
+          ];
+        };
+        # Fallback profile when only laptop display is available
+        laptop-only = {
+          outputs = [
+            {
+              criteria = "eDP-1";
+              mode = "1920x1080"; # Adjust to your laptop's native resolution
+              scale = 1.0;
+            }
+          ];
+        };
+      };
+    };
   };
 }

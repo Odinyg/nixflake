@@ -25,7 +25,6 @@
       brightnessctl
       pyprland
       lxqt.lxqt-policykit
-      copyq
       swaynotificationcenter
       ulauncher
       wmctrl

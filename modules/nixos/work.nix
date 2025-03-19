@@ -17,7 +17,10 @@
   config = lib.mkIf config.work.enable {
 
     environment.systemPackages = with pkgs; [
+      expect
+      rustdesk
       anydesk
+      onedrivegui
       dbeaver-bin
       flameshot
       rpiboot
@@ -29,7 +32,6 @@
       zoom-us
       remmina
       inetutils
-      thunderbird
     ];
   };
 }

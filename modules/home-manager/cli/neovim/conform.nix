@@ -53,8 +53,8 @@
         nix = [ "nixfmt" ];
         markdown = [
           [
-            "prettierd"
             "prettier"
+            "prettierd"
           ]
         ];
         yaml = [

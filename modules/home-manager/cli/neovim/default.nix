@@ -16,7 +16,7 @@
 
   config.home-manager.users.${config.user} = lib.mkIf config.neovim.enable {
     imports = [
-#      ./nvf.nix
+      #      ./nvf.nix
       ./nixvim.nix
       ./lsp.nix
       ./harpoon.nix
@@ -28,7 +28,7 @@
       ./mini.nix
       ./conform.nix
 
-#      ./obsidian.nix
+      ./obsidian.nix
 
     ];
 

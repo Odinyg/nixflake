@@ -21,7 +21,10 @@
     };
 
     home.packages = with pkgs; [
-
+      foomatic-db-ppds-withNonfreeDb
+      brave
+      pinta
+      satty
       xcape
       feh
       xarchiver
