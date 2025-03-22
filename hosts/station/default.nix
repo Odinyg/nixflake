@@ -23,7 +23,7 @@
   general.enable = true;
   # hyprlandstation.enable = true;
   hyprland.enable = true;
-  rofi.enable = false;
+  rofi.enable = true;
   fonts.enable = true;
   #### X11 Destktop ###
   randr.enable = false;
@@ -112,5 +112,29 @@
     enable = true;
     videoDrivers = [ "nvidia" ];
   };
+
+  hardware.nvidia = {
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    modesetting.enable = true;
+    open = true;
+    nvidiaSettings = true;
+  };
+  services.acpid.enable = true;
+
+  environment.variables = {
+    GBM_BACKEND = "nvidia-drm";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    NIXOS_OZONE_WL = "1";
+  };
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia_drm.fbdev=1"
+    "NVreg_PreserveVideoMemoryAllocations=1"
+    "NVreg_TemporaryFilePath=/var/tmp"
+  ];
   system.stateVersion = "25.05";
 }

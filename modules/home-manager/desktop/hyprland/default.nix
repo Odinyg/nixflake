@@ -38,7 +38,7 @@
         monitor =
           if config.user == "none" then
             [
-              "HDMI-A-2,3840x2160@119.88,1920x0,1.25"
+              "HDMI-A-1,3840x2160@119.88,1920x0,1"
               "DP-2,1920x1080@119.88,0x0,1"
             ]
           else if config.user == "odin" then

@@ -28,7 +28,7 @@
       windowManager.bspwm.enable = true;
       displayManager = {
         lightdm = {
-          enable = true;
+          enable = false;
         };
       };
 
