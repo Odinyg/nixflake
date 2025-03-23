@@ -24,6 +24,8 @@
       foomatic-db-ppds-withNonfreeDb
       brave
       pinta
+      warp-terminal
+      warp
       satty
       xcape
       feh

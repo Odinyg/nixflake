@@ -4,6 +4,7 @@
     ./tailscale.nix
     ./onedrive.nix
     ./virt-man.nix
+    ./docker.nix
     ./work.nix
     ./password.nix
     ./crypt.nix
@@ -15,5 +16,7 @@
     ./sunshine.nix
     ./general.nix
     ./password.nix
+    ./ollama.nix
   ];
+  docker.enable = true;
 }

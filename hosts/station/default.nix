@@ -25,6 +25,7 @@
   hyprland.enable = true;
   rofi.enable = true;
   fonts.enable = true;
+  ollama.enable = true;
   #### X11 Destktop ###
   randr.enable = false;
   bspwm.enable = false;
@@ -43,6 +44,7 @@
   kitty.enable = true;
   termUtils.enable = true;
   zellij.enable = true;
+  docker.enable = true;
 
   ##### Random Desktop Apps #####
   discord.enable = true;
@@ -79,7 +81,7 @@
   stylix.opacity.terminal = 0.85;
   stylix.cursor.package = pkgs.bibata-cursors;
   stylix.cursor.name = "Bibata-Modern-Ice";
-  stylix.cursor.size = 18;
+  stylix.cursor.size = 20;
   stylix.autoEnable = true;
   # home-manager.backupFileExtension = "backup";
 

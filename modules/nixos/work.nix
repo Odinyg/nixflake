@@ -18,7 +18,6 @@
 
     environment.systemPackages = with pkgs; [
       expect
-      rustdesk
       anydesk
       onedrivegui
       dbeaver-bin

@@ -29,30 +29,10 @@
           "nm-applet --indicator"
           "systemctl --user import-environment"
           "lxqt-policykit-agent"
-          # "copyq --start-server"
           "swayidle -w"
-          "/etc/profiles/per-user/none/bin/pypr"
         ];
 
         exec = [ "hyprshade auto" ];
-        monitor =
-          if config.user == "none" then
-            [
-              "HDMI-A-1,3840x2160@119.88,1920x0,1"
-              "DP-2,1920x1080@119.88,0x0,1"
-            ]
-          else if config.user == "odin" then
-            [
-              "eDP-1,disable,auto,1"
-              "HDMI-A-1,1920x1080,auto,1,transform,1"
-              "DP-4,2560x1440,auto,1"
-              "DP-5,1920x1080,auto,1"
-            ]
-          else
-            [
-              "eDP-1,preferred,auto,1"
-            ];
-
         env = [
           "XDG_SESSION_TYPE,wayland"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
