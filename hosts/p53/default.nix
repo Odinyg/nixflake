@@ -140,7 +140,7 @@
   nixpkgs.config.allowUnfree = true;
   services.openssh.enable = true;
 
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {

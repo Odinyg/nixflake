@@ -18,6 +18,20 @@
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
+      extraConfig = ''
+        workspace = 1, monitor:DP-4, default:true
+        workspace = 2, monitor:DP-4
+        workspace = 3, monitor:DP-4
+        workspace = 4, monitor:DP-4
+        workspace = 5, monitor:DP-4
+
+        workspace = 6, monitor:DP-5, default:true
+        workspace = 7, monitor:DP-5
+        workspace = 8, monitor:DP-5
+
+        workspace = 9, monitor:HDMI-A-1
+        workspace = 0, monitor:HDMI-A-1
+      '';
 
       settings = {
         "$mainMod" = "SUPER";
