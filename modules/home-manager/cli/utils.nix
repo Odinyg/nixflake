@@ -21,6 +21,7 @@
     };
 
     home.packages = with pkgs; [
+      yazi
       foomatic-db-ppds-withNonfreeDb
       brave
       pinta
@@ -31,6 +32,7 @@
       feh
       xarchiver
       vlc
+      warp-terminal
       proton-pass
       curaengine_stable
       autokey

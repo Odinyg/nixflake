@@ -35,8 +35,9 @@
         exec = [ "hyprshade auto" ];
         env = [
           "XDG_SESSION_TYPE,wayland"
+          "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
-          "XDG_CURRENT_DESKTOP,sway"
+          "XDG_CURRENT_DESKTOP,hyprland"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
           "LIBVA_DRIVER_NAME,nvidia"
@@ -102,7 +103,7 @@
         bind = [
           "$mainMod, W, exec, brave"
           "ALT CTRL, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
-          "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
+          "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
           "$mainMod, return, exec, kitty"
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"
@@ -232,6 +233,7 @@
 
     services.kanshi = {
       enable = true;
+      systemdTarget = "hyprland-session.target";
       profiles = {
         # Profile when external monitors are connected to HDMI-A-1
         external-monitors = {
@@ -260,7 +262,7 @@
           outputs = [
             {
               criteria = "eDP-1";
-              mode = "1920x1080"; # Adjust to your laptop's native resolution
+              status = "enable";
               scale = 1.0;
             }
           ];

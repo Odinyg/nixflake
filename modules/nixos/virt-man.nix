@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options = {
     virt-man = {
@@ -10,13 +15,23 @@
   };
   config = lib.mkIf config.virt-man.enable {
 
-    virtualisation.libvirtd.enable = true;
-    programs.virt-manager.enable = true;
-    virtualisation.libvirtd.qemu = {
-      swtpm.enable = true;
-      ovmf.enable = true;
+    virtualisation = {
+      spiceUSBRedirection.enable = true;
+      libvirtd = {
+        enable = true;
+        qemu = {
+          runAsRoot = true;
+          swtpm.enable = true;
+          ovmf.enable = true;
+        };
+      };
+
     };
-    virtualisation.spiceUSBRedirection.enable = true;
+    programs.virt-manager.enable = true;
+    services.spice-vdagentd.enable = true;
+    environment.systemPackages = with pkgs; [
+      virtiofsd
+    ];
 
   };
 }

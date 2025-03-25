@@ -19,7 +19,6 @@
     environment.systemPackages = with pkgs; [
       expect
       anydesk
-      onedrivegui
       dbeaver-bin
       flameshot
       rpiboot
