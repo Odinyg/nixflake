@@ -44,19 +44,6 @@
     {
 
       nixosConfigurations = {
-        vm = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs system;
-          };
-
-          modules = [ ./hosts/vm ];
-        };
-        vmserver = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs system;
-          };
-          modules = [ ./hosts/vmserver ];
-        };
         laptop = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs system;
@@ -67,7 +54,6 @@
             stylix.nixosModules.stylix
             ./modules
             userInfo
-            #    nixos-hardware.nixosModules.dell-xps-15-9560
 
             home-manager.nixosModules.home-manager
             {

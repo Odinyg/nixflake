@@ -51,7 +51,6 @@
           "XDG_SESSION_TYPE,wayland"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
-          "XDG_CURRENT_DESKTOP,hyprland"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
           "LIBVA_DRIVER_NAME,nvidia"
@@ -60,12 +59,11 @@
         input = {
           kb_layout = "us";
           kb_variant = "altgr-intl";
-          kb_options = "compose:ralt";
+          kb_options = "caps:escape,compose:ralt";
           numlock_by_default = true;
           follow_mouse = 1;
           repeat_rate = 55;
           repeat_delay = 400;
-
           touchpad = {
             natural_scroll = false;
           };
@@ -244,44 +242,106 @@
     xdg.configFile."swayidle".source = ./config/swayidle;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
     programs.swaylock.enable = true;
-
     services.kanshi = {
       enable = true;
-      systemdTarget = "hyprland-session.target";
-      profiles = {
-        # Profile when external monitors are connected to HDMI-A-1
-        external-monitors = {
-          outputs = [
-            {
-              criteria = "eDP-1";
-              status = "disable";
-            }
-            {
-              criteria = "HDMI-A-1";
-              mode = "1920x1080";
-              transform = "90"; # transform 1 means rotate 90 degrees
-            }
-            {
-              criteria = "DP-4";
-              mode = "2560x1440";
-            }
-            {
-              criteria = "DP-5";
-              mode = "1920x1080";
-            }
-          ];
+      profiles =
+        let
+          hostname = builtins.getEnv "HOSTNAME";
+        in
+        {
+          # External Monitors Profile (unchanged)
+          external-monitors = {
+            outputs = [
+              {
+                criteria = "eDP-1";
+                status = "disable";
+              }
+              {
+                criteria = "HDMI-A-1";
+                mode = "1920x1080";
+                transform = "90"; # transform 1 means rotate 90 degrees
+              }
+              {
+                criteria = "DP-4";
+                mode = "2560x1440";
+              }
+              {
+                criteria = "DP-5";
+                mode = "1920x1080";
+              }
+            ];
+          };
+
+          # Profile for 'laptop'
+          laptop-only = lib.mkIf (hostname == "laptop") {
+            outputs = [
+              {
+                criteria = "eDP-1";
+                mode = "1920x1200";
+                scale = 1.0;
+              }
+            ];
+          };
+
+          # Profile for 'p53'
+          p53-only = lib.mkIf (hostname == "p53") {
+            outputs = [
+              {
+                criteria = "eDP-1";
+                mode = "1920x1080";
+                scale = 1.0;
+              }
+            ];
+          };
+
+          # Default Profile (if not laptop or p53)
+          default = lib.mkIf (hostname != "laptop" && hostname != "p53") {
+            outputs = [
+              {
+                criteria = "eDP-1";
+                mode = "1920x1080";
+                scale = 1.0;
+              }
+            ];
+          };
         };
-        # Fallback profile when only laptop display is available
-        laptop-only = {
-          outputs = [
-            {
-              criteria = "eDP-1";
-              status = "enable";
-              scale = 1.0;
-            }
-          ];
-        };
-      };
     };
+    #    services.kanshi = {
+    #      enable = true;
+    #      profiles = {
+    #        # Profile when external monitors are connected to HDMI-A-1
+    #        external-monitors = {
+    #          outputs = [
+    #            {
+    #              criteria = "eDP-1";
+    #              status = "disable";
+    #            }
+    #            {
+    #              criteria = "HDMI-A-1";
+    #              mode = "1920x1080";
+    #              transform = "90"; # transform 1 means rotate 90 degrees
+    #            }
+    #            {
+    #              criteria = "DP-4";
+    #              mode = "2560x1440";
+    #            }
+    #            {
+    #              criteria = "DP-5";
+    #              mode = "1920x1080";
+    #            }
+    #          ];
+    #        };
+    #
+    #        laptop-only = {
+    #          outputs = [
+    #            {
+    #              criteria = "eDP-1";
+    #              mode = "1920x1080";
+    #              scale = 1.0;
+    #            }
+    #          ];
+    #        };
+    #      };
+    #    };
   };
 }

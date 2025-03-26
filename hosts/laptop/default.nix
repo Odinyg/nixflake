@@ -1,52 +1,30 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by prunninrg ‘nixos-help’).
-
 { pkgs, ... }:
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    #      inputs.home-manager.nixosModules.default
   ];
 
+  boot.loader = {
+
+ systemd-boot.enable = true;
+ efi.canTouchEfiVariables = true;
+};
   networking.hostName = "laptop";
   ##### Desktop #####
   programs.steam.enable = true;
-  services.displayManager = {
-    defaultSession = "none+bspwm";
-    autoLogin.enable = true;
-    autoLogin.user = "none";
-
-  };
-  services.xserver = {
-    enable = true;
-    windowManager.bspwm.enable = true;
-    displayManager = {
-      lightdm = {
-        enable = true;
-      };
-    };
-
-    #### Keyboard Layout ###
-    xkb.layout = "us";
-    xkb.variant = "";
-  };
 
   general.enable = true;
   services.playerctld.enable = true;
-  #  bspwm.enable = true;
-  # hyprland.enable = true;
+  hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
-  gammastep.enable = false;
 
   ##### Hardware #####
   audio.enable = true;
   wireless.enable = true;
-  zsa.enable = true;
+  zsa.enable = false;
 
   ##### CLI #####
   neovim.enable = true;
@@ -62,7 +40,7 @@
   chromium.enable = true;
 
   #####  Work  ######
-  _1password.enable = false;
+  _1password.enable = true;
   work.enable = true; # TODO Split into smaller and add/remove/move apps
 
   #####  Code  #####
@@ -88,17 +66,16 @@
   stylix.cursor.package = pkgs.bibata-cursors;
   stylix.cursor.name = "Bibata-Modern-Ice";
   stylix.cursor.size = 18;
+
   home-manager.backupFileExtension = "backup";
   programs.nix-ld.enable = true;
   services.flatpak.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  programs.hyprland.enable = true;
-  programs.light.enable = true;
   programs.zsh.enable = true;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
+  services.gvfs.enable = true;
+  services.locate.enable = true;
   #  programs.zsh.enable = true;
   services.printing.enable = true;
   users.users.none = {
@@ -107,40 +84,13 @@
     description = "none";
     extraGroups = [
       "networkmanager"
+     "docker"
+      "plugdev"
+      "polkotuser"
       "wheel"
     ];
     packages = with pkgs; [
       google-chrome
-      gcc
-      vlc
-      gtk3
-      gtk4
-      nwg-look
-      themix-gui
-      nautilus
-      sxhkd
-      lutris
-      bspwm
-      rofi
-      polybar
-      xorg.libX11
-      xorg.libX11.dev
-      xorg.libxcb
-      xorg.libXft
-      xorg.libXinerama
-      xorg.xinit
-      tailscale
-      deluge
-      obsidian
-      flatpak
-      flameshot
-      protonup-ng
-      virt-manager
-      feh
-      killall
-      pavucontrol
-      polkit_gnome
-      libreoffice
     ];
   };
   security.polkit.enable = true;
@@ -163,26 +113,6 @@
     '';
   };
 
-  #fonts = {
-  #    packages = with pkgs; [
-  #      noto-fonts
-  #      noto-fonts-cjk
-  #      noto-fonts-emoji
-  #      font-awesome
-  #      source-han-sans
-  #      source-han-sans-japanese
-  #      source-han-serif-japanese
-  #      (nerdfonts.override { fonts = [ "Meslo" ]; })
-  #    ];
-  #    fontconfig = {
-  #      enable = true;
-  #      defaultFonts = {
-  #	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
-  #	      serif = [ "Noto Serif" "Source Han Serif" ];
-  #	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
-  #      };
-  #    };
-  #};
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -191,13 +121,13 @@
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [
-      "electron-25.9.0"
-      "python3.12-youtube-dl-2021.12.17"
-      "electron-29.4.6"
+ #     "electron-25.9.0"
+ #     "python3.12-youtube-dl-2021.12.17"
+ #     "electron-29.4.6"
     ];
   };
   services.openssh.enable = true;
 
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
 }
