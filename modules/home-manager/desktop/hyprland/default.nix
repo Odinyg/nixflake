@@ -179,35 +179,35 @@
         ];
 
         windowrule = [
-          "float, file_progress"
-          "float, flameshot"
-          "float, confirm"
-          "float, dialog"
-          "float, download"
-          "float, notification"
-          "float, error"
-          "float, splash"
-          "float, confirmreset"
+          "float, class:file_progress"
+          "float, class:flameshot"
+          "float, class:confirm"
+          "float, class:dialog"
+          "float, class:download"
+          "float, class:notification"
+          "float, class:error"
+          "float, class:splash"
+          "float, class:confirmreset"
           "float, title:Open File"
           "float, title:branchdialog"
-          "float, Lxappearance"
-          "float, Rofi"
-          "animation none,Rofi"
-          "float,viewnior"
-          "float,feh"
-          "float, pavucontrol-qt"
-          "float, pavucontrol"
-          "float, file-roller"
-          "fullscreen, wlogout"
+          "float, class:Lxappearance"
+          "float, class:Rofi"
+          "animation none, class:Rofi"
+          "float, class:viewnior"
+          "float, class:feh"
+          "float, class:pavucontrol-qt"
+          "float, class:pavucontrol"
+          "float, class:file-roller"
+          "fullscreen, class:wlogout"
           "float, title:wlogout"
           "fullscreen, title:wlogout"
-          "idleinhibit focus, mpv"
-          "idleinhibit fullscreen, firefox"
-          "float, title:^(Media viewer)$"
-          "float, title:^(Volume Control)$"
-          "float, title:^(Picture-in-Picture)$"
-          "size 800 600, title:^(Volume Control)$"
-          "move 75 44%, title:^(Volume Control)$"
+          "idleinhibit focus, class:mpv"
+          "idleinhibit fullscreen, class:firefox"
+          "float, title:(Media viewer)"
+          "float, title:(Volume Control)"
+          "float, title:(Picture-in-Picture)"
+          "size 800 600, title:(Volume Control)"
+          "move 75% 44%, title:(Volume Control)"
         ];
       };
     };
@@ -246,7 +246,7 @@
       enable = true;
       profiles =
         let
-          hostname = builtins.getEnv "HOSTNAME";
+          hostname = config.networking.hostName;
         in
         {
           # External Monitors Profile (unchanged)

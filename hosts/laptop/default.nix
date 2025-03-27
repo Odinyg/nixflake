@@ -7,9 +7,9 @@
 
   boot.loader = {
 
- systemd-boot.enable = true;
- efi.canTouchEfiVariables = true;
-};
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
   networking.hostName = "laptop";
   ##### Desktop #####
   programs.steam.enable = true;
@@ -67,6 +67,29 @@
   stylix.cursor.name = "Bibata-Modern-Ice";
   stylix.cursor.size = 18;
 
+  stylix.fonts = {
+    sizes.applications = 14;
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+
+    monospace = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans Mono";
+    };
+
+    emoji = {
+      package = pkgs.noto-fonts-emoji;
+      name = "Noto Color Emoji";
+    };
+  };
+
   home-manager.backupFileExtension = "backup";
   programs.nix-ld.enable = true;
   services.flatpak.enable = true;
@@ -84,7 +107,7 @@
     description = "none";
     extraGroups = [
       "networkmanager"
-     "docker"
+      "docker"
       "plugdev"
       "polkotuser"
       "wheel"
@@ -113,7 +136,6 @@
     '';
   };
 
-
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -121,9 +143,9 @@
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [
- #     "electron-25.9.0"
- #     "python3.12-youtube-dl-2021.12.17"
- #     "electron-29.4.6"
+      #     "electron-25.9.0"
+      #     "python3.12-youtube-dl-2021.12.17"
+      #     "electron-29.4.6"
     ];
   };
   services.openssh.enable = true;
