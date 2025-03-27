@@ -49,6 +49,7 @@
         exec = [ "hyprshade auto" ];
         env = [
           "XDG_SESSION_TYPE,wayland"
+          "WLR_NO_HARDWARE_CURSORS,1;"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
@@ -179,6 +180,7 @@
         ];
 
         windowrule = [
+          "workspace 3 silent, class:^(virt-manager)$"
           "float, class:file_progress"
           "float, class:flameshot"
           "float, class:confirm"
@@ -190,7 +192,6 @@
           "float, class:confirmreset"
           "float, title:Open File"
           "float, title:branchdialog"
-          "float, class:Lxappearance"
           "float, class:Rofi"
           "animation none, class:Rofi"
           "float, class:viewnior"
