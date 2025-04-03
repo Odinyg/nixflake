@@ -21,7 +21,6 @@
   ##### Desktop #####
   home-manager.backupFileExtension = "backup";
   general.enable = true;
-  # hyprlandstation.enable = true;
   hyprland.enable = true;
   rofi.enable = true;
   fonts.enable = true;
@@ -130,8 +129,11 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    __GL_VRR_ALLOWED = "0";
+    WLR_DRM_NO_ATOMIC = "1";
     NIXOS_OZONE_WL = "1";
   };
+
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "nvidia_drm.fbdev=1"

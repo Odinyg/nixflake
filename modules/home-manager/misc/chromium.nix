@@ -35,6 +35,7 @@
         { id = "hgenngnjgfkdggambccohomebieocekm"; } # open list
         { id = "nbdfpcokndmapcollfpjdpjlabnibjdi"; } # saka
         { id = "bfhkfdnddlhfippjbflipboognpdpoeh"; } # reMarkable
+        { id = "ponfpcnoihfmfllpaingbgckeeldkhle"; } # youtube enhancer
 
       ];
     };
