@@ -12,8 +12,9 @@
   ];
 
   ##### Desktop #####
-
-  bspwm.enable = false;
+  services.desktopManager.cosmic.enable = true;
+services.displayManager.cosmic-greeter.enable = true
+  bspwm.enable = true;
   hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
@@ -31,6 +32,7 @@
   tmux.enable = true;
   kitty.enable = true;
   termUtils.enable = true;
+  zellij.enable = true;
 
   ##### Random Desktop Apps #####
   discord.enable = false;
@@ -94,6 +96,8 @@
 
   ##############################################
   services.printing.enable = true;
+
+  services.printing.drivers = [ pkgs.gutenprint ];
   # Enable sound with pipewire.
   nixpkgs.config.permittedInsecurePackages = [
     "electron-19.1.9"
@@ -127,6 +131,8 @@
       dconf
       obsidian
       flameshot
+      satty
+      shutter
     ];
   };
   services.teamviewer.enable = true;

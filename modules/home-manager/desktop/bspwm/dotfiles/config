@@ -58,10 +58,10 @@ font-2 = siji:pixelsize=14;1
 modules-left = bspwm i3 
 modules-center = xwindow
 ;modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
-modules-right = alsa backlight battery eth date powermenu
+modules-right = alsa backlight battery wlan date powermenu
 
 tray-position = right
-tray-padding = 2
+tray-padding = 4
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
@@ -271,7 +271,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp2s0
+interface = wlp82s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>

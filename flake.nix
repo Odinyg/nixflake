@@ -11,6 +11,8 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs.follows = "nixos-cosmic/nixpkgs"; # NOTE: change "nixpkgs" to "nixpkgs-stable" to use stable NixOS release
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nvf.url = "github:notashelf/nvf";
     tmux-which-key.url = "github:alexwforsythe/tmux-which-key";
     tmux-which-key.flake = false;
@@ -23,6 +25,7 @@
       home-manager,
       nixvim,
       nixos-hardware,
+      nixos-cosmic,
       stylix,
       nvf,
       ...
@@ -78,6 +81,13 @@
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
             nixpkgs-outPath
             home-manager.nixosModules.home-manager
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+              };
+            }
+            nixos-cosmic.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;

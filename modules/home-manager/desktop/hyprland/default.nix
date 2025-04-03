@@ -50,6 +50,8 @@
         env = [
           "XDG_SESSION_TYPE,wayland"
           "WLR_NO_HARDWARE_CURSORS,1;"
+          "WLR_RENDERER_ALLOW_SOFTWARE,1"
+          "WLR_BACKENDS,n-drm"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"

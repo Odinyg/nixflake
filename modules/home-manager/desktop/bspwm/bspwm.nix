@@ -25,9 +25,9 @@
           defaultSession = "none+bspwm";
           autoLogin.user = "$config.user";
           autoLogin.enable = false;
-          lightdm = {
+          sddm = {
             enable = true;
-            greeter.enable = true;
+            wayland.enable = true;
           };
         };
         ## Perfect with zsa macros ##
@@ -39,6 +39,8 @@
 
     environment.systemPackages = with pkgs; [
       polkit_gnome
+      tint2
+      xclip
       xorg.xinit
       betterlockscreen
       xorg.xbacklight

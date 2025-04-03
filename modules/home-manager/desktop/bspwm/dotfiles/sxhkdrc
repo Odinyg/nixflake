@@ -3,13 +3,13 @@
 super + Return
   kitty
 
-super + w 
+super + w
   brave
-super + n 
+super + n
   tdrop -ma -w 40% -x 20% -y 3% -h 30% -s dropdown kitty
 
 
-super + t 
+super + t
   io.github.alainm23.planify.quick-add
 ###---Shortcuts LAUNCHER---###
 
@@ -31,7 +31,7 @@ super + shift + d
                 -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
                 -show-icons -drun-icon-theme "Arc-X-D" -font "Droid Sans Regular 10"
 
-# power-menu 
+# power-menu
 super + shift + e
      ~/.config/rofi/powermenu.sh
 
@@ -58,7 +58,7 @@ super + {t,s}
 bspc node -t {tiled,floating}
 
 # FUllSCREEN toogle
-super +  f
+super + shift +  f
   ~/.config/scripts/bspfullscreen
 alt  {h,j,k,l}
     STEP=30; SELECTION={1,2,3,4}; \
@@ -78,9 +78,6 @@ super + {_,shift + }{h,j,k,l}
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
-
-
-
 # focus or send to the given desktop on HDMI-0 (I-VII)
 super + {_,shift + }{1-7}
     bspc {desktop -f,node -d} '{I,II,III,IV,V,VI,VII}'
@@ -88,8 +85,6 @@ super + {_,shift + }{1-7}
 # focus or send to the given desktop on eDP1-1 (VIII-X)
 super + {_,shift + }{8-9,0}
     bspc {desktop -f,node -d} '{VIII,IX,X}'
-
-
 # focus or send to the given desktop
 #super + {_,shift + }{1-9}
 #	bspc {desktop -f,node -d} '^{1-9}'

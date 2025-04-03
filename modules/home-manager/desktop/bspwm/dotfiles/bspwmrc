@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/run/current-system/sw/bin/sh
 
 #pgrep -x sxhkd > /dev/null || sxhkd &
 sxhkd &
@@ -10,11 +10,11 @@ setxkbmap -option ctrl:nocaps
 xcape -e 'Control_L=Escape'
 
 EDP_DISPLAY=$(xrandr | grep -E "^eDP[-0-9]+ connected" | cut -d ' ' -f1)
-if xrandr | grep "HDMI-0 connected"; then
-    bspc monitor HDMI-0 -d I II III IV V VI VII
-    bspc monitor "$EDP_DISPLAY" -d VIII IX X
-    xrandr --output HDMI-0 --primary   bspc monitor HDMI-0 -d 1 2 3 4 5 6 7
-    autorandr docked
+if xrandr | grep "DP-3.8 connected"; then
+    bspc monitor DP-3.8 -d I II III IV V VI VII
+    bspc monitor DP-3.1 -d VIII IX X
+    xrandr --output DP-3.8 --primary   bspc monitor DP-3.8 -d 1 2 3 4 5 6 
+xrandr --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate left --output DP-3.8 --mode 2560x1440 --pos 1080x0 --primary --output DP-3.1 --mode 1920x1080 --pos 3640x0 --output eDP-1-1 --off
 else
     # If HDMI-1 is not connected, use default configuration
     bspc monitor "$EDP_DISPLAY" -d I II III IV V VI VII VIII IX X
@@ -43,5 +43,3 @@ bspc config active_border_color         "#073642"
 st -c scratchterm &
 bspc rule -a scratchterm sticky=on state=floating hidden=on
 bspc rule -a io.github.alainm23.planify.quick-add state=floating
-
-
