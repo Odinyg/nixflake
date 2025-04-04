@@ -13,7 +13,7 @@
 
   ##### Desktop #####
   services.desktopManager.cosmic.enable = true;
-services.displayManager.cosmic-greeter.enable = true
+  services.displayManager.cosmic-greeter.enable = true;
   bspwm.enable = true;
   hyprland.enable = true;
   rofi.enable = true;
@@ -72,8 +72,6 @@ services.displayManager.cosmic-greeter.enable = true
 
   programs.nix-ld.enable = true;
   services.flatpak.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  xdg.portal.enable = true;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -126,7 +124,6 @@ services.displayManager.cosmic-greeter.enable = true
       libreoffice
       libsForQt5.okular
       OVMF
-      xdg-desktop-portal-hyprland
       swtpm
       dconf
       obsidian

@@ -18,13 +18,12 @@
       pyright.enable = true;
 
     };
-      keymaps.lspBuf = {
-        "gd" = "definition";
-        "gD" = "references";
-        "gt" = "type_definition";
-        "gi" = "implementation";
-        "K" = "hover";
+    keymaps.lspBuf = {
+      "gd" = "definition";
+      "gD" = "references";
+      "gt" = "type_definition";
+      "gi" = "implementation";
+      "K" = "hover";
     };
   };
-  programs.nixvim.plugins.packer.enable = true;
 }
