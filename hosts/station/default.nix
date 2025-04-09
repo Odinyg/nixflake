@@ -19,6 +19,9 @@
   networking.hostName = "station";
 
   ##### Desktop #####
+
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
   home-manager.backupFileExtension = "backup";
   general.enable = true;
   hyprland.enable = true;
