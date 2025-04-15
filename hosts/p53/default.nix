@@ -10,11 +10,14 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
-
   ##### Desktop #####
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-  bspwm.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+  bspwm.enable = false;
   hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
@@ -93,9 +96,24 @@
   services.locate.enable = true;
 
   ##############################################
-  services.printing.enable = true;
 
-  services.printing.drivers = [ pkgs.gutenprint ];
+  services.printing = {
+    enable = true;
+    logLevel = "debug";
+    openFirewall = true;
+    drivers = [
+      pkgs.brlaser
+      pkgs.brgenml1lpr
+      pkgs.brgenml1cupswrapper
+      pkgs.ptouch-driver
+      pkgs.gutenprint
+    ];
+  };
+
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  services.avahi.openFirewall = true;
+
   # Enable sound with pipewire.
   nixpkgs.config.permittedInsecurePackages = [
     "electron-19.1.9"
@@ -112,6 +130,7 @@
     isNormalUser = true;
     description = "odin";
     extraGroups = [
+      "lp"
       "docker"
       "networkmanager"
       "wheel"

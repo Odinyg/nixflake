@@ -252,34 +252,36 @@
           hostname = config.networking.hostName;
         in
         {
-          # External Monitors Profile (unchanged)
           external-monitors = {
             outputs = [
               {
                 criteria = "eDP-1";
-                status = "disable";
+                position = "1920,1440"; # Place laptop screen under HDMI (middle-bottom)
               }
               {
                 criteria = "HDMI-A-1";
                 mode = "1920x1080";
-                transform = "90"; # transform 1 means rotate 90 degrees
+                transform = "90"; # rotate 90 degrees
+                position = "0,0"; # Left monitor
               }
               {
                 criteria = "DP-4";
                 mode = "2560x1440";
+                position = "1080,0"; # Middle monitor (main)
               }
               {
                 criteria = "DP-5";
                 mode = "1920x1080";
+                position = "3640,0"; # Right monitor
               }
             ];
           };
-
           # Profile for 'laptop'
           laptop-only = lib.mkIf (hostname == "laptop") {
             outputs = [
               {
                 criteria = "eDP-1";
+                status = "enable";
                 mode = "1920x1200";
                 scale = 1.0;
               }
@@ -291,6 +293,7 @@
             outputs = [
               {
                 criteria = "eDP-1";
+                status = "enable";
                 mode = "1920x1080";
                 scale = 1.0;
               }

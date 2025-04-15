@@ -22,9 +22,11 @@
 
     home.packages = with pkgs; [
       yazi
+      brlaser
       foomatic-db-ppds-withNonfreeDb
       kdePackages.kolourpaint
       brave
+      github-desktop
       pinta
       warp-terminal
       warp
