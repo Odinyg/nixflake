@@ -17,6 +17,7 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
+  i3wm.enable = true;
   bspwm.enable = false;
   hyprland.enable = true;
   rofi.enable = true;

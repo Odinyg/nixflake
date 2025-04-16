@@ -256,7 +256,7 @@
             outputs = [
               {
                 criteria = "eDP-1";
-                position = "1920,1440"; # Place laptop screen under HDMI (middle-bottom)
+                position = "0,1920"; # Place laptop screen under HDMI (middle-bottom)
               }
               {
                 criteria = "HDMI-A-1";
