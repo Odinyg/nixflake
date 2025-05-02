@@ -18,6 +18,7 @@
 
     environment.systemPackages = with pkgs; [
       expect
+      teams-for-linux
       anydesk
       dbeaver-bin
       flameshot

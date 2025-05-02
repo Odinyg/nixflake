@@ -25,7 +25,6 @@
       # Terminal and utilities from your config
       kitty
       brave
-      thunar
       flameshot
 
       # Status bar and appearance
@@ -52,20 +51,22 @@
       xorg.xinit
 
       # Font for status bar
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 
     # Enable X11 windowing system
     services.xserver = {
       enable = true;
       windowManager.dwm.enable = true;
+
+      # Enable SDDM display manager
+      displayManager = {
+        sddm = {
+          enable = true;
+          theme = "breeze";
+        };
+        defaultSession = "none+dwm";
+      };
     };
 
-    # Enable sound
-    sound.enable = true;
-    hardware.pulseaudio.enable = true;
-
-    # Enable NetworkManager
-    networking.networkmanager.enable = true;
   };
 }

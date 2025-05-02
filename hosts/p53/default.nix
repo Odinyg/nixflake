@@ -11,13 +11,14 @@
     ./hardware-configuration.nix
   ];
   ##### Desktop #####
-  # services.desktopManager.cosmic.enable = true;
-  # services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
-  i3wm.enable = true;
+  #  dwm.enable = true;
+  services.desktopManager.plasma6.enable = true;
   bspwm.enable = false;
   hyprland.enable = true;
   rofi.enable = true;
@@ -44,7 +45,7 @@
   chromium.enable = true;
 
   #####  Work  ######
-  services.onedrive.enable = true;
+  onedrive.enable = true;
   _1password.enable = true;
   work.enable = true; # TODO Split into smaller and add/remove/move apps
   programs.dconf.enable = true;
@@ -81,7 +82,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   networking.hostName = "VNPC-21"; # Define your hostname.
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+  };
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
   services.trezord.enable = false;
@@ -112,7 +115,7 @@
   };
 
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   services.avahi.openFirewall = true;
 
   # Enable sound with pipewire.

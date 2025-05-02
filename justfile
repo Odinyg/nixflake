@@ -27,4 +27,4 @@ diff:
   git diff ':!flake.lock'
 #Take out trash older then 30 days
 gc:
-  sudo nix-collect-garbage --delete-older-than 30d
+  sudo nix-collect-garbage --delete-older-than 14d
