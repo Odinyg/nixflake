@@ -20,6 +20,10 @@
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
+  simpleI3 = {
+    enable = true;
+    displayManager = "lightdm"; # or "sddm" or "gdm"
+  };
 
   ##### Hardware #####
   audio.enable = true;

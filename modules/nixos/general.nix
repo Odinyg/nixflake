@@ -24,10 +24,6 @@
     nixpkgs.config.allowUnfree = true;
     services.openssh.enable = true;
     nixpkgs.config.permittedInsecurePackages = [
-      "electron-19.1.9"
-      "electron-25.9.0"
-      "electron-29.4.6"
-      "python3.12-youtube-dl-2021.12.17"
     ];
     nix = {
       package = pkgs.nixVersions.stable;
