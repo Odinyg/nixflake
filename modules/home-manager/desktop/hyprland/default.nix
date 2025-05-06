@@ -54,9 +54,9 @@
           "WLR_BACKENDS,n-drm"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
-          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-          "GBM_BACKEND,nvidia-drm"
-          "LIBVA_DRIVER_NAME,nvidia"
+          # "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          # "GBM_BACKEND,nvidia-drm"
+          # "LIBVA_DRIVER_NAME,nvidia"
         ];
 
         input = {
@@ -252,7 +252,8 @@
           hostname = config.networking.hostName;
         in
         {
-          external-monitors = {
+          # External Monitors Profile (unchanged)
+          external-monitors = lib.mkIf (hostname == "p53") {
             outputs = [
               {
                 criteria = "eDP-1";
@@ -287,6 +288,22 @@
               }
             ];
           };
+          station-only = lib.mkIf (hostname == "station") {
+            outputs = [
+              {
+                criteria = "DP-2";
+                mode = "1920x1080@120";
+                position = "0,0";
+                scale = 1.0;
+              }
+              {
+                criteria = "HDMI-A-2";
+                mode = "3840x2160@120";
+                position = "1920,0";
+                scale = 1.25;
+              }
+            ];
+          };
 
           # Profile for 'p53'
           p53-only = lib.mkIf (hostname == "p53") {
@@ -301,7 +318,7 @@
           };
 
           # Default Profile (if not laptop or p53)
-          default = lib.mkIf (hostname != "laptop" && hostname != "p53") {
+          default = lib.mkIf (hostname != "laptop" && hostname != "p53" && hostname != "station") {
             outputs = [
               {
                 criteria = "eDP-1";

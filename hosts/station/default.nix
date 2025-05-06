@@ -22,12 +22,13 @@
 
   # services.desktopManager.cosmic.enable = true;
   # services.displayManager.cosmic-greeter.enable = true;
+  programs.nix-ld.enable = true;
   home-manager.backupFileExtension = "backup";
   general.enable = true;
   hyprland.enable = true;
   rofi.enable = true;
   fonts.enable = true;
-  ollama.enable = true;
+  ollama.enable = false;
   #### X11 Destktop ###
   randr.enable = false;
   bspwm.enable = false;
@@ -114,34 +115,37 @@
   xdg.portal.config.common.default = "*";
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "amdgpu" ];
   };
-
-  hardware.nvidia = {
-    powerManagement.enable = true;
-    powerManagement.finegrained = false;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    modesetting.enable = true;
-    open = true;
-    nvidiaSettings = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
   };
+  # hardware.nvidia = {
+  #   powerManagement.enable = true;
+  #   powerManagement.finegrained = false;
+  #   package = config.boot.kernelPackages.nvidiaPackages.beta;
+  #   modesetting.enable = true;
+  #   open = true;
+  #   nvidiaSettings = true;
+  # };
   services.acpid.enable = true;
 
   environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    WLR_NO_HARDWARE_CURSORS = "1";
-    LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    __GL_VRR_ALLOWED = "0";
-    WLR_DRM_NO_ATOMIC = "1";
-    NIXOS_OZONE_WL = "1";
+    # GBM_BACKEND = "nvidia-drm";
+    # WLR_NO_HARDWARE_CURSORS = "1";
+    # LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
+    # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    # __GL_VRR_ALLOWED = "0";
+    # WLR_DRM_NO_ATOMIC = "1";
+    # NIXOS_OZONE_WL = "1";
   };
 
   boot.kernelParams = [
-    "nvidia-drm.modeset=1"
-    "nvidia_drm.fbdev=1"
-    "NVreg_PreserveVideoMemoryAllocations=1"
-    "NVreg_TemporaryFilePath=/var/tmp"
+    # "nvidia-drm.modeset=1"
+    # "nvidia_drm.fbdev=1"
+    # "NVreg_PreserveVideoMemoryAllocations=1"
+    # "NVreg_TemporaryFilePath=/var/tmp"
   ];
   system.stateVersion = "25.05";
 }

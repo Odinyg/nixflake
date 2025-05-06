@@ -23,12 +23,12 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [
-    "nvidia"
-    "nvidia_modeset"
-    "nvidia_uvm"
-    "nvidia_drm"
+    # "nvidia"
+    # "nvidia_modeset"
+    # "nvidia_uvm"
+    # "nvidia_drm"
   ];
-  boot.kernelModules = [ "nvidia" ];
+  boot.kernelModules = [ "amdgpu" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
