@@ -1,18 +1,27 @@
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+
   options = {
     game = {
       enable = lib.mkEnableOption {
-        description = "Enable gameing.";
+        description = "Enable game.";
         default = false;
       };
     };
   };
 
   config = lib.mkIf config.game.enable {
- #     home.packages = with pkgs; [
- #       lutris
- #     ];
+    home-manager.users.${config.user} = {
+      home.packages = with pkgs; [
+        lutris
+      ];
+
+    };
     programs.gamescope.enable = true;
     programs.steam = {
       enable = true;

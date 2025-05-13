@@ -39,6 +39,7 @@
       proton-pass
       curaengine_stable
       autokey
+      orca-slicer
       wine
       ######## kubernetes
       k9s
