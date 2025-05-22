@@ -4,7 +4,7 @@ super + Return
   kitty
 
 super + w
-  brave
+  app.zen_browser.zen
 super + n
   tdrop -ma -w 40% -x 20% -y 3% -h 30% -s dropdown kitty
 
@@ -79,12 +79,14 @@ super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus or send to the given desktop on HDMI-0 (I-VII)
-super + {_,shift + }{1-7}
-    bspc {desktop -f,node -d} '{I,II,III,IV,V,VI,VII}'
+# super + {_,shift + }{1-9}
+#     bspc {desktop --focus,node --to-desktop} '{I,II,III,IV,V,VI,VII,VIII,IX}'
+super + {_,shift + }{1-9}
+     bspc {desktop -f,node -d} '{1,2,3,4,5,6,7,8,9}'
 
 # focus or send to the given desktop on eDP1-1 (VIII-X)
-super + {_,shift + }{8-9,0}
-    bspc {desktop -f,node -d} '{VIII,IX,X}'
+# super + {_,shift + }{8-9,0}
+#     bspc {desktop -f,node -d} '{VIII,IX,X}'
 # focus or send to the given desktop
 #super + {_,shift + }{1-9}
 #	bspc {desktop -f,node -d} '^{1-9}'

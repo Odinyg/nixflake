@@ -11,15 +11,18 @@
     ./hardware-configuration.nix
   ];
   ##### Desktop #####
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal
+      pkgs.xdg-desktop-portal-cosmic
+    ];
   };
   #  dwm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  bspwm.enable = false;
+  #  services.desktopManager.plasma6.enable = true;
+  bspwm.enable = true;
   hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
@@ -81,6 +84,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.grub.configurationLimit = 2;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
   networking.hostName = "VNPC-21"; # Define your hostname.
   networking.networkmanager = {
     enable = true;
@@ -187,9 +197,10 @@
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NIXOS_OZONE_WL = "1";
   };
-  boot.kernelParams = lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
+  boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "nvidia_drm.fbdev=1"
+    "fbdev=1"
   ];
 
 }

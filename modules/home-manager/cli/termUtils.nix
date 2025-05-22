@@ -22,6 +22,11 @@
       python312Packages.pip
       go
 
+      ripgrep-all
+      xh
+      gitui
+      jq
+
     ];
   };
 }

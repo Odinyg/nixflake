@@ -25,9 +25,11 @@
       brlaser
       foomatic-db-ppds-withNonfreeDb
       kdePackages.kolourpaint
+      burpsuite
       brave
       github-desktop
       pinta
+      keeweb
       warp-terminal
       warp
       satty

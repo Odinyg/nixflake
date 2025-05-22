@@ -44,6 +44,9 @@
           "systemctl --user import-environment"
           "lxqt-policykit-agent"
           "swayidle -w"
+          "kitty"
+          "obsidian"
+          "remmina -c /home/odin/.local/share/remmina/group_rdp_win11_win11.remmina"
         ];
 
         exec = [ "hyprshade auto" ];
@@ -182,6 +185,10 @@
         ];
 
         windowrule = [
+          "workspace 2 silent, class:^(Obsidian)$"
+          "workspace 3 silent, class:^(kitty)$"
+          "workspace 5 silent, class:^(Remmina)$"
+
           "workspace 3 silent, class:^(virt-manager)$"
           "float, class:file_progress"
           "float, class:flameshot"
