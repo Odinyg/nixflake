@@ -20,6 +20,8 @@
       #### ProgramStuff ####
       python3
       python312Packages.pip
+      talosctl
+      rke2
       go
 
       ripgrep-all

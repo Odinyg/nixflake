@@ -103,6 +103,7 @@
       "wheel"
       "plugdev"
       "docker"
+      "kvm"
     ];
   };
   xdg.portal = {

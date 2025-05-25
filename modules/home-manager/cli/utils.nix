@@ -31,6 +31,7 @@
       pinta
       keeweb
       warp-terminal
+      burpsuite
       warp
       satty
       xcape
