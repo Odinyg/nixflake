@@ -23,6 +23,7 @@
       talosctl
       rke2
       go
+      ghostty
 
       ripgrep-all
       xh

@@ -23,6 +23,7 @@
     home.packages = with pkgs; [
       yazi
       brlaser
+      orca-slicer
       foomatic-db-ppds-withNonfreeDb
       kdePackages.kolourpaint
       burpsuite

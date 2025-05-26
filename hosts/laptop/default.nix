@@ -20,10 +20,6 @@
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
-  simpleI3 = {
-    enable = true;
-    displayManager = "lightdm"; # or "sddm" or "gdm"
-  };
 
   ##### Hardware #####
   audio.enable = true;
@@ -34,6 +30,7 @@
   neovim.enable = true;
   zsh.enable = true;
   tmux.enable = true;
+  zellij.enable = true;
   kitty.enable = true;
   termUtils.enable = true;
   bluetooth.enable = true;
