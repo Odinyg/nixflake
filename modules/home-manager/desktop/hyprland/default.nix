@@ -44,9 +44,6 @@
           "systemctl --user import-environment"
           "lxqt-policykit-agent"
           "swayidle -w"
-          "kitty"
-          "obsidian"
-          "remmina -c /home/odin/.local/share/remmina/group_rdp_win11_win11.remmina"
         ];
 
         exec = [ "hyprshade auto" ];
@@ -119,7 +116,7 @@
         ];
 
         bind = [
-          "$mainMod, W, exec, brave"
+          "$mainMod, W, exec, app.zen_browser.zen"
           "ALT CTRL, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
           "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
           "$mainMod, return, exec, kitty"
@@ -185,11 +182,6 @@
         ];
 
         windowrule = [
-          "workspace 2 silent, class:^(Obsidian)$"
-          "workspace 3 silent, class:^(kitty)$"
-          "workspace 5 silent, class:^(Remmina)$"
-
-          "workspace 3 silent, class:^(virt-manager)$"
           "float, class:file_progress"
           "float, class:flameshot"
           "float, class:confirm"

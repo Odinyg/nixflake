@@ -30,6 +30,7 @@
       brave
       github-desktop
       pinta
+      waveterm
       keeweb
       warp-terminal
       burpsuite
@@ -57,7 +58,7 @@
       tcpdump
       ###### tdrop dependencys ######
       xorg.xwininfo
-      planify
+      #planify
       procps
       xorg.xprop
       xorg.xwininfo

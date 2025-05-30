@@ -18,8 +18,9 @@
       export PATH=$PATH:/usr/local/bin
     '';
     envExtra = ''
-      source <(kubectl completion zsh)
-      export TERM="xterm-256color"
+            source <(kubectl completion zsh)
+            export TERM="xterm-256color"
+      export AGE_PUBLIC=age1sy97xhs7my3793xjeyggvam25qhdv63f05h3f3ftevqfkjsh7cpqapg6f2
     '';
     oh-my-zsh = {
       enable = true;
