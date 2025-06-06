@@ -6,7 +6,7 @@
 }:
 {
   options = {
-    amd-graphics = {
+    amd-gpu = {
       enable = lib.mkEnableOption {
         description = "Enable AMD graphics configuration";
         default = false;

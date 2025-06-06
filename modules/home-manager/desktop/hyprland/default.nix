@@ -5,14 +5,6 @@
   ...
 }:
 {
-  options = {
-    hyprland = {
-      enable = lib.mkEnableOption {
-        description = "Enable  hyprland.";
-        default = false;
-      };
-    };
-  };
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     wayland.windowManager.hyprland = {

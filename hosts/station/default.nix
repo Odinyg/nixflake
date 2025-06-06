@@ -36,8 +36,6 @@
       "networkmanager"
       "wheel"
       "plugdev"
-      "docker"
-      "kvm"
     ];
   };
 
@@ -86,7 +84,12 @@
   # Development tools
   git.enable = true;
   direnv.enable = true;
-  docker.enable = true;
+  virtualization = {
+    enable = true;
+    qemu.virt-manager = true; # Disable virt-manager GUI
+    remoteAccess.enable = true; # Disable Remmina
+    virtualbox.enable = false; # Also enable VirtualBox
+  };
 
   #  Desktop Apps
   discord.enable = true;
