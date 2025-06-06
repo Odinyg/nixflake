@@ -44,6 +44,7 @@
           "systemctl --user import-environment"
           "lxqt-policykit-agent"
           "swayidle -w"
+          "kanshi -c ~/.config/kanshi/config"
         ];
 
         exec = [ "hyprshade auto" ];
