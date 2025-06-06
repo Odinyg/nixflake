@@ -4,7 +4,8 @@
     ./tailscale.nix
     ./onedrive.nix
     # ./virt-man.nix
-    ./docker.nix
+    #    ./docker.nix
+    ./gaming.nix
     ./work.nix
     ./dwm.nix
     ./password.nix
