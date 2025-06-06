@@ -3,6 +3,7 @@
 
   imports = [
     ./wireless.nix
+    ./amd-gpu.nix
     ./audio.nix
     ./randr.nix
     ./zsa.nix

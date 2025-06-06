@@ -19,13 +19,6 @@
       device = "/dev/nvme0n1";
       useOSProber = true;
     };
-    kernelParams = [
-      "amd_pstate=active"
-      "amdgpu.dc=1"
-      "processor.max_cstate=1"
-      "idle=poll"
-      "mitigations=off"
-    ];
   };
   # ==============================================================================
   # NETWORKING
@@ -51,23 +44,7 @@
   # ==============================================================================
   # DESKTOP ENVIRONMENT & DISPLAY
   # ==============================================================================
-
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "amdgpu" ];
-  };
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      amdvlk
-      rocmPackages.clr
-    ];
-    extraPackages32 = with pkgs; [
-      driversi686Linux.amdvlk
-    ];
-  };
+  amd-gpu.enable = true;
 
   # XDG Desktop Portal configuration
   xdg.portal = {

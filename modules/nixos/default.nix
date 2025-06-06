@@ -3,7 +3,7 @@
   imports = [
     ./tailscale.nix
     ./onedrive.nix
-    ./virt-man.nix
+    # ./virt-man.nix
     ./docker.nix
     ./work.nix
     ./dwm.nix
@@ -19,6 +19,7 @@
     ./password.nix
     ./ollama.nix
     ./styling.nix
+    ./hyprland.nix
+    ./virtualization.nix
   ];
-  docker.enable = true;
 }
