@@ -129,26 +129,21 @@
   utils.enable = true;
   xdg.enable = true;
 
-  ##### Theme Color ##### Cant move own module yet check back 23.06.24
+  # Theme
   styling.enable = true;
-  stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper/wallpaper.png;
-  stylix.polarity = "dark";
-  stylix.opacity.terminal = 0.85;
-  stylix.cursor.package = pkgs.bibata-cursors;
-  stylix.cursor.name = "Bibata-Modern-Ice";
-  stylix.cursor.size = 20;
-  stylix.autoEnable = true;
-
+  styling.theme = "nord";
+  styling.polarity = "dark";
+  styling.opacity.terminal = 0.85;
+  styling.cursor.size = 20;
+  styling.autoEnable = true;
   # ==============================================================================
   # SYSTEM SERVICES
   # ==============================================================================
   services = {
     syncthing.enable = true;
-    gvfs.enable = true; # Auto-mounting support
-    locate.enable = true; # File indexing
-    acpid.enable = true; # ACPI daemon
+    gvfs.enable = true;
+    locate.enable = true;
+    acpid.enable = true;
   };
 
   system.stateVersion = "25.05";
