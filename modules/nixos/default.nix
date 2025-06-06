@@ -18,6 +18,7 @@
     ./general.nix
     ./password.nix
     ./ollama.nix
+    ./styling.nix
   ];
   docker.enable = true;
 }
