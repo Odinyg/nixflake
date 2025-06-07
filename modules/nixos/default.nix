@@ -19,5 +19,6 @@
     ./styling.nix
     ./hyprland.nix
     ./virtualization.nix
+    #  ./secrets.nix
   ];
 }

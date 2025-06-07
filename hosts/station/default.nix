@@ -39,7 +39,9 @@
       "plugdev"
     ];
   };
-
+  sops.defaultSopsFile = ./../../secrets/general.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = /home/none/.config/sops/age/keys.txt;
   # ==============================================================================
   # DESKTOP ENVIRONMENT & DISPLAY
   # ==============================================================================
@@ -126,6 +128,5 @@
     locate.enable = true;
     acpid.enable = true;
   };
-
   system.stateVersion = "25.05";
 }

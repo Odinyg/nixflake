@@ -13,7 +13,7 @@
 
     programs.zellij = {
       enable = true;
-      enableZshIntegration = false;
+      enableZshIntegration = true;
       settings = {
         theme = "nord";
         themes.nord.fg = "#D8DEE9";

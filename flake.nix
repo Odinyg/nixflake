@@ -4,6 +4,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    inputs.sops-nix.url = "github:Mic92/sops-nix";
+    inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,6 +23,7 @@
       nixvim,
       nixos-hardware,
       stylix,
+      sops-nix,
       ...
     }@inputs:
 
@@ -41,6 +44,7 @@
         ./modules
         stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
       ];
     in
     {
