@@ -20,6 +20,7 @@
       useOSProber = true;
     };
   };
+
   # ==============================================================================
   # NETWORKING
   # ==============================================================================
@@ -95,7 +96,7 @@
   discord.enable = true;
   thunar.enable = true;
   chromium.enable = true;
-  game.enable = true;
+  gaming.enable = true;
 
   #  Work
   _1password.enable = false;

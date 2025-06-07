@@ -132,10 +132,6 @@
 
     boot.kernelModules = [ "uinput" ];
 
-    services.udev.packages = with pkgs; [
-      steam-original # Steam controller support
-    ];
-
     users.users.${config.user}.extraGroups = [ "gamemode" ];
 
     security.rtkit.enable = true;
