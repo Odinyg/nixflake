@@ -55,6 +55,7 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
+  services.flatpak.enable = true;
   #greetd.enable = true;
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
