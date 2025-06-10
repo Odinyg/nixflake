@@ -11,23 +11,19 @@
     ./hardware-configuration.nix
   ];
   ##### Desktop #####
-  # services.desktopManager.cosmic.enable = true;
-  # services.displayManager.cosmic-greeter.enable = true;
   xdg.portal = {
     enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal
-      pkgs.xdg-desktop-portal-cosmic
     ];
   };
-  #  dwm.enable = true;
-  #  services.desktopManager.plasma6.enable = true;
   bspwm.enable = true;
   hyprland.enable = true;
   rofi.enable = true;
   randr.enable = true;
   fonts.enable = true;
   general.enable = true;
+  programs.kdeconnect.enable = true;
 
   ##### Hardware #####
   audio.enable = true;
@@ -59,7 +55,7 @@
   ##### Everything Else #####
   crypt.enable = false;
   tailscale.enable = true;
-  syncthing.enable = false;
+  syncthing.enable = true;
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
@@ -121,6 +117,8 @@
       pkgs.brgenml1cupswrapper
       pkgs.ptouch-driver
       pkgs.gutenprint
+      pkgs.cups-filters
+      pkgs.ghostscript
     ];
   };
 
@@ -169,7 +167,9 @@
 
   environment.systemPackages = with pkgs; [
     pciutils
+    system-config-printer
     lshw
+    python3Packages.brother-ql
     tailscale
   ];
 

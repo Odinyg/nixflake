@@ -22,11 +22,14 @@
 
     home.packages = with pkgs; [
       yazi
+
       brlaser
       orca-slicer
       foomatic-db-ppds-withNonfreeDb
+      atac
       kdePackages.kolourpaint
       burpsuite
+      postman
       brave
       github-desktop
       pinta

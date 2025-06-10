@@ -239,14 +239,15 @@
     programs.swaylock.enable = true;
     services.kanshi = {
       enable = true;
-      profiles =
+      settings =
         let
           hostname = config.networking.hostName;
         in
-        {
-          # External Monitors Profile (unchanged)
-          external-monitors = lib.mkIf (hostname == "p53") {
-            outputs = [
+        lib.optionals (hostname == "p53") [
+          # External Monitors Profile for p53
+          {
+            profile.name = "external-monitors";
+            profile.outputs = [
               {
                 criteria = "eDP-1";
                 position = "0,1920"; # Place laptop screen under HDMI (middle-bottom)
@@ -268,10 +269,24 @@
                 position = "3640,0"; # Right monitor
               }
             ];
-          };
-          # Profile for 'laptop'
-          laptop-only = lib.mkIf (hostname == "laptop") {
-            outputs = [
+          }
+          {
+            profile.name = "p53-only";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                status = "enable";
+                mode = "1920x1080";
+                scale = 1.0;
+              }
+            ];
+          }
+        ]
+        ++ lib.optionals (hostname == "laptop") [
+          # Profile for laptop
+          {
+            profile.name = "laptop-only";
+            profile.outputs = [
               {
                 criteria = "eDP-1";
                 status = "enable";
@@ -279,9 +294,13 @@
                 scale = 1.0;
               }
             ];
-          };
-          station-only = lib.mkIf (hostname == "station") {
-            outputs = [
+          }
+        ]
+        ++ lib.optionals (hostname == "station") [
+          # Profile for station
+          {
+            profile.name = "station-only";
+            profile.outputs = [
               {
                 criteria = "DP-2";
                 mode = "1920x1080@120";
@@ -295,68 +314,23 @@
                 scale = 1.25;
               }
             ];
-          };
-
-          # Profile for 'p53'
-          p53-only = lib.mkIf (hostname == "p53") {
-            outputs = [
-              {
-                criteria = "eDP-1";
-                status = "enable";
-                mode = "1920x1080";
-                scale = 1.0;
-              }
-            ];
-          };
-
-          # Default Profile (if not laptop or p53)
-          default = lib.mkIf (hostname != "laptop" && hostname != "p53" && hostname != "station") {
-            outputs = [
+          }
+        ]
+        ++ lib.optionals (hostname != "laptop" && hostname != "p53" && hostname != "station") [
+          # Default Profile
+          {
+            profile.name = "default";
+            profile.outputs = [
               {
                 criteria = "eDP-1";
                 mode = "1920x1080";
                 scale = 1.0;
               }
             ];
-          };
-        };
+          }
+        ];
     };
-    #    services.kanshi = {
-    #      enable = true;
-    #      profiles = {
-    #        # Profile when external monitors are connected to HDMI-A-1
-    #        external-monitors = {
-    #          outputs = [
-    #            {
-    #              criteria = "eDP-1";
-    #              status = "disable";
-    #            }
-    #            {
-    #              criteria = "HDMI-A-1";
-    #              mode = "1920x1080";
-    #              transform = "90"; # transform 1 means rotate 90 degrees
-    #            }
-    #            {
-    #              criteria = "DP-4";
-    #              mode = "2560x1440";
-    #            }
-    #            {
-    #              criteria = "DP-5";
-    #              mode = "1920x1080";
-    #            }
-    #          ];
-    #        };
-    #
-    #        laptop-only = {
-    #          outputs = [
-    #            {
-    #              criteria = "eDP-1";
-    #              mode = "1920x1080";
-    #              scale = 1.0;
-    #            }
-    #          ];
-    #        };
-    #      };
-    #    };
+
+    # Profile for 'p53'
   };
 }

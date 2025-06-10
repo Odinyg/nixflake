@@ -14,7 +14,7 @@
       doc = "$HOME/Documents";
     };
 
-    initExtra = ''
+    initContent = ''
       export PATH=$PATH:/usr/local/bin
     '';
     envExtra = ''

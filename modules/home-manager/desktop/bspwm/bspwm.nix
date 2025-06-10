@@ -17,20 +17,19 @@
 
   config = lib.mkIf config.bspwm.enable {
     services = {
+      displayManager = {
+        autoLogin.user = "$config.user";
+        autoLogin.enable = false;
+        defaultSession = "none+bspwm";
+        sddm = {
+          wayland.enable = true;
+          enable = true;
+        };
+      };
       picom.enable = true;
       xserver = {
         enable = true;
         windowManager.bspwm.enable = true;
-        displayManager = {
-          defaultSession = "none+bspwm";
-          autoLogin.user = "$config.user";
-          autoLogin.enable = false;
-          sddm = {
-            enable = true;
-            wayland.enable = true;
-          };
-        };
-        ## Perfect with zsa macros ##
         xkb.layout = "us";
         xkb.variant = "altgr-intl";
         xkb.options = "compose:ralt";
@@ -45,6 +44,5 @@
       betterlockscreen
       xorg.xbacklight
     ];
-
   };
 }
