@@ -59,19 +59,20 @@
   polkit.enable = true;
   utils.enable = true;
   xdg.enable = true;
-  virt-man.enable = true;
-  # greetd.enable = true;
+  virtualization = {
+    enable = true;
+    qemu.virt-manager = true; # Disable virt-manager GUI
+    remoteAccess.enable = true; # Disable Remmina
+    virtualbox.enable = false; # Also enable VirtualBox
+  };
 
   ##### Theme Color ##### Cant move own module yet check back 23.06.24
   styling.enable = true;
-  stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-  stylix.image = ../../modules/home-manager/desktop/hyprland/wallpaper/wallpaper.png;
-  stylix.polarity = "dark";
-  stylix.opacity.terminal = 0.92;
-  stylix.cursor.package = pkgs.bibata-cursors;
-  stylix.cursor.name = "Bibata-Modern-Ice";
-  stylix.cursor.size = 18;
+  styling.theme = "nord";
+  styling.polarity = "dark";
+  styling.opacity.terminal = 0.90;
+  styling.cursor.size = 20;
+  styling.autoEnable = true;
   home-manager.backupFileExtension = "backup";
 
   programs.nix-ld.enable = true;
@@ -166,6 +167,7 @@
   services.teamviewer.enable = true;
 
   environment.systemPackages = with pkgs; [
+    zen-browser.packages."${system}".generic
     pciutils
     system-config-printer
     lshw

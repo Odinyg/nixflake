@@ -24,6 +24,7 @@
       rke2
       go
       ghostty
+      btop
 
       ripgrep-all
       xh

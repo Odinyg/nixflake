@@ -4,7 +4,7 @@
 sxhkd &
 nm-applet &
 ~/.config/polybar/launch.sh &
-feh --bg-fill ~/Pictures/background/mountain.jpg &
+feh --bg-fill /home/odin/Pictures/background/mountain.jpg &
 picom &
 setxkbmap -option ctrl:nocaps &
 xcape -e 'Control_L=Escape'

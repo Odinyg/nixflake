@@ -223,7 +223,8 @@
       sassc
       gtk3
       lxqt.lxqt-policykit
-      copyq
+
+      xclip
       swayidle
       grim
       slurp
