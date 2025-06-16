@@ -21,6 +21,7 @@
       python3
       python312Packages.pip
       talosctl
+      sshpass
       rke2
       go
       ghostty

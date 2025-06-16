@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
@@ -73,7 +74,8 @@
   styling.opacity.terminal = 0.90;
   styling.cursor.size = 20;
   styling.autoEnable = true;
-  home-manager.backupFileExtension = "backup";
+
+  home-manager.backupFileExtension = "backup-$(date +%Y%m%d_%H%M%S)";
 
   programs.nix-ld.enable = true;
   services.flatpak.enable = true;
@@ -167,7 +169,7 @@
   services.teamviewer.enable = true;
 
   environment.systemPackages = with pkgs; [
-    zen-browser.packages."${system}".generic
+    inputs.zen-browser.packages."${pkgs.system}".default
     pciutils
     system-config-printer
     lshw

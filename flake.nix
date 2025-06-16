@@ -7,7 +7,10 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
