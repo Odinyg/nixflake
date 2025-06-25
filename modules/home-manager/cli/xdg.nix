@@ -47,7 +47,7 @@
 
         defaultApplications =
           let
-            browser = [ "brave.desktop" ];
+            browser = [ "zen.desktop" ];
             photo = [ "feh.desktop" ];
             video = [ "vlc.desktop" ];
             office = [ "libreoffice-write.desktop" ];

@@ -4,7 +4,7 @@ super + Return
   kitty
 
 super + w
-  app.zen_browser.zen
+  zen 
 super + n
   tdrop -ma -w 40% -x 20% -y 3% -h 30% -s dropdown kitty
 
