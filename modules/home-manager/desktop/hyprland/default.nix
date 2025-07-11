@@ -109,7 +109,7 @@
         ];
 
         bind = [
-          "$mainMod, W, exec, app.zen_browser.zen"
+          "$mainMod, W, exec, zen"
           "ALT CTRL, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
           "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
           "$mainMod, return, exec, kitty"

@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -104,7 +105,7 @@
   gaming.enable = true;
 
   #  Work
-  _1password.enable = false;
+  _1password.enable = true;
   work.enable = true; # TODO Split into smaller and add/remove/move apps
 
   # System utilities
@@ -125,6 +126,10 @@
   # ==============================================================================
   # SYSTEM SERVICES
   # ==============================================================================
+
+  environment.systemPackages = with pkgs; [
+    inputs.zen-browser.packages."${pkgs.system}".default
+  ];
   services = {
     syncthing.enable = true;
     gvfs.enable = true;
