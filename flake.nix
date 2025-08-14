@@ -2,7 +2,7 @@
   description = "Heime Flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +23,7 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-stable,
       home-manager,
       nixvim,
       nixos-hardware,
@@ -36,7 +37,7 @@
       mkHomeConfig =
         { username, stateVersion }:
         {
-          imports = [ nixvim.homeManagerModules.nixvim ];
+          imports = [ nixvim.homeModules.nixvim ];
           home = {
             username = username;
             homeDirectory = "/home/${username}";

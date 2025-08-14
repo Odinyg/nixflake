@@ -25,7 +25,7 @@ max_size = "1920px 100%"
 
 [scratchpads.gpt]
 animation = "fromTop"
-command = "kitty --class secound-dropterm tgpt -m"
+command = "kitty --class secound-dropterm claude -m"
 class = "secound-dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"

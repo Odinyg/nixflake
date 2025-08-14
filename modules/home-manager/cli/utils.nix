@@ -26,7 +26,6 @@
       protonvpn-gui
 
       brlaser
-      orca-slicer
       foomatic-db-ppds-withNonfreeDb
       atac
       kdePackages.kolourpaint
@@ -49,7 +48,7 @@
       proton-pass
       curaengine_stable
       autokey
-      orca-slicer
+      #orca-slicer
       wine
       ######## kubernetes
       k9s
@@ -63,7 +62,7 @@
       tcpdump
       ###### tdrop dependencys ######
       xorg.xwininfo
-      #planify
+      planify
       procps
       xorg.xprop
       xorg.xwininfo
@@ -72,6 +71,7 @@
       rpi-imager
       wget
       xfce.thunar
+      kuro
 
     ];
   };

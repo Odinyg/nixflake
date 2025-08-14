@@ -70,8 +70,17 @@
         general = {
           gaps_in = 3;
           gaps_out = 5;
-          border_size = 2;
+          border_size = 1;
           layout = "dwindle";
+        };
+
+        decoration = {
+          rounding = 7;
+          blur = {
+            enabled = true;
+            size = 8;
+            passes = 1;
+          };
         };
 
         animations = {
@@ -109,7 +118,7 @@
         ];
 
         bind = [
-          "$mainMod, W, exec, zen-beta"
+          "$mainMod, W, exec, zen"
           "ALT CTRL, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
           "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
           "$mainMod, return, exec, kitty"
@@ -165,7 +174,7 @@
           # Pypr bindings
           "$mainMod, T, exec, pypr toggle term"
           "$mainMod, N, exec, pypr toggle notes"
-          "$mainMod, G, exec, pypr toggle gpt"
+          "$mainMod, C, exec, pypr toggle gpt"
           "$mainMod, F, exec, pypr toggle todo"
         ];
 
@@ -203,6 +212,7 @@
           "float, title:(Picture-in-Picture)"
           "size 800 600, title:(Volume Control)"
           "move 75% 44%, title:(Volume Control)"
+          "noborder, class:^(chrome-.*)"
         ];
       };
     };
@@ -244,30 +254,24 @@
         let
           hostname = config.networking.hostName;
         in
-        lib.optionals (hostname == "p53") [
+        lib.optionals (hostname == "VNPC-21") [
           # External Monitors Profile for p53
           {
             profile.name = "external-monitors";
             profile.outputs = [
               {
                 criteria = "eDP-1";
-                position = "0,1920"; # Place laptop screen under HDMI (middle-bottom)
-              }
-              {
-                criteria = "HDMI-A-1";
-                mode = "1920x1080";
-                transform = "90"; # rotate 90 degrees
-                position = "0,0"; # Left monitor
+                position = "0,0"; # Place laptop screen under HDMI (middle-bottom)
               }
               {
                 criteria = "DP-4";
                 mode = "2560x1440";
-                position = "1080,0"; # Middle monitor (main)
+                position = "1920,0"; # Middle monitor (main)
               }
               {
                 criteria = "DP-5";
-                mode = "1920x1080";
-                position = "3640,0"; # Right monitor
+                mode = "2560x1440";
+                position = "4480,0"; # Right monitor
               }
             ];
           }

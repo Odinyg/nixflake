@@ -39,7 +39,7 @@ in
 
   config.home-manager.users.${config.user} = lib.mkIf config.tmux.enable {
     programs.k9s = {
-      hotkey = {
+      hotKeys = {
         hotKey = {
           alt-d = {
             shortCut = "Alt-d";

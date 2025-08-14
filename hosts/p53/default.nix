@@ -7,6 +7,7 @@
 }:
 
 {
+
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -93,6 +94,7 @@
   networking.hostName = "VNPC-21"; # Define your hostname.
   networking.networkmanager = {
     enable = true;
+    unmanaged = [ ];
   };
   time.timeZone = "Europe/Oslo";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -131,9 +133,9 @@
 
   # Enable sound with pipewire.
   nixpkgs.config.permittedInsecurePackages = [
+    "libsoup-2.74.3"
     "electron-19.1.9"
     "electron-29.4.6"
-    "python3.12-youtube-dl-2021.12.17"
     "electron-25.9.0"
     "openssl-1.1.1w"
   ];
@@ -161,7 +163,6 @@
       swtpm
       dconf
       obsidian
-      flameshot
       satty
       shutter
     ];
@@ -173,12 +174,17 @@
     pciutils
     system-config-printer
     lshw
-    python3Packages.brother-ql
     tailscale
   ];
 
   nixpkgs.config.allowUnfree = true;
   services.openssh.enable = true;
+  programs.ssh = {
+    startAgent = true;
+    extraConfig = ''
+      AddKeysToAgent yes
+    '';
+  };
 
   system.stateVersion = "25.05"; # Did you read the comment?
 
@@ -206,5 +212,6 @@
     "nvidia_drm.fbdev=1"
     "fbdev=1"
   ];
+  boot.kernel.sysctl."net.ipv4.ip_forwarding" = 1;
 
 }

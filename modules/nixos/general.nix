@@ -78,13 +78,15 @@
       flatpak
       docker
       polkit
-      ansible
+      # ansible
       libreoffice
       #     xdg-desktop-portal-hyprland
     ];
     services.flatpak.enable = true;
     programs.appimage.enable = true;
     programs.zsh.enable = true;
+
+    systemd.services.NetworkManager-wait-online.enable = false;
 
     time.timeZone = "Europe/Oslo";
     i18n.defaultLocale = "en_US.UTF-8";

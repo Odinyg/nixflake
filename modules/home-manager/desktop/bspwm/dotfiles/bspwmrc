@@ -18,7 +18,7 @@ if xrandr | grep "DP-3.8 connected"; then
 
         xrandr --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate left \
            --output DP-3.8 --mode 2560x1440 --pos 1080x0 --primary \
-           --output DP-3.1 --mode 1920x1080 --pos 3640x0 \
+           --output DP-3.1 --mode 2560x1440 --pos 3640x0 \
            --output "$EDP_DISPLAY" --off
       else
     bspc monitor "$EDP_DISPLAY" -d 1 2 3 4 5 6 7 8 9 0

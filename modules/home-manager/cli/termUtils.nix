@@ -19,14 +19,13 @@
 
       #### ProgramStuff ####
       python3
-      python312Packages.pip
       talosctl
       sshpass
       rke2
       go
       ghostty
       btop
-
+      claude-code
       ripgrep-all
       xh
       gitui

@@ -2,8 +2,16 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
+let
+  # Create stable packages overlay
+  pkgs-stable = import inputs.nixpkgs-stable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
 
   options = {
@@ -19,7 +27,7 @@
     environment.systemPackages = with pkgs; [
       expect
       anydesk
-      dbeaver-bin
+      pkgs-stable.dbeaver-bin
       flameshot
       rpiboot
       gnumake
