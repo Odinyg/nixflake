@@ -24,6 +24,7 @@
     nixpkgs.config.allowUnfree = true;
     services.openssh.enable = true;
     nixpkgs.config.permittedInsecurePackages = [
+      "libsoup-2.74.3"
     ];
     nix = {
       package = pkgs.nixVersions.stable;

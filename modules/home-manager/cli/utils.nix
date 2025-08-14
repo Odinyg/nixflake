@@ -23,6 +23,7 @@
     home.packages = with pkgs; [
       protonmail-desktop
       yazi
+      protonvpn-gui
 
       brlaser
       orca-slicer

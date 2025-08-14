@@ -42,7 +42,6 @@
       noice.settings.cmdline.enabled = true;
       autoclose.enable = false;
       comment.enable = true;
-      tmux-navigator.enable = true;
       nix.enable = true;
       mini.enable = true;
       which-key.enable = true;

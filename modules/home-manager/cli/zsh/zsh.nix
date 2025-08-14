@@ -28,7 +28,6 @@
       #    custom = "$HOME/.config/zsh/oh-my-zsh";
       plugins = [
         "fzf"
-        "tmux"
         "sudo"
         "git"
         "docker"
@@ -41,7 +40,6 @@
         "minikube"
         "ssh"
         "tldr"
-        "tmuxinator"
         "zsh-interactive-cd"
         "zoxide"
         "tailscale"

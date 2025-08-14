@@ -20,6 +20,9 @@
             path = "~/Documents/Main";
           }
         ];
+        opts = {
+          legacy_commands = false;
+        };
       };
     };
 
