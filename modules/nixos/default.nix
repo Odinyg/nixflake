@@ -4,7 +4,7 @@
     ./tailscale.nix
     ./onedrive.nix
     ./gaming.nix
-    ./work.nix
+    ./work
     ./password.nix
     ./crypt.nix
     ./hardware
@@ -18,5 +18,6 @@
     ./styling.nix
     ./hyprland.nix
     ./virtualization.nix
+    ./security.nix
   ];
 }

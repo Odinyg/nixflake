@@ -123,3 +123,9 @@ moduleName.enable = true;  # Enables the module
 - Flake inputs are pinned in `flake.lock` for reproducibility
 - Secrets are managed with sops-nix (see `secrets/secrets.yaml`)
 - The system supports multiple users but primarily configured for user "odin" on VNPC-21 host
+
+## Git Commit Guidelines
+
+- Do NOT add Claude Code signatures or Co-Authored-By lines to commits
+- Keep commit messages concise and descriptive
+- Focus on what changed, not implementation details

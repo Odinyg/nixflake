@@ -13,30 +13,22 @@ let
   };
 in
 {
-
   options = {
-    work = {
+    work.development = {
       enable = lib.mkEnableOption {
-        description = "Enable several work";
+        description = "Enable development tools (GCC, Make, DBeaver, etc.)";
         default = false;
       };
     };
   };
-  config = lib.mkIf config.work.enable {
 
+  config = lib.mkIf config.work.development.enable {
     environment.systemPackages = with pkgs; [
-      expect
-      anydesk
-      pkgs-stable.dbeaver-bin
-      flameshot
-      rpiboot
-      gnumake
-      insync
       gcc
-      kuro
-      openvpn
-      zoom-us
-      remmina
+      gnumake
+      pkgs-stable.dbeaver-bin
+      expect
+      rpiboot
       inetutils
     ];
   };
