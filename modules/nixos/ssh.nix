@@ -9,7 +9,13 @@
     };
   };
   config = lib.mkIf config.ssh.enable {
-
-    services.openssh.enable = true;
+    services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        X11Forwarding = false;
+      };
+    };
   };
 }

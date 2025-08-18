@@ -14,11 +14,9 @@
     ./greetd.nix
     ./sunshine.nix
     ./general.nix
-    ./password.nix
     ./ollama.nix
     ./styling.nix
     ./hyprland.nix
     ./virtualization.nix
-    #  ./secrets.nix
   ];
 }

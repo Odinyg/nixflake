@@ -177,8 +177,6 @@
     tailscale
   ];
 
-  nixpkgs.config.allowUnfree = true;
-  services.openssh.enable = true;
   programs.ssh = {
     startAgent = true;
     extraConfig = ''

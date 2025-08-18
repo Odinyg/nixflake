@@ -22,7 +22,6 @@
 
     };
     nixpkgs.config.allowUnfree = true;
-    services.openssh.enable = true;
     nixpkgs.config.permittedInsecurePackages = [
       "libsoup-2.74.3"
     ];
@@ -67,7 +66,6 @@
       nixfmt-rfc-style
       nixd
       sshs
-      ripgrep
       zoxide
       tldr
       just

@@ -47,9 +47,6 @@
           "WLR_BACKENDS,n-drm"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
-          # "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-          # "GBM_BACKEND,nvidia-drm"
-          # "LIBVA_DRIVER_NAME,nvidia"
         ];
 
         input = {
@@ -234,10 +231,7 @@
       sassc
       gtk3
       lxqt.lxqt-policykit
-
       xclip
-      swayidle
-      grim
       slurp
       wl-clipboard
     ];
