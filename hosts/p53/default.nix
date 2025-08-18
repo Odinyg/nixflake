@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/workstation.nix
+    ../../profiles/hardware/nvidia.nix
   ];
 
   # ==============================================================================
@@ -20,12 +21,6 @@
     efi.efiSysMountPoint = "/boot/efi";
     grub.configurationLimit = 2;
   };
-
-  boot.kernelParams = [
-    "nvidia-drm.modeset=1"
-    "nvidia_drm.fbdev=1"
-    "fbdev=1"
-  ];
 
   boot.kernel.sysctl."net.ipv4.ip_forwarding" = 1;
 
@@ -82,26 +77,7 @@
   # ==============================================================================
   # HARDWARE - NVIDIA GPU
   # ==============================================================================
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    open = true;
-    nvidiaSettings = true;
-    prime.sync.enable = true;
-    prime.nvidiaBusId = "PCI:1:0:0";
-    prime.intelBusId = "PCI:0:2:0";
-  };
-
-  environment.variables = {
-    GBM_BACKEND = "nvidia-drm";
-    WLR_DRM_DEVICES = "$HOME/.config/hypr/card:$HOME/.config/hypr/otherCard";
-    WLR_NO_HARDWARE_CURSORS = "1";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    NIXOS_OZONE_WL = "1";
-  };
+  hardware.nvidia-gpu.enable = true;
 
   # ==============================================================================
   # HOST-SPECIFIC OVERRIDES
@@ -113,9 +89,7 @@
   # Work tools
   onedrive.enable = true;
   
-  
   # Services
-  services.trezord.enable = false;
   services.teamviewer.enable = true;
   
   # Printing drivers

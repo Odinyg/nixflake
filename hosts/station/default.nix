@@ -57,17 +57,8 @@
   # Gaming
   gaming.enable = true;
   
-  # Hardware
-  smbmount.enable = false;
-  
-  # AI/ML
-  ollama.enable = false;
-  
   # Encryption tools
   crypt.enable = true;
-  
-  # Terminal tools
-  tmux.enable = false;
   
   # Terminal opacity
   styling.opacity.terminal = 0.85;

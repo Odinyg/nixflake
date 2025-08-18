@@ -14,16 +14,12 @@
   # Hardware for mobile systems
   randr.enable = false;
 
-  # Gaming
-  programs.steam.enable = lib.mkDefault false;
-
   # Work
   crypt.enable = true;
 
   # Laptop-specific services
   services = {
     flatpak.enable = true;
-    printing.enable = true;
     playerctld.enable = true;
   };
 
