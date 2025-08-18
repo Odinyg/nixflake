@@ -29,7 +29,7 @@
         "$mainMod" = "SUPER";
         exec-once = [
           "pypr"
-          "waybar & hyprpaper & swaync"
+          "waybar & ~/.config/hypr/random-wallpaper.sh & swaync"
           "hyprctl setcursor Bibate-Modern-Ice 18"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "nm-applet --indicator"
@@ -118,6 +118,7 @@
         ];
 
         bind = [
+          "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
           "$mainMod, W, exec, zen"
           "ALT CTRL, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
           "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
@@ -242,6 +243,11 @@
     ];
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
+    xdg.configFile."hypr/random-wallpaper.sh" = {
+      source = ./scripts/random-wallpaper.sh;
+      executable = true;
+    };
+    xdg.configFile."wallpapers".source = ./config/wallpapers;
     xdg.configFile."hypr/pyprland.toml".source = ./config/pyprland.toml;
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;

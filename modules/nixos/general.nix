@@ -78,7 +78,7 @@
       flatpak
       docker
       polkit
-      # ansible
+      ansible
       libreoffice
       #     xdg-desktop-portal-hyprland
     ];

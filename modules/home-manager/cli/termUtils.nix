@@ -21,6 +21,7 @@
       python3
       talosctl
       sshpass
+      bc
       rke2
       go
       ghostty
