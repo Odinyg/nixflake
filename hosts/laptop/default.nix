@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -50,6 +51,9 @@
     config.common.default = "*";
   };
 
+  environment.systemPackages = with pkgs; [
+    inputs.zen-browser.packages."${pkgs.system}".default
+  ];
   # ==============================================================================
   # CUSTOM MODULE CONFIGURATION
   # ==============================================================================

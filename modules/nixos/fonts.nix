@@ -25,6 +25,9 @@
         source-han-serif-japanese
         nerd-fonts.droid-sans-mono
         #nerd-fonts
+        # Microsoft fonts (Calibri, Times New Roman, Arial)
+        corefonts
+        vista-fonts
       ];
       #    fontconfig = {
       #      enable = true;
