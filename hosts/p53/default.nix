@@ -60,7 +60,6 @@
       rclone
       insync
       kdePackages.kdeconnect-kde
-      teamviewer
       firefox
       tree
       libva-utils
@@ -68,7 +67,7 @@
       vulkan-tools
       wayland-utils
       vesktop
-      kate
+      kdePackages.kate
       screen
       shutter
     ];
@@ -89,8 +88,15 @@
   # Work tools
   onedrive.enable = true;
   
+  # ==============================================================================
+  # DISTRIBUTED BUILDS - USE STATION AS BUILDER
+  # ==============================================================================
+  distributedBuilds = {
+    enable = true;
+    isBuilder = false;
+  };
+  
   # Services
-  services.teamviewer.enable = true;
   
   # Printing drivers
   services.printing.drivers = with pkgs; [

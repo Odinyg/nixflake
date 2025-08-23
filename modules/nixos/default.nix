@@ -19,5 +19,6 @@
     ./hyprland.nix
     ./virtualization.nix
     ./security.nix
+    ./distributed-builds.nix
   ];
 }

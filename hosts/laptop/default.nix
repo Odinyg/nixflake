@@ -44,6 +44,14 @@
   gaming.enable = true;
   crypt.enable = true;
   
+  # ==============================================================================
+  # DISTRIBUTED BUILDS - USE STATION AS BUILDER
+  # ==============================================================================
+  distributedBuilds = {
+    enable = true;
+    isBuilder = false;
+  };
+  
   # Cursor customization
   styling.cursor.package = pkgs.bibata-cursors;
   styling.cursor.name = "Bibata-Modern-Ice";
