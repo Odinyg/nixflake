@@ -4,7 +4,7 @@
     servers = {
       gopls.enable = true;
       bashls.enable = true;
-      cmake.enable = true;
+      # cmake.enable = true; # Temporarily disabled due to pygls/lsprotocol incompatibility
       lua_ls.enable = true;
       nil_ls = {
         enable = true;

@@ -24,6 +24,7 @@
       protonmail-desktop
       yazi
       protonvpn-gui
+      zed
 
       brlaser
       foomatic-db-ppds-withNonfreeDb
