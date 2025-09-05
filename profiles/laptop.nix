@@ -27,3 +27,4 @@
   styling.opacity.terminal = 0.92;
   styling.cursor.size = 18;
 }
+

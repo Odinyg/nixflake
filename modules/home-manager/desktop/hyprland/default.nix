@@ -241,7 +241,6 @@
       source = ./scripts/random-wallpaper.sh;
       executable = true;
     };
-    xdg.configFile."wallpapers".source = ./config/wallpapers;
     xdg.configFile."hypr/pyprland.toml".source = ./config/pyprland.toml;
     xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
