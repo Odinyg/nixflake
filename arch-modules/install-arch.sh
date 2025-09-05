@@ -24,17 +24,38 @@ echo -e "${BLUE}═════════════════════�
 echo ""
 
 # =============================================================================
-# SAFETY CHECK
+# PRE-INSTALLATION CHECKS
 # =============================================================================
-if [ ! -d /sys/firmware/efi ]; then
+echo -e "${BLUE}→ Performing pre-installation checks...${NC}"
+
+# Check if booted in UEFI mode
+if [ ! -d /sys/firmware/efi/efivars ]; then
     echo -e "${RED}✗ This script requires UEFI mode${NC}"
+    echo "Please boot the installation media in UEFI mode"
     exit 1
 fi
 
-if [ "$EUID" -ne 0 ]; then
-    echo -e "${RED}✗ This script must be run as root${NC}"
-    exit 1
+# Check internet connection
+if ! ping -c 1 archlinux.org &> /dev/null; then
+    echo -e "${YELLOW}⚠ No internet connection detected${NC}"
+    echo "Attempting to connect..."
+    systemctl start dhcpcd 2>/dev/null || true
+    sleep 3
+    if ! ping -c 1 archlinux.org &> /dev/null; then
+        echo -e "${RED}✗ Still no internet. Please connect to network first${NC}"
+        echo "For WiFi: iwctl station wlan0 connect <SSID>"
+        echo "For Ethernet: dhcpcd"
+        exit 1
+    fi
 fi
+
+# Update system clock
+echo -e "${BLUE}→ Syncing system clock...${NC}"
+timedatectl set-ntp true
+
+# Update archlinux keyring
+echo -e "${BLUE}→ Updating pacman keyring...${NC}"
+pacman -Sy --noconfirm archlinux-keyring
 
 # =============================================================================
 # DISK SELECTION
@@ -148,15 +169,24 @@ swapon /mnt/swap/swapfile
 # INSTALL BASE SYSTEM
 # =============================================================================
 echo -e "${BLUE}→ Installing base system...${NC}"
-pacstrap /mnt \
-    base linux linux-firmware \
+pacstrap -K /mnt \
+    base linux linux-firmware linux-headers \
     base-devel \
     btrfs-progs \
+    dosfstools \
+    e2fsprogs \
     networkmanager \
-    neovim nano \
+    neovim vim nano \
     git \
     intel-ucode amd-ucode \
-    efibootmgr
+    efibootmgr \
+    grub \
+    os-prober \
+    mtools \
+    openssh \
+    reflector \
+    rsync \
+    terminus-font
 
 # =============================================================================
 # GENERATE FSTAB
@@ -176,8 +206,12 @@ hwclock --systohc
 
 # Set locale
 echo "${LOCALE} UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen  # Always include en_US as fallback
 locale-gen
 echo "LANG=${LOCALE}" > /etc/locale.conf
+
+# Set console font (optional, for better readability)
+echo "FONT=ter-132n" > /etc/vconsole.conf
 
 # Set hostname
 echo "${HOSTNAME}" > /etc/hostname
@@ -189,8 +223,16 @@ HOSTS
 
 # Configure mkinitcpio for BTRFS
 sed -i 's/^MODULES=.*/MODULES=(btrfs)/' /etc/mkinitcpio.conf
-sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/' /etc/mkinitcpio.conf
+# Add resume hook for hibernation support
+sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms keyboard keymap consolefont block filesystems resume fsck btrfs)/' /etc/mkinitcpio.conf
 mkinitcpio -P
+
+# Update mirror list for better speeds
+reflector --country Sweden,Germany,Netherlands --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
+# Enable parallel downloads in pacman
+sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+sed -i 's/^#Color/Color/' /etc/pacman.conf
 
 # Install and configure bootloader (systemd-boot)
 bootctl --path=/boot install
@@ -226,20 +268,28 @@ initrd  /initramfs-linux-fallback.img
 options root=UUID=\${ROOT_UUID} rootflags=subvol=@ rw
 ENTRY
 
-# Enable NetworkManager
+# Enable essential services
 systemctl enable NetworkManager
+systemctl enable sshd
+systemctl enable systemd-timesyncd
+systemctl enable fstrim.timer  # SSD optimization
 
 # Set root password
 echo -e "${YELLOW}Set root password:${NC}"
 passwd
 
 # Create user
-useradd -m -G wheel -s /bin/bash ${USERNAME}
+useradd -m -G wheel,video,audio -s /bin/bash ${USERNAME}
 echo -e "${YELLOW}Set password for ${USERNAME}:${NC}"
 passwd ${USERNAME}
 
 # Configure sudo
 echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/wheel
+chmod 440 /etc/sudoers.d/wheel
+
+# Enable multilib repository for 32-bit support
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+pacman -Sy
 EOF
 
 # =============================================================================
@@ -307,6 +357,10 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 echo -e "${BLUE}Running post-installation setup...${NC}"
+
+# Update system first
+echo -e "${BLUE}→ Updating system...${NC}"
+sudo pacman -Syu --noconfirm
 
 # Clone the nixflake repository
 if [ ! -d "$HOME/nixflake" ]; then
