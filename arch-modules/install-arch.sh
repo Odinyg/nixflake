@@ -110,13 +110,33 @@ echo -e "${BLUE}→ Formatting EFI partition...${NC}"
 mkfs.fat -F32 -n EFI "$EFI_PART"
 
 # =============================================================================
+# LUKS ENCRYPTION SETUP
+# =============================================================================
+echo -e "${BLUE}→ Setting up LUKS encryption...${NC}"
+echo -e "${YELLOW}You will be asked to enter the disk encryption password${NC}"
+echo -e "${YELLOW}Choose a strong password and remember it!${NC}"
+
+# Encrypt the root partition
+cryptsetup luksFormat --type luks2 --cipher aes-xts-plain64 \
+    --key-size 512 --hash sha512 --iter-time 2000 \
+    --use-random "$ROOT_PART"
+
+# Open the encrypted partition
+echo -e "${BLUE}→ Opening encrypted partition...${NC}"
+echo -e "${YELLOW}Enter the password you just created:${NC}"
+cryptsetup open "$ROOT_PART" cryptroot
+
+# The decrypted partition is now available at /dev/mapper/cryptroot
+CRYPT_ROOT="/dev/mapper/cryptroot"
+
+# =============================================================================
 # BTRFS SETUP
 # =============================================================================
-echo -e "${BLUE}→ Creating BTRFS filesystem...${NC}"
-mkfs.btrfs -f -L ARCH "$ROOT_PART"
+echo -e "${BLUE}→ Creating BTRFS filesystem on encrypted partition...${NC}"
+mkfs.btrfs -f -L ARCH "$CRYPT_ROOT"
 
 # Mount for subvolume creation
-mount "$ROOT_PART" /mnt
+mount "$CRYPT_ROOT" /mnt
 
 echo -e "${BLUE}→ Creating BTRFS subvolumes...${NC}"
 # Create subvolumes
@@ -141,19 +161,19 @@ echo -e "${BLUE}→ Mounting subvolumes...${NC}"
 MOUNT_OPTS="compress=zstd:1,noatime,space_cache=v2,ssd,discard=async"
 
 # Mount root subvolume
-mount -o "$MOUNT_OPTS,subvol=@" "$ROOT_PART" /mnt
+mount -o "$MOUNT_OPTS,subvol=@" "$CRYPT_ROOT" /mnt
 
 # Create mount points
 mkdir -p /mnt/{boot,home,nix,.snapshots,var/log,var/cache,tmp,swap}
 
 # Mount other subvolumes
-mount -o "$MOUNT_OPTS,subvol=@home" "$ROOT_PART" /mnt/home
-mount -o "$MOUNT_OPTS,subvol=@nix" "$ROOT_PART" /mnt/nix
-mount -o "$MOUNT_OPTS,subvol=@snapshots" "$ROOT_PART" /mnt/.snapshots
-mount -o "$MOUNT_OPTS,subvol=@log" "$ROOT_PART" /mnt/var/log
-mount -o "$MOUNT_OPTS,subvol=@cache" "$ROOT_PART" /mnt/var/cache
-mount -o "$MOUNT_OPTS,subvol=@tmp" "$ROOT_PART" /mnt/tmp
-mount -o "$MOUNT_OPTS,subvol=@swap" "$ROOT_PART" /mnt/swap
+mount -o "$MOUNT_OPTS,subvol=@home" "$CRYPT_ROOT" /mnt/home
+mount -o "$MOUNT_OPTS,subvol=@nix" "$CRYPT_ROOT" /mnt/nix
+mount -o "$MOUNT_OPTS,subvol=@snapshots" "$CRYPT_ROOT" /mnt/.snapshots
+mount -o "$MOUNT_OPTS,subvol=@log" "$CRYPT_ROOT" /mnt/var/log
+mount -o "$MOUNT_OPTS,subvol=@cache" "$CRYPT_ROOT" /mnt/var/cache
+mount -o "$MOUNT_OPTS,subvol=@tmp" "$CRYPT_ROOT" /mnt/tmp
+mount -o "$MOUNT_OPTS,subvol=@swap" "$CRYPT_ROOT" /mnt/swap
 
 # Mount EFI partition
 mount "$EFI_PART" /mnt/boot
@@ -186,7 +206,8 @@ pacstrap -K /mnt \
     openssh \
     reflector \
     rsync \
-    terminus-font
+    terminus-font \
+    cryptsetup
 
 # =============================================================================
 # GENERATE FSTAB
@@ -221,10 +242,10 @@ cat > /etc/hosts <<HOSTS
 127.0.1.1   ${HOSTNAME}.localdomain ${HOSTNAME}
 HOSTS
 
-# Configure mkinitcpio for BTRFS
+# Configure mkinitcpio for BTRFS and encryption
 sed -i 's/^MODULES=.*/MODULES=(btrfs)/' /etc/mkinitcpio.conf
-# Add resume hook for hibernation support
-sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms keyboard keymap consolefont block filesystems resume fsck btrfs)/' /etc/mkinitcpio.conf
+# Add encrypt hook for LUKS and resume for hibernation
+sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms keyboard keymap consolefont block encrypt filesystems resume fsck btrfs)/' /etc/mkinitcpio.conf
 mkinitcpio -P
 
 # Update mirror list for better speeds
@@ -245,17 +266,18 @@ console-mode max
 editor no
 LOADER
 
-# Get root partition UUID
-ROOT_UUID=\$(blkid -s UUID -o value ${ROOT_PART})
+# Get partition UUIDs
+LUKS_UUID=\$(blkid -s UUID -o value ${ROOT_PART})
+ROOT_UUID=\$(blkid -s UUID -o value /dev/mapper/cryptroot)
 
-# Create boot entry
+# Create boot entry with encryption parameters
 cat > /boot/loader/entries/arch.conf <<ENTRY
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
-options root=UUID=\${ROOT_UUID} rootflags=subvol=@ rw quiet
+options cryptdevice=UUID=\${LUKS_UUID}:cryptroot root=/dev/mapper/cryptroot rootflags=subvol=@ rw quiet
 ENTRY
 
 # Create fallback entry
@@ -265,7 +287,7 @@ linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /amd-ucode.img
 initrd  /initramfs-linux-fallback.img
-options root=UUID=\${ROOT_UUID} rootflags=subvol=@ rw
+options cryptdevice=UUID=\${LUKS_UUID}:cryptroot root=/dev/mapper/cryptroot rootflags=subvol=@ rw
 ENTRY
 
 # Enable essential services
@@ -382,6 +404,24 @@ chmod +x /mnt/home/${USERNAME}/post-install.sh
 arch-chroot /mnt chown ${USERNAME}:${USERNAME} /home/${USERNAME}/post-install.sh
 
 # =============================================================================
+# OPTIONAL: ADD KEYFILE FOR CONVENIENT UNLOCKING
+# =============================================================================
+echo -e "${BLUE}→ Setting up optional keyfile...${NC}"
+arch-chroot /mnt /bin/bash <<EOF
+# Create a keyfile for convenient unlocking (optional)
+dd bs=512 count=4 if=/dev/random of=/root/cryptkey iflag=fullblock
+chmod 600 /root/cryptkey
+
+# Add keyfile as a valid key for the LUKS volume
+echo -e "${YELLOW}Enter your LUKS password to add keyfile:${NC}"
+cryptsetup luksAddKey ${ROOT_PART} /root/cryptkey
+
+# Create /etc/crypttab for secondary drives if needed
+echo "# <name>  <device>                                   <password>      <options>" > /etc/crypttab
+echo "# cryptroot UUID=\$(blkid -s UUID -o value ${ROOT_PART}) /root/cryptkey  luks" >> /etc/crypttab
+EOF
+
+# =============================================================================
 # COMPLETION
 # =============================================================================
 echo ""
@@ -392,18 +432,26 @@ echo ""
 echo -e "${YELLOW}Next steps:${NC}"
 echo "1. Unmount and reboot:"
 echo "   umount -R /mnt"
+echo "   swapoff /mnt/swap/swapfile"
+echo "   cryptsetup close cryptroot"
 echo "   reboot"
 echo ""
-echo "2. After reboot, login as ${USERNAME} and run:"
+echo "2. ${RED}You will be prompted for your encryption password at boot${NC}"
+echo ""
+echo "3. After reboot, login as ${USERNAME} and run:"
 echo "   ./post-install.sh"
 echo ""
-echo "3. Then apply the Home Manager configuration:"
+echo "4. Then apply the Home Manager configuration:"
 echo "   cd ~/nixflake"
 echo "   home-manager switch --flake .#${USERNAME}@arch-laptop"
 echo ""
 echo -e "${BLUE}System information:${NC}"
 echo "  Hostname: ${HOSTNAME}"
 echo "  Username: ${USERNAME}"
-echo "  Disk: ${DISK}"
-echo "  BTRFS with automatic snapshots configured"
+echo "  Disk: ${DISK} (ENCRYPTED)"
+echo "  Encryption: LUKS2 with AES-256"
+echo "  Filesystem: BTRFS with automatic snapshots"
+echo ""
+echo -e "${YELLOW}⚠ IMPORTANT: Remember your encryption password!${NC}"
+echo -e "${YELLOW}  Without it, you cannot access your data${NC}"
 echo ""
