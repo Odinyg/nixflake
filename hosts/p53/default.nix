@@ -82,7 +82,7 @@
   # HOST-SPECIFIC OVERRIDES
   # ==============================================================================
   # Desktop environments
-  bspwm.enable = true;
+  hyprland.enable = true;
   programs.kdeconnect.enable = true;
   
   # Work tools

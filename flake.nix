@@ -114,5 +114,18 @@
           ];
         };
       };
+
+      homeConfigurations = {
+        "odin@p53" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/p53/home-standalone.nix
+            nixvim.homeModules.nixvim
+            stylix.homeManagerModules.stylix
+            ./modules/home-manager
+          ];
+        };
+      };
     };
 }
