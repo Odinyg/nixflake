@@ -4,6 +4,7 @@
 {
   config,
   lib,
+  pkgs,
   modulesPath,
   ...
 }:
@@ -16,7 +17,6 @@
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "nvme"
-    "usbhid"
     "usb_storage"
     "sd_mod"
     "rtsx_pci_sdmmc"
@@ -29,18 +29,26 @@
     "nvidia_drm"
   ];
   boot.extraModulePackages = [ ];
+
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/c3ffcd87-ba8f-4397-a7cb-6a5956a828f3";
+    device = "/dev/disk/by-uuid/c6de7e5f-3ce6-4773-aa15-ae5ef84642e4";
     fsType = "ext4";
   };
 
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/8E8D-2957";
+  boot.initrd.luks.devices."luks-b2fa881f-2f7a-4b30-a8b8-8333d1c9f03e".device =
+    "/dev/disk/by-uuid/b2fa881f-2f7a-4b30-a8b8-8333d1c9f03e";
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/22F0-A0D0";
     fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/a5436b03-981c-424f-8232-aef3c17f43b4"; }
+    { device = "/dev/disk/by-uuid/b0ff45b6-13b4-4549-b0e4-84225226b4bc"; }
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -52,6 +60,5 @@
   # networking.interfaces.wlp82s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

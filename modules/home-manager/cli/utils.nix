@@ -37,9 +37,7 @@
       pinta
       waveterm
       keeweb
-      warp-terminal
       burpsuite
-      warp
       satty
       xcape
       feh

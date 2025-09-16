@@ -18,8 +18,6 @@
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
-    grub.configurationLimit = 2;
   };
 
   boot.kernel.sysctl."net.ipv4.ip_forwarding" = 1;

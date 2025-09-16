@@ -5,7 +5,7 @@ default:
 
 #add .nix to git -- used as pre-step in rebuild --
 rebuild-pre:
-  git add *.nix
+  git add **/*.nix flake.lock
 upgrade-pre:
   nix flake update
 
