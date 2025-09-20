@@ -246,6 +246,15 @@
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
+    xdg.configFile."rofi/config.rasi".text = ''
+      configuration {
+        modes: [ combi ];
+        combi-modes: [ window, drun, run ];
+      }
+
+      @theme "nord"
+      /* Insert theme modifications after this */
+    '';
     programs.swaylock.enable = true;
     services.kanshi = {
       enable = true;
@@ -307,15 +316,15 @@
             profile.outputs = [
               {
                 criteria = "DP-2";
-                mode = "1920x1080@120";
+                mode = "2560x1440@239.96";
                 position = "0,0";
                 scale = 1.0;
               }
               {
                 criteria = "HDMI-A-2";
-                mode = "3840x2160@120";
-                position = "1920,0";
-                scale = 1.25;
+                mode = "1920x1080@144";
+                position = "-1920,0";
+                scale = 1.0;
               }
             ];
           }
