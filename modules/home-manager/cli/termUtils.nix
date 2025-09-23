@@ -24,7 +24,6 @@
       bc
       rke2
       go
-      ghostty
       btop
       claude-code
       ripgrep-all
