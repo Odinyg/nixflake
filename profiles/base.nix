@@ -10,7 +10,7 @@
   # ==============================================================================
 
   # Nix configuration
-  programs.nix-ld.enable = true;
+  services.envfs.enable = true;
   home-manager.backupFileExtension = "backup-$(date +%Y%m%d_%H%M%S)";
   
   # Networking
@@ -57,6 +57,14 @@
   # ==============================================================================
   git.enable = true;
   direnv.enable = true;
+
+  # Development packages needed for building C/C++ projects
+  environment.systemPackages = with pkgs; [
+    gcc
+    gnumake
+    pkg-config
+    libusb1
+  ];
 
   # ==============================================================================
   # DESKTOP APPLICATIONS
