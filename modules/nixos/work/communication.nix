@@ -25,6 +25,7 @@ in
   config = lib.mkIf config.work.communication.enable {
     environment.systemPackages = with pkgs; [
       anydesk
+      teams-for-linux
       zoom-us
     ];
   };

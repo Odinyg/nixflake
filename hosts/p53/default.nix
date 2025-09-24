@@ -82,10 +82,10 @@
   # Desktop environments
   hyprland.enable = true;
   programs.kdeconnect.enable = true;
-  
+
   # Work tools
-  onedrive.enable = true;
-  
+  onedrive.enable = false;
+
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER
   # ==============================================================================
@@ -93,9 +93,15 @@
     enable = true;
     isBuilder = false;
   };
-  
-  # Services
-  
+
+  # ==============================================================================
+  # PROGRAMS
+  # ==============================================================================
+  programs.nix-ld.enable = true;
+
+  # ==============================================================================
+  # SERVICES
+  # ==============================================================================
   # Printing drivers
   services.printing.drivers = with pkgs; [
     brlaser
@@ -124,6 +130,7 @@
     system-config-printer
     lshw
     tailscale
+    ptouch-driver
   ];
 
   # ==============================================================================

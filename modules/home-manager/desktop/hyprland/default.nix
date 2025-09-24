@@ -99,10 +99,6 @@
           force_split = 1;
         };
 
-        gestures = {
-          workspace_swipe = false;
-        };
-
         misc = {
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
