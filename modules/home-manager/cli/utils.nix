@@ -25,6 +25,7 @@
       yazi
       protonvpn-gui
       zed
+      xournalpp
 
       brlaser
       foomatic-db-ppds-withNonfreeDb
