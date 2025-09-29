@@ -17,5 +17,7 @@
         X11Forwarding = false;
       };
     };
+
+    programs.ssh.startAgent = true;
   };
 }
