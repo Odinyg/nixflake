@@ -15,7 +15,6 @@
     # Enable IP forwarding
     boot.kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
-      "net.ipv6.conf.all.forwarding" = 1;
     };
 
     # Configure the ethernet interface with multiple IP addresses
@@ -42,6 +41,7 @@
     # Enable NAT for internet sharing
     networking.nat = {
       enable = true;
+      enableIPv6 = false;
       externalInterface = "wlp82s0";
       internalInterfaces = [ "enp45s0u2u3" ];
       internalIPs = [
@@ -51,42 +51,47 @@
       ];
     };
 
-    # DHCP server for connected devices
-    services.dhcpd4 = {
-      enable = true;
-      interfaces = [ "enp45s0u2u3" ];
-      extraConfig = ''
-        subnet 192.168.1.0 netmask 255.255.255.0 {
-          range 192.168.1.10 192.168.1.98;
-          option routers 192.168.1.99;
-          option domain-name-servers 8.8.8.8, 8.8.4.4;
-          default-lease-time 600;
-          max-lease-time 7200;
-        }
+    # Enable IP masquerading
+    # networking.firewall.extraCommands = ''
+    #   iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o wlp82s0 -j MASQUERADE
+    #   iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -o wlp82s0 -j MASQUERADE
+    #   iptables -t nat -A POSTROUTING -s 192.168.250.0/24 -o wlp82s0 -j MASQUERADE
+    # '';
 
-        subnet 192.168.2.0 netmask 255.255.255.0 {
-          range 192.168.2.10 192.168.2.98;
-          option routers 192.168.2.99;
-          option domain-name-servers 8.8.8.8, 8.8.4.4;
-          default-lease-time 600;
-          max-lease-time 7200;
-        }
-
-        subnet 192.168.250.0 netmask 255.255.255.0 {
-          range 192.168.250.10 192.168.250.98;
-          option routers 192.168.250.99;
-          option domain-name-servers 8.8.8.8, 8.8.4.4;
-          default-lease-time 600;
-          max-lease-time 7200;
-        }
-      '';
+    # DHCP server for connected devices using dnsmasq
+    services.dnsmasq = {
+      enable = false;
+      settings = {
+        interface = "enp45s0u2u3";
+        bind-interfaces = true;
+        dhcp-range = [
+          "192.168.1.1,192.168.1.98,24h"
+          "192.168.1.100,192.168.1.254,24h"
+          "192.168.2.1,192.168.2.98,24h"
+          "192.168.2.100,192.168.2.254,24h"
+          "192.168.250.1,192.168.250.98,24h"
+          "192.168.250.100,192.168.250.254,24h"
+        ];
+        dhcp-option = [
+          "option:router,192.168.1.99"
+          "option:dns-server,8.8.8.8,8.8.4.4"
+        ];
+        dhcp-authoritative = true;
+      };
     };
 
     # Firewall configuration
     networking.firewall = {
       enable = true;
-      interfaces.enp45s0u2u3.allowedTCPPorts = [ 22 53 ];
-      interfaces.enp45s0u2u3.allowedUDPPorts = [ 53 67 68 ];
+      interfaces.enp45s0u2u3.allowedTCPPorts = [
+        22
+        53
+      ];
+      interfaces.enp45s0u2u3.allowedUDPPorts = [
+        53
+        67
+        68
+      ];
     };
   };
 }
