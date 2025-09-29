@@ -15,7 +15,12 @@
   };
   config = lib.mkIf config.wireless.enable {
     #  networking.hostName = "XPS";
-    networking.networkmanager.enable = true;
+    networking.networkmanager = {
+      enable = true;
+      plugins = with pkgs; [
+        networkmanager-openvpn
+      ];
+    };
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = true;
 

@@ -20,5 +20,6 @@
     ./virtualization.nix
     ./security.nix
     ./distributed-builds.nix
+    ./init-net.nix
   ];
 }

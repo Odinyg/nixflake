@@ -86,6 +86,9 @@
   # Work tools
   onedrive.enable = false;
 
+  # Network sharing
+  init-net.enable = true;
+
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER
   # ==============================================================================
