@@ -21,7 +21,7 @@
   # ==============================================================================
   general.enable = true;
   hyprland.enable = true;
-  rofi.enable = true;
+  # rofi.enable = true;  # Disabled - using Hyprland's rofi config instead
   fonts.enable = true;
 
   # XDG Desktop Portal configuration

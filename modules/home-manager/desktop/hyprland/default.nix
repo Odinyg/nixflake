@@ -231,6 +231,7 @@
       xclip
       slurp
       wl-clipboard
+      rofi
     ];
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
@@ -243,15 +244,10 @@
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;
     xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
-    xdg.configFile."rofi/config.rasi".text = ''
-      configuration {
-        modes: [ combi ];
-        combi-modes: [ window, drun, run ];
-      }
+    xdg.configFile."rofi/config.rasi".source = ./config/rofi.rasi;
+    xdg.configFile."rofi/nord.rasi".source = ./config/rofi-nord.rasi;
+    xdg.configFile."rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;
 
-      @theme "nord"
-      /* Insert theme modifications after this */
-    '';
     programs.swaylock.enable = true;
     services.kanshi = {
       enable = true;
