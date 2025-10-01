@@ -103,6 +103,14 @@
         swtpm.enable = true;
         ovmf.enable = true;
       };
+      onBoot = "start";
+      onShutdown = "shutdown";
+    };
+
+    # Enable default network
+    networking.nat = lib.mkIf config.virtualization.qemu.enable {
+      enable = true;
+      internalInterfaces = [ "virbr0" ];
     };
 
     virtualisation.spiceUSBRedirection.enable = lib.mkIf config.virtualization.qemu.spice true;

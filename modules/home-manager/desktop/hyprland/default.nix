@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
+{ config, lib, pkgs, ... }: {
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     wayland.windowManager.hyprland = {
@@ -29,7 +23,7 @@
         "$mainMod" = "SUPER";
         exec-once = [
           "pypr"
-          "waybar & ~/.config/hypr/random-wallpaper.sh & swaync"
+          "hyprpanel & ~/.config/hypr/random-wallpaper.sh & swaync"
           "hyprctl setcursor Bibate-Modern-Ice 18"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "nm-applet --indicator"
@@ -57,9 +51,7 @@
           follow_mouse = 1;
           repeat_rate = 55;
           repeat_delay = 400;
-          touchpad = {
-            natural_scroll = false;
-          };
+          touchpad = { natural_scroll = false; };
 
           sensitivity = 0;
         };
@@ -113,15 +105,16 @@
         bind = [
           "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
           "$mainMod, W, exec, zen-beta"
-          "ALT CTRL, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
-          "CTRL SUPER, S, exec, grim -g \"$(slurp -d)\" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png | wl-copy"
+          ''ALT CTRL, S, exec, grim -g "$(slurp -d)" - | wl-copy''
+          ''
+            CTRL SUPER, S, exec, grim -g "$(slurp -d)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png | wl-copy''
 
           "$mainMod, return, exec, kitty"
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"
           "$mainMod, E, exec, thunar"
-          "$mainMod, V, togglefloating,"
-          "$mainMod, D, exec, pgrep rofi >/dev/null 2>&1 && killall rofi || rofi -show drun"
+          "$mainMod SHIFT, F, togglefloating,"
+          "$mainMod, D, exec, pgrep rofi >/dev/null 2>&1 && killall rofi || rofi -show drun -hshow-icons"
 
           "$mainMod, P, pseudo,"
           "$mainMod, O, togglesplit,"
@@ -171,11 +164,16 @@
           "$mainMod, N, exec, pypr toggle notes"
           "$mainMod, C, exec, pypr toggle gpt"
           "$mainMod, F, exec, pypr toggle todo"
+          "$mainMod, G, exec, pypr toggle scratch"
+          "$mainMod SHIFT, G, exec, pypr toggle daily"
+          "$mainMod, V, exec, pypr toggle vault"
         ];
 
         bindl = [
-          ", switch:off:Lid Switch,exec,hyprctl keyword monitor \"eDP-1, 1920x1080, 0x0, 1\""
-          ", switch:on:Lid Switch,exec,hyprctl keyword monitor \"eDP-1, disable\""
+          ''
+            , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1, 1920x1080, 0x0, 1"''
+          ''
+            , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"''
         ];
 
         windowrule = [
@@ -214,6 +212,7 @@
 
     home.packages = with pkgs; [
       waybar
+      hyprpanel
       hyprpaper
       grim
       eww
@@ -233,6 +232,54 @@
       wl-clipboard
       rofi
     ];
+
+    programs.hyprpanel = {
+      enable = true;
+      settings = {
+        layout = {
+          bar.layouts = {
+            "*" = {
+              left = [ "dashboard" "media" ];
+              middle = [ "workspaces" ];
+              right = [
+                "volume"
+                "network"
+                "bluetooth"
+                "clock"
+                "systray"
+                "notifications"
+              ];
+            };
+          };
+        };
+
+        bar.launcher.autoDetectIcon = true;
+        bar.workspaces.show_icons = true;
+
+        menus.clock = {
+          time = {
+            military = true;
+            hideSeconds = true;
+          };
+          weather.unit = "metric";
+        };
+
+        bar.clock = {
+          format = "%H:%M - %d/%m W%V";
+          showWeek = true;
+        };
+
+        menus.dashboard.directories.enabled = false;
+        menus.dashboard.stats.enable_gpu = true;
+
+        theme.bar.transparent = true;
+
+        theme.font = {
+          name = "CaskaydiaCove NF";
+          size = "16px";
+        };
+      };
+    };
     xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
     xdg.configFile."hypr/random-wallpaper.sh" = {
@@ -240,101 +287,93 @@
       executable = true;
     };
     xdg.configFile."hypr/pyprland.toml".source = ./config/pyprland.toml;
-    xdg.configFile."hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
+    xdg.configFile."hypr/hyprshade.toml".source =
+      ./config/shader/hyprshade.toml;
     xdg.configFile."waybar".source = ./config/waybar;
     xdg.configFile."swayidle".source = ./config/swayidle;
-    xdg.configFile."hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
+    xdg.configFile."hypr/shader/blue-light-filter.glsl".source =
+      ./config/shader/blue-light-filter.glsl;
     xdg.configFile."rofi/config.rasi".source = ./config/rofi.rasi;
     xdg.configFile."rofi/nord.rasi".source = ./config/rofi-nord.rasi;
-    xdg.configFile."rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;
+    xdg.configFile."rofi/rounded-common.rasi".source =
+      ./config/rounded-common.rasi;
 
     programs.swaylock.enable = true;
     services.kanshi = {
       enable = true;
-      settings =
-        let
-          hostname = config.networking.hostName;
-        in
-        lib.optionals (hostname == "VNPC-21") [
-          # External Monitors Profile for p53
-          {
-            profile.name = "external-monitors";
-            profile.outputs = [
-              {
-                criteria = "eDP-1";
-                position = "0,0"; # Place laptop screen under HDMI (middle-bottom)
-              }
-              {
-                criteria = "DP-4";
-                mode = "2560x1440";
-                position = "1920,0"; # Middle monitor (main)
-              }
-              {
-                criteria = "DP-5";
-                mode = "2560x1440";
-                position = "4480,0"; # Right monitor
-              }
-            ];
-          }
-          {
-            profile.name = "p53-only";
-            profile.outputs = [
-              {
-                criteria = "eDP-1";
-                status = "enable";
-                mode = "1920x1080";
-                scale = 1.0;
-              }
-            ];
-          }
-        ]
-        ++ lib.optionals (hostname == "laptop") [
-          # Profile for laptop
-          {
-            profile.name = "laptop-only";
-            profile.outputs = [
-              {
-                criteria = "eDP-1";
-                status = "enable";
-                mode = "1920x1200";
-                scale = 1.0;
-              }
-            ];
-          }
-        ]
-        ++ lib.optionals (hostname == "station") [
-          # Profile for station
-          {
-            profile.name = "station-only";
-            profile.outputs = [
-              {
-                criteria = "DP-2";
-                mode = "2560x1440@239.96";
-                position = "0,0";
-                scale = 1.0;
-              }
-              {
-                criteria = "HDMI-A-2";
-                mode = "1920x1080@144";
-                position = "-1920,0";
-                scale = 1.0;
-              }
-            ];
-          }
-        ]
-        ++ lib.optionals (hostname != "laptop" && hostname != "p53" && hostname != "station") [
-          # Default Profile
-          {
-            profile.name = "default";
-            profile.outputs = [
-              {
-                criteria = "eDP-1";
-                mode = "1920x1080";
-                scale = 1.0;
-              }
-            ];
-          }
-        ];
+      settings = let hostname = config.networking.hostName;
+      in lib.optionals (hostname == "VNPC-21") [
+        # External Monitors Profile for p53
+        {
+          profile.name = "external-monitors";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              position = "0,0"; # Place laptop screen under HDMI (middle-bottom)
+            }
+            {
+              criteria = "DP-4";
+              mode = "2560x1440";
+              position = "1920,0"; # Middle monitor (main)
+            }
+            {
+              criteria = "DP-5";
+              mode = "2560x1440";
+              position = "4480,0"; # Right monitor
+            }
+          ];
+        }
+        {
+          profile.name = "p53-only";
+          profile.outputs = [{
+            criteria = "eDP-1";
+            status = "enable";
+            mode = "1920x1080";
+            scale = 1.0;
+          }];
+        }
+      ] ++ lib.optionals (hostname == "laptop") [
+        # Profile for laptop
+        {
+          profile.name = "laptop-only";
+          profile.outputs = [{
+            criteria = "eDP-1";
+            status = "enable";
+            mode = "1920x1200";
+            scale = 1.0;
+          }];
+        }
+      ] ++ lib.optionals (hostname == "station") [
+        # Profile for station
+        {
+          profile.name = "station-only";
+          profile.outputs = [
+            {
+              criteria = "DP-2";
+              mode = "2560x1440@239.96";
+              position = "0,0";
+              scale = 1.0;
+            }
+            {
+              criteria = "HDMI-A-2";
+              mode = "1920x1080@144";
+              position = "-1920,0";
+              scale = 1.0;
+            }
+          ];
+        }
+      ] ++ lib.optionals
+      (hostname != "laptop" && hostname != "p53" && hostname != "station") [
+        # Default Profile
+        {
+          profile.name = "default";
+          profile.outputs = [{
+            criteria = "eDP-1";
+            mode = "1920x1080";
+            scale = 1.0;
+          }];
+        }
+      ];
     };
 
     # Profile for 'p53'

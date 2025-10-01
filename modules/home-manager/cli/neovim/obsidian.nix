@@ -21,6 +21,23 @@
           }
         ];
         legacy_commands = false;
+        disable_frontmatter = false;
+        note_id_func.__raw = ''
+          function(title)
+            local suffix = ""
+            if title ~= nil then
+              suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+            else
+              for _ = 1, 4 do
+                suffix = suffix .. string.char(math.random(65, 90))
+              end
+            end
+            return tostring(os.time()) .. "-" .. suffix
+          end
+        '';
+        attachments = {
+          img_folder = "assets/imgs";
+        };
       };
     };
 
@@ -77,6 +94,12 @@
         key = "<leader>oO";
         action = "<cmd>Obsidian open<cr>";
         options.desc = "obsidian [O]pen in app";
+        mode = "n";
+      }
+      {
+        key = "<leader>op";
+        action = "<cmd>!bash ~/.config/nixvim/scripts/scratchpad.sh<cr>";
+        options.desc = "obsidian scratch[p]ad";
         mode = "n";
       }
 

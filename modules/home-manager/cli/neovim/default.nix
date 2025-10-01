@@ -29,6 +29,8 @@
       ./conform.nix
 
       ./obsidian.nix
+      ./auto-save.nix
+      ./render-markdown.nix
 
     ];
 
@@ -36,6 +38,11 @@
       shellAliases.v = "nvim";
 
       sessionVariables.EDITOR = "nvim";
+
+      file.".config/nixvim/scripts/scratchpad.sh" = {
+        source = ./scripts/scratchpad.sh;
+        executable = true;
+      };
     };
   };
 

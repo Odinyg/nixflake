@@ -89,6 +89,9 @@
   # Network sharing
   init-net.enable = true;
 
+  # Hosted services
+  hosted-services.n8n.enable = true;
+
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER
   # ==============================================================================

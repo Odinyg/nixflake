@@ -1,8 +1,19 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.nixvim = {
     enable = true;
     globals.mapleader = " ";
+
+    extraPackages = with pkgs; [
+      # Formatters for conform.nvim
+      prettierd
+      nodePackages.prettier
+      black
+      stylua
+      nixfmt-classic
+      yamllint
+      yamlfmt
+    ];
 
     #    colorschemes = {
     #      nord.enable = true;
@@ -60,5 +71,8 @@
       harpoon.enable = true;
 
     };
+
+    extraPlugins = with pkgs.vimPlugins; [
+    ];
   };
 }

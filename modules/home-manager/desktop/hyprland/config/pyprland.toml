@@ -46,3 +46,33 @@ animation = "fromTop"
 size = "75% 60%"
 max_size = "1920px 100%"
 lazy = true
+
+# Quick scratchpad for temporary notes
+[scratchpads.scratch]
+command = "kitty --class scratch-notes zsh -c '~/.config/nixvim/scripts/scratchpad.sh'"
+class = "scratch-notes"
+animation = "fromTop"
+size = "75% 60%"
+max_size = "1920px 100%"
+margin = 50
+unfocus = "hide"
+hysteresis = 0.5
+lazy = true
+
+# Daily notes in Main vault
+[scratchpads.daily]
+command = "kitty --class daily-notes nvim ~/Documents/Main/dailyNotes/$(date +%Y-%m-%d).md"
+class = "daily-notes"
+animation = "fromTop"
+size = "80% 70%"
+max_size = "1400px 100%"
+lazy = true
+margin = 50
+
+# Full Main vault access
+[scratchpads.vault]
+command = "kitty --class vault-notes nvim ~/Documents/Main"
+class = "vault-notes"
+size = "85% 80%"
+animation = "fromRight"
+lazy = true
