@@ -1,10 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-{
+{ lib, config, pkgs, ... }: {
   options = {
     firewall = {
       enable = lib.mkEnableOption {
@@ -19,17 +13,16 @@
       enable = false;
       allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
-      
+
       # Allow incoming FTP data connections for active mode
-      allowedTCPPortRanges = [
-        { from = 50000; to = 52000; }  # Active FTP incoming data ports
-      ];
+      allowedTCPPortRanges = [{
+        from = 50000;
+        to = 52000;
+      } # Active FTP incoming data ports
+        ];
 
       # Trust all libvirt interfaces
-      trustedInterfaces = [
-        "virbr+"
-        "vnet+"
-      ];
+      trustedInterfaces = [ "virbr+" "vnet+" ];
     };
 
     # Ensure NAT works for libvirt (moved outside firewall config since firewall is disabled)
@@ -42,10 +35,8 @@
     '';
 
     # Enable IP forwarding
-    boot.kernel.sysctl = {
-      "net.ipv4.ip_forward" = 1;
-    };
-    
+    boot.kernel.sysctl = { "net.ipv4.ip_forward" = 1; };
+
     # Load FTP connection tracking modules for proper NAT handling
     boot.kernelModules = [ "nf_conntrack_ftp" "nf_nat_ftp" ];
 
