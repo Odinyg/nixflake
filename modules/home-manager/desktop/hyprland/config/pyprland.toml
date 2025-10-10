@@ -22,7 +22,6 @@ size = "75% 60%"
 max_size = "1920px 100%"
 
 
-
 [scratchpads.gpt]
 animation = "fromTop"
 command = "kitty --class secound-dropterm claude -m"
@@ -52,7 +51,7 @@ lazy = true
 command = "kitty --class scratch-notes zsh -c '~/.config/nixvim/scripts/scratchpad.sh'"
 class = "scratch-notes"
 animation = "fromTop"
-size = "75% 60%"
+size = "65% 50%"
 max_size = "1920px 100%"
 margin = 50
 unfocus = "hide"

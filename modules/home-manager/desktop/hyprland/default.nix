@@ -107,8 +107,8 @@
           "$mainMod, W, exec, zen-beta"
           ''ALT CTRL, S, exec, grim -g "$(slurp -d)" - | wl-copy''
           ''
-            CTRL SUPER, S, exec, grim -g "$(slurp -d)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png | wl-copy''
-
+            CTRL SUPER, S, exec, grim -g "$(slurp -d)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
+          ''
           "$mainMod, return, exec, kitty"
           "$mainMod, Q, killactive,"
           "$mainMod, M, exit,"

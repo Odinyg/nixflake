@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, pkgs, lib, ... }: {
 
   options = {
     termUtils = {
@@ -16,7 +10,7 @@
   };
   config.home-manager.users.${config.user} = lib.mkIf config.termUtils.enable {
     home.packages = with pkgs; [
-
+      usbutils
       #### ProgramStuff ####
       python3
       talosctl
@@ -25,9 +19,7 @@
       rke2
       go
       btop
-      claude-code
       ripgrep-all
-      xh
       gitui
       jq
 

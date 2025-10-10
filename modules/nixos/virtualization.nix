@@ -1,10 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-{
+{ lib, config, pkgs, ... }: {
   options = {
     virtualization = {
       enable = lib.mkEnableOption {
@@ -21,7 +15,7 @@
 
         rootless = lib.mkOption {
           type = lib.types.bool;
-          default = true;
+          default = false;
           description = "Enable rootless Docker";
         };
       };
@@ -84,6 +78,7 @@
     # Docker configuration
     virtualisation.docker = lib.mkIf config.virtualization.docker.enable {
       enable = true;
+      enableOnBoot = true;
       rootless = lib.mkIf config.virtualization.docker.rootless {
         enable = true;
         setSocketVariable = true;
@@ -107,23 +102,22 @@
       onShutdown = "shutdown";
     };
 
-    # Enable default network
-    networking.nat = lib.mkIf config.virtualization.qemu.enable {
-      enable = true;
-      internalInterfaces = [ "virbr0" ];
-    };
+    virtualisation.spiceUSBRedirection.enable =
+      lib.mkIf config.virtualization.qemu.spice true;
+    services.spice-vdagentd.enable =
+      lib.mkIf config.virtualization.qemu.spice true;
 
-    virtualisation.spiceUSBRedirection.enable = lib.mkIf config.virtualization.qemu.spice true;
-    services.spice-vdagentd.enable = lib.mkIf config.virtualization.qemu.spice true;
+    programs.virt-manager.enable =
+      lib.mkIf config.virtualization.qemu.virt-manager true;
 
-    programs.virt-manager.enable = lib.mkIf config.virtualization.qemu.virt-manager true;
+    virtualisation.virtualbox.host =
+      lib.mkIf config.virtualization.virtualbox.enable {
+        enable = true;
+        enableExtensionPack = true;
+      };
 
-    virtualisation.virtualbox.host = lib.mkIf config.virtualization.virtualbox.enable {
-      enable = true;
-      enableExtensionPack = true;
-    };
-
-    virtualisation.waydroid.enable = lib.mkIf config.virtualization.waydroid.enable true;
+    virtualisation.waydroid.enable =
+      lib.mkIf config.virtualization.waydroid.enable true;
 
     users.users.${config.user}.extraGroups = lib.flatten [
       (lib.optional config.virtualization.docker.enable "docker")
@@ -132,8 +126,7 @@
       (lib.optional config.virtualization.virtualbox.enable "vboxusers")
     ];
 
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       lib.flatten [
         (lib.optionals config.virtualization.docker.enable [
           docker

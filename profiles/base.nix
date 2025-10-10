@@ -93,17 +93,10 @@
   # ==============================================================================
   virtualization = {
     enable = true;
+    docker.rootless = false;
     qemu.virt-manager = true;
     remoteAccess.enable = true;
     virtualbox.enable = false;
-  };
-
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
   };
 
   # ==============================================================================

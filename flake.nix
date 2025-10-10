@@ -17,8 +17,8 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
+    winboat.url = "github:TibixDev/winboat";
   };
   outputs =
     {
@@ -30,6 +30,7 @@
       stylix,
       sops-nix,
       zen-browser,
+      winboat,
       ...
     }@inputs:
 
@@ -62,6 +63,7 @@
             ./hosts/laptop
             { user = "none"; }
             {
+              nixpkgs.config.allowUnfree = true;
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -81,12 +83,18 @@
             { user = "odin"; }
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
             {
+              nixpkgs.config.allowUnfree = true;
               home-manager = {
-                useGlobalPkgs = true;
+                useGlobalPkgs = false;
                 useUserPackages = true;
-                users.odin = mkHomeConfig {
+                extraSpecialArgs = {
+                  inherit inputs;
+                };
+                users.odin = (mkHomeConfig {
                   username = "odin";
                   stateVersion = "25.05";
+                }) // {
+                  nixpkgs.config.allowUnfree = true;
                 };
               };
             }
@@ -99,6 +107,7 @@
             ./hosts/station
             { user = "none"; }
             {
+              nixpkgs.config.allowUnfree = true;
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;

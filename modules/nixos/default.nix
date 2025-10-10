@@ -22,5 +22,6 @@
     ./distributed-builds.nix
     ./init-net.nix
     ./hosted-services
+    ./winboat.nix
   ];
 }

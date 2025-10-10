@@ -1,11 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
-{
+{ config, pkgs, lib, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../profiles/workstation.nix
@@ -20,8 +13,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  boot.kernel.sysctl."net.ipv4.ip_forwarding" = 1;
-
   # ==============================================================================
   # NETWORKING
   # ==============================================================================
@@ -30,6 +21,11 @@
     enable = true;
     unmanaged = [ ];
   };
+
+  # ==============================================================================
+  # NIXPKGS CONFIG
+  # ==============================================================================
+  nixpkgs.config.allowUnfree = true;
 
   # ==============================================================================
   # LOCALIZATION
@@ -46,14 +42,8 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "odin";
-    extraGroups = [
-      "lp"
-      "scanner"
-      "docker"
-      "networkmanager"
-      "wheel"
-      "plugdev"
-    ];
+    extraGroups =
+      [ "lp" "scanner" "docker" "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
       rclone
       insync
@@ -86,11 +76,17 @@
   # Work tools
   onedrive.enable = false;
 
+  # Terminal multiplexer
+  zellij.enable = true;
+
   # Network sharing
   init-net.enable = true;
 
   # Hosted services
   hosted-services.n8n.enable = true;
+
+  # Virtualization tools
+  winboat.enable = true;
 
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER

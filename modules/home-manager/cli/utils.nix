@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, pkgs, lib, ... }: {
 
   options = {
     utils = {
@@ -27,6 +21,8 @@
       zed
       xournalpp
 
+      wireshark
+      claude-code
       brlaser
       foomatic-db-ppds-withNonfreeDb
       atac

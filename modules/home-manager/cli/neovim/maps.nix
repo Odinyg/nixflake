@@ -17,6 +17,12 @@
       mode = "n";
     }
     {
+      key = "<leader>lg";
+      action = "<cmd>LazyGit<cr>";
+      options.desc = "Lazygit";
+      mode = "n";
+    }
+    {
       key = "<leader>s";
       action = "<cmd>!~/.config/nixvim/scripts/scratchpad.sh<cr>";
       options.desc = "Open scratchpad";
