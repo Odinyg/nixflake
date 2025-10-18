@@ -12,6 +12,7 @@
     ./kitty.nix
     ./direnv.nix
     ./termUtils.nix
+    # ./mcp.nix
   ];
 
 }

@@ -1,5 +1,6 @@
 timeout 1400 'swaylock -f'
-timeout 1005 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
+# Disabled DPMS to prevent DP-1 wake issues
+# timeout 1005 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
 # timeout 3600 ' systemctl suspend'
 # before-sleep 'swaylock -f'
 

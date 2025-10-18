@@ -245,6 +245,22 @@
         "type": "github"
       }
     },
+    "mcp-nixos": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759342933,
+        "narHash": "sha256-mdlUFcrOfvT0Pm+Hko/6aR3xf1ao5JA2iem4KsEVjP4=",
+        "owner": "utensils",
+        "repo": "mcp-nixos",
+        "rev": "50b02bcba32b941d2ec48fedef68641702ca5b0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "utensils",
+        "repo": "mcp-nixos",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1759582739,
@@ -413,6 +429,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "mcp-nixos": "mcp-nixos",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",

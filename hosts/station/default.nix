@@ -47,9 +47,9 @@
   sops.age.keyFile = /home/none/.config/sops/age/keys.txt;
 
   # ==============================================================================
-  # HARDWARE - AMD GPU
+  # HARDWARE - NVIDIA GPU
   # ==============================================================================
-  amd-gpu.enable = true;
+  nvidia-gpu.enable = true;
 
   # ==============================================================================
   # DISTRIBUTED BUILDS - BUILD SERVER
@@ -68,7 +68,13 @@
   # HOST-SPECIFIC OVERRIDES
   # ==============================================================================
   # Gaming
-  gaming.enable = true;
+  gaming = {
+    enable = true;
+    launchers = {
+      heroic = true;
+      bottles = true;
+    };
+  };
   
   # Encryption tools
   crypt.enable = true;

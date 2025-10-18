@@ -22,13 +22,8 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [
-    # "nvidia"
-    # "nvidia_modeset"
-    # "nvidia_uvm"
-    # "nvidia_drm"
-  ];
-  boot.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {

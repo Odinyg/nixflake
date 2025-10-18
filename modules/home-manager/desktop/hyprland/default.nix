@@ -4,7 +4,23 @@
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
-      extraConfig = ''
+      extraConfig = let hostname = config.networking.hostName;
+      in if hostname == "station" then ''
+        monitor = HDMI-A-1, 3840x2160@119.88, 1920x0, 1
+        monitor = DP-2, 1920x1080@164.96, 0x0, 1
+
+        workspace = 1, monitor:HDMI-A-1, default:true, gapsout:0 200 400 200
+        workspace = 2, monitor:HDMI-A-1, gapsout:0 200 400 200
+        workspace = 3, monitor:HDMI-A-1, gapsout:0 200 400 200
+        workspace = 4, monitor:HDMI-A-1, gapsout:0 200 400 200
+        workspace = 5, monitor:HDMI-A-1, gapsout:0 200 400 200
+
+        workspace = 6, monitor:DP-2, default:true
+        workspace = 7, monitor:DP-2
+        workspace = 8, monitor:DP-2
+        workspace = 9, monitor:DP-2
+        workspace = 0, monitor:DP-2
+      '' else if hostname == "VNPC-21" then ''
         workspace = 1, monitor:DP-4, default:true
         workspace = 2, monitor:DP-4
         workspace = 3, monitor:DP-4
@@ -17,6 +33,9 @@
 
         workspace = 9, monitor:HDMI-A-1
         workspace = 0, monitor:HDMI-A-1
+      '' else ''
+        # Default configuration for other hosts
+        workspace = 1, default:true
       '';
 
       settings = {
@@ -36,9 +55,6 @@
         exec = [ "hyprshade auto" ];
         env = [
           "XDG_SESSION_TYPE,wayland"
-          "WLR_NO_HARDWARE_CURSORS,1;"
-          "WLR_RENDERER_ALLOW_SOFTWARE,1"
-          "WLR_BACKENDS,n-drm"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
         ];
@@ -91,9 +107,20 @@
           force_split = 1;
         };
 
+        # NVIDIA-specific cursor configuration (critical for NVIDIA)
+        cursor = {
+          no_hardware_cursors = true;
+          no_break_fs_vrr = true;
+        };
+
+        # NVIDIA-specific OpenGL settings
+        opengl = { nvidia_anti_flicker = true; };
+
         misc = {
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
+          force_default_wallpaper = 0;
+          disable_hyprland_logo = true;
         };
 
         bindm = [
@@ -350,14 +377,14 @@
           profile.outputs = [
             {
               criteria = "DP-2";
-              mode = "2560x1440@239.96";
+              mode = "1920x1080@164.96";
               position = "0,0";
               scale = 1.0;
             }
             {
-              criteria = "HDMI-A-2";
-              mode = "1920x1080@144";
-              position = "-1920,0";
+              criteria = "HDMI-A-1";
+              mode = "3840x2160@119.88";
+              position = "1920,0";
               scale = 1.0;
             }
           ];

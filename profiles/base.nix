@@ -57,6 +57,7 @@
   # ==============================================================================
   git.enable = true;
   direnv.enable = true;
+  # mcp.enable = true;  # Temporarily disabled due to fetchGit issue
 
   # Development packages needed for building C/C++ projects
   environment.systemPackages = with pkgs; [

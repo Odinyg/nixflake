@@ -67,6 +67,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
                 users.none = mkHomeConfig {
                   username = "none";
                   stateVersion = "25.05";
@@ -111,6 +112,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
                 users.none =
                   (mkHomeConfig {
                     username = "none";

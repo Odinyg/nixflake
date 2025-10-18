@@ -1,10 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-{
+{ lib, pkgs, config, ... }: {
 
   options = {
     general = {
@@ -24,10 +18,10 @@
     nixpkgs.config.allowUnfree = true;
     nix = {
       package = pkgs.nixVersions.stable;
-      extraOptions = lib.optionalString (
-        config.nix.package == pkgs.nixVersions.stable
-      ) "experimental-features = nix-command flakes
-           warn-dirty = false";
+      extraOptions =
+        lib.optionalString (config.nix.package == pkgs.nixVersions.stable) ''
+          experimental-features = nix-command flakes
+                     warn-dirty = false'';
     };
     environment.systemPackages = with pkgs; [
       openvpn
@@ -74,7 +68,7 @@
       docker
       polkit
       ansible
-      libreoffice
+      #libreoffice
       #     xdg-desktop-portal-hyprland
     ];
     services.flatpak.enable = true;
