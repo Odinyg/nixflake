@@ -194,6 +194,8 @@
           "$mainMod, G, exec, pypr toggle scratch"
           "$mainMod SHIFT, G, exec, pypr toggle daily"
           "$mainMod, V, exec, pypr toggle vault"
+          "$mainMod SHIFT, R, exec, pypr toggle cheatsheet"
+          "$mainMod, R, exec, pypr toggle cheatsheet-search"
         ];
 
         bindl = [
@@ -203,7 +205,7 @@
             , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"''
         ];
 
-        windowrule = [
+        windowrulev2 = [
           "float, class:file_progress"
           "float, class:flameshot"
           "float, class:confirm"
@@ -218,7 +220,7 @@
           "float, class:Rofi"
           "animation none, class:Rofi"
           "float, class:viewnior"
-          "float, class:feh"
+          "float, class:vimiv"
           "float, class:pavucontrol-qt"
           "float, class:pavucontrol"
           "float, class:file-roller"
@@ -233,6 +235,9 @@
           "size 800 600, title:(Volume Control)"
           "move 75% 44%, title:(Volume Control)"
           "noborder, class:^(chrome-.*)"
+          "float, class:^(nsxiv)$"
+          "size 90% 90%, class:^(nsxiv)$"
+          "center, class:^(nsxiv)$"
         ];
       };
     };
@@ -258,6 +263,7 @@
       slurp
       wl-clipboard
       rofi
+      vimiv-qt
     ];
 
     programs.hyprpanel = {
@@ -311,6 +317,14 @@
     xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
     xdg.configFile."hypr/random-wallpaper.sh" = {
       source = ./scripts/random-wallpaper.sh;
+      executable = true;
+    };
+    xdg.configFile."hypr/cheatsheet-viewer.sh" = {
+      source = ./scripts/cheatsheet-viewer.sh;
+      executable = true;
+    };
+    xdg.configFile."hypr/cheatsheet-search.sh" = {
+      source = ./scripts/cheatsheet-search.sh;
       executable = true;
     };
     xdg.configFile."hypr/pyprland.toml".source = ./config/pyprland.toml;

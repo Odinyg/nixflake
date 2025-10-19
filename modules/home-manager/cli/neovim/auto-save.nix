@@ -13,17 +13,19 @@
           function(buf)
             local fn = vim.fn
             local utils = require("auto-save.utils.data")
+            local filetype = fn.getbufvar(buf, "&filetype")
 
             if fn.getbufvar(buf, "&modifiable") == 1 and
-               utils.not_in(fn.getbufvar(buf, "&filetype"), {}) and
-               fn.getbufvar(buf, "&readonly") == 0 then
+               utils.not_in(filetype, {}) and
+               fn.getbufvar(buf, "&readonly") == 0 and
+               (filetype == "markdown" or filetype == "md") then
               return true
             end
             return false
           end
         '';
         write_all_buffers = false;
-        debounce_delay = 135;
+        debounce_delay = 30000;
         callbacks = {
           enabling = null;
           disabling = null;

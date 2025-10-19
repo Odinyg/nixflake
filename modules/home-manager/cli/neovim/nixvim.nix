@@ -15,10 +15,10 @@
       yamlfmt
     ];
 
-    #    colorschemes = {
-    #      nord.enable = true;
-    #      nord.settings.disable_background = true;
-    #    };
+    colorschemes = {
+      nord.enable = true;
+      nord.settings.disable_background = true;
+    };
 
     clipboard = {
       register = "unnamedplus";
