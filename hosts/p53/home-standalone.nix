@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   user = "odin";
@@ -26,7 +20,8 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    image = ../../modules/home-manager/desktop/hyprland/config/wallpapers/nord-rainbow-dark-nix.png;
+    image =
+      ../../modules/home-manager/desktop/hyprland/config/wallpapers/nord-rainbow-dark-nix.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
     cursor = {
       package = pkgs.bibata-cursors;
@@ -52,6 +47,10 @@
         desktop = 11;
         popups = 10;
       };
+    };
+    targets.kde = {
+      enable = true;
+      decorations = "org.kde.breeze";
     };
   };
 

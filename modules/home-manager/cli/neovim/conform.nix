@@ -10,6 +10,21 @@
       };
       notify_on_error = true;
 
+      formatters = {
+        prettier = {
+          prepend_args = [ "--preserve-blank-lines" ];
+        };
+        prettierd = {
+          prepend_args = [ "--preserve-blank-lines" ];
+        };
+        yamlfmt = {
+          prepend_args = [
+            "-formatter"
+            "retain_line_breaks=true,retain_line_breaks_single=true"
+          ];
+        };
+      };
+
       formatters_by_ft = {
         liquidsoap = [ "liquidsoap-prettier" ];
         html = {

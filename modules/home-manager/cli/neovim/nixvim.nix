@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs.nixvim = {
     enable = true;
     globals.mapleader = " ";
@@ -11,7 +10,6 @@
       black
       stylua
       nixfmt-classic
-      yamllint
       yamlfmt
     ];
 
@@ -56,13 +54,8 @@
       nix.enable = true;
       mini.enable = true;
       which-key.enable = true;
-      lualine = {
-        enable = true;
-      };
-      indent-blankline = {
-        enable = true;
-        settings.whitespace.remove_blankline_trail = true;
-      };
+      lualine = { enable = true; };
+      indent-blankline = { enable = true; };
       treesitter = {
         enable = true;
         nixGrammars = true;
@@ -72,7 +65,6 @@
 
     };
 
-    extraPlugins = with pkgs.vimPlugins; [
-    ];
+    extraPlugins = with pkgs.vimPlugins; [ ];
   };
 }
