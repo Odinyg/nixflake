@@ -62,6 +62,7 @@
       just
       age
       sops
+      ssh-to-age
       fluxcd
       obsidian
       flatpak

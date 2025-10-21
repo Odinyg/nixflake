@@ -73,6 +73,9 @@
   hyprland.enable = true;
   programs.kdeconnect.enable = true;
 
+  # Secrets management
+  secrets.enable = true;
+
   # Work tools
   onedrive.enable = false;
 

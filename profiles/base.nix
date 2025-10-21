@@ -21,7 +21,6 @@
   # ==============================================================================
   general.enable = true;
   hyprland.enable = true;
-  # rofi.enable = true;  # Disabled - using Hyprland's rofi config instead
   fonts.enable = true;
 
   # XDG Desktop Portal configuration
@@ -48,16 +47,17 @@
   # ==============================================================================
   neovim.enable = true;
   zsh.enable = true;
+  prompt.enable = true;
   kitty.enable = true;
-  termUtils.enable = true;
   zellij.enable = true;
+  system-tools.enable = true;
 
   # ==============================================================================
   # DEVELOPMENT TOOLS
   # ==============================================================================
   git.enable = true;
   direnv.enable = true;
-  # mcp.enable = true;  # Temporarily disabled due to fetchGit issue
+  languages.enable = true;
 
   # Development packages needed for building C/C++ projects
   environment.systemPackages = with pkgs; [
@@ -86,8 +86,15 @@
   tailscale.enable = true;
   syncthing.enable = true;
   polkit.enable = true;
-  utils.enable = true;
   xdg.enable = true;
+
+  # Application Categories (split from old utils.nix)
+  kubernetes.enable = true;
+  development.enable = true;
+  media.enable = true;
+  security.enable = true;
+  communication.enable = true;
+  utilities.enable = true;
 
   # ==============================================================================
   # VIRTUALIZATION

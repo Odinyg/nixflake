@@ -2,7 +2,6 @@
 {
 
   imports = [
-    ./utils.nix
     ./tmux.nix
     ./neovim
     ./zsh
@@ -11,8 +10,10 @@
     ./git.nix
     ./kitty.nix
     ./direnv.nix
-    ./termUtils.nix
-    # ./mcp.nix
+    ./kubernetes.nix
+    ./languages.nix
+    ./system-tools.nix
+    ./prompt.nix
   ];
 
 }

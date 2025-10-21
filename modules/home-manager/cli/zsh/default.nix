@@ -28,7 +28,6 @@
     programs = {
       zsh.enable = true;
       autojump.enable = true;
-      starship.enable = true;
       fzf.enable = true;
     };
   };

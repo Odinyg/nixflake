@@ -15,12 +15,6 @@
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.xdg.enable {
-    #    home.sessionVariables = {
-    #      EDITOR = "nvim";
-    #      BROWSER = "brave";
-    #      TERMINAL = "kitty";
-    #    };
-
     home.packages = [
       pkgs.xdg-utils
       pkgs.xdg-user-dirs
@@ -29,18 +23,7 @@
     xdg = {
       enable = true;
 
-      userDirs = {
-        enable = true;
-
-        #  desktop = "${config.home.homeDirectory}/desktop";
-        #  documents = "${config.home.homeDirectory}/documents";
-        #  download = "${config.home.homeDirectory}/downloads";
-        #  music = "${config.home.homeDirectory}/music";
-        #  pictures = "${config.home.homeDirectory}/pictures";
-        #  publicShare = "${config.home.homeDirectory}/public";
-        #  templates = "${config.home.homeDirectory}/templates";
-        #  videos = "${config.home.homeDirectory}/videos";
-      };
+      userDirs.enable = true;
 
       mimeApps = {
         enable = true;

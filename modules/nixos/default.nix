@@ -23,5 +23,6 @@
     ./init-net.nix
     ./hosted-services
     ./winboat.nix
+    ./secrets.nix
   ];
 }

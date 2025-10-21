@@ -13,7 +13,6 @@
     nixpkgs.config.allowUnfree = true;
 
     imports = [
-      #      ./nvf.nix
       ./nixvim.nix
       ./lsp.nix
       ./harpoon.nix

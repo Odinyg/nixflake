@@ -14,9 +14,11 @@
     programs = {
       git = {
         enable = true;
-        userName = "Odin";
-        userEmail = "git@pytt.io";
-        extraConfig = {
+        settings = {
+          user = {
+            name = "Odin";
+            email = "git@pytt.io";
+          };
           core.editor = "nvim";
         };
       };

@@ -1,45 +1,20 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, ... }: {
+
+  imports = [
+    ./packages.nix
+    ./hyprpanel.nix
+    ./services.nix
+    ./keybindings.nix
+    ./monitors.nix
+  ];
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
-      extraConfig = let hostname = config.networking.hostName;
-      in if hostname == "station" then ''
-        monitor = HDMI-A-1, 3840x2160@119.88, 1920x0, 1
-        monitor = DP-2, 1920x1080@164.96, 0x0, 1
-
-        workspace = 1, monitor:HDMI-A-1, default:true, gapsout:0 200 400 200
-        workspace = 2, monitor:HDMI-A-1, gapsout:0 200 400 200
-        workspace = 3, monitor:HDMI-A-1, gapsout:0 200 400 200
-        workspace = 4, monitor:HDMI-A-1, gapsout:0 200 400 200
-        workspace = 5, monitor:HDMI-A-1, gapsout:0 200 400 200
-
-        workspace = 6, monitor:DP-2, default:true
-        workspace = 7, monitor:DP-2
-        workspace = 8, monitor:DP-2
-        workspace = 9, monitor:DP-2
-        workspace = 0, monitor:DP-2
-      '' else if hostname == "VNPC-21" then ''
-        workspace = 1, monitor:DP-4, default:true
-        workspace = 2, monitor:DP-4
-        workspace = 3, monitor:DP-4
-        workspace = 4, monitor:DP-4
-        workspace = 5, monitor:DP-4
-
-        workspace = 6, monitor:DP-5, default:true
-        workspace = 7, monitor:DP-5
-        workspace = 8, monitor:DP-5
-
-        workspace = 9, monitor:HDMI-A-1
-        workspace = 0, monitor:HDMI-A-1
-      '' else ''
-        # Default configuration for other hosts
-        workspace = 1, default:true
-      '';
 
       settings = {
-        "$mainMod" = "SUPER";
+        # Startup applications
         exec-once = [
           "pypr"
           "hyprpanel & ~/.config/hypr/random-wallpaper.sh & swaync"
@@ -52,13 +27,17 @@
           "kanshi -c ~/.config/kanshi/config"
         ];
 
+        # Recurring exec commands
         exec = [ "hyprshade auto" ];
+
+        # Environment variables
         env = [
           "XDG_SESSION_TYPE,wayland"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
         ];
 
+        # Input configuration
         input = {
           kb_layout = "us";
           kb_variant = "altgr-intl";
@@ -68,10 +47,10 @@
           repeat_rate = 55;
           repeat_delay = 400;
           touchpad = { natural_scroll = false; };
-
           sensitivity = 0;
         };
 
+        # General layout settings
         general = {
           gaps_in = 3;
           gaps_out = 5;
@@ -79,6 +58,7 @@
           layout = "dwindle";
         };
 
+        # Decoration settings
         decoration = {
           rounding = 7;
           blur = {
@@ -88,6 +68,7 @@
           };
         };
 
+        # Animations
         animations = {
           enabled = false;
           bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -101,13 +82,14 @@
           ];
         };
 
+        # Dwindle layout settings
         dwindle = {
           pseudotile = true;
           preserve_split = true;
           force_split = 1;
         };
 
-        # NVIDIA-specific cursor configuration (critical for NVIDIA)
+        # NVIDIA-specific cursor configuration
         cursor = {
           no_hardware_cursors = true;
           no_break_fs_vrr = true;
@@ -116,6 +98,7 @@
         # NVIDIA-specific OpenGL settings
         opengl = { nvidia_anti_flicker = true; };
 
+        # Miscellaneous settings
         misc = {
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
@@ -123,88 +106,7 @@
           disable_hyprland_logo = true;
         };
 
-        bindm = [
-
-          "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, resizewindow"
-        ];
-
-        bind = [
-          "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
-          "$mainMod, W, exec, zen-beta"
-          ''ALT CTRL, S, exec, grim -g "$(slurp -d)" - | wl-copy''
-          ''
-            CTRL SUPER, S, exec, grim -g "$(slurp -d)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
-          ''
-          "$mainMod, return, exec, kitty"
-          "$mainMod, Q, killactive,"
-          "$mainMod, M, exit,"
-          "$mainMod, E, exec, thunar"
-          "$mainMod SHIFT, F, togglefloating,"
-          "$mainMod, D, exec, pgrep rofi >/dev/null 2>&1 && killall rofi || rofi -show drun -hshow-icons"
-
-          "$mainMod, P, pseudo,"
-          "$mainMod, O, togglesplit,"
-          # Focus window bindings
-          "$mainMod, left, movefocus, l"
-          "$mainMod, right, movefocus, r"
-          "$mainMod, up, movefocus, u"
-          "$mainMod, down, movefocus, d"
-          "$mainMod, H, movefocus, l"
-          "$mainMod, L, movefocus, r"
-          "$mainMod, K, movefocus, u"
-          "$mainMod, J, movefocus, d"
-          # Resize window bindings
-          "SUPER CTRL, left, resizeactive, -20 0"
-          "SUPER CTRL, right, resizeactive, 20 0"
-          "SUPER CTRL, up, resizeactive, 0 -20"
-          "SUPER CTRL, down, resizeactive, 0 20"
-          "SUPER CTRL, H, resizeactive, -20 0"
-          "SUPER CTRL, L, resizeactive, 20 0"
-          "SUPER CTRL, K, resizeactive, 0 -20"
-          "SUPER CTRL, J, resizeactive, 0 20"
-          # Workspace bindings
-          "$mainMod, 1, workspace, 1"
-          "$mainMod, 2, workspace, 2"
-          "$mainMod, 3, workspace, 3"
-          "$mainMod, 4, workspace, 4"
-          "$mainMod, 5, workspace, 5"
-          "$mainMod, 6, workspace, 6"
-          "$mainMod, 7, workspace, 7"
-          "$mainMod, 8, workspace, 8"
-          "$mainMod, 9, workspace, 9"
-          # Move to workspace bindings
-          "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
-          "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
-          "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
-          "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
-          "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
-          "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
-          "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
-          "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
-          "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
-          # Mouse scroll workspace bindings
-          "$mainMod, mouse_down, workspace, e+1"
-          "$mainMod, mouse_up, workspace, e-1"
-          # Pypr bindings
-          "$mainMod, T, exec, pypr toggle term"
-          "$mainMod, N, exec, pypr toggle notes"
-          "$mainMod, C, exec, pypr toggle gpt"
-          "$mainMod, F, exec, pypr toggle todo"
-          "$mainMod, G, exec, pypr toggle scratch"
-          "$mainMod SHIFT, G, exec, pypr toggle daily"
-          "$mainMod, V, exec, pypr toggle vault"
-          "$mainMod SHIFT, R, exec, pypr toggle cheatsheet"
-          "$mainMod, R, exec, pypr toggle cheatsheet-search"
-        ];
-
-        bindl = [
-          ''
-            , switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1, 1920x1080, 0x0, 1"''
-          ''
-            , switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"''
-        ];
-
+        # Window rules
         windowrulev2 = [
           "float, class:file_progress"
           "float, class:flameshot"
@@ -241,182 +143,5 @@
         ];
       };
     };
-
-    home.packages = with pkgs; [
-      waybar
-      hyprpanel
-      hyprpaper
-      grim
-      eww
-      swayidle
-      brightnessctl
-      pyprland
-      swaynotificationcenter
-      wmctrl
-      hyprshade
-      swww
-      gtk-engine-murrine
-      sassc
-      gtk3
-      lxqt.lxqt-policykit
-      xclip
-      slurp
-      wl-clipboard
-      rofi
-      vimiv-qt
-    ];
-
-    programs.hyprpanel = {
-      enable = true;
-      settings = {
-        layout = {
-          bar.layouts = {
-            "*" = {
-              left = [ "dashboard" "media" ];
-              middle = [ "workspaces" ];
-              right = [
-                "volume"
-                "network"
-                "bluetooth"
-                "clock"
-                "systray"
-                "notifications"
-              ];
-            };
-          };
-        };
-
-        bar.launcher.autoDetectIcon = true;
-        bar.workspaces.show_icons = true;
-
-        menus.clock = {
-          time = {
-            military = true;
-            hideSeconds = true;
-          };
-          weather.unit = "metric";
-        };
-
-        bar.clock = {
-          format = "%H:%M - %d/%m W%V";
-          showWeek = true;
-        };
-
-        menus.dashboard.directories.enabled = false;
-        menus.dashboard.stats.enable_gpu = true;
-
-        theme.bar.transparent = true;
-
-        theme.font = {
-          name = "CaskaydiaCove NF";
-          size = "16px";
-        };
-      };
-    };
-    xdg.configFile."wallpaper.png".source = ./wallpaper/wallpaper.png;
-    xdg.configFile."hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
-    xdg.configFile."hypr/random-wallpaper.sh" = {
-      source = ./scripts/random-wallpaper.sh;
-      executable = true;
-    };
-    xdg.configFile."hypr/cheatsheet-viewer.sh" = {
-      source = ./scripts/cheatsheet-viewer.sh;
-      executable = true;
-    };
-    xdg.configFile."hypr/cheatsheet-search.sh" = {
-      source = ./scripts/cheatsheet-search.sh;
-      executable = true;
-    };
-    xdg.configFile."hypr/pyprland.toml".source = ./config/pyprland.toml;
-    xdg.configFile."hypr/hyprshade.toml".source =
-      ./config/shader/hyprshade.toml;
-    xdg.configFile."waybar".source = ./config/waybar;
-    xdg.configFile."swayidle".source = ./config/swayidle;
-    xdg.configFile."hypr/shader/blue-light-filter.glsl".source =
-      ./config/shader/blue-light-filter.glsl;
-    xdg.configFile."rofi/config.rasi".source = ./config/rofi.rasi;
-    xdg.configFile."rofi/nord.rasi".source = ./config/rofi-nord.rasi;
-    xdg.configFile."rofi/rounded-common.rasi".source =
-      ./config/rounded-common.rasi;
-
-    programs.swaylock.enable = true;
-    services.kanshi = {
-      enable = true;
-      settings = let hostname = config.networking.hostName;
-      in lib.optionals (hostname == "VNPC-21") [
-        # External Monitors Profile for p53
-        {
-          profile.name = "external-monitors";
-          profile.outputs = [
-            {
-              criteria = "eDP-1";
-              position = "0,0"; # Place laptop screen under HDMI (middle-bottom)
-            }
-            {
-              criteria = "DP-4";
-              mode = "2560x1440";
-              position = "1920,0"; # Middle monitor (main)
-            }
-            {
-              criteria = "DP-5";
-              mode = "2560x1440";
-              position = "4480,0"; # Right monitor
-            }
-          ];
-        }
-        {
-          profile.name = "p53-only";
-          profile.outputs = [{
-            criteria = "eDP-1";
-            status = "enable";
-            mode = "1920x1080";
-            scale = 1.0;
-          }];
-        }
-      ] ++ lib.optionals (hostname == "laptop") [
-        # Profile for laptop
-        {
-          profile.name = "laptop-only";
-          profile.outputs = [{
-            criteria = "eDP-1";
-            status = "enable";
-            mode = "1920x1200";
-            scale = 1.0;
-          }];
-        }
-      ] ++ lib.optionals (hostname == "station") [
-        # Profile for station
-        {
-          profile.name = "station-only";
-          profile.outputs = [
-            {
-              criteria = "DP-2";
-              mode = "1920x1080@164.96";
-              position = "0,0";
-              scale = 1.0;
-            }
-            {
-              criteria = "HDMI-A-1";
-              mode = "3840x2160@119.88";
-              position = "1920,0";
-              scale = 1.0;
-            }
-          ];
-        }
-      ] ++ lib.optionals
-      (hostname != "laptop" && hostname != "p53" && hostname != "station") [
-        # Default Profile
-        {
-          profile.name = "default";
-          profile.outputs = [{
-            criteria = "eDP-1";
-            mode = "1920x1080";
-            scale = 1.0;
-          }];
-        }
-      ];
-    };
-
-    # Profile for 'p53'
   };
 }

@@ -76,15 +76,6 @@ size = "85% 80%"
 animation = "fromRight"
 lazy = true
 
-# Cheatsheet viewer with nsxiv
-[scratchpads.cheatsheet]
-command = "kitty --class cheatsheet-viewer zsh -c '~/.config/hypr/cheatsheet-viewer.sh'"
-class = "cheatsheet-viewer"
-animation = "fromTop"
-size = "90% 90%"
-max_size = "1920px 100%"
-lazy = true
-
 # Cheatsheet search with vimiv-qt
 [scratchpads.cheatsheet-search]
 command = "vimiv ~/Pictures/cheatsheets"
