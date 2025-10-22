@@ -79,12 +79,12 @@
         VNPC-21 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = commonModules ++ [
-            ./hosts/p53
+            ./hosts/vnpc-21
             { user = "odin"; }
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
             {
               home-manager = {
-                useGlobalPkgs = false;
+                useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = {
                   inherit inputs;
@@ -118,17 +118,6 @@
         };
       };
 
-      homeConfigurations = {
-        "odin@p53" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/p53/home-standalone.nix
-            nixvim.homeModules.nixvim
-            stylix.homeManagerModules.stylix
-            ./modules/home-manager
-          ];
-        };
-      };
+      # homeConfigurations removed - using integrated home-manager instead
     };
 }

@@ -5,7 +5,10 @@
   ...
 }:
 {
-  imports = [ ./desktop.nix ];
+  imports = [
+    ./base.nix
+    ./desktop.nix
+  ];
 
   # ==============================================================================
   # WORKSTATION-SPECIFIC CONFIGURATION

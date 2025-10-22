@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/desktop.nix
+    ../../profiles/hardware/nvidia.nix
   ];
 
   # ==============================================================================
@@ -42,6 +43,8 @@
   # ==============================================================================
   # SECURITY - SOPS
   # ==============================================================================
+  # Note: Station uses direct sops configuration instead of the secrets module
+  # because it has different requirements (different user, no SSH key management)
   sops.defaultSopsFile = ./../../secrets/general.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = /home/none/.config/sops/age/keys.txt;
@@ -49,7 +52,7 @@
   # ==============================================================================
   # HARDWARE - NVIDIA GPU
   # ==============================================================================
-  nvidia-gpu.enable = true;
+  hardware.nvidia-gpu.enable = true;
 
   # ==============================================================================
   # POWER MANAGEMENT - DISABLE SLEEP/SUSPEND
@@ -85,11 +88,6 @@
   };
 
   # ==============================================================================
-  # PROGRAMS
-  # ==============================================================================
-  services.envfs.enable = true;
-
-  # ==============================================================================
   # HOST-SPECIFIC OVERRIDES
   # ==============================================================================
   # Gaming
@@ -117,7 +115,6 @@
   # ==============================================================================
   environment.systemPackages = with pkgs; [
     inputs.zen-browser.packages."${pkgs.system}".default
-    libusb1
   ];
 
   # ==============================================================================

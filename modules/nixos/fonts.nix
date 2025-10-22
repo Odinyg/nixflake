@@ -7,9 +7,10 @@
 {
   options = {
     fonts = {
-      enable = lib.mkEnableOption {
-        description = "Enable fonts";
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
+        description = "Enable fonts";
       };
     };
   };
@@ -24,19 +25,10 @@
         source-han-sans-japanese
         source-han-serif-japanese
         nerd-fonts.droid-sans-mono
-        #nerd-fonts
         # Microsoft fonts (Calibri, Times New Roman, Arial)
         corefonts
         vista-fonts
       ];
-      #    fontconfig = {
-      #      enable = true;
-      #      defaultFonts = {
-      #	      monospace = [ "Meslo LG M Regular Nerd Font Complete Mono" ];
-      #	      serif = [ "Noto Serif" "Source Han Serif" ];
-      #	      sansSerif = [ "Noto Sans" "Source Han Sans" ];
-      #      };
-      #    };
     };
   };
 }

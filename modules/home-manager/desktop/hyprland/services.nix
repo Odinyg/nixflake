@@ -47,21 +47,22 @@
             {
               criteria = "eDP-1";
               position = "0,0"; # Laptop screen
+              scale = 1.25;
             }
             {
               criteria = "DP-4";
               mode = "2560x1440";
-              position = "1920,0"; # Middle monitor (main)
+              position = "1536,0"; # Middle monitor (adjusted for eDP-1 scale)
             }
             {
               criteria = "DP-5";
               mode = "2560x1440";
-              position = "4480,0"; # Right monitor
+              position = "4096,0"; # Right monitor (1536 + 2560)
             }
           ];
         }
         {
-          profile.name = "p53-only";
+          profile.name = "vnpc-21-only";
           profile.outputs = [{
             criteria = "eDP-1";
             status = "enable";
@@ -100,7 +101,7 @@
           ];
         }
       ] ++ lib.optionals
-      (hostname != "laptop" && hostname != "p53" && hostname != "station") [
+      (hostname != "laptop" && hostname != "VNPC-21" && hostname != "station") [
         # Default Profile
         {
           profile.name = "default";

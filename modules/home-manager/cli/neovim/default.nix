@@ -2,9 +2,10 @@
 
   options = {
     neovim = {
-      enable = lib.mkEnableOption {
-        description = "Enable Neovim";
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
+        description = "Enable Neovim";
       };
     };
   };
@@ -21,11 +22,9 @@
       ./lint.nix
       ./mini.nix
       ./conform.nix
-
       ./obsidian.nix
       ./auto-save.nix
       ./render-markdown.nix
-
     ];
 
     home = {

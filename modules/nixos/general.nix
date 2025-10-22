@@ -2,9 +2,10 @@
 
   options = {
     general = {
-      enable = lib.mkEnableOption {
-        description = "Enable several general";
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
+        description = "Enable general system configuration";
       };
     };
   };
@@ -15,7 +16,6 @@
         "libreoffice-writer.desktop";
 
     };
-    nixpkgs.config.allowUnfree = true;
     nix = {
       package = pkgs.nixVersions.stable;
       extraOptions =
@@ -69,8 +69,6 @@
       docker
       polkit
       ansible
-      #libreoffice
-      #     xdg-desktop-portal-hyprland
     ];
     services.flatpak.enable = true;
     programs.appimage.enable = true;

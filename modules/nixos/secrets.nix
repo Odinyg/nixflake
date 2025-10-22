@@ -2,9 +2,10 @@
 {
   options = {
     secrets = {
-      enable = lib.mkEnableOption {
-        description = "Enable secrets management with sops-nix";
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
+        description = "Enable secrets management with sops-nix";
       };
     };
   };

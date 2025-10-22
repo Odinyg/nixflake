@@ -30,9 +30,10 @@
       default = ".ssh/ssh_host_ed25519_key";
     };
     gui = {
-      enable = lib.mkEnableOption {
-        description = "Enable graphics.";
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
+        description = "Enable graphics.";
       };
     };
     unfreePackages = lib.mkOption {

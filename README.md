@@ -1,51 +1,62 @@
-# NixOS Configuration
+# NixOS Flake Configuration
 
-A modular NixOS flake configuration supporting multiple hosts and desktop environments with home-manager integration.
+A modular, reproducible NixOS configuration using flakes with home-manager integration. Supports multiple hosts, desktop environments, and a layered profile system for maximum reusability.
 
 ## 🖥️ Hosts
 
-| Host | Description | Desktop | Hardware |
-|------|-------------|---------|----------|
-| **laptop** | Personal laptop | Hyprland | Generic laptop |
-| **station** | Desktop workstation | Hyprland | AMD desktop |
+| Host | Description | User | Desktop | Hardware |
+|------|-------------|------|---------|----------|
+| **VNPC-21** | ThinkPad P53 workstation | odin | Hyprland | Lenovo ThinkPad P53, NVIDIA GPU |
+| **laptop** | Portable laptop | none | Hyprland | Generic laptop |
+| **station** | Desktop build server | none | Hyprland | AMD desktop, NVIDIA GPU |
 
-## ✨ Features
+## ✨ Key Features
 
-### Desktop Environments
-- **Hyprland** - Modern Wayland compositor (primary)
-- **BSPWM** - Tiling window manager for X11
-- **COSMIC** - System76's desktop environment (Posible future primary desktop)
+### 🎨 Desktop Environment
+- **Hyprland** (primary) - Modern Wayland compositor with custom animations and keybinds
+- **BSPWM** (alternative) - X11 tiling window manager
+- **COSMIC** (experimental) - System76's new desktop environment
+- **Waybar** - Customized status bar with system monitoring
+- **Rofi** - Application launcher with Nord theming
+- **SwayNC** - Notification daemon for Wayland
 
-### Development Setup
-- **Neovim** with nixvim configuration (LSP, completion, plugins)
-- **Zellij** terminal multiplexer (mostly stock configuration)
-- **Zsh** with oh-my-zsh and custom aliases
-- **Git** with lazygit integration
-- **Direnv** for project environments
-- **Docker** with rootless configuration
+### 💻 Development Tools
+- **Neovim** - Full IDE via nixvim (LSP, completion, formatting, linting)
+- **Zellij** - Terminal multiplexer with persistent sessions
+- **Zsh** - Shell with oh-my-zsh, custom aliases, and completions
+- **Git** - Configured with lazygit integration
+- **Docker** - Container runtime with rootless mode
+- **Direnv** - Automatic environment loading per project
+- **Language Support** - LSPs and formatters for Nix, Python, Go, Rust, TypeScript, and more
 
-### Applications & Tools
-- **Terminal**: Kitty with custom configuration
-- **File Manager**: Thunar with archive support
-- **Browsers**: Zen Browser, Brave
-- **Communication**: Discord (Vesktop), Teams
-- **Productivity**: Obsidian, LibreOffice
-- **Development**: Language servers, formatters, linters for multiple languages
+### 🎨 Theming & Styling
+- **Stylix** - Unified theming system across all applications
+- **Nord** - Primary color scheme
+- **Custom fonts** - Nerd Fonts with Japanese and CJK support
+- **Dynamic wallpapers** - Random rotation in Hyprland
+- **Transparency** - Configurable terminal opacity
 
-### System Features
-- **Stylix** for consistent theming (Nord theme)
-- **Home Manager** for user configuration
-- **Tailscale** for VPN networking
-- **Syncthing** for file synchronization
-- **Audio**: PipeWire with PulseAudio compatibility
-- **Virtualization**: Docker, QEMU/KVM, VirtualBox, virt-manager
-- **Security**: SOPS-nix for secrets management
+### 🔧 System Services
+- **Tailscale** - Mesh VPN networking
+- **Syncthing** - Peer-to-peer file synchronization
+- **SOPS-nix** - Encrypted secrets management
+- **PipeWire** - Modern audio server with PulseAudio compatibility
+- **Flatpak** - Additional application packaging
+- **Printing** - CUPS with Brother printer drivers
+
+### 🎮 Virtualization & Gaming
+- **QEMU/KVM** - Virtual machines via virt-manager
+- **VirtualBox** - Additional VM support
+- **Docker** - Container orchestration
+- **Gaming** (station) - Heroic launcher, Bottles, Steam via Flatpak
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- NixOS installed
-- Flakes enabled in your Nix configuration
+```bash
+# Enable flakes in your NixOS configuration
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
+```
 
 ### Installation
 
@@ -55,131 +66,278 @@ A modular NixOS flake configuration supporting multiple hosts and desktop enviro
    cd nixflake
    ```
 
-2. **Build and switch** (replace `<host>` with your target host)
+2. **Build and switch to your host**
    ```bash
-   sudo nixos-rebuild switch --flake .#<host>
-   ```
-
-3. **Available commands** (using justfile)
-   ```bash
-   # Rebuild current host (auto-detects hostname)
+   # Using justfile (recommended)
    just rebuild
-   
-   # Update flake inputs and rebuild
-   just upgrade
-   
-   # Rebuild into new bootable generation
-   just boot
-   
-   # Verbose rebuild for debugging
-   just verbose
-   
-   # Clean old generations (14+ days)
-   just gc
-   
-   # View changes excluding flake.lock
-   just diff
+
+   # Or manually
+   sudo nixos-rebuild switch --flake .#<hostname>
    ```
 
-## 📁 Structure
+3. **Available just commands**
+   ```bash
+   just rebuild    # Rebuild current host (auto-detects)
+   just upgrade    # Update flake inputs + rebuild
+   just boot       # Build new boot configuration
+   just verbose    # Rebuild with detailed output
+   just gc         # Clean generations older than 14 days
+   just diff       # View git changes (excludes flake.lock)
+   ```
+
+## 📁 Repository Structure
 
 ```
 .
-├── flake.nix                 # Main flake configuration
-├── justfile                  # Build commands
-├── hosts/                    # Host-specific configurations
-│   ├── laptop/
-│   ├── p53/
-│   └── station/
-└── modules/                  # Modular configuration
-    ├── home-manager/         # User configurations
-    │   ├── app/              # Applications
-    │   ├── cli/              # Command-line tools
-    │   ├── desktop/          # Desktop environments
-    │   └── misc/             # Miscellaneous
-    └── nixos/                # System configurations
-        ├── hardware/         # Hardware-specific modules
-        └── *.nix            # System services
+├── flake.nix                   # Main flake entry point
+├── flake.lock                  # Pinned dependency versions
+├── justfile                    # Build automation commands
+├── CLAUDE.md                   # AI assistant instructions
+│
+├── hosts/                      # Host-specific configurations
+│   ├── vnpc-21/               # ThinkPad P53 workstation
+│   ├── laptop/                # Generic laptop
+│   └── station/               # Desktop build server
+│
+├── profiles/                   # Layered configuration profiles
+│   ├── base.nix               # Minimal base system
+│   ├── laptop.nix             # Laptop-specific settings (extends base)
+│   ├── desktop.nix            # Desktop hardware (extends base)
+│   └── workstation.nix        # Full workstation (extends desktop)
+│
+├── modules/
+│   ├── nixos/                 # System-level modules
+│   │   ├── hardware/          # GPU, audio, bluetooth, networking
+│   │   ├── services/          # System services
+│   │   ├── general.nix        # Core system packages
+│   │   ├── fonts.nix          # Font configuration
+│   │   └── secrets.nix        # SOPS secrets management
+│   │
+│   └── home-manager/          # User-level modules
+│       ├── app/               # GUI applications
+│       ├── cli/               # Terminal tools (neovim, zsh, git)
+│       ├── desktop/           # Desktop environments
+│       │   ├── hyprland/      # Hyprland configuration
+│       │   ├── bspwm/         # BSPWM configuration
+│       │   └── cosmic/        # COSMIC desktop
+│       └── misc/              # Miscellaneous configs
+│
+└── secrets/                    # Encrypted secrets (SOPS)
+    ├── secrets.yaml
+    └── general.yaml
 ```
+
+## 🏗️ Architecture
+
+### Profile System
+Configurations are layered for maximum reusability:
+
+```
+base.nix (core system)
+  ├─→ laptop.nix (base + laptop hardware)
+  └─→ desktop.nix (base + desktop hardware)
+       └─→ workstation.nix (desktop + dev tools)
+```
+
+Each host imports a profile and adds host-specific overrides.
+
+### Module Pattern
+All optional features use the enable pattern:
+
+```nix
+# In host configuration
+moduleName.enable = true;
+```
+
+This makes it easy to mix and match features per host.
 
 ## ⚙️ Configuration
 
 ### Adding a New Host
 
-1. Create a new directory in `hosts/`
-2. Add `default.nix` and `hardware-configuration.nix`
-3. Create a `home.nix` for home-manager
-4. Add the host to `flake.nix`
+1. **Generate hardware configuration**
+   ```bash
+   nixos-generate-config --show-hardware-config > hosts/newhost/hardware-configuration.nix
+   ```
 
-Example:
-```nix
-# In flake.nix
-myhost = nixpkgs.lib.nixosSystem {
-  specialArgs = { inherit inputs system; };
-  modules = [
-    ./hosts/myhost
-    ./modules
-    # ... other modules
-  ];
-};
-```
+2. **Create host configuration**
+   ```nix
+   # hosts/newhost/default.nix
+   { config, pkgs, lib, inputs, ... }: {
+     imports = [
+       ./hardware-configuration.nix
+       ../../profiles/laptop.nix  # Choose appropriate profile
+     ];
+
+     # Networking
+     networking.hostName = "newhost";
+
+     # User configuration
+     users.users.myuser = {
+       isNormalUser = true;
+       extraGroups = [ "networkmanager" "wheel" ];
+       shell = pkgs.zsh;
+     };
+
+     # Enable desired features
+     hyprland.enable = true;
+     neovim.enable = true;
+
+     system.stateVersion = "25.05";
+   }
+   ```
+
+3. **Add to flake.nix**
+   ```nix
+   nixosConfigurations.newhost = nixpkgs.lib.nixosSystem {
+     specialArgs = { inherit inputs; };
+     modules = commonModules ++ [
+       ./hosts/newhost
+       { user = "myuser"; }
+       {
+         nixpkgs.config.allowUnfree = true;
+         home-manager = {
+           useGlobalPkgs = true;
+           useUserPackages = true;
+           extraSpecialArgs = { inherit inputs; };
+           users.myuser = mkHomeConfig {
+             username = "myuser";
+             stateVersion = "25.05";
+           };
+         };
+       }
+     ];
+   };
+   ```
+
+4. **Build and test**
+   ```bash
+   nix flake check
+   sudo nixos-rebuild switch --flake .#newhost
+   ```
 
 ### Enabling/Disabling Features
 
-Most features are controlled by boolean options:
+Most modules use boolean enable options:
 
 ```nix
-# In your host configuration
-neovim.enable = true;
+# Desktop environments
 hyprland.enable = true;
-discord.enable = false;
+bspwm.enable = false;
+
+# Applications
+discord.enable = true;
+firefox.enable = false;
+
+# System features
+secrets.enable = true;
+gaming.enable = true;
 ```
 
-### Desktop Environment Switching
+### Customizing Per Host
 
-The configuration supports multiple desktop environments:
+Host-specific overrides go in `hosts/<hostname>/default.nix`:
 
 ```nix
-# Hyprland (Wayland)
-hyprland.enable = true;
+# Override terminal opacity
+styling.opacity.terminal = 0.85;
 
-# BSPWM (X11)
-bspwm.enable = true;
-rofi.enable = true;
+# Enable specific services
+init-net.enable = true;
+hosted-services.n8n.enable = true;
 
-# COSMIC
-services.desktopManager.cosmic.enable = true;
+# Add extra packages
+users.users.odin.packages = with pkgs; [
+  custom-package
+];
 ```
+
+## 🔐 Secrets Management
+
+This configuration uses SOPS-nix for encrypted secrets:
+
+```bash
+# Initialize age key for new host
+mkdir -p ~/.config/sops/age
+age-keygen -o ~/.config/sops/age/keys.txt
+
+# Edit secrets
+sops secrets/secrets.yaml
+```
+
+Secrets are automatically decrypted at boot and placed in `/run/secrets/`.
 
 ## 🎨 Theming
 
-The configuration uses Stylix for consistent theming across applications:
+Theming is managed by Stylix with the Nord color scheme. To customize:
 
-- **Theme**: Nord color scheme
-- **Fonts**: System-wide font configuration
-- **Wallpaper**: Random wallpaper rotation in Hyprland
-- **Opacity**: Terminal transparency settings
-- **Icons**: Consistent icon themes across applications
+```nix
+# In host configuration
+stylix = {
+  base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+  image = ./wallpaper.png;
 
-## 🔧 Key Features by Module
-
-### CLI Tools (`modules/home-manager/cli/`)
-- **Neovim**: Full IDE setup with LSP, completion, and plugins via nixvim
-- **Zsh**: Oh-my-zsh with custom aliases and scripts
-- **Zellij**: Terminal multiplexer for session management
-- **Git**: Configured with aliases and lazygit integration
-- **Terminal utilities**: bat, eza, ripgrep, fzf, fd, and more
-
-### Desktop (`modules/home-manager/desktop/`)
-- **Hyprland**: Wayland compositor with custom keybinds and animations
-- **Waybar**: Status bar with weather, media, and system modules
-- **Rofi**: Application launcher with Nord theme
-- **Screenshots**: Grim + Slurp + Satty for Wayland
-- **Notifications**: SwayNotificationCenter
+  fonts = {
+    monospace = {
+      package = pkgs.nerdfonts;
+      name = "JetBrainsMono Nerd Font";
+    };
+  };
+};
+```
 
 ## 🛠️ Troubleshooting
 
-- **Rebuild fails**: Check syntax with `nix flake check`
-- **Previous generation**: Roll back with `sudo nixos-rebuild switch --rollback`
-- **Logs**: Check `journalctl -xe` for service errors
-- **Hyprland issues**: Logs in `~/.local/share/hyprland/`
+### Common Issues
+
+**Build fails with syntax error**
+```bash
+nix flake check  # Validate flake syntax
+```
+
+**Need to rollback to previous generation**
+```bash
+sudo nixos-rebuild switch --rollback
+```
+
+**Checking system logs**
+```bash
+journalctl -xe              # System logs
+journalctl -u SERVICE       # Specific service
+```
+
+**Hyprland issues**
+```bash
+# Check Hyprland logs
+cat ~/.local/share/hyprland/hyprland.log
+
+# Restart Hyprland
+hyprctl reload
+```
+
+**Home Manager issues**
+```bash
+# Rebuild just home-manager
+home-manager switch --flake .#<user>@<host>
+```
+
+### Cleaning Up
+
+```bash
+# Remove old generations
+sudo nix-collect-garbage -d
+
+# Remove old boot entries
+sudo /run/current-system/bin/switch-to-configuration boot
+
+# Optimize nix store
+nix-store --optimize
+```
+
+## 📚 Resources
+
+- [NixOS Manual](https://nixos.org/manual/nixos/stable/)
+- [Home Manager Manual](https://nix-community.github.io/home-manager/)
+- [Nix Flakes Wiki](https://nixos.wiki/wiki/Flakes)
+- [Hyprland Wiki](https://wiki.hyprland.org/)
+- [Stylix Documentation](https://github.com/danth/stylix)
