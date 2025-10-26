@@ -8,6 +8,7 @@
     ./security.nix
     ./communication.nix
     ./utilities.nix
+    ./ollama
   ];
 
 }

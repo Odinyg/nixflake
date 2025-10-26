@@ -15,7 +15,6 @@
       # Window Management
       pyprland                    # Scratchpad & window manager plugins
       wmctrl                      # Window control utility
-      swayidle                    # Idle management daemon
       hyprshade                   # Shader control
 
       # Wallpaper Tools
@@ -52,7 +51,6 @@
       "hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
       "hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
       "waybar".source = ./config/waybar;
-      "swayidle".source = ./config/swayidle;
       "rofi/config.rasi".source = ./config/rofi.rasi;
       "rofi/nord.rasi".source = ./config/rofi-nord.rasi;
       "rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;

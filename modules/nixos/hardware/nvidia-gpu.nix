@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, pkgs, lib, ... }: {
   options = {
     nvidia-gpu = {
       enable = lib.mkEnableOption {
@@ -25,11 +19,7 @@
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [
-        nvidia-vaapi-driver
-        libva
-        egl-wayland
-      ];
+      extraPackages = with pkgs; [ nvidia-vaapi-driver libva egl-wayland ];
     };
 
     # NVIDIA configuration optimized for RTX 3090 desktop
@@ -82,12 +72,8 @@
     ];
 
     # Early loading of NVIDIA modules
-    boot.initrd.kernelModules = [
-      "nvidia"
-      "nvidia_modeset"
-      "nvidia_uvm"
-      "nvidia_drm"
-    ];
+    boot.initrd.kernelModules =
+      [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
     boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 
@@ -106,3 +92,4 @@
     };
   };
 }
+

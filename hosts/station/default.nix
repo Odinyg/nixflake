@@ -78,9 +78,14 @@
   
   # Encryption tools
   crypt.enable = true;
-  
+
   # Terminal opacity
   styling.opacity.terminal = 0.85;
+
+  # AI / LLM Tools
+  ollama.enable = true;
+  alpaca.enable = true;
+  oterm.enable = true;
 
   # ==============================================================================
   # SYSTEM PACKAGES
