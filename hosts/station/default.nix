@@ -52,6 +52,31 @@
   nvidia-gpu.enable = true;
 
   # ==============================================================================
+  # POWER MANAGEMENT - DISABLE SLEEP/SUSPEND
+  # ==============================================================================
+  # Prevent system from sleeping or suspending
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowSuspendThenHibernate=no
+    AllowHybridSleep=no
+  '';
+
+  # Disable lid switch actions (if applicable)
+  services.logind.settings = {
+    Login = {
+      HandleLidSwitch = "ignore";
+      HandleLidSwitchDocked = "ignore";
+      HandleLidSwitchExternalPower = "ignore";
+    };
+  };
+
+  # Disable NVIDIA suspend/resume services (not needed for desktop that never sleeps)
+  systemd.services.nvidia-suspend.enable = false;
+  systemd.services.nvidia-hibernate.enable = false;
+  systemd.services.nvidia-resume.enable = false;
+
+  # ==============================================================================
   # DISTRIBUTED BUILDS - BUILD SERVER
   # ==============================================================================
   distributedBuilds = {

@@ -34,6 +34,6 @@
       };
     };
 
-    security.pam.services.hyprlock = { };
+    security.pam.services.swaylock = {};
   };
 }

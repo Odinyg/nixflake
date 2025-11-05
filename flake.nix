@@ -63,7 +63,6 @@
             ./hosts/laptop
             { user = "none"; }
             {
-              nixpkgs.config.allowUnfree = true;
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -84,18 +83,15 @@
             { user = "odin"; }
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
             {
-              nixpkgs.config.allowUnfree = true;
               home-manager = {
                 useGlobalPkgs = false;
                 useUserPackages = true;
                 extraSpecialArgs = {
                   inherit inputs;
                 };
-                users.odin = (mkHomeConfig {
+                users.odin = mkHomeConfig {
                   username = "odin";
                   stateVersion = "25.05";
-                }) // {
-                  nixpkgs.config.allowUnfree = true;
                 };
               };
             }
@@ -108,18 +104,14 @@
             ./hosts/station
             { user = "none"; }
             {
-              nixpkgs.config.allowUnfree = true;
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
-                users.none =
-                  (mkHomeConfig {
-                    username = "none";
-                    stateVersion = "25.05";
-                  })
-                  // {
-                  };
+                users.none = mkHomeConfig {
+                  username = "none";
+                  stateVersion = "25.05";
+                };
               };
             }
           ];

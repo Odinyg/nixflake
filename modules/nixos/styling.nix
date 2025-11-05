@@ -95,10 +95,6 @@
           name = "breeze";
         };
       };
-
-      # Disable stylix auto-configuration for hyprlock
-      # We configure it manually in services.nix
-      stylix.targets.hyprlock.enable = false;
     };
   };
 }

@@ -9,9 +9,6 @@
   };
 
   config = lib.mkIf config.nvidia-gpu.enable {
-    # Allow unfree packages for NVIDIA drivers
-    nixpkgs.config.allowUnfree = true;
-
     # NVIDIA drivers
     services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -83,13 +80,6 @@
       egl-wayland
       nvidia-vaapi-driver
     ];
-
-    # Enable suspend services for NVIDIA
-    systemd.services = {
-      nvidia-suspend.enable = true;
-      nvidia-hibernate.enable = true;
-      nvidia-resume.enable = true;
-    };
   };
 }
 

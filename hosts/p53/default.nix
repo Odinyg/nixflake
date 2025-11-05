@@ -109,7 +109,6 @@
   # ==============================================================================
   # Printing drivers
   services.printing.drivers = with pkgs; [
-    # brlaser  # Temporarily disabled due to CMake compatibility issue
     brgenml1lpr
     brgenml1cupswrapper
     ptouch-driver

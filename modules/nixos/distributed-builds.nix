@@ -81,8 +81,9 @@ in
     
     # Client configuration (for other hosts)
     (lib.mkIf (!cfg.isBuilder) (let
-      # Auto-detect the primary user and their SSH key
-      primaryUser = builtins.head (builtins.attrNames (lib.filterAttrs (n: u: u.isNormalUser) config.users.users));
+      # Auto-detect the primary user and their SSH key with fallback
+      normalUsers = builtins.attrNames (lib.filterAttrs (n: u: u.isNormalUser) config.users.users);
+      primaryUser = if normalUsers != [] then builtins.head normalUsers else cfg.sshUser;
       actualSshKey = if cfg.sshKey != null then cfg.sshKey else "/home/${primaryUser}/.ssh/id_ed25519";
     in {
       # Configure distributed builds

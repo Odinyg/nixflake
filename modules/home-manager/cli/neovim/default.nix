@@ -10,8 +10,6 @@
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.neovim.enable {
-    nixpkgs.config.allowUnfree = true;
-
     imports = [
       ./nixvim.nix
       ./lsp.nix

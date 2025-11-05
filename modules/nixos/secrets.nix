@@ -48,9 +48,12 @@
           mode = "0644";
         };
 
-        # Example: SMB credentials for NAS mounting
-        # "smb/username" = { };
-        # "smb/password" = { };
+        # SMB credentials for NAS mounting
+        "smb/credentials" = {
+          owner = "root";
+          mode = "0600";
+          path = "/etc/nixos/smb-secrets";
+        };
       };
     };
 
