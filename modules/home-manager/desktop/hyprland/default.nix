@@ -17,7 +17,9 @@
         # Startup applications
         exec-once = [
           "pypr"
-          "hyprpanel & ~/.config/hypr/random-wallpaper.sh & swaync"
+          "hyprpanel"
+          "~/.config/hypr/random-wallpaper.sh"
+          "swaync"
           "hyprctl setcursor Bibate-Modern-Ice 18"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "nm-applet --indicator"
