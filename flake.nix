@@ -51,68 +51,53 @@
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
       ];
+
+      # Helper function to create home-manager configuration
+      mkHomeManagerConfig =
+        { username, stateVersion }:
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = { inherit inputs; };
+            users.${username} = mkHomeConfig {
+              inherit username stateVersion;
+            };
+          };
+        };
+
+      # Helper function to create a NixOS system configuration
+      mkSystem =
+        { hostPath, user, extraModules ? [ ] }:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = commonModules ++ [
+            hostPath
+            { inherit user; }
+            (mkHomeManagerConfig {
+              username = user;
+              stateVersion = "25.05";
+            })
+          ] ++ extraModules;
+        };
     in
     {
 
       nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = commonModules ++ [
-            ./hosts/laptop
-            { user = "none"; }
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
-                users.none = mkHomeConfig {
-                  username = "none";
-                  stateVersion = "25.05";
-                };
-              };
-            }
-          ];
+        laptop = mkSystem {
+          hostPath = ./hosts/laptop;
+          user = "none";
         };
 
-        VNPC-21 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = commonModules ++ [
-            ./hosts/vnpc-21
-            { user = "odin"; }
-            nixos-hardware.nixosModules.lenovo-thinkpad-p53
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  inherit inputs;
-                };
-                users.odin = mkHomeConfig {
-                  username = "odin";
-                  stateVersion = "25.05";
-                };
-              };
-            }
-          ];
+        VNPC-21 = mkSystem {
+          hostPath = ./hosts/vnpc-21;
+          user = "odin";
+          extraModules = [ nixos-hardware.nixosModules.lenovo-thinkpad-p53 ];
         };
 
-        station = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = commonModules ++ [
-            ./hosts/station
-            { user = "none"; }
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
-                users.none = mkHomeConfig {
-                  username = "none";
-                  stateVersion = "25.05";
-                };
-              };
-            }
-          ];
+        station = mkSystem {
+          hostPath = ./hosts/station;
+          user = "none";
         };
       };
 
