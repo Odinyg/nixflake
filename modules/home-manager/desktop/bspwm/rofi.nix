@@ -3,10 +3,7 @@
 
   options = {
     rofi = {
-      enable = lib.mkEnableOption {
-        description = "Enable polybar,sxhkd and rofi.";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Polybar, SXHKD, and Rofi for BSPWM";
     };
   };
 

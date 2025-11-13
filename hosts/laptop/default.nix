@@ -43,6 +43,21 @@
   # ==============================================================================
   gaming.enable = true;
   crypt.enable = true;
+
+  # Hyprland display configuration
+  hyprland = {
+    kanshi.profiles = [
+      {
+        profile.name = "laptop-only";
+        profile.outputs = [{
+          criteria = "eDP-1";
+          status = "enable";
+          mode = "1920x1200";
+          scale = 1.0;
+        }];
+      }
+    ];
+  };
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER
   # ==============================================================================

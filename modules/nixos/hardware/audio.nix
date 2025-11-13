@@ -7,10 +7,7 @@
 {
   options = {
     audio = {
-      enable = lib.mkEnableOption {
-        description = "Enable audio";
-        default = false;
-      };
+      enable = lib.mkEnableOption "audio";
     };
   };
   config = lib.mkIf config.audio.enable {

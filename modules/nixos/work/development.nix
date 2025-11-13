@@ -8,17 +8,14 @@
 let
   # Create stable packages overlay
   pkgs-stable = import inputs.nixpkgs-stable {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
 in
 {
   options = {
     work.development = {
-      enable = lib.mkEnableOption {
-        description = "Enable development tools (GCC, Make, DBeaver, etc.)";
-        default = false;
-      };
+      enable = lib.mkEnableOption "development tools (GCC, Make, DBeaver, etc.)";
     };
   };
 

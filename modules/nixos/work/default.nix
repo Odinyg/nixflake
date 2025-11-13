@@ -14,10 +14,7 @@
 
   options = {
     work = {
-      enable = lib.mkEnableOption {
-        description = "Enable all work-related modules";
-        default = false;
-      };
+      enable = lib.mkEnableOption "all work-related modules";
     };
   };
 

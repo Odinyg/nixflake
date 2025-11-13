@@ -7,10 +7,7 @@
 {
   options = {
     bluetooth = {
-      enable = lib.mkEnableOption {
-        description = "Enable bluetooth";
-        default = false;
-      };
+      enable = lib.mkEnableOption "bluetooth";
     };
   };
   config = lib.mkIf config.bluetooth.enable {

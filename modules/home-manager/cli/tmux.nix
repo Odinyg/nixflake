@@ -30,10 +30,7 @@ in
 {
   options = {
     tmux = {
-      enable = lib.mkEnableOption {
-        description = "Enable tmux.";
-        default = false;
-      };
+      enable = lib.mkEnableOption "tmux terminal multiplexer";
     };
   };
 
@@ -48,8 +45,8 @@ in
           };
           alt-k = {
             shortCut = "Alt-k";
-            description = "Viewing pods";
-            command = "pods";
+            description = "Viewing deployments";
+            command = "deployments";
           };
         };
       };

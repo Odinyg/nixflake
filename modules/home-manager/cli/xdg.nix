@@ -8,10 +8,7 @@
 
   options = {
     xdg = {
-      enable = lib.mkEnableOption {
-        description = "Enable xdg";
-        default = false;
-      };
+      enable = lib.mkEnableOption "XDG base directory specification";
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.xdg.enable {
@@ -33,12 +30,15 @@
             browser = [ "zen-beta.desktop" ];
             photo = [ "feh.desktop" ];
             video = [ "vlc.desktop" ];
-            office = [ "libreoffice-write.desktop" ];
+            office = [ "onlyoffice-desktopeditors.desktop" ];
             audio = [ "vlc.desktop" ];
             archive = [ "xarchiver.desktop" ];
             terminal = [ "kitty.desktop" ];
+            fileManager = [ "thunar.desktop" ];
           in
           {
+            # File Manager
+            "inode/directory" = fileManager;
             # Applications
             "application/pdf" = browser;
 

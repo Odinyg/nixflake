@@ -38,80 +38,20 @@
     # Kanshi dynamic display configuration
     services.kanshi = {
       enable = true;
-      settings = let hostname = config.networking.hostName;
-      in lib.optionals (hostname == "VNPC-21") [
-        # External Monitors Profile for VNPC-21
-        {
-          profile.name = "external-monitors";
-          profile.outputs = [
-            {
+      settings = if (config.hyprland.kanshi.profiles != []) then
+        config.hyprland.kanshi.profiles
+      else
+        # Default fallback profile for hosts without custom configuration
+        [
+          {
+            profile.name = "default";
+            profile.outputs = [{
               criteria = "eDP-1";
-              position = "0,0"; # Laptop screen
-              scale = 1.25;
-            }
-            {
-              criteria = "DP-4";
-              mode = "2560x1440";
-              position = "1536,0"; # Middle monitor (adjusted for eDP-1 scale)
-            }
-            {
-              criteria = "DP-5";
-              mode = "2560x1440";
-              position = "4096,0"; # Right monitor (1536 + 2560)
-            }
-          ];
-        }
-        {
-          profile.name = "vnpc-21-only";
-          profile.outputs = [{
-            criteria = "eDP-1";
-            status = "enable";
-            mode = "1920x1080";
-            scale = 1.0;
-          }];
-        }
-      ] ++ lib.optionals (hostname == "laptop") [
-        # Profile for laptop
-        {
-          profile.name = "laptop-only";
-          profile.outputs = [{
-            criteria = "eDP-1";
-            status = "enable";
-            mode = "1920x1200";
-            scale = 1.0;
-          }];
-        }
-      ] ++ lib.optionals (hostname == "station") [
-        # Profile for station
-        {
-          profile.name = "station-only";
-          profile.outputs = [
-            {
-              criteria = "DP-1";
-              mode = "1920x1080@164.96";
-              position = "0,0";
+              mode = "1920x1080";
               scale = 1.0;
-            }
-            {
-              criteria = "HDMI-A-1";
-              mode = "3840x2160@119.88";
-              position = "1920,0";
-              scale = 1.0;
-            }
-          ];
-        }
-      ] ++ lib.optionals
-      (hostname != "laptop" && hostname != "VNPC-21" && hostname != "station") [
-        # Default Profile
-        {
-          profile.name = "default";
-          profile.outputs = [{
-            criteria = "eDP-1";
-            mode = "1920x1080";
-            scale = 1.0;
-          }];
-        }
-      ];
+            }];
+          }
+        ];
     };
   };
 }

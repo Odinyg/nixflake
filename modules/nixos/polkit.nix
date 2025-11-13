@@ -7,10 +7,7 @@
 {
   options = {
     polkit = {
-      enable = lib.mkEnableOption {
-        description = "Enable polkit";
-        default = false;
-      };
+      enable = lib.mkEnableOption "polkit";
     };
   };
   config = lib.mkIf config.polkit.enable {

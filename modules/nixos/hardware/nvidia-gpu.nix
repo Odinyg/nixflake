@@ -1,10 +1,7 @@
 { config, pkgs, lib, ... }: {
   options = {
     nvidia-gpu = {
-      enable = lib.mkEnableOption {
-        description = "Enable NVIDIA GPU support for desktop systems";
-        default = false;
-      };
+      enable = lib.mkEnableOption "NVIDIA GPU support for desktop systems";
     };
   };
 

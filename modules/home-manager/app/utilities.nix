@@ -2,10 +2,7 @@
 
   options = {
     utilities = {
-      enable = lib.mkEnableOption {
-        description = "Enable miscellaneous utility applications";
-        default = false;
-      };
+      enable = lib.mkEnableOption "miscellaneous utility applications";
     };
   };
 
@@ -36,7 +33,7 @@
       wine               # Windows compatibility layer
       autokey            # Automation tool
       xcape              # Key modifier tool
-      rpi-imager         # Raspberry Pi imager
+      # rpi-imager         # Raspberry Pi imager (temporarily disabled due to build error)
 
       # X11 Utilities (for tdrop and window management)
       xorg.xwininfo      # Window information utility

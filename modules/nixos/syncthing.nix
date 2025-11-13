@@ -3,10 +3,7 @@
 
   options = {
     syncthing = {
-      enable = lib.mkEnableOption {
-        description = "Enable several syncthing";
-        default = true;
-      };
+      enable = lib.mkEnableOption "syncthing";
     };
   };
   config = lib.mkIf config.syncthing.enable {

@@ -1,7 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
 let
   cfg = config.mcp;
-  mcp-nixos = inputs.mcp-nixos.packages.${pkgs.system}.default;
+  mcp-nixos = inputs.mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   options.mcp = {

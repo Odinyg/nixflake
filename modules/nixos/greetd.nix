@@ -7,10 +7,7 @@
 {
   options = {
     greetd = {
-      enable = lib.mkEnableOption {
-        description = "Enable greetd";
-        default = false;
-      };
+      enable = lib.mkEnableOption "greetd";
     };
   };
   config = lib.mkIf config.greetd.enable {

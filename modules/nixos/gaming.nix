@@ -7,10 +7,7 @@
 {
   options = {
     gaming = {
-      enable = lib.mkEnableOption {
-        description = "Enable gaming optimizations and software";
-        default = false;
-      };
+      enable = lib.mkEnableOption "gaming optimizations and software";
 
       steam = {
         enable = lib.mkOption {

@@ -7,10 +7,7 @@
 {
   options = {
     hardware.nvidia-gpu = {
-      enable = lib.mkEnableOption {
-        description = "Enable NVIDIA GPU support with prime and optimizations";
-        default = false;
-      };
+      enable = lib.mkEnableOption "NVIDIA GPU support with prime and optimizations";
       
       prime = {
         nvidiaBusId = lib.mkOption {

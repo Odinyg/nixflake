@@ -2,10 +2,7 @@
 
   options = {
     prompt = {
-      enable = lib.mkEnableOption {
-        description = "Enable starship prompt";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Starship prompt";
     };
   };
 

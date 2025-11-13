@@ -8,17 +8,14 @@
 let
   # Create stable packages overlay
   pkgs-stable = import inputs.nixpkgs-stable {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
 in
 {
   options = {
     work.communication = {
-      enable = lib.mkEnableOption {
-        description = "Enable work communication tools (Zoom, AnyDesk)";
-        default = false;
-      };
+      enable = lib.mkEnableOption "work communication tools (Zoom, AnyDesk)";
     };
   };
 

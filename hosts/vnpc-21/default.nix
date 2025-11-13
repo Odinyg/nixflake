@@ -37,7 +37,7 @@
       insync
       tree
       libva-utils
-      glxinfo
+      mesa-demos
       vulkan-tools
       wayland-utils
       vesktop
@@ -56,7 +56,62 @@
   # HOST-SPECIFIC OVERRIDES
   # ==============================================================================
   # Desktop environments
-  hyprland.enable = true;
+  hyprland = {
+    enable = true;
+
+    # Kanshi display profiles for dynamic monitor configuration
+    kanshi.profiles = [
+      # External triple monitor setup
+      {
+        profile.name = "external-monitors";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            position = "0,0";
+            scale = 1.25;
+          }
+          {
+            criteria = "DP-4";
+            mode = "2560x1440";
+            position = "1536,0";
+          }
+          {
+            criteria = "DP-5";
+            mode = "2560x1440";
+            position = "4096,0";
+          }
+        ];
+      }
+      # Laptop screen only
+      {
+        profile.name = "vnpc-21-only";
+        profile.outputs = [{
+          criteria = "eDP-1";
+          status = "enable";
+          mode = "1920x1080";
+          scale = 1.0;
+        }];
+      }
+    ];
+
+    # Hyprland workspace assignments
+    monitors.extraConfig = ''
+      # VNPC-21: Triple monitor workspace setup
+      workspace = 1, monitor:DP-4, default:true
+      workspace = 2, monitor:DP-4
+      workspace = 3, monitor:DP-4
+      workspace = 4, monitor:DP-4
+      workspace = 5, monitor:DP-4
+
+      workspace = 6, monitor:DP-5, default:true
+      workspace = 7, monitor:DP-5
+      workspace = 8, monitor:DP-5
+
+      workspace = 9, monitor:HDMI-A-1
+      workspace = 0, monitor:HDMI-A-1
+    '';
+  };
+
   programs.kdeconnect.enable = true;
 
   # Secrets management
@@ -73,9 +128,6 @@
 
   # Hosted services
   hosted-services.n8n.enable = true;
-
-  # Virtualization tools
-  winboat.enable = true;
 
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER
@@ -110,7 +162,7 @@
   # SYSTEM PACKAGES
   # ==============================================================================
   environment.systemPackages = with pkgs; [
-    inputs.zen-browser.packages."${pkgs.system}".default
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
     pciutils
     system-config-printer
     lshw

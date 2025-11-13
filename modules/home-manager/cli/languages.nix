@@ -2,10 +2,7 @@
 
   options = {
     languages = {
-      enable = lib.mkEnableOption {
-        description = "Enable programming language runtimes";
-        default = false;
-      };
+      enable = lib.mkEnableOption "programming language runtimes";
     };
   };
 

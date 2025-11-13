@@ -8,10 +8,7 @@
 
   options = {
     sunshine = {
-      enable = lib.mkEnableOption {
-        description = "Enable several sunshine";
-        default = false;
-      };
+      enable = lib.mkEnableOption "sunshine";
     };
   };
   config = lib.mkIf config.sunshine.enable {

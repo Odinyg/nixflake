@@ -3,10 +3,7 @@
 
   options = {
     direnv = {
-      enable = lib.mkEnableOption {
-        description = "Enable several direnv";
-        default = false;
-      };
+      enable = lib.mkEnableOption "direnv automatic environment switching";
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.direnv.enable {

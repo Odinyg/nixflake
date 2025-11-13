@@ -3,10 +3,7 @@
 
   options = {
     gammastep = {
-      enable = lib.mkEnableOption {
-        description = "Enable several gammastep";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Gammastep screen temperature adjustment";
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.gammastep.enable {

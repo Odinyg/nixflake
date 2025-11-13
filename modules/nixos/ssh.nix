@@ -2,10 +2,7 @@
 {
   options = {
     ssh = {
-      enable = lib.mkEnableOption {
-        description = "Enable ssh ";
-        default = false;
-      };
+      enable = lib.mkEnableOption "ssh";
     };
   };
   config = lib.mkIf config.ssh.enable {

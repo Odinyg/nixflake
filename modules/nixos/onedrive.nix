@@ -7,10 +7,7 @@
 {
   options = {
     onedrive = {
-      enable = lib.mkEnableOption {
-        description = "Enable onedrive";
-        default = false;
-      };
+      enable = lib.mkEnableOption "onedrive";
     };
   };
   config = lib.mkIf config.onedrive.enable {

@@ -7,10 +7,7 @@
 {
   options = {
     discord = {
-      enable = lib.mkEnableOption {
-        description = "Enable Discord.";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Discord (Vesktop)";
     };
   };
 

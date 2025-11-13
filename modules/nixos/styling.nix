@@ -7,10 +7,7 @@
 {
   options = {
     styling = {
-      enable = lib.mkEnableOption {
-        description = "Enable styling and theming.";
-        default = false;
-      };
+      enable = lib.mkEnableOption "styling and theming";
 
       theme = lib.mkOption {
         type = lib.types.str;

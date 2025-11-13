@@ -8,10 +8,7 @@
 
   options = {
     randr = {
-      enable = lib.mkEnableOption {
-        description = "Enable randr.";
-        default = false;
-      };
+      enable = lib.mkEnableOption "randr";
     };
   };
   config = lib.mkIf config.randr.enable {

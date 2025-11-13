@@ -3,10 +3,7 @@
 
   options = {
     chromium = {
-      enable = lib.mkEnableOption {
-        description = "Enable several chromium";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Chromium browser";
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.chromium.enable {

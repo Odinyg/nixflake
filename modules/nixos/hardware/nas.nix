@@ -7,10 +7,7 @@
 {
   options = {
     smbmount = {
-      enable = lib.mkEnableOption {
-        description = "Enable SMB mount.";
-        default = false;
-      };
+      enable = lib.mkEnableOption "SMB mount";
     };
   };
   config = lib.mkIf config.smbmount.enable {

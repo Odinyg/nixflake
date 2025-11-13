@@ -3,10 +3,7 @@
 
   options = {
     zellij = {
-      enable = lib.mkEnableOption {
-        description = "Enable several zellij";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Zellij terminal multiplexer";
     };
   };
   config.home-manager.users.${config.user} = lib.mkIf config.zellij.enable {

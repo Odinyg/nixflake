@@ -8,10 +8,7 @@
 
   options = {
     _1password = {
-      enable = lib.mkEnableOption {
-        description = "Enable locate";
-        default = false;
-      };
+      enable = lib.mkEnableOption "locate";
     };
   };
   config = lib.mkIf config.locate.enable {

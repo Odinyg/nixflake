@@ -7,10 +7,7 @@
 {
   options = {
     work.remoteAccess = {
-      enable = lib.mkEnableOption {
-        description = "Enable remote access tools (Remmina, OpenVPN)";
-        default = false;
-      };
+      enable = lib.mkEnableOption "remote access tools (Remmina, OpenVPN)";
     };
   };
 

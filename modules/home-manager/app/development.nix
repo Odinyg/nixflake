@@ -2,10 +2,7 @@
 
   options = {
     development = {
-      enable = lib.mkEnableOption {
-        description = "Enable development tools and IDEs";
-        default = false;
-      };
+      enable = lib.mkEnableOption "development tools and IDEs";
     };
   };
 

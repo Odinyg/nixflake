@@ -7,10 +7,7 @@
 {
   options = {
     wireless = {
-      enable = lib.mkEnableOption {
-        description = "Enable wireless";
-        default = false;
-      };
+      enable = lib.mkEnableOption "wireless";
     };
   };
   config = lib.mkIf config.wireless.enable {

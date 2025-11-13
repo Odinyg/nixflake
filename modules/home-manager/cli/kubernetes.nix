@@ -2,10 +2,7 @@
 
   options = {
     kubernetes = {
-      enable = lib.mkEnableOption {
-        description = "Enable Kubernetes CLI tools";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Kubernetes CLI tools";
     };
   };
 

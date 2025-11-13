@@ -8,10 +8,7 @@
 
   options = {
     thunar = {
-      enable = lib.mkEnableOption {
-        description = "Enable several thunar";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Thunar file manager";
     };
   };
   config = lib.mkIf config.thunar.enable {

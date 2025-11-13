@@ -1,10 +1,7 @@
 { lib, config, pkgs, ... }: {
   options = {
     virtualization = {
-      enable = lib.mkEnableOption {
-        description = "Enable virtualization and container support";
-        default = false;
-      };
+      enable = lib.mkEnableOption "virtualization and container support";
 
       docker = {
         enable = lib.mkOption {
@@ -146,7 +143,7 @@
 
         (lib.optionals config.virtualization.remoteAccess.enable [
           remmina
-          freerdp3
+          freerdp
         ])
       ];
   };

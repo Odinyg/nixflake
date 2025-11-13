@@ -2,10 +2,7 @@
 
   options = {
     system-tools = {
-      enable = lib.mkEnableOption {
-        description = "Enable system monitoring and CLI utilities";
-        default = false;
-      };
+      enable = lib.mkEnableOption "system monitoring and CLI utilities";
     };
   };
 

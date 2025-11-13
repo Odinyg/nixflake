@@ -7,10 +7,7 @@
 {
   options = {
     zsa = {
-      enable = lib.mkEnableOption {
-        description = "Enable zsa";
-        default = false;
-      };
+      enable = lib.mkEnableOption "zsa";
     };
   };
   config = lib.mkIf config.zsa.enable {

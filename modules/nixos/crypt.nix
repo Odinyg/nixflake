@@ -7,10 +7,7 @@
 {
   options = {
     crypt = {
-      enable = lib.mkEnableOption {
-        description = "Enable Crypt";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Crypt";
     };
   };
   config = lib.mkIf config.crypt.enable {

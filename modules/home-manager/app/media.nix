@@ -2,10 +2,7 @@
 
   options = {
     media = {
-      enable = lib.mkEnableOption {
-        description = "Enable media applications";
-        default = false;
-      };
+      enable = lib.mkEnableOption "media applications";
     };
   };
 

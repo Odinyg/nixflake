@@ -8,10 +8,7 @@
 
   options = {
     ollama = {
-      enable = lib.mkEnableOption {
-        description = "Enable ollama";
-        default = false;
-      };
+      enable = lib.mkEnableOption "ollama";
     };
   };
   config = lib.mkIf config.ollama.enable {

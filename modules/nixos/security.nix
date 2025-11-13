@@ -7,17 +7,11 @@
 {
   options = {
     security = {
-      enable = lib.mkEnableOption {
-        description = "Enable security tools like Wireshark";
-        default = false;
-      };
+      enable = lib.mkEnableOption "security tools like Wireshark";
     };
 
     security.insecurePackages = {
-      enable = lib.mkEnableOption {
-        description = "Allow specific insecure packages that are required for compatibility";
-        default = true;
-      };
+      enable = lib.mkEnableOption "Allow specific insecure packages that are required for compatibility";
     };
   };
 

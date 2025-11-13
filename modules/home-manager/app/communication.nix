@@ -2,10 +2,7 @@
 
   options = {
     communication = {
-      enable = lib.mkEnableOption {
-        description = "Enable communication and productivity apps";
-        default = false;
-      };
+      enable = lib.mkEnableOption "communication and productivity apps";
     };
   };
 

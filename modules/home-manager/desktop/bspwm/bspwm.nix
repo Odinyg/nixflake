@@ -8,10 +8,7 @@
 
   options = {
     bspwm = {
-      enable = lib.mkEnableOption {
-        description = "Enable bspwm.";
-        default = false;
-      };
+      enable = lib.mkEnableOption "BSPWM window manager";
     };
   };
 

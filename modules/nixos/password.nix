@@ -7,10 +7,7 @@
 {
   options = {
     _1password = {
-      enable = lib.mkEnableOption {
-        description = "Enable _1password";
-        default = false;
-      };
+      enable = lib.mkEnableOption "_1password";
     };
   };
   config = lib.mkIf config._1password.enable {

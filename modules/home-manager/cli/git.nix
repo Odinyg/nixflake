@@ -3,9 +3,18 @@
 
   options = {
     git = {
-      enable = lib.mkEnableOption {
-        description = "Enable several git";
-        default = false;
+      enable = lib.mkEnableOption "Git version control tools and configuration";
+
+      userName = lib.mkOption {
+        type = lib.types.str;
+        default = "Odin";
+        description = "Git user name for commits";
+      };
+
+      userEmail = lib.mkOption {
+        type = lib.types.str;
+        default = "git@pytt.io";
+        description = "Git user email for commits";
       };
     };
   };
@@ -16,8 +25,8 @@
         enable = true;
         settings = {
           user = {
-            name = "Odin";
-            email = "git@pytt.io";
+            name = config.git.userName;
+            email = config.git.userEmail;
           };
           core.editor = "nvim";
         };
@@ -59,7 +68,7 @@
       gre = "git restore";
       gr = "git remote";
       gcl = "git clone";
-      gt = "git ls-tree -r master --name-only";
+      gt = "git ls-tree -r HEAD --name-only";
       gb = "git branch";
       gbl = "git branch --list";
       gm = "git merge";

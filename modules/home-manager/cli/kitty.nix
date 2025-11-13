@@ -3,10 +3,7 @@
 
   options = {
     kitty = {
-      enable = lib.mkEnableOption {
-        description = "Enable kitty";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Kitty terminal emulator";
     };
   };
 

@@ -7,10 +7,7 @@
 {
   options = {
     work.productivity = {
-      enable = lib.mkEnableOption {
-        description = "Enable productivity tools (Insync, Flameshot, Kuro)";
-        default = false;
-      };
+      enable = lib.mkEnableOption "productivity tools (Insync, Flameshot, Kuro, OnlyOffice)";
     };
   };
 
@@ -19,6 +16,7 @@
       insync
       flameshot
       kuro
+      onlyoffice-desktopeditors
     ];
   };
 }

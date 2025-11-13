@@ -18,7 +18,6 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
-    winboat.url = "github:TibixDev/winboat";
   };
   outputs =
     {
@@ -30,7 +29,6 @@
       stylix,
       sops-nix,
       zen-browser,
-      winboat,
       ...
     }@inputs:
 
