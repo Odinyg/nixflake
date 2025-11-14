@@ -29,6 +29,10 @@
       zsh.enable = true;
       autojump.enable = true;
       fzf.enable = true;
+      carapace = {
+        enable = true;
+        enableZshIntegration = true;
+      };
     };
   };
 }

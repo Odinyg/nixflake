@@ -11,7 +11,7 @@
       # Email & Security
       protonmail-desktop  # ProtonMail email client
       proton-pass         # ProtonPass password manager
-      protonvpn-gui       # ProtonVPN client
+      # protonvpn-gui       # ProtonVPN client (temporarily disabled due to test failures in proton-core)
       keeweb              # Password manager
 
       # Terminals

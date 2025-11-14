@@ -26,11 +26,14 @@
   };
 
   config = lib.mkIf config.hardware.nvidia-gpu.enable {
+    # Allow unfree packages (required for NVIDIA drivers)
+    nixpkgs.config.allowUnfree = true;
+
     # NVIDIA drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     
     hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
       powerManagement.enable = false;
       open = true;
