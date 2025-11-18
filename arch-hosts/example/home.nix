@@ -117,4 +117,15 @@
   #    systemctl --user enable pipewire pipewire-pulse wireplumber
   #    sudo systemctl enable bluetooth
   #    sudo systemctl enable NetworkManager
+  #
+  # ==============================================================================
+  # CUSTOMIZATION
+  # ==============================================================================
+  # To customize this configuration:
+  # 1. Copy this directory: cp -r arch-hosts/example arch-hosts/yourhostname
+  # 2. Edit arch-hosts/yourhostname/home.nix (change username, enable/disable modules)
+  # 3. Add your config to flake.nix in the homeConfigurations section
+  # 4. Run: home-manager switch --flake .#youruser@yourhostname
+  #
+  # See ARCH-SETUP.md for detailed instructions
 }
