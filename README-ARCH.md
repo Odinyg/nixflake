@@ -205,10 +205,19 @@ systemctl --user restart pipewire pipewire-pulse
 
 ## 📚 Resources
 
-- [Full Setup Guide](./ARCH-SETUP.md) - Detailed installation instructions
+### Documentation
+- **[Documentation Index](./ARCH-INDEX.md)** - Complete guide to all documentation
+- **[Full Setup Guide](./ARCH-SETUP.md)** - Detailed installation instructions
+- **[Quick Start](./ARCH-QUICKSTART.md)** - Get started in 5 minutes
+- **[Checklist](./ARCH-CHECKLIST.md)** - Step-by-step installation checklist
+- **[Migration Guide](./NIXOS-TO-ARCH.md)** - Moving from NixOS to Arch
+- **[Configuration Guide](./arch-hosts/README.md)** - Creating host configurations
+- **[Original README](./README.md)** - For NixOS users
+
+### External Resources
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [Nixpkgs Search](https://search.nixos.org/packages)
-- [Original README](./README.md) - For NixOS users
+- [Arch Wiki](https://wiki.archlinux.org/)
 
 ## 🤝 Contributing
 

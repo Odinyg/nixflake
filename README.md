@@ -2,10 +2,12 @@
 
 A modular, reproducible NixOS configuration using flakes with home-manager integration. Supports multiple hosts, desktop environments, and a layered profile system for maximum reusability.
 
-> 🐧 **Using Arch Linux?** Check out the [Arch Linux branch](../../tree/copilot/set-up-arch-with-nix) for standalone home-manager setup!
-> - **Quick Start:** [ARCH-QUICKSTART.md](./ARCH-QUICKSTART.md)
-> - **Full Guide:** [ARCH-SETUP.md](./ARCH-SETUP.md)
-> - **Arch README:** [README-ARCH.md](./README-ARCH.md)
+> 🐧 **Using Arch Linux?** This repository now supports Arch Linux with standalone home-manager!
+> - **📖 Documentation Index:** [ARCH-INDEX.md](./ARCH-INDEX.md) - Complete guide to all documentation
+> - **🚀 Quick Start:** [ARCH-QUICKSTART.md](./ARCH-QUICKSTART.md) - Get started in 5 minutes
+> - **📋 Setup Checklist:** [ARCH-CHECKLIST.md](./ARCH-CHECKLIST.md) - Step-by-step installation
+> - **📚 Full Guide:** [ARCH-SETUP.md](./ARCH-SETUP.md) - Comprehensive setup instructions
+> - **📝 Arch README:** [README-ARCH.md](./README-ARCH.md) - Overview and daily usage
 
 ## 🖥️ Hosts
 
