@@ -1,10 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-{
+{ lib, config, pkgs, ... }: {
 
   options = {
     ollama = {
@@ -15,14 +9,14 @@
     services.open-webui = {
       enable = true;
       host = "0.0.0.0";
-      openFirewall = false;
+      openFirewall = true;
     };
     services.nextjs-ollama-llm-ui.enable = true;
     services.ollama = {
       enable = true;
       host = "0.0.0.0";
       acceleration = "cuda";
-      openFirewall = false;
+      openFirewall = true;
     };
 
     # Allow access only through Tailscale (secure private network)

@@ -33,11 +33,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "plugdev"
-    ];
+    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
   };
 
   # ==============================================================================
@@ -105,6 +101,12 @@
   # Terminal opacity
   styling.opacity.terminal = 0.85;
 
+  # Disable lockscreen/idle management (causes crashes on HDMI disconnect)
+  home-manager.users.none = {
+    programs.swaylock.enable = lib.mkForce false;
+    services.hypridle.enable = lib.mkForce false;
+  };
+
   # AI / LLM Tools
   ollama.enable = true;
   alpaca.enable = true;
@@ -117,8 +119,10 @@
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
   ];
 
+  hosted-services.n8n.enable = true;
   # ==============================================================================
   # SYSTEM VERSION
   # ==============================================================================
   system.stateVersion = "25.05";
 }
+
