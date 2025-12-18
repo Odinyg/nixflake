@@ -21,7 +21,9 @@
           }
         ];
         legacy_commands = false;
-        disable_frontmatter = false;
+        frontmatter = {
+          enabled = true;
+        };
         note_id_func.__raw = ''
           function(title)
             local suffix = ""

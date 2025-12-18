@@ -112,6 +112,9 @@
     '';
   };
 
+  # COSMIC desktop environment
+  cosmic.enable = true;
+
   programs.kdeconnect.enable = true;
 
   # Secrets management
@@ -127,7 +130,7 @@
   init-net.enable = true;
 
   # Hosted services
-  hosted-services.n8n.enable = true;
+  hosted-services.n8n.enable = false;
 
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER

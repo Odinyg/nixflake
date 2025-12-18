@@ -27,7 +27,7 @@
 
         defaultApplications =
           let
-            browser = [ "zen-beta.desktop" ];
+            browser = [ "zen-browser.desktop" ];
             photo = [ "feh.desktop" ];
             video = [ "vlc.desktop" ];
             office = [ "onlyoffice-desktopeditors.desktop" ];

@@ -12,6 +12,7 @@
       vlc            # Media player
 
       # Image Editing
+      gimp           # Advanced image editor
       pinta          # Simple image editor
       kdePackages.kolourpaint  # Paint program
 

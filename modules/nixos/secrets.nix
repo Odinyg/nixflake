@@ -48,8 +48,8 @@
           path = "/home/${config.user}/.ssh/id_work.pub";
           mode = "0644";
         };
-
-        # SMB credentials for NAS mounting
+      } // lib.optionalAttrs config.smbmount.enable {
+        # SMB credentials for NAS mounting (only when smbmount is enabled)
         "smb/credentials" = {
           owner = "root";
           mode = "0600";

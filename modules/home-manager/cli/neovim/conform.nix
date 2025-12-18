@@ -1,14 +1,10 @@
 { pkgs, ... }:
 {
-  programs.nixvim.plugins.conform-nvim = {
-    enable = true;
-    settings = {
-
-      format_on_save = {
-        lspFallback = true;
-        timeoutMs = 500;
-      };
-      notify_on_error = true;
+  programs.nixvim = {
+    plugins.conform-nvim = {
+      enable = true;
+      settings = {
+        notify_on_error = true;
 
       formatters = {
         prettier = {
@@ -74,5 +70,21 @@
         ];
       };
     };
+    };
+
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>f";
+        action = "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<CR>";
+        options.desc = "[f]ormat buffer";
+      }
+      {
+        mode = "v";
+        key = "<leader>f";
+        action = "<cmd>lua require('conform').format({ async = true, lsp_fallback = true })<CR>";
+        options.desc = "[f]ormat selection";
+      }
+    ];
   };
 }
