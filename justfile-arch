@@ -1,0 +1,128 @@
+# ==============================================================================
+# JUSTFILE FOR ARCH LINUX WITH HOME-MANAGER
+# ==============================================================================
+# This justfile is for managing home-manager on Arch Linux (or other non-NixOS)
+# Copy or rename this to 'justfile' on your Arch system
+# ==============================================================================
+
+USER := env_var('USER')
+HOST := `hostname`
+FLAKE := USER + "@" + HOST
+
+default:
+  @just --list
+
+# ==============================================================================
+# HOME-MANAGER COMMANDS
+# ==============================================================================
+
+# Rebuild home-manager configuration and switch
+rebuild: rebuild-pre
+  home-manager switch --flake .#{{FLAKE}}
+
+# Rebuild with verbose output
+verbose: rebuild-pre
+  home-manager switch --flake .#{{FLAKE}} --verbose
+
+# Build without switching (for testing)
+build: rebuild-pre
+  home-manager build --flake .#{{FLAKE}}
+
+# Update flake inputs and rebuild
+upgrade: upgrade-pre
+  home-manager switch --flake .#{{FLAKE}}
+
+# ==============================================================================
+# MAINTENANCE COMMANDS
+# ==============================================================================
+
+# Add .nix files to git (pre-step before rebuild)
+rebuild-pre:
+  git add . || true
+
+# Update flake.lock
+upgrade-pre:
+  nix flake update
+
+# See git diff excluding flake.lock
+diff:
+  git diff ':!flake.lock'
+
+# Clean old home-manager generations (older than 14 days)
+gc:
+  home-manager expire-generations "-14 days"
+  nix-collect-garbage --delete-older-than 14d
+
+# List all home-manager generations
+generations:
+  home-manager generations
+
+# ==============================================================================
+# UTILITY COMMANDS
+# ==============================================================================
+
+# Check flake for errors
+check:
+  nix flake check
+
+# Show current configuration
+show:
+  nix flake show
+
+# Update a specific flake input
+update INPUT:
+  nix flake lock --update-input {{INPUT}}
+
+# Format all nix files in the repository
+fmt:
+  nix fmt
+
+# ==============================================================================
+# ARCH LINUX SPECIFIC COMMANDS
+# ==============================================================================
+
+# Install system dependencies via pacman (run with sudo)
+install-system-deps:
+  @echo "Installing required system packages via pacman..."
+  @echo "You may need to run this with sudo"
+  pacman -S --needed \
+    hyprland \
+    pipewire pipewire-pulse wireplumber \
+    bluez bluez-utils \
+    networkmanager \
+    polkit \
+    xdg-desktop-portal-hyprland \
+    xdg-desktop-portal-gtk \
+    qt5-wayland qt6-wayland
+
+# Enable required system services
+enable-services:
+  @echo "Enabling system services..."
+  systemctl --user enable --now pipewire pipewire-pulse wireplumber
+  sudo systemctl enable --now bluetooth
+  sudo systemctl enable --now NetworkManager
+
+# Install Nix package manager (if not already installed)
+install-nix:
+  @echo "Installing Nix package manager..."
+  sh <(curl -L https://nixos.org/nix/install) --daemon
+  @echo ""
+  @echo "Nix installed. Please:"
+  @echo "1. Restart your shell or source the nix profile"
+  @echo "2. Create ~/.config/nix/nix.conf with: experimental-features = nix-command flakes"
+  @echo "3. Run 'just setup-home-manager' to continue"
+
+# Setup home-manager for first time
+setup-home-manager:
+  @echo "Setting up home-manager..."
+  nix run home-manager/master -- init --switch
+  @echo ""
+  @echo "Home-manager initialized. Now run 'just rebuild' to apply your configuration"
+
+# Complete Arch setup (all steps)
+setup-arch: install-system-deps enable-services
+  @echo ""
+  @echo "System dependencies installed and services enabled."
+  @echo "If Nix is not installed, run: just install-nix"
+  @echo "Then run: just setup-home-manager"
+  @echo "Finally run: just rebuild"
