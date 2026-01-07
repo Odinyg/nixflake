@@ -9,8 +9,10 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/desktop.nix
-    ../../profiles/hardware/nvidia.nix
   ];
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # ==============================================================================
   # BOOT CONFIGURATION
@@ -48,7 +50,7 @@
   # ==============================================================================
   # HARDWARE - NVIDIA GPU
   # ==============================================================================
-  hardware.nvidia-gpu.enable = true;
+  nvidia-gpu.enable = true;
 
   # ==============================================================================
   # POWER MANAGEMENT - DISABLE SLEEP/SUSPEND
@@ -105,12 +107,72 @@
   home-manager.users.none = {
     programs.swaylock.enable = lib.mkForce false;
     services.hypridle.enable = lib.mkForce false;
+
+    wayland.windowManager.hyprland.settings = {
+      # Default gaps (for DP-1 monitor)
+      general = {
+        gaps_in = lib.mkForce 0;
+        gaps_out = lib.mkForce 0;
+      };
+
+      # Assign workspaces to monitors
+      workspace = [
+        "1, monitor:HDMI-A-1, default:true"
+        "2, monitor:HDMI-A-1"
+        "3, monitor:HDMI-A-1"
+        "4, monitor:HDMI-A-1"
+        "5, monitor:HDMI-A-1"
+        "6, monitor:DP-1, default:true"
+        "7, monitor:DP-1"
+        "8, monitor:DP-1"
+        "9, monitor:DP-1"
+        "10, monitor:DP-1"
+      ];
+    };
+
+    # Use extraConfig for workspace gap rules
+    wayland.windowManager.hyprland.extraConfig = ''
+      # Large gaps for HDMI monitor workspaces (1-5)
+      workspace = 1, gapsin:0, gapsout:0 100 200 100
+      workspace = 2, gapsin:0, gapsout:0 100 200 100
+      workspace = 3, gapsin:0, gapsout:0 100 200 100
+      workspace = 4, gapsin:0, gapsout:0 100 200 100
+      workspace = 5, gapsin:0, gapsout:0 100 200 100
+    '';
   };
 
   # AI / LLM Tools
   ollama.enable = true;
   alpaca.enable = true;
   oterm.enable = true;
+
+  # VPN
+  protonvpn.enable = true;
+
+  # Monitor Configuration
+  hyprland.kanshi.profiles = [
+    {
+      profile.name = "station-dual";
+      profile.outputs = [
+        {
+          criteria = "DP-1";
+          mode = "1920x1080@120";
+          position = "0,0";
+        }
+        {
+          criteria = "HDMI-A-1";
+          mode = "3840x2160@60";
+          position = "1920,0";
+        }
+      ];
+    }
+  ];
+
+  # Monitor configuration
+  hyprland.monitors.extraConfig = ''
+    monitor = HDMI-A-1, 3840x2160@60, 1920x0, 1
+    monitor = DP-1, 1920x1080@120, 0x0, 1
+  '';
 
   # ==============================================================================
   # SYSTEM PACKAGES

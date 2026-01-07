@@ -43,6 +43,7 @@
   # ==============================================================================
   gaming.enable = true;
   crypt.enable = true;
+  protonvpn.enable = true;
 
   # Hyprland display configuration
   hyprland = {

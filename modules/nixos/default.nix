@@ -24,5 +24,6 @@
     ./init-net.nix
     ./hosted-services
     ./secrets.nix
+    ./protonvpn.nix
   ];
 }

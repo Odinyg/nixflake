@@ -1,25 +1,13 @@
 { lib, config, pkgs, ... }: {
 
-  options = {
-    ollama = {
-      enable = lib.mkEnableOption "ollama";
-    };
-  };
+  options = { ollama = { enable = lib.mkEnableOption "ollama"; }; };
   config = lib.mkIf config.ollama.enable {
-    services.open-webui = {
-      enable = true;
-      host = "0.0.0.0";
-      openFirewall = true;
-    };
     services.nextjs-ollama-llm-ui.enable = true;
     services.ollama = {
       enable = true;
       host = "0.0.0.0";
-      acceleration = "cuda";
+      package = pkgs.ollama-cuda;
       openFirewall = true;
     };
-
-    # Allow access only through Tailscale (secure private network)
-    networking.firewall.trustedInterfaces = [ "tailscale0" ];
   };
 }
