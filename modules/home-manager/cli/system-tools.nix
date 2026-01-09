@@ -20,6 +20,7 @@
 
       # Network & Security
       sshpass            # Non-interactive SSH password auth
+      keychain
 
       # System Utilities
       usbutils           # USB device utilities (lsusb)
