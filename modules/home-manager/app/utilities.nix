@@ -16,7 +16,7 @@
     home.packages = with pkgs; [
       # File Managers
       yazi # Terminal file manager
-      xfce.thunar # GUI file manager
+      thunar # GUI file manager
 
       # Image Viewers & Screenshot
       feh # Lightweight image viewer

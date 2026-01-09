@@ -17,7 +17,7 @@ in {
       anydesk
       teams-for-linux
       zoom-us
-      rustdesk
+      # rustdesk  # Disabled: fails to build with GCC 15.2.0 (missing <cstdint> headers)
     ];
   };
 }

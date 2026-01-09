@@ -14,11 +14,11 @@
   config = lib.mkIf config.thunar.enable {
 
     environment.systemPackages = with pkgs; [
-      xfce.exo
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      xfce.tumbler
-      xfce.xfconf
+      xfce4-exo
+      thunar
+      thunar-archive-plugin
+      tumbler
+      xfconf
       gvfs
     ];
   };

@@ -9,7 +9,7 @@
       nodePackages.prettier
       black
       stylua
-      nixfmt-classic
+      nixfmt
       yamlfmt
     ];
 

@@ -1,15 +1,5 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
-{
-  imports = [
-    ./hardware-configuration.nix
-    ../../profiles/desktop.nix
-  ];
+{ config, pkgs, lib, inputs, ... }: {
+  imports = [ ./hardware-configuration.nix ../../profiles/desktop.nix ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -35,7 +25,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
-    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
+    extraGroups = [ "networkmanager" "wheel" "plugdev" "dialout" ];
   };
 
   # ==============================================================================
@@ -144,29 +134,27 @@
   # AI / LLM Tools
   ollama.enable = true;
   alpaca.enable = true;
-  oterm.enable = true;
+  # oterm.enable = true;  # Disabled due to broken fastmcp dependency
 
   # VPN
   protonvpn.enable = true;
 
   # Monitor Configuration
-  hyprland.kanshi.profiles = [
-    {
-      profile.name = "station-dual";
-      profile.outputs = [
-        {
-          criteria = "DP-1";
-          mode = "1920x1080@120";
-          position = "0,0";
-        }
-        {
-          criteria = "HDMI-A-1";
-          mode = "3840x2160@60";
-          position = "1920,0";
-        }
-      ];
-    }
-  ];
+  hyprland.kanshi.profiles = [{
+    profile.name = "station-dual";
+    profile.outputs = [
+      {
+        criteria = "DP-1";
+        mode = "1920x1080@120";
+        position = "0,0";
+      }
+      {
+        criteria = "HDMI-A-1";
+        mode = "3840x2160@60";
+        position = "1920,0";
+      }
+    ];
+  }];
 
   # Monitor configuration
   hyprland.monitors.extraConfig = ''
@@ -177,9 +165,10 @@
   # ==============================================================================
   # SYSTEM PACKAGES
   # ==============================================================================
-  environment.systemPackages = with pkgs; [
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+    ];
 
   hosted-services.n8n.enable = true;
   # ==============================================================================

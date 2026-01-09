@@ -24,9 +24,6 @@
       # System Utilities
       usbutils           # USB device utilities (lsusb)
       bc                 # Calculator
-
-      # MCP Server
-      mcp-nixos          # NixOS MCP server for Claude Code
     ];
 
     # Convenient shell aliases
