@@ -9,8 +9,8 @@ if [ ! -d "$WALLPAPER_DIR" ] || [ -z "$(ls -A "$WALLPAPER_DIR" 2>/dev/null)" ]; 
     exit 1
 fi
 
-# Find all image files (follow symlinks with -L)
-WALLPAPERS=($(find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) 2>/dev/null))
+# Find all image files (follow symlinks with -L) - use mapfile for efficiency
+mapfile -t WALLPAPERS < <(find -L "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) 2>/dev/null)
 
 # Check if any wallpapers were found
 if [ ${#WALLPAPERS[@]} -eq 0 ]; then
