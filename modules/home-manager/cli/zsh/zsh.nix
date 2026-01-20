@@ -3,7 +3,7 @@
   programs.zsh = {
     enable = true;
     history.path = "${config.xdg.stateHome}/zsh_history";
-    dotDir = "${config.xdg.configHome}/zsh";
+    dotDir = ".config/zsh";
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     enableCompletion = true;

@@ -13,7 +13,7 @@
   config = lib.mkIf config.alpaca.enable {
     home-manager.users.${config.user} = {
       home.packages = with pkgs; [
-        alpaca
+        # alpaca  # Not available in stable
       ];
     };
   };

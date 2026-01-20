@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 {
@@ -48,13 +49,16 @@
 
   config = lib.mkIf config.hyprland.enable {
 
-    programs.hyprland.enable = true;
+    programs.hyprland = {
+      enable = true;
+      package = pkgs-unstable.hyprland;
+      portalPackage = pkgs-unstable.xdg-desktop-portal-hyprland;
+    };
 
     xdg.portal = {
       enable = true;
       wlr.enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
         xdg-desktop-portal-gtk
       ];
       config = {

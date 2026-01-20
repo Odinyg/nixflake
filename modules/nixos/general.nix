@@ -57,14 +57,12 @@
       fzf
       pandoc # Convert text documents
       usermount
-      thunar
       htop
       ctop
       nvtopPackages.full
       firefox
       deluge
       ripgrep
-      nixfmt
       nixd
       sshs
       zoxide

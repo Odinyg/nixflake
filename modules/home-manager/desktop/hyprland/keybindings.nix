@@ -14,7 +14,7 @@
       bind = [
         # Wallpaper & Browser
         "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
-        "$mainMod, W, exec, zen"
+        "$mainMod, W, exec, zen-beta"
 
         # Screenshots
         ''ALT CTRL, S, exec, grim -g "$(slurp -d)" - | wl-copy''

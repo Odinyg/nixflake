@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, pkgs-unstable, lib, ... }: {
 
   options = {
     utilities = {
@@ -16,7 +16,6 @@
     home.packages = with pkgs; [
       # File Managers
       yazi # Terminal file manager
-      thunar # GUI file manager
 
       # Image Viewers & Screenshot
       feh # Lightweight image viewer
@@ -33,7 +32,6 @@
       wine # Windows compatibility layer
       autokey # Automation tool
       xcape # Key modifier tool
-      rpi-imager # Raspberry Pi imager (temporarily disabled due to build error)
 
       # X11 Utilities (for tdrop and window management)
       xorg.xwininfo # Window information utility
@@ -51,7 +49,8 @@
       duf # Disk usage/free utility
 
       # Development Tools
-      claude-code # Claude Code CLI
+      pkgs-unstable.claude-code # Claude Code CLI
+      pkgs-unstable.opencode
       uv # Python package manager / MCP server runner
       xh
       posting

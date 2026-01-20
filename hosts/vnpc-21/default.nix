@@ -117,6 +117,7 @@
 
   # COSMIC desktop environment
   cosmic.enable = true;
+  cosmic.autoLogin.enable = false;
 
   programs.kdeconnect.enable = true;
 

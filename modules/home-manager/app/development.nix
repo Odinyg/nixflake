@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, pkgs-unstable, lib, ... }: {
 
   options = {
     development = {
@@ -9,8 +9,8 @@
   config.home-manager.users.${config.user} = lib.mkIf config.development.enable {
     home.packages = with pkgs; [
       # Code Editors & IDEs
-      zed            # Modern code editor
-      code-cursor    # AI-powered code editor
+      pkgs-unstable.zed-editor  # Modern code editor
+      pkgs-unstable.code-cursor # AI-powered code editor
 
       # API Development
       postman        # API development platform

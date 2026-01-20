@@ -1,24 +1,22 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, pkgs-unstable, ... }: {
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
-    home.packages = with pkgs; [
-      # Core Hyprland ecosystem
+    home.packages = (with pkgs-unstable; [
+      # Core Hyprland ecosystem (from unstable for latest features)
       waybar # Status bar
       hyprpanel # Alternative panel
       hyprpaper # Wallpaper daemon
-
+      pyprland # Scratchpad & window manager plugins
+      hyprshade # Shader control
+      swww # Animated wallpaper daemon
+    ]) ++ (with pkgs; [
       # Screenshot & Image Tools
       grim # Screenshot tool
       slurp # Region selector
       vimiv-qt # Image viewer
 
       # Window Management
-      pyprland # Scratchpad & window manager plugins
       wmctrl # Window control utility
-      hyprshade # Shader control
-
-      # Wallpaper Tools
-      swww # Animated wallpaper daemon
 
       # Appearance & Theming
       gtk-engine-murrine # GTK engine
@@ -38,7 +36,7 @@
       xclip # X11 clipboard tool
       wl-clipboard # Wayland clipboard utilities
       wl-clip-persist
-    ];
+    ]);
 
     # XDG config files
     xdg.configFile = {

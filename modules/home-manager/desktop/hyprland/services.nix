@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs-unstable, ... }: {
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     # Swaylock screen locker
@@ -19,6 +19,7 @@
     # Hypridle idle management
     services.hypridle = {
       enable = true;
+      package = pkgs-unstable.hypridle;
       settings = {
         general = {
           lock_cmd = "pidof swaylock || swaylock";

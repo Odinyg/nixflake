@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs-unstable, ... }: {
 
   imports = [
     ./packages.nix
@@ -11,6 +11,7 @@
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     wayland.windowManager.hyprland = {
       enable = true;
+      package = pkgs-unstable.hyprland;
       systemd.enable = true;
 
       settings = {

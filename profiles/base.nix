@@ -23,17 +23,6 @@
   hyprland.enable = true;
   fonts.enable = true;
 
-  # XDG Desktop Portal configuration
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk
-    ];
-    config.common.default = "*";
-  };
-
   # ==============================================================================
   # HARDWARE MODULES
   # ==============================================================================

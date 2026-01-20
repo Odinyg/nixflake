@@ -9,7 +9,7 @@
       nodePackages.prettier
       black
       stylua
-      nixfmt
+      nixfmt-rfc-style
       yamlfmt
     ];
 
@@ -65,6 +65,6 @@
 
     };
 
-    extraPlugins = with pkgs.vimPlugins; [ ];
+    extraPlugins = with pkgs.vimPlugins; [ opencode-nvim ];
   };
 }

@@ -1,8 +1,9 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs-unstable, ... }: {
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     programs.hyprpanel = {
       enable = true;
+      package = pkgs-unstable.hyprpanel;
       settings = {
         layout = {
           bar.layouts = {
