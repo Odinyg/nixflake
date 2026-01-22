@@ -32,6 +32,7 @@
     isNormalUser = true;
     description = "none";
     extraGroups = [
+      "dialout"
       "networkmanager"
       "plugdev"
       "wheel"
