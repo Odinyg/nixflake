@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  pkgs-unstable,
   ...
 }:
 {
@@ -11,11 +11,18 @@
     };
   };
   config = lib.mkIf config._1password.enable {
-    programs._1password.enable = true;
+    programs._1password = {
+      enable = true;
+      package = pkgs-unstable._1password-cli;
+    };
     programs._1password-gui = {
       enable = true;
+      package = pkgs-unstable._1password-gui;
       polkitPolicyOwners = [ "odin" ];
-
+    };
+    # Ensure 1Password runs natively on Wayland
+    environment.sessionVariables = {
+      ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     };
     nixpkgs.config.allowUnfreePredicate =
       pkg:

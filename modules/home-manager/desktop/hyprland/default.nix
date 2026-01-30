@@ -106,6 +106,11 @@
 
         # Window rules
         windowrulev2 = [
+          # 1Password Quick Access - stay focused and visible
+          "float, title:^Quick Access"
+          "stayfocused, title:^Quick Access"
+          "pin, title:^Quick Access"
+
           "float, class:file_progress"
           "float, class:flameshot"
           "float, class:confirm"

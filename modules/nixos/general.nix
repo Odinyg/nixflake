@@ -41,7 +41,6 @@
       unzip
       unrar
       zip
-      kitty
       #### Terminal Improvments ####
       lf
       fd
@@ -74,8 +73,6 @@
       fluxcd
       obsidian
       flatpak
-      docker
-      polkit
       ansible
       devenv
     ];

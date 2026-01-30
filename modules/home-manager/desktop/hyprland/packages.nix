@@ -9,6 +9,7 @@
       pyprland # Scratchpad & window manager plugins
       hyprshade # Shader control
       swww # Animated wallpaper daemon
+      rofi # Application launcher
     ]) ++ (with pkgs; [
       # Screenshot & Image Tools
       grim # Screenshot tool
@@ -26,7 +27,6 @@
       # Notifications & UI
       swaynotificationcenter # Notification daemon
       eww # ElKowar's Wacky Widgets
-      rofi # Application launcher
       brightnessctl # Brightness control
 
       # Authentication & Security

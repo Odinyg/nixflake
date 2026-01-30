@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs-unstable, ... }:
 {
 
   options = {
@@ -10,6 +10,7 @@
     services = {
       syncthing = {
         enable = true;
+        package = pkgs-unstable.syncthing; # Use unstable to match config version
         user = "${config.user}";
         dataDir = "/home/${config.user}/Documents";
         configDir = "/home/${config.user}/.config/syncthing";
