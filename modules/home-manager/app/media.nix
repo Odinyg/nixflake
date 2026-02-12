@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, pkgs-unstable, lib, ... }: {
 
   options = {
     media = {
@@ -20,7 +20,7 @@
       xournalpp      # Note-taking and PDF annotation
 
       # 3D Printing
-      orca-slicer    # 3D printing slicer
+      pkgs-unstable.orca-slicer    # 3D printing slicer (unstable)
       curaengine_stable  # Cura slicing engine
     ];
   };

@@ -26,6 +26,8 @@
 
       # Remote Access
       remmina # Remote desktop client
+      rustdesk # Open-source remote desktop
+      teamviewer # Remote desktop and support
       filezilla # FTP/SFTP client
 
       # System Utilities

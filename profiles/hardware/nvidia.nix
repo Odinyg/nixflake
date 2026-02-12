@@ -8,14 +8,20 @@
   options = {
     hardware.nvidia-gpu = {
       enable = lib.mkEnableOption "NVIDIA GPU support with prime and optimizations";
-      
+
+      driverPackage = lib.mkOption {
+        type = lib.types.enum [ "stable" "beta" "latest" "production" ];
+        default = "stable";
+        description = "NVIDIA driver package to use (stable, beta, latest, or production)";
+      };
+
       prime = {
         nvidiaBusId = lib.mkOption {
           type = lib.types.str;
           default = "PCI:1:0:0";
           description = "NVIDIA GPU PCI Bus ID";
         };
-        
+
         intelBusId = lib.mkOption {
           type = lib.types.str;
           default = "PCI:0:2:0";
@@ -31,9 +37,9 @@
 
     # NVIDIA drivers
     services.xserver.videoDrivers = [ "nvidia" ];
-    
+
     hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.${config.hardware.nvidia-gpu.driverPackage};
       modesetting.enable = true;
       powerManagement.enable = false;
       open = true;

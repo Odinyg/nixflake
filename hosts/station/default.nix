@@ -1,8 +1,15 @@
 { config, pkgs, lib, inputs, ... }: {
-  imports = [ ./hardware-configuration.nix ../../profiles/desktop.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../profiles/desktop.nix
+    ../../profiles/hardware/nvidia.nix
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-36.9.5"
+  ];
 
   # ==============================================================================
   # BOOT CONFIGURATION
@@ -40,7 +47,10 @@
   # ==============================================================================
   # HARDWARE - NVIDIA GPU
   # ==============================================================================
-  nvidia-gpu.enable = true;
+  hardware.nvidia-gpu = {
+    enable = true;
+    driverPackage = "latest";  # Use latest drivers for better OpenGL support
+  };
 
   # ==============================================================================
   # POWER MANAGEMENT - DISABLE SLEEP/SUSPEND
@@ -54,12 +64,10 @@
   '';
 
   # Disable lid switch actions (if applicable)
-  services.logind.settings = {
-    Login = {
-      HandleLidSwitch = "ignore";
-      HandleLidSwitchDocked = "ignore";
-      HandleLidSwitchExternalPower = "ignore";
-    };
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
   };
 
   # Disable NVIDIA suspend/resume services (not needed for desktop that never sleeps)
@@ -170,7 +178,8 @@
       inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
     ];
 
-  hosted-services.n8n.enable = true;
+  hosted-services.n8n.enable = false;
+  hosted-services.open-webui.enable = true;
   # ==============================================================================
   # SYSTEM VERSION
   # ==============================================================================
