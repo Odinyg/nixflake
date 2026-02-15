@@ -44,6 +44,7 @@
   gaming.enable = true;
   crypt.enable = true;
   protonvpn.enable = true;
+  fail2ban-security.enable = false;
 
   # Hyprland display configuration
   hyprland = {

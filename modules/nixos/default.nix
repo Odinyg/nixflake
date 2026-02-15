@@ -25,5 +25,6 @@
     ./hosted-services
     ./secrets.nix
     ./protonvpn.nix
+    ./fail2ban.nix
   ];
 }

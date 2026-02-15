@@ -67,6 +67,7 @@
           modules = commonModules ++ [
             ./hosts/laptop
             { user = "none"; }
+            { nixpkgs.config.allowUnfree = true; }
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -86,6 +87,7 @@
           modules = commonModules ++ [
             ./hosts/vnpc-21
             { user = "odin"; }
+            { nixpkgs.config.allowUnfree = true; }
             nixos-hardware.nixosModules.lenovo-thinkpad-p53
             {
               home-manager = {
@@ -106,6 +108,7 @@
           modules = commonModules ++ [
             ./hosts/station
             { user = "none"; }
+            { nixpkgs.config.allowUnfree = true; }
             {
               home-manager = {
                 useGlobalPkgs = true;
