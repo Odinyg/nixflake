@@ -128,7 +128,7 @@
   onedrive.enable = false;
 
   # Terminal multiplexer
-  zellij.enable = true;
+  tmux.enable = true;
 
   # Network sharing
   init-net.enable = true;
@@ -176,6 +176,22 @@
     tailscale
     ptouch-driver
     keychain
+  ];
+
+  # ==============================================================================
+  # GIT GLOBAL IGNORES
+  # ==============================================================================
+  home-manager.users.odin.programs.git.ignores = [
+    ".opencode/"
+    ".claude/"
+    "SCRATCHPADS/"
+    "AGENTS.md"
+    "CLAUDE.md"
+    "opencode.json"
+    "tmpclaude-*"
+    "scratchpads/"
+    "workflow/"
+    ".agents/"
   ];
 
   # ==============================================================================

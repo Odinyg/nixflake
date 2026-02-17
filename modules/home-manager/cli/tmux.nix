@@ -35,23 +35,6 @@ in
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.tmux.enable {
-    programs.k9s = {
-      hotKeys = {
-        hotKey = {
-          alt-d = {
-            shortCut = "Alt-d";
-            description = "Viewing pods";
-            command = "pods";
-          };
-          alt-k = {
-            shortCut = "Alt-k";
-            description = "Viewing deployments";
-            command = "deployments";
-          };
-        };
-      };
-
-    };
     programs.tmux = {
       enable = true;
       baseIndex = 1;

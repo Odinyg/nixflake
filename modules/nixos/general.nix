@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }: {
+{ lib, pkgs, pkgs-unstable, config, ... }: {
 
   options = {
     general = {
@@ -72,7 +72,7 @@
       sops
       ssh-to-age
       fluxcd
-      obsidian
+      pkgs-unstable.obsidian
       flatpak
       docker
       polkit

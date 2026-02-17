@@ -39,11 +39,10 @@
     vimAlias = true;
 
     plugins = {
-      zellij-nav = {
+      tmux-navigator = {
         autoLoad = true;
         enable = true;
       };
-      zellij.enable = true;
       web-devicons.enable = true;
       cmp_yanky.enable = true;
       lazygit.enable = true;

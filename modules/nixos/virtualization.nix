@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgs, pkgs-unstable, ... }: {
   options = {
     virtualization = {
       enable = lib.mkEnableOption "virtualization and container support";
@@ -90,9 +90,15 @@
 
     virtualisation.libvirtd = lib.mkIf config.virtualization.qemu.enable {
       enable = true;
+      package = pkgs-unstable.libvirt;
       qemu = {
+        package = pkgs-unstable.qemu;
         runAsRoot = true;
         swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [ pkgs-unstable.OVMFFull.fd ];
+        };
       };
       onBoot = "start";
       onShutdown = "shutdown";
@@ -103,8 +109,10 @@
     services.spice-vdagentd.enable =
       lib.mkIf config.virtualization.qemu.spice true;
 
-    programs.virt-manager.enable =
-      lib.mkIf config.virtualization.qemu.virt-manager true;
+    programs.virt-manager = lib.mkIf config.virtualization.qemu.virt-manager {
+      enable = true;
+      package = pkgs-unstable.virt-manager;
+    };
 
     virtualisation.virtualbox.host =
       lib.mkIf config.virtualization.virtualbox.enable {
@@ -136,9 +144,9 @@
         ])
 
         (lib.optionals config.virtualization.qemu.enable [
-          virtiofsd
-          OVMF
-          swtpm
+          pkgs-unstable.virtiofsd
+          pkgs-unstable.OVMF
+          pkgs-unstable.swtpm
         ])
 
         (lib.optionals config.virtualization.remoteAccess.enable [
