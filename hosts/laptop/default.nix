@@ -68,6 +68,13 @@
     isBuilder = false;
   };
 
+  # ==============================================================================
+  # SYSTEM PACKAGES
+  # ==============================================================================
+  environment.systemPackages = [
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+  ];
+
   # Cursor customization
   styling.cursor.package = pkgs.bibata-cursors;
   styling.cursor.name = "Bibata-Modern-Ice";
