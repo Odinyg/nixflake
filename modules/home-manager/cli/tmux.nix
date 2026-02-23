@@ -25,10 +25,10 @@ let
 
     dev-claude = pkgs.writeShellScript "tmux-layout-dev-claude" ''
       s="''${1:-$(tmux display-message -p '#S')}"
-      # nvim (left 60%) | claude (right top 70%) + terminal (right bottom 30%)
-      tmux split-window -h -l 40% -t "$s"
+      # nvim (left top 80%) + terminal (left bottom 20%) | claude (right 50%)
+      tmux split-window -h -l 50% -t "$s"
       tmux send-keys -t "$s:1.1" "claude" Enter
-      tmux split-window -v -l 30% -t "$s:1.1"
+      tmux split-window -v -l 20% -t "$s:1.0"
       tmux select-pane -t "$s:1.0"
       tmux send-keys -t "$s:1.0" "nvim" Enter
     '';
