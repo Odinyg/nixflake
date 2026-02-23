@@ -3,48 +3,29 @@
 {
   options = {
     fail2ban-security = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable fail2ban intrusion prevention system";
-      };
+      enable = lib.mkEnableOption "fail2ban intrusion prevention system";
     };
   };
 
   config = lib.mkIf config.fail2ban-security.enable {
     services.fail2ban = {
       enable = true;
-      maxretry = 3;
-      bantime = "1h";
+      maxretry = lib.mkDefault 5;
+      bantime = lib.mkDefault "10m";
       bantime-increment = {
         enable = true;
         multipliers = "1 2 4 8 16 32 64";
         maxtime = "168h"; # 1 week
+        overalljails = true;
       };
 
       jails = {
-        # SSH protection
-        sshd = {
+        # SSH protection (uses default sshd filter)
+        sshd.settings = {
           enabled = true;
-          filter = "sshd";
-          action = "iptables-multiport[name=SSH, port=\"ssh\", protocol=tcp]";
           maxretry = 3;
           bantime = "1h";
           findtime = "10m";
-        };
-
-        # Additional security jails
-        apache-auth = {
-          enabled = false;
-        };
-        apache-badbots = {
-          enabled = false;
-        };
-        apache-noscript = {
-          enabled = false;
-        };
-        apache-overflows = {
-          enabled = false;
         };
       };
     };
@@ -54,9 +35,9 @@
 
     # Kernel security hardening
     boot.kernel.sysctl = {
-      # Disable IP forwarding
-      "net.ipv4.ip_forward" = 0;
-      "net.ipv6.conf.all.forwarding" = 0;
+      # Disable IP forwarding (mkDefault so init-net.nix can override)
+      "net.ipv4.ip_forward" = lib.mkDefault 0;
+      "net.ipv6.conf.all.forwarding" = lib.mkDefault 0;
 
       # Disable ICMP redirects
       "net.ipv4.conf.all.send_redirects" = 0;

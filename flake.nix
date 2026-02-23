@@ -20,6 +20,7 @@
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mcp-nixos.url = "github:utensils/mcp-nixos";
   };
   outputs =
     {
@@ -31,6 +32,7 @@
       stylix,
       sops-nix,
       zen-browser,
+      mcp-nixos,
       ...
     }@inputs:
 

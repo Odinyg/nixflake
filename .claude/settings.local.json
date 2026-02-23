@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(nix flake check:*)",
+      "mcp__nixos__nix",
+      "WebFetch(domain:mcpservers.org)",
+      "Bash(nix flake show:*)",
+      "WebSearch",
+      "WebFetch(domain:nixos-and-flakes.thiscute.world)",
+      "WebFetch(domain:wiki.nixos.org)",
+      "WebFetch(domain:britter.dev)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:discourse.nixos.org)",
+      "WebFetch(domain:certifikate.io)",
+      "WebFetch(domain:gautier.difolco.dev)",
+      "WebFetch(domain:fzakaria.com)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "nixos"
+  ]
+}

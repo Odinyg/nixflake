@@ -14,6 +14,7 @@
     ./languages.nix
     ./system-tools.nix
     ./prompt.nix
+    ./mcp.nix
   ];
 
 }

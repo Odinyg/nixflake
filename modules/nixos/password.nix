@@ -17,7 +17,7 @@
     };
     programs._1password-gui = {
       enable = true;
-      polkitPolicyOwners = [ "odin" ];
+      polkitPolicyOwners = [ config.user ];
       package = pkgs-unstable._1password-gui;
     };
     nixpkgs.config.allowUnfreePredicate =

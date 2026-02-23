@@ -17,7 +17,7 @@ in
       port = 3000;
       environment = {
         OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
-        WEBUI_AUTH = "false";
+        WEBUI_AUTH = "true";
       };
     };
   };

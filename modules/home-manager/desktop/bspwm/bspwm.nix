@@ -15,7 +15,7 @@
   config = lib.mkIf config.bspwm.enable {
     services = {
       displayManager = {
-        autoLogin.user = "$config.user";
+        autoLogin.user = config.user;
         autoLogin.enable = false;
         defaultSession = "none+bspwm";
         sddm = {

@@ -73,6 +73,7 @@
   # ==============================================================================
   # SYSTEM UTILITIES
   # ==============================================================================
+  fail2ban-security.enable = lib.mkDefault true;
   tailscale.enable = true;
   syncthing.enable = true;
   polkit.enable = true;
@@ -119,17 +120,7 @@
       nssmdns4 = true;
       openFirewall = true;
     };
-    fail2ban = {
-      enable = true;
-      maxretry = 5;
-      bantime = "10m";
-      bantime-increment = {
-        enable = true;
-        multipliers = "1 2 4 8 16 32 64";
-        maxtime = "168h";
-        overalljails = true;
-      };
-    };
+    fail2ban.enable = true;
   };
 
   # ==============================================================================

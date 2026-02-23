@@ -21,8 +21,8 @@
       options = [
         "credentials=/etc/nixos/smb-secrets"
         "vers=2.0"
-        "file_mode=0777"
-        "dir_mode=0777"
+        "file_mode=0755"
+        "dir_mode=0755"
         "x-systemd.automount"
         "x-systemd.requires=network-online.target"
       ];
