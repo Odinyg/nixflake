@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  pkgs-unstable,
   ...
 }:
 {
@@ -11,11 +11,14 @@
     };
   };
   config = lib.mkIf config._1password.enable {
-    programs._1password.enable = true;
+    programs._1password = {
+      enable = true;
+      package = pkgs-unstable._1password-cli;
+    };
     programs._1password-gui = {
       enable = true;
       polkitPolicyOwners = [ "odin" ];
-
+      package = pkgs-unstable._1password-gui;
     };
     nixpkgs.config.allowUnfreePredicate =
       pkg:

@@ -23,6 +23,23 @@
       MOZ_USE_XINPUT2 = "1";
     };
 
+    # FirefoxPWA native messaging host
+    home.packages = [ pkgs.firefoxpwa ];
+    home.file.".mozilla/native-messaging-hosts/firefoxpwa.json".source =
+      "${pkgs.firefoxpwa}/lib/mozilla/native-messaging-hosts/firefoxpwa.json";
+
+    # Set Zen as default browser
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "text/html" = "zen-browser.desktop";
+        "text/xml" = "zen-browser.desktop";
+        "application/xhtml+xml" = "zen-browser.desktop";
+        "x-scheme-handler/http" = "zen-browser.desktop";
+        "x-scheme-handler/https" = "zen-browser.desktop";
+      };
+    };
+
     # XDG desktop integration
     xdg.desktopEntries.zen-browser = {
       name = "Zen Browser";

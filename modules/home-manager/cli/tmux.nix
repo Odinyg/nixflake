@@ -40,10 +40,11 @@ in
       baseIndex = 1;
       resizeAmount = 10;
       shell = "${pkgs.zsh}/bin/zsh";
+      mouse = true;
       aggressiveResize = true;
       clock24 = true;
       escapeTime = 0;
-      terminal = "screen-256color";
+      terminal = "xterm-kitty";
       keyMode = "vi";
       customPaneNavigationAndResize = true;
       shortcut = "a";
@@ -65,9 +66,9 @@ in
 
       extraConfig = ''
 
-        set -g prefix C-a
+        set -g prefix C-Space
         unbind C-b
-        bind C-a send-prefix
+        bind C-Space send-prefix
 
         bind -n M-h select-pane -L
         bind -n M-j select-pane -D
@@ -83,9 +84,7 @@ in
         bind-key -T copy-mode-vi 'M-Space' select-pane -t:.+
 
 
-        set -g default-terminal "screen-256color"
-        set -g mouse on
-        bind-key C-a last-window
+        bind Space last-window
         set -g focus-events on
         set -g status-interval 1
         set -g automatic-rename
@@ -94,11 +93,12 @@ in
         set -g @catppuccin_pane_border_status "top"
         bind \\ split-window -h -c '#{pane_current_path}'
         bind - split-window -v -c '#{pane_current_path}'
-        set-option -g default-terminal "xterm-kitty"
         set-option -ga terminal-overrides ",xterm-kitty:Tc"
         set -s extended-keys on
         set -g xterm-keys on
         set -as terminal-features 'xterm*:extkeys'
+        set -g @emulate-scroll-for-no-mouse-alternate-buffer "on"
+        set -g @scroll-without-changing-pane "on"
         set -g @continuum-restore 'on'
         set -g @resurrect-strategy-nvim 'session'
         set -g @catppuccin_window_left_separator ""

@@ -90,14 +90,14 @@
 
     virtualisation.libvirtd = lib.mkIf config.virtualization.qemu.enable {
       enable = true;
-      package = pkgs-unstable.libvirt;
+      package = pkgs.libvirt;
       qemu = {
-        package = pkgs-unstable.qemu;
+        package = pkgs.qemu;
         runAsRoot = true;
         swtpm.enable = true;
         ovmf = {
           enable = true;
-          packages = [ pkgs-unstable.OVMFFull.fd ];
+          packages = [ pkgs.OVMFFull.fd ];
         };
       };
       onBoot = "start";
@@ -111,7 +111,7 @@
 
     programs.virt-manager = lib.mkIf config.virtualization.qemu.virt-manager {
       enable = true;
-      package = pkgs-unstable.virt-manager;
+      package = pkgs.virt-manager;
     };
 
     virtualisation.virtualbox.host =
@@ -144,9 +144,8 @@
         ])
 
         (lib.optionals config.virtualization.qemu.enable [
-          pkgs-unstable.virtiofsd
-          pkgs-unstable.OVMF
-          pkgs-unstable.swtpm
+          virtiofsd
+          swtpm
         ])
 
         (lib.optionals config.virtualization.remoteAccess.enable [

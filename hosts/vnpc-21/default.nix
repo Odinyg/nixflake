@@ -25,6 +25,12 @@
   # Disable wait-online to speed up boot
   systemd.network.wait-online.enable = false;
 
+  # Don't block boot waiting for USB NIC — configure it only when plugged in
+  systemd.services."network-addresses-enp45s0u2u3".wantedBy = lib.mkForce [ ];
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="net", KERNEL=="enp45s0u2u3", TAG+="systemd", ENV{SYSTEMD_WANTS}+="network-addresses-enp45s0u2u3.service"
+  '';
+
   # ==============================================================================
   # USERS
   # ==============================================================================

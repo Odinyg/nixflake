@@ -8,6 +8,7 @@
   };
 
   config.home-manager.users.${config.user} = lib.mkIf config.kitty.enable {
+    home.sessionVariables.TERMINAL = "kitty";
     programs.kitty = {
       enable = true;
       extraConfig = "confirm_os_window_close 0";

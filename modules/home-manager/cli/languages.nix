@@ -11,12 +11,16 @@
       # Programming Languages
       python3            # Python runtime
       go                 # Go programming language
+      nodejs             # Node.js runtime (includes npm)
+      bun                # JavaScript runtime and package manager
 
-      # Could add more languages here:
-      # nodejs
-      # rustc
-      # gcc
-      # etc.
+      # Shell Development Tools
+      shellcheck         # Shell script static analysis
+
+      # Python Development Tools
+      ruff               # Python linter and formatter
+      mypy               # Python static type checker
+      python3Packages.pytest  # Python test framework
     ];
   };
 }

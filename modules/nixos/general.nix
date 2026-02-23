@@ -81,7 +81,10 @@
     ];
     services.flatpak.enable = true;
     programs.appimage.enable = true;
-    programs.zsh.enable = true;
+    programs.zsh = {
+      enable = true;
+      };
+
 
     systemd.services.NetworkManager-wait-online.enable = false;
 
