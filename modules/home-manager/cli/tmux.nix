@@ -8,43 +8,99 @@
 let
   cfg = config.tmux;
 
-  # Layout scripts for sesh session startup
+  # Layout scripts for sesh session startup (receive session name as $1)
   layouts = {
     universal = pkgs.writeShellScript "tmux-layout-universal" ''
+      s="''${1:-$(tmux display-message -p '#S')}"
       # Check for project-specific layout first
-      session_path=$(tmux display-message -p '#{pane_current_path}')
+      session_path=$(tmux display-message -t "$s" -p '#{pane_current_path}')
       if [ -x "$session_path/.tmux-layout.sh" ]; then
-        exec "$session_path/.tmux-layout.sh"
+        exec "$session_path/.tmux-layout.sh" "$s"
       fi
       # Default: nvim (top 70%) | terminal (bottom 30%)
-      tmux split-window -v -l 30%
-      tmux select-pane -t 0
-      tmux send-keys "nvim" Enter
+      tmux split-window -v -l 30% -t "$s"
+      tmux select-pane -t "$s:1.0"
+      tmux send-keys -t "$s:1.0" "nvim" Enter
     '';
 
     dev-claude = pkgs.writeShellScript "tmux-layout-dev-claude" ''
+      s="''${1:-$(tmux display-message -p '#S')}"
       # nvim (left 60%) | claude (right top 70%) + terminal (right bottom 30%)
-      tmux split-window -h -l 40%
-      tmux send-keys "claude" Enter
-      tmux split-window -v -l 30%
-      tmux select-pane -t 0
-      tmux send-keys "nvim" Enter
+      tmux split-window -h -l 40% -t "$s"
+      tmux send-keys -t "$s:1.1" "claude" Enter
+      tmux split-window -v -l 30% -t "$s:1.1"
+      tmux select-pane -t "$s:1.0"
+      tmux send-keys -t "$s:1.0" "nvim" Enter
     '';
 
     monitor = pkgs.writeShellScript "tmux-layout-monitor" ''
+      s="''${1:-$(tmux display-message -p '#S')}"
       # 4-pane grid for watching logs/services
-      tmux split-window -h -l 50%
-      tmux split-window -v -l 50%
-      tmux select-pane -t 0
-      tmux split-window -v -l 50%
-      tmux select-pane -t 0
+      tmux split-window -h -l 50% -t "$s"
+      tmux split-window -v -l 50% -t "$s:1.1"
+      tmux select-pane -t "$s:1.0"
+      tmux split-window -v -l 50% -t "$s:1.0"
+      tmux select-pane -t "$s:1.0"
     '';
 
     git = pkgs.writeShellScript "tmux-layout-git" ''
+      s="''${1:-$(tmux display-message -p '#S')}"
       # Full-screen lazygit
-      tmux send-keys "lazygit" Enter
+      tmux send-keys -t "$s" "lazygit" Enter
     '';
   };
+
+  # Map layout name to script path
+  layoutCase = ''
+    case "$layout" in
+      dev-claude)  ${layouts.dev-claude} "$session" ;;
+      monitor)     ${layouts.monitor} "$session" ;;
+      git)         ${layouts.git} "$session" ;;
+      *)           ${layouts.universal} "$session" ;;
+    esac
+  '';
+
+  # Sesh session picker (canonical pattern: run-shell + fzf-tmux)
+  seshConnect = pkgs.writeShellScript "sesh-smart-connect" ''
+    export PATH="${lib.makeBinPath [ pkgs.sesh pkgs.fzf pkgs.coreutils pkgs.gnused ]}:$PATH"
+
+    strip_icon() {
+      LC_ALL=C sed $'s/^[\xee\xef][\x80-\xbf][\x80-\xbf] //'
+    }
+
+    session=$(sesh list -i | fzf-tmux -p 55%,60% \
+        --no-sort --ansi --border-label " sesh " --prompt "  " \
+        --header "  ^a all  ^t tmux  ^x zoxide  ^f find  ^d kill" \
+        --bind "tab:down,btab:up" \
+        --bind "ctrl-a:change-prompt(  )+reload(sesh list -i)" \
+        --bind "ctrl-t:change-prompt(  )+reload(sesh list -it)" \
+        --bind "ctrl-x:change-prompt(  )+reload(sesh list -iz)" \
+        --bind "ctrl-f:change-prompt(  )+reload(fd -H -d 2 -t d -E .Trash . ~)" \
+        --bind "ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(  )+reload(sesh list -i)" \
+      | strip_icon)
+
+    [ -z "$session" ] && exit 0
+    sesh connect "$session"
+  '';
+
+  # Layout picker — apply a layout to the current session (prefix+L)
+  layoutPicker = pkgs.writeShellScript "tmux-layout-picker" ''
+    export PATH="${lib.makeBinPath [ pkgs.fzf pkgs.gawk pkgs.coreutils ]}:$PATH"
+
+    session=$(tmux display-message -p '#S')
+
+    layout=$(printf '%s\n' \
+      "universal   nvim + terminal" \
+      "dev-claude  nvim + claude + terminal" \
+      "monitor     4-pane grid" \
+      "git         lazygit fullscreen" \
+      | fzf --no-sort --border-label " layout " --prompt "  " \
+      | awk '{print $1}')
+
+    [ -z "$layout" ] && exit 0
+
+    ${layoutCase}
+  '';
 in
 {
   options.tmux = {
@@ -90,17 +146,10 @@ in
     # Sesh — smart session manager with fzf + zoxide
     programs.sesh = {
       enable = true;
-      enableTmuxIntegration = true;
-      tmuxKey = "T";
-      settings =
-        {
-          session = cfg.sessions;
-        }
-        // lib.optionalAttrs (cfg.defaultLayout != "none") {
-          default_session = {
-            startup_script = "${layouts.${cfg.defaultLayout}}";
-          };
-        };
+      enableTmuxIntegration = false; # custom binding with layout picker
+      settings = {
+        session = cfg.sessions;
+      };
     };
 
     programs.tmux = {
@@ -111,7 +160,7 @@ in
       shell = "${pkgs.zsh}/bin/zsh";
       mouse = true;
       aggressiveResize = true;
-      clock24 = true;
+      clock24 = false;
       escapeTime = 0;
       terminal = "tmux-256color";
       keyMode = "vi";
@@ -147,6 +196,13 @@ in
 
       extraConfig = ''
         unbind C-b
+        unbind t          # free t from clock mode (used by sesh)
+
+        # Sesh session picker (prefix+t)
+        bind-key "t" run-shell "${seshConnect}"
+
+        # Layout picker — apply layout to current session (prefix+L)
+        bind-key "L" display-popup -E -w 40% -h 35% "${layoutPicker}"
 
         # Pane navigation (Alt+hjkl, no prefix needed)
         bind -n M-h select-pane -L
@@ -161,8 +217,10 @@ in
         bind-key -T copy-mode-vi 'M-l' select-pane -R
 
         # Session/window switching
-        bind Space switch-client -l      # prefix+Space = last session
-        bind BSpace last-window          # prefix+BackSpace = last window
+        bind Space last-window           # prefix+Space = last window
+        bind C-Space last-window         # Ctrl held: Ctrl+Space, Ctrl+Space = last window
+        bind BSpace switch-client -l     # prefix+BackSpace = last session
+        bind C-BSpace switch-client -l   # Ctrl held: Ctrl+BackSpace = last session
 
         # Splits in current directory
         bind \\ split-window -h -c '#{pane_current_path}'

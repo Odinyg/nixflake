@@ -14,7 +14,20 @@
       "WebFetch(domain:discourse.nixos.org)",
       "WebFetch(domain:certifikate.io)",
       "WebFetch(domain:gautier.difolco.dev)",
-      "WebFetch(domain:fzakaria.com)"
+      "WebFetch(domain:fzakaria.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:www.joshmedeski.com)",
+      "Bash(sesh list:*)",
+      "Bash(sesh:*)",
+      "Bash(/nix/store/skvip42rgr8i0pclfrl6xdvdfz8bnx5n-fzf-0.62.0/bin/fzf:*)",
+      "Bash(# And sesh list without -i: sesh list)",
+      "Bash(fzf:*)",
+      "Bash(# Let''s check: in sesh 2.13.0, does sesh connect handle stripping icons? # Check the sesh binary for any icon/strip logic sesh list -i)",
+      "Bash(# Find the home-manager sesh module find /nix/store -path \"\"*/home-manager/modules/programs/sesh*\"\")",
+      "Bash(# Try a broader search find /nix/store -maxdepth 4 -name \"\"sesh.nix\"\")",
+      "Bash(awk:*)",
+      "Bash(# Wait, using awk ''{sub\\(/^[^ ]+ /, \"\"\"\"\\); print}'' would also strip directory names with spaces # e.g. \"\"~/My Documents\"\" would become \"\"Documents\"\" # Let''s check if any paths have spaces in them from sesh list sesh list)",
+      "Bash(# The ctrl-d bind in fzf uses {} which is the raw fzf selection\n# --bind \"\"ctrl-d:execute\\(tmux kill-session -t {}\\)+...\"\"\n# This {} would also contain the icon prefix, causing kill-session to fail\n# We need to fix that too\n\n# Let me now write the fix\n# I''ll add a strip_icons function and use it on $session, and also fix the ctrl-d bind)"
     ],
     "deny": [],
     "ask": []
