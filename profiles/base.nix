@@ -94,7 +94,6 @@
     enable = true;
     docker.rootless = false;
     qemu.virt-manager = true;
-    remoteAccess.enable = true;
     virtualbox.enable = false;
   };
 

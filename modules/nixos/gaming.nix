@@ -121,7 +121,6 @@
 
         antimicrox # Controller mapping
 
-        pavucontrol
         pulseeffects-legacy
       ];
 

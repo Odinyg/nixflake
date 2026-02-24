@@ -76,7 +76,8 @@
     ueberzugpp
     fzf
     ripgrep
-    #  kubectl-autocomplete
+    bat
+    fd
   ];
 
 }

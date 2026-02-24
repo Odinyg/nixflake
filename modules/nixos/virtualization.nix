@@ -61,14 +61,7 @@
         };
       };
 
-      remoteAccess = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Enable remote access tools (Remmina, etc.)";
-        };
-      };
-    };
+};
   };
 
   config = lib.mkIf config.virtualization.enable {
@@ -146,11 +139,6 @@
         (lib.optionals config.virtualization.qemu.enable [
           virtiofsd
           swtpm
-        ])
-
-        (lib.optionals config.virtualization.remoteAccess.enable [
-          remmina
-          freerdp
         ])
       ];
   };

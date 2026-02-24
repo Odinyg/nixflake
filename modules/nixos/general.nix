@@ -30,18 +30,14 @@
       package = pkgs.nixVersions.stable;
     };
     environment.systemPackages = with pkgs; [
-      openvpn
       noti # Create notifications programmatically
       nmap
       #### ZIP etc ####
       unzip
       unrar
       zip
-      kitty
       #### Terminal Improvments ####
       lf
-      fd
-      bat
       #### Terminal essentials####
       gnupg # Encryption
       expect
@@ -50,7 +46,6 @@
       stdenv
       killall
       inetutils # Includes telnet
-      fzf
       pandoc # Convert text documents
       usermount
       htop
@@ -58,10 +53,8 @@
       nvtopPackages.full
       firefox
       deluge
-      ripgrep
       nixd
       sshs
-      zoxide
       tldr
       just
       age
@@ -70,8 +63,6 @@
       fluxcd
       pkgs-unstable.obsidian
       flatpak
-      docker
-      polkit
       ansible
       devenv
     ];

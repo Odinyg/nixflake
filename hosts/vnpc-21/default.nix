@@ -43,7 +43,6 @@
       [ "lp" "scanner" "docker" "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
       rclone
-      insync
       tree
       libva-utils
       mesa-demos
@@ -181,7 +180,6 @@
     lshw
     tailscale
     ptouch-driver
-    keychain
   ];
 
   # ==============================================================================

@@ -13,7 +13,6 @@
 
   config = lib.mkIf config.work.remoteAccess.enable {
     environment.systemPackages = with pkgs; [
-      remmina
       openvpn
     ];
   };
