@@ -132,8 +132,7 @@
     ];
     trusted-users = [
       "root"
-      "odin"
-      "none"
+      config.user
     ];
   };
 

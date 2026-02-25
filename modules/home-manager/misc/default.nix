@@ -1,6 +1,7 @@
 {
 
   imports = [
+    ./firefox.nix
     ./gammastep.nix
     ./thunar.nix
     ./chromium.nix

@@ -21,7 +21,7 @@
         };
         user = lib.mkOption {
           type = lib.types.str;
-          default = "odin";
+          default = config.user;
           description = "User to auto-login as";
         };
       };

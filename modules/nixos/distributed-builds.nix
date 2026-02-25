@@ -72,10 +72,10 @@ in
         trusted-users = [ "root" "@wheel" cfg.sshUser ];
       };
       
-      # Open firewall for Tailscale subnet
+      # Open firewall for Tailscale subnet only
       networking.firewall = {
         trustedInterfaces = [ "tailscale0" ];
-        allowedTCPPorts = [ 22 cfg.cachePort ];
+        allowedTCPPorts = [ cfg.cachePort ];
       };
     })
     
