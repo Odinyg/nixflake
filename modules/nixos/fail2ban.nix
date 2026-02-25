@@ -30,9 +30,6 @@
       };
     };
 
-    # Ensure iptables is available for fail2ban
-    networking.firewall.enable = true;
-
     # Kernel security hardening
     boot.kernel.sysctl = {
       # Disable IP forwarding (mkDefault so init-net.nix can override)

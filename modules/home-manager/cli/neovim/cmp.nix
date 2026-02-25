@@ -24,7 +24,6 @@
               name = "luasnip";
               keyword_length = 3;
             }
-            #          { name = "cmdline"; keyword_length = 3;}
           ];
           mapping = {
             "<C-d>" = "cmp.mapping.scroll_docs(-4)";

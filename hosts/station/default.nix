@@ -42,7 +42,7 @@
   # because it has different requirements (different user, no SSH key management)
   sops.defaultSopsFile = ./../../secrets/general.yaml;
   sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "/home/none/.config/sops/age/keys.txt";
+  sops.age.keyFile = "/home/${config.user}/.config/sops/age/keys.txt";
 
   # ==============================================================================
   # HARDWARE - NVIDIA GPU
@@ -153,7 +153,6 @@
 
   # AI / LLM Tools
   ollama.enable = true;
-  alpaca.enable = true;
   mcp.enable = true;
   # oterm.enable = true;  # Disabled due to broken fastmcp dependency
 

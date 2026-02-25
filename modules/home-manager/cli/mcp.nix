@@ -48,14 +48,6 @@ in
             args = [ "mcp-server-kubernetes" ];
           };
 
-          # github = {
-          #   command = "${pkgs.uv}/bin/uvx";
-          #   args = [ "mcp-server-github" ];
-          #   env = {
-          #     GITHUB_TOKEN = "your-github-token-here";
-          #   };
-          # };
-
           obsidian = {
             command = "${pkgs.uv}/bin/uvx";
             args = [ "mcp-server-obsidian" "--vault-path" "/home/${config.user}/Documents/Main" ];
@@ -66,13 +58,6 @@ in
             args = [ "mcp-server-fetch" ];
           };
 
-          # brave-search = {
-          #   command = "${pkgs.uv}/bin/uvx";
-          #   args = [ "mcp-server-brave-search" ];
-          #   env = {
-          #     BRAVE_API_KEY = "your-api-key-here";
-          #   };
-          # };
         };
       };
     };

@@ -3,10 +3,7 @@
 {
   options = {
     oterm = {
-      enable = lib.mkEnableOption {
-        description = "Enable oterm - Terminal UI for Ollama";
-        default = false;
-      };
+      enable = lib.mkEnableOption "oterm - Terminal UI for Ollama";
     };
   };
 

@@ -1,7 +1,7 @@
 {
   vim = "nvim";
   dcpshow = "docker ps --format '{{.Names}}'\t'{{.Ports}}'";
-  sshmain = "ssh -Y $server";
+  sshmain = "ssh -Y station";
   v = "nvim";
   sv = "sudo nvim";
   grep = "grep --color=auto";

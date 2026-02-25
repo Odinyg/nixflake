@@ -8,10 +8,7 @@
 
   options = {
     zsh = {
-      enable = lib.mkEnableOption {
-        description = "Enable zsh";
-        default = false;
-      };
+      enable = lib.mkEnableOption "Zsh shell";
     };
   };
 
