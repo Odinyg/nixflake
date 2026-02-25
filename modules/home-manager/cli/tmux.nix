@@ -308,6 +308,11 @@ in
         bind -n M-k select-pane -U
         bind -n M-l select-pane -R
 
+        # Select pane by number (Alt+1/2/3, no prefix)
+        bind -n M-1 select-pane -t 1
+        bind -n M-2 select-pane -t 2
+        bind -n M-3 select-pane -t 3
+
         # Copy mode pane navigation
         bind-key -T copy-mode-vi 'M-h' select-pane -L
         bind-key -T copy-mode-vi 'M-j' select-pane -D
