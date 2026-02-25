@@ -172,19 +172,20 @@ let
       LC_ALL=C sed $'s/^[\xee\xef][\x80-\xbf][\x80-\xbf] //'
     }
 
-    session=$(sesh list -itT | fzf-tmux -p 80%,70% \
+    session=$(sesh list -itTc | fzf-tmux -p 80%,70% \
         --no-sort --ansi --border-label " sesh " --prompt "  " \
-        --header "  ^a all  ^t tmux  ^T muxinator  ^x zoxide  ^f find  ^r rename  ^d kill" \
+        --header "  ^a all  ^t tmux  ^T muxinator  ^s remote  ^x zoxide  ^f find  ^r rename  ^d kill" \
         --preview-window "right:55%:border-left" \
         --preview "sesh preview {2..}" \
         --bind "tab:down,btab:up" \
-        --bind "ctrl-a:change-prompt(  )+reload(sesh list -itT)" \
+        --bind "ctrl-a:change-prompt(  )+reload(sesh list -itTc)" \
         --bind "ctrl-t:change-prompt(  )+reload(sesh list -it)" \
         --bind "ctrl-T:change-prompt(  )+reload(sesh list -iT)" \
+        --bind "ctrl-s:change-prompt(  )+reload(sesh list -ic)" \
         --bind "ctrl-x:change-prompt(  )+reload(sesh list -iz)" \
         --bind "ctrl-f:change-prompt(  )+reload(fd -H -d 2 -t d -E .Trash . ~)" \
-        --bind "ctrl-r:execute(${seshRename} {2..})+reload(sesh list -itT)" \
-        --bind "ctrl-d:execute(tmux kill-session -t {2..})+reload(sesh list -itT)" \
+        --bind "ctrl-r:execute(${seshRename} {2..})+reload(sesh list -itTc)" \
+        --bind "ctrl-d:execute(tmux kill-session -t {2..})+reload(sesh list -itTc)" \
       | strip_icon)
 
     [ -z "$session" ] && exit 0
