@@ -134,6 +134,16 @@
 
   # Terminal multiplexer
   tmux.enable = true;
+  tmux.sessions = [
+    {
+      name = "station";
+      startup_command = "ssh none@station -t tmux new-session -A -s main";
+    }
+    {
+      name = "laptop";
+      startup_command = "ssh none@laptop -t tmux new-session -A -s main";
+    }
+  ];
 
   # Network sharing
   init-net.enable = true;

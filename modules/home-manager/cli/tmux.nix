@@ -8,113 +8,192 @@
 let
   cfg = config.tmux;
 
-  # Layout scripts for sesh session startup (receive session name as $1)
-  layouts = {
-    universal = pkgs.writeShellScript "tmux-layout-universal" ''
-      s="''${1:-$(tmux display-message -p '#S')}"
-      # Check for project-specific layout first
-      session_path=$(tmux display-message -t "$s" -p '#{pane_current_path}')
-      if [ -x "$session_path/.tmux-layout.sh" ]; then
-        exec "$session_path/.tmux-layout.sh" "$s"
-      fi
-      # Default: nvim (top 70%) | terminal (bottom 30%)
-      tmux split-window -v -l 30% -t "$s"
-      tmux select-pane -t "$s:1.0"
-      tmux send-keys -t "$s:1.0" "nvim" Enter
-    '';
+  # Tmuxinator layout definitions (YAML)
+  tmuxinatorLayouts = {
+    universal = {
+      name = "universal";
+      yaml = ''
+        name: <%= @args[0] || "dev" %>
+        root: <%= @args[1] || "." %>
+        windows:
+          - editor:
+              layout: main-vertical
+              panes:
+                - nvim
+                -
+      '';
+    };
 
-    dev-claude = pkgs.writeShellScript "tmux-layout-dev-claude" ''
-      s="''${1:-$(tmux display-message -p '#S')}"
-      # nvim (left top 80%) + terminal (left bottom 20%) | claude (right 50%)
-      tmux split-window -h -l 50% -t "$s"
-      tmux send-keys -t "$s:1.1" "claude" Enter
-      tmux split-window -v -l 20% -t "$s:1.0"
-      tmux select-pane -t "$s:1.0"
-      tmux send-keys -t "$s:1.0" "nvim" Enter
-    '';
+    dev-claude = {
+      name = "dev-claude";
+      yaml = ''
+        name: <%= @args[0] || "dev-claude" %>
+        root: <%= @args[1] || "." %>
+        on_project_start: tmux set-environment -g TMUXINATOR_LAYOUT dev-claude
+        windows:
+          - code:
+              layout: main-vertical
+              panes:
+                - nvim
+                - claude
+                - ""
+      '';
+    };
 
-    monitor = pkgs.writeShellScript "tmux-layout-monitor" ''
-      s="''${1:-$(tmux display-message -p '#S')}"
-      # 4-pane grid for watching logs/services
-      tmux split-window -h -l 50% -t "$s"
-      tmux split-window -v -l 50% -t "$s:1.1"
-      tmux select-pane -t "$s:1.0"
-      tmux split-window -v -l 50% -t "$s:1.0"
-      tmux select-pane -t "$s:1.0"
-    '';
+    monitor = {
+      name = "monitor";
+      yaml = ''
+        name: <%= @args[0] || "monitor" %>
+        root: <%= @args[1] || "." %>
+        windows:
+          - grid:
+              layout: tiled
+              panes:
+                -
+                -
+                -
+                -
+      '';
+    };
 
-    git = pkgs.writeShellScript "tmux-layout-git" ''
-      s="''${1:-$(tmux display-message -p '#S')}"
-      # Full-screen lazygit
-      tmux send-keys -t "$s" "lazygit" Enter
-    '';
+    git = {
+      name = "git";
+      yaml = ''
+        name: <%= @args[0] || "git" %>
+        root: <%= @args[1] || "." %>
+        windows:
+          - main:
+              panes:
+                - lazygit
+      '';
+    };
+
+    debug = {
+      name = "debug";
+      yaml = ''
+        name: debug-<%= @args[0] || "local" %>
+        root: ~/debug/incidents/<%= @args[1] || Time.now.strftime('%Y-%m-%d') %>
+        on_project_start: mkdir -p ~/debug/incidents/<%= @args[1] || Time.now.strftime('%Y-%m-%d') %>/logs ~/debug/incidents/<%= @args[1] || Time.now.strftime('%Y-%m-%d') %>/captures ~/debug/sessions
+        startup_window: work
+        windows:
+          - work:
+              layout: main-vertical
+              panes:
+                - remote:
+                  - ssh <%= @args[0] || "localhost" %>
+                - ai:
+                  - claude
+                - shell:
+                  - ""
+          - remote-logs:
+              layout: even-vertical
+              panes:
+                - ssh <%= @args[0] || "localhost" %> journalctl -f -p warning
+                - ssh <%= @args[0] || "localhost" %> journalctl -f
+          - notes:
+              panes:
+                - nvim notes.md
+      '';
+    };
   };
 
-  # Map layout name to script path
-  layoutCase = ''
-    case "$layout" in
-      dev-claude)  ${layouts.dev-claude} "$session" ;;
-      monitor)     ${layouts.monitor} "$session" ;;
-      git)         ${layouts.git} "$session" ;;
-      *)           ${layouts.universal} "$session" ;;
-    esac
+  # Scaffold a new debug incident directory
+  debugNew = pkgs.writeShellScriptBin "debug-new" ''
+    name="''${1:?usage: debug-new <short-description> [host]}"
+    host="''${2:-local}"
+    today=$(date +%Y-%m-%d)
+    now=$(date '+%Y-%m-%d %H:%M')
+    dir="$HOME/debug/incidents/$today-$name"
+
+    mkdir -p "$dir/logs" "$dir/captures"
+
+    cat > "$dir/notes.md" <<EOF
+    # Incident: $name
+
+    **Date:** $now
+    **Server:** $host
+    **Duration:**
+
+    ## Symptoms
+    -
+
+    ## Investigation
+    -
+
+    ## Root Cause
+
+
+    ## Resolution
+
+
+    ## Artifacts
+    - \`logs/\` — downloaded log files
+    - \`captures/\` — terminal session recordings
+    EOF
+
+    echo "Created: $dir"
+    echo "Start session: tmuxinator start debug $host $today-$name"
+  '';
+
+  # Layout picker — fzf popup to start a tmuxinator project (prefix+L)
+  layoutPicker = pkgs.writeShellScript "tmux-layout-picker" ''
+    export PATH="${lib.makeBinPath [ pkgs.fzf pkgs.gawk pkgs.coreutils pkgs.tmuxinator ]}:$PATH"
+
+    layout=$(printf '%s\n' \
+      "universal    nvim + terminal" \
+      "dev-claude   nvim + claude + terminal" \
+      "monitor      4-pane grid" \
+      "git          lazygit fullscreen" \
+      "debug        ssh + claude + logs (host)" \
+      | fzf --no-sort --border-label " tmuxinator " --prompt "  " \
+      | awk '{print $1}')
+
+    [ -z "$layout" ] && exit 0
+
+    dir="''${1:-$(tmux display-message -p '#{pane_current_path}')}"
+    name=$(basename "$dir")
+    tmuxinator start "$layout" "$name" "$dir"
+  '';
+
+  # Rename helper for sesh picker (needs explicit /dev/tty for fzf execute)
+  seshRename = pkgs.writeShellScript "sesh-rename" ''
+    session="$1"
+    [ -z "$session" ] && exit 0
+    printf 'New name: ' > /dev/tty
+    read -r name < /dev/tty
+    [ -n "$name" ] && tmux rename-session -t "$session" "$name"
   '';
 
   # Sesh session picker (canonical pattern: run-shell + fzf-tmux)
   seshConnect = pkgs.writeShellScript "sesh-smart-connect" ''
-    export PATH="${lib.makeBinPath [ pkgs.sesh pkgs.fzf pkgs.coreutils pkgs.gnused ]}:$PATH"
+    export PATH="${lib.makeBinPath [ pkgs.sesh pkgs.fzf pkgs.coreutils pkgs.gnused pkgs.tmuxinator ]}:$PATH"
 
     strip_icon() {
       LC_ALL=C sed $'s/^[\xee\xef][\x80-\xbf][\x80-\xbf] //'
     }
 
-    session=$(sesh list -i | fzf-tmux -p 55%,60% \
+    session=$(sesh list -itT | fzf-tmux -p 80%,70% \
         --no-sort --ansi --border-label " sesh " --prompt "  " \
-        --header "  ^a all  ^t tmux  ^x zoxide  ^f find  ^d kill" \
+        --header "  ^a all  ^t tmux  ^T muxinator  ^x zoxide  ^f find  ^r rename  ^d kill" \
+        --preview-window "right:55%:border-left" \
+        --preview "sesh preview {2..}" \
         --bind "tab:down,btab:up" \
-        --bind "ctrl-a:change-prompt(  )+reload(sesh list -i)" \
+        --bind "ctrl-a:change-prompt(  )+reload(sesh list -itT)" \
         --bind "ctrl-t:change-prompt(  )+reload(sesh list -it)" \
+        --bind "ctrl-T:change-prompt(  )+reload(sesh list -iT)" \
         --bind "ctrl-x:change-prompt(  )+reload(sesh list -iz)" \
         --bind "ctrl-f:change-prompt(  )+reload(fd -H -d 2 -t d -E .Trash . ~)" \
-        --bind "ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(  )+reload(sesh list -i)" \
+        --bind "ctrl-r:execute(${seshRename} {2..})+reload(sesh list -itT)" \
+        --bind "ctrl-d:execute(tmux kill-session -t {2..})+reload(sesh list -itT)" \
       | strip_icon)
 
     [ -z "$session" ] && exit 0
-    sesh connect "$session"
-  '';
-
-  # Layout picker — apply a layout to the current session (prefix+L)
-  layoutPicker = pkgs.writeShellScript "tmux-layout-picker" ''
-    export PATH="${lib.makeBinPath [ pkgs.fzf pkgs.gawk pkgs.coreutils ]}:$PATH"
-
-    session=$(tmux display-message -p '#S')
-
-    layout=$(printf '%s\n' \
-      "universal   nvim + terminal" \
-      "dev-claude  nvim + claude + terminal" \
-      "monitor     4-pane grid" \
-      "git         lazygit fullscreen" \
-      | fzf --no-sort --border-label " layout " --prompt "  " \
-      | awk '{print $1}')
-
-    [ -z "$layout" ] && exit 0
-
-    ${layoutCase}
+    sesh connect --tmuxinator "$session"
   '';
 in
 {
   options.tmux = {
     enable = lib.mkEnableOption "tmux terminal multiplexer";
-
-    defaultLayout = lib.mkOption {
-      type = lib.types.enum [
-        "universal"
-        "dev-claude"
-        "none"
-      ];
-      default = "universal";
-      description = "Default layout for new sesh sessions without their own startup script";
-    };
 
     sessions = lib.mkOption {
       type = with lib.types; listOf attrs;
@@ -122,7 +201,6 @@ in
       description = ''
         Additional sesh session definitions. Each entry maps to a [[session]] in sesh.toml.
         Available fields: name, path, startup_command, startup_script.
-        For startup_script, use one of the built-in layouts or a custom script path.
       '';
       example = [
         {
@@ -135,6 +213,13 @@ in
   };
 
   config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
+
+    home.packages = with pkgs; [ tmuxinator tmux-xpanes ansifilter debugNew ];
+
+    # Tmuxinator project files
+    xdg.configFile = lib.mapAttrs' (name: layout:
+      lib.nameValuePair "tmuxinator/${name}.yml" { text = layout.yaml; }
+    ) tmuxinatorLayouts;
 
     # fzf integration (required for sesh tmux popup)
     programs.fzf = {
@@ -192,17 +277,30 @@ in
             set -g @continuum-save-interval '10'
           '';
         }
+        {
+          plugin = logging;
+          extraConfig = ''
+            set -g @logging-path "$HOME/debug/sessions"
+            set -g @screen-capture-path "$HOME/debug/sessions"
+            set -g @save-complete-history-path "$HOME/debug/sessions"
+          '';
+        }
       ];
 
       extraConfig = ''
         unbind C-b
-        unbind t          # free t from clock mode (used by sesh)
+        unbind s          # free s from session tree (used by sesh)
+        unbind $          # free $ from rename-session (use R instead)
 
-        # Sesh session picker (prefix+t)
-        bind-key "t" run-shell "${seshConnect}"
+        # Rename session (prefix+R)
+        bind-key "R" command-prompt -I "#S" "rename-session -- '%%'"
 
-        # Layout picker — apply layout to current session (prefix+L)
-        bind-key "L" display-popup -E -w 40% -h 35% "${layoutPicker}"
+        # Sesh session picker (prefix+s or Ctrl+f)
+        bind-key "s" run-shell "${seshConnect}"
+        bind -n C-f run-shell "${seshConnect}"
+
+        # Tmuxinator layout picker (prefix+L)
+        bind-key "L" display-popup -E -w 40% -h 35% "${layoutPicker} '#{pane_current_path}'"
 
         # Pane navigation (Alt+hjkl, no prefix needed)
         bind -n M-h select-pane -L
@@ -265,6 +363,8 @@ in
       tml = "tmux list-sessions";
       tma = "tmux attach -t";
       tmk = "tmux kill-session -t";
+      mux = "tmuxinator";
+      fleet = "xpanes --ssh station laptop";
     };
   };
 }

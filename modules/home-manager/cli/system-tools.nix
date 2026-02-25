@@ -25,6 +25,11 @@
       # System Utilities
       usbutils           # USB device utilities (lsusb)
       bc                 # Calculator
+
+      # Log Analysis & Debugging
+      lnav               # Interactive log navigator with SQL queries
+      tailspin           # Auto-colorizing log tail (replaces tail -f)
+      moreutils          # ts (timestamps), sponge, and other unix gems
     ];
 
     # Convenient shell aliases
