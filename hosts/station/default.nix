@@ -86,6 +86,18 @@
   # ==============================================================================
   # HOST-SPECIFIC OVERRIDES
   # ==============================================================================
+  # Remote tmux sessions
+  tmux.sessions = [
+    {
+      name = "vnpc-21";
+      startup_command = "ssh odin@vnpc-21 -t tmux new-session -A -s main";
+    }
+    {
+      name = "laptop";
+      startup_command = "ssh none@laptop -t tmux new-session -A -s main";
+    }
+  ];
+
   # Gaming
   gaming = {
     enable = true;
