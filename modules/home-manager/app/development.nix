@@ -19,6 +19,9 @@
       # Security Testing
       burpsuite      # Web security testing
 
+      # Database
+      pgcli          # PostgreSQL CLI client
+
       # Version Control
       github-desktop # GitHub GUI client
     ];

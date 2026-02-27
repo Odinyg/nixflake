@@ -26,5 +26,6 @@
     ./secrets.nix
     ./protonvpn.nix
     ./fail2ban.nix
+    ./postgresql.nix
   ];
 }

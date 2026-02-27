@@ -190,6 +190,8 @@
       inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
     ];
 
+  postgresql.enable = true;
+
   hosted-services.n8n.enable = false;
   hosted-services.open-webui.enable = true;
   # ==============================================================================
