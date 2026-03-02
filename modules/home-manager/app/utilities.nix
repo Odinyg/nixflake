@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, ... }: {
+{ config, pkgs, pkgs-unstable, inputs, lib, ... }: {
 
   options = {
     utilities = {
@@ -52,7 +52,7 @@
       duf # Disk usage/free utility
 
       # Development Tools
-      pkgs-unstable.claude-code # Claude Code CLI
+      inputs.claude-code.packages.${pkgs.system}.default # Claude Code CLI (latest)
       pkgs-unstable.opencode
       uv # Python package manager / MCP server runner
       xh

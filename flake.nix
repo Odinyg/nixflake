@@ -20,6 +20,7 @@
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-code.url = "github:sadjow/claude-code-nix";
     mcp-nixos.url = "github:utensils/mcp-nixos";
   };
   outputs =
@@ -32,6 +33,7 @@
       stylix,
       sops-nix,
       zen-browser,
+      claude-code,
       mcp-nixos,
       ...
     }@inputs:
