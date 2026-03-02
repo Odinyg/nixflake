@@ -19,6 +19,7 @@
       gitui              # Terminal UI for git
 
       # Network & Security
+      dnsutils           # DNS utilities (dig, nslookup)
       sshpass            # Non-interactive SSH password auth
       keychain
 
