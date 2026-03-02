@@ -322,6 +322,30 @@ in
         bind-key -T copy-mode-vi 'M-k' select-pane -U
         bind-key -T copy-mode-vi 'M-l' select-pane -R
 
+        # --- Nested tmux (local → SSH → remote) ---
+        # Send prefix to inner tmux (prefix+a)
+        bind-key a send-prefix
+
+        # Detach from inner/remote tmux (prefix+D)
+        bind-key D send-prefix \; send-keys d
+
+        # Toggle outer tmux off (F12) — all keys pass to inner session
+        # Press F12 again to re-enable outer tmux
+        bind -T root F12 \
+          set prefix None \;\
+          set key-table off \;\
+          set status-left "[OFF] " \;\
+          set window-status-current-format "#[bg=red,fg=black] #I:#W " \;\
+          if -F '#{pane_in_mode}' 'send-keys -X cancel' \;\
+          refresh-client -S
+
+        bind -T off F12 \
+          set -u prefix \;\
+          set -u key-table \;\
+          set -u status-left \;\
+          set -u window-status-current-format \;\
+          refresh-client -S
+
         # Session/window switching
         bind Space last-window           # prefix+Space = last window
         bind C-Space last-window         # Ctrl held: Ctrl+Space, Ctrl+Space = last window
