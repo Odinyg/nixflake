@@ -29,6 +29,7 @@
       freerdp # RDP client
       rustdesk # Open-source remote desktop
       teamviewer # Remote desktop and support
+      moonlight-qt # Low-latency streaming client (pairs with Sunshine)
       filezilla # FTP/SFTP client
 
       # System Utilities

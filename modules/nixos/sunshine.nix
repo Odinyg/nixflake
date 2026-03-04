@@ -19,6 +19,10 @@
       autoStart = true;
       openFirewall = true;
       capSysAdmin = true;
+      settings = {
+        sunshine_name = config.networking.hostName;
+        origin_web_ui_allowed = "lan";
+      };
     };
   };
 }

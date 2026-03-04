@@ -75,6 +75,7 @@
   # ==============================================================================
   fail2ban-security.enable = lib.mkDefault true;
   tailscale.enable = true;
+  sunshine.enable = true;
   syncthing.enable = true;
   polkit.enable = true;
   xdg.enable = true;
