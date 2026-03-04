@@ -46,6 +46,12 @@ in
       default = "none";
       description = "SSH user for connecting to builder (on the builder machine)";
     };
+
+    cachePublicKey = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Public signing key for the binary cache (generate with nix-store --generate-binary-cache-key)";
+    };
   };
   
   config = lib.mkIf cfg.enable (lib.mkMerge [
@@ -60,11 +66,12 @@ in
         };
       };
       
-      # Set up nix-serve for binary cache
+      # Set up nix-serve for binary cache with signing
       services.nix-serve = {
         enable = true;
         port = cfg.cachePort;
         openFirewall = true;
+        secretKeyFile = "/var/lib/nix-serve/cache-priv-key.pem";
       };
       
       # Allow builds from trusted users
@@ -108,9 +115,8 @@ in
         trusted-substituters = [
           "http://${cfg.builderHost}:${toString cfg.cachePort}"
         ];
-        trusted-public-keys = [
-          # This will need to be replaced with the actual public key from nix-serve
-          # Get it from station with: cat /var/lib/nix-serve/cache-priv-key.pem | nix-store --generate-binary-cache-key station /dev/stdin /dev/stdout
+        trusted-public-keys = lib.optionals (cfg.cachePublicKey != "") [
+          cfg.cachePublicKey
         ];
         
         # Prefer remote builds for large derivations

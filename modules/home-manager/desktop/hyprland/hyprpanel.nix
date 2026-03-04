@@ -7,13 +7,28 @@
       settings = {
         layout = {
           bar.layouts = {
+            # Default for all monitors — no widget-triggering modules
             "*" = {
+              left = [ "media" ];
+              middle = [ "workspaces" ];
+              right = [
+                "volume"
+                "network"
+                "bluetooth"
+                "battery"
+                "clock"
+                "systray"
+              ];
+            };
+            # Main monitor gets dashboard + notifications widgets
+            "1" = {
               left = [ "dashboard" "media" ];
               middle = [ "workspaces" ];
               right = [
                 "volume"
                 "network"
                 "bluetooth"
+                "battery"
                 "clock"
                 "systray"
                 "notifications"
