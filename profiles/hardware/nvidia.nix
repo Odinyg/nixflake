@@ -16,6 +16,12 @@
       };
 
       prime = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Enable NVIDIA PRIME sync (for laptops with hybrid graphics)";
+        };
+
         nvidiaBusId = lib.mkOption {
           type = lib.types.str;
           default = "PCI:1:0:0";
@@ -44,15 +50,14 @@
       powerManagement.enable = false;
       open = true;
       nvidiaSettings = true;
-      prime.sync.enable = true;
-      prime.nvidiaBusId = config.hardware.nvidia-gpu.prime.nvidiaBusId;
-      prime.intelBusId = config.hardware.nvidia-gpu.prime.intelBusId;
+      prime.sync.enable = config.hardware.nvidia-gpu.prime.enable;
+      prime.nvidiaBusId = lib.mkIf config.hardware.nvidia-gpu.prime.enable config.hardware.nvidia-gpu.prime.nvidiaBusId;
+      prime.intelBusId = lib.mkIf config.hardware.nvidia-gpu.prime.enable config.hardware.nvidia-gpu.prime.intelBusId;
     };
 
     # Environment variables for NVIDIA
     environment.variables = {
       GBM_BACKEND = "nvidia-drm";
-      WLR_DRM_DEVICES = "$HOME/.config/hypr/card:$HOME/.config/hypr/otherCard";
       WLR_NO_HARDWARE_CURSORS = "1";
       LIBVA_DRIVER_NAME = "nvidia";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";

@@ -22,10 +22,7 @@
           gamma = 0.9;
           gamma-day = 0.95;
           gamma-night = 0.9;
-          adjustment-method = "randr";
-        };
-        randr = {
-          screen = 0;
+          adjustment-method = "wayland";
         };
       };
     };

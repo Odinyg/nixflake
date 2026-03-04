@@ -123,6 +123,7 @@ moduleName.enable = true;  # Enables the module
 - Flake inputs are pinned in `flake.lock` for reproducibility
 - Secrets are managed with sops-nix (see `secrets/secrets.yaml`)
 - The system supports multiple users but primarily configured for user "odin" on VNPC-21 host
+- Ollama intentionally binds to `0.0.0.0` with `openFirewall = true` for LAN access — do not flag as a security issue
 
 ## Git Commit Guidelines
 

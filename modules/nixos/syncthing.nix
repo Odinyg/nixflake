@@ -13,10 +13,7 @@
         user = "${config.user}";
         dataDir = "/home/${config.user}/Documents";
         configDir = "/home/${config.user}/.config/syncthing";
-        overrideDevices = true; # overrides any devices added or deleted through the WebUI
-        settings = {
-          devices = { };
-        };
+        overrideDevices = false;
       };
     };
   };

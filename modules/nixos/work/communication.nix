@@ -1,11 +1,5 @@
-{ pkgs, config, lib, inputs, ... }:
-let
-  # Create stable packages overlay
-  pkgs-stable = import inputs.nixpkgs-stable {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in {
+{ pkgs, config, lib, ... }:
+{
   options = {
     work.communication = {
       enable = lib.mkEnableOption "work communication tools (Zoom, AnyDesk)";

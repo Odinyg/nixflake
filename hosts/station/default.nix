@@ -33,6 +33,10 @@
     isNormalUser = true;
     description = "none";
     extraGroups = [ "networkmanager" "wheel" "plugdev" "dialout" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEb3q553HODR8Yipt69tmLrGOqLTfde/G8yntaitNkA3"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINezFWDmtlGHBF674DcsNi+wDMrSp13pNX1lo4RcJTMm"
+    ];
   };
 
   # ==============================================================================
@@ -50,6 +54,7 @@
   hardware.nvidia-gpu = {
     enable = true;
     driverPackage = "latest";  # Use latest drivers for better OpenGL support
+    prime.enable = false;  # Desktop GPU, no hybrid graphics
   };
 
   # ==============================================================================
