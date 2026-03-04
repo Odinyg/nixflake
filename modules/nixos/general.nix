@@ -66,12 +66,24 @@
       ansible
       devenv
     ];
+    services.gnome.gnome-online-accounts.enable = true;
     services.flatpak.enable = true;
     programs.appimage.enable = true;
     programs.zsh = {
       enable = true;
       };
 
+
+    # Keyd: CapsLock → Escape on tap, Ctrl on hold
+    services.keyd = {
+      enable = true;
+      keyboards.default = {
+        ids = [ "*" ];
+        settings.main = {
+          capslock = "overload(control, esc)";
+        };
+      };
+    };
 
     systemd.services.NetworkManager-wait-online.enable = false;
 

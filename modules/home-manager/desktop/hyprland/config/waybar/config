@@ -1,119 +1,123 @@
 {
-    "margin-top" : 5,
-        "margin-left": 10,
-        "margin-right": 10,
-        "height" : 30,
-        "modules-left": [
-            "hyprland/window"
-        ],
-        "modules-center": [
-            "hyprland/workspaces",
-        ],
-        "modules-right": [
-            "backlight",
-            "pulseaudio",
-            "network",
-            "battery",
-            "clock",
-            "tray",
-        ],
-        "hyprland/window": {
-            "format": "{}",
-            "max-length": 35,
-            "rewrite": {
-  		"": "Hyprland"
-  	},
-            "separate-outputs": true,
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "height": 30,
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "backlight",
+        "pulseaudio",
+        "bluetooth",
+        "network",
+        "battery",
+        "tray"
+    ],
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 35,
+        "rewrite": {
+            "": "Hyprland"
         },
-        "hyprland/workspaces": {
-            "format": "{icon}",
-            "all-outputs": false,
-            "show-special": false,
-            "on-click": "activate",
-            "format-icons": {
-                "active": " ",
-            },
-            "sort-by-number": true,
-            "persistent-workspaces": {
-                "*": 4, // 5 workspaces by default on every monitor
-            },
+        "separate-outputs": true
+    },
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "all-outputs": false,
+        "show-special": false,
+        "on-click": "activate",
+        "format-icons": {
+            "active": " "
         },
-        "clock": {
-            "format": "{:%d-%m 󱨴 %V  %H:%M}",
-            "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-            "format-alt": "{:%d-%m-%Y}",
-            "calendar": {
-                "mode"          : "year",
-                "mode-mon-col"  : 3,
-                "weeks-pos"     : "right",
-                "on-scroll"     : 1,
-                "on-click-right": "mode",
-                "format": {
-                    "months":     "<span color='#ffead3'><b>{}</b></span>",
-                    "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                    "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                    "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                    "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                }
-            },
-
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "*": 4
+        }
+    },
+    "clock": {
+        "format": "{:%d-%m 󱨴 %V  %H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "gnome-calendar",
+        "format-alt": "{:%d-%m-%Y}",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 5
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
         },
-        "tray": {
-               "icon-size": 16,
-               "spacing": 5 
+        "format": "{icon}  {capacity}%",
+        "format-full": "󰁹  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e bash -c 'upower -i $(upower -e | grep battery) && read -p \"Press enter to close\"'"
+    },
+    "network": {
+        "format-wifi": "󰤨  {signalStrength}%",
+        "format-ethernet": "󰈀 {cidr}",
+        "tooltip-format": "{ifname} via {gwaddr} \n{ipaddr}/{cidr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "󰤭 ",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e nmtui"
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "󰂯 {volume}% {format_source}",
+        "format-bluetooth-muted": "󰂲 {format_source}",
+        "format-muted": "󰝟  muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "cpu": {
-            "format": "  {usage}%",
-            "tooltip": false
-        },
-        "memory": {
-            "format": "{}%  "
-        },
-        "temperature": {
-            "critical-threshold": 80,
-            "format": "{icon} {temperatureC}°C",
-            "format-icons": ["", "", ""]
-        },
-        "battery": {
-            "states": {
-                "warning": 30,
-                "critical": 15
-            },
-            "format": "{icon}  {capacity}%",
-            "format-full": "{icon}  {capacity}%",
-            "format-charging": "  {capacity}%",
-            "format-plugged": "  {capacity}%",
-            "format-alt": "{time} {icon}",
-            "format-icons": ["", "", "", "", ""]
-        },
-        "network": {
-            "format-wifi": "  {signalStrength}%",
-            "format-ethernet": "{cidr} ",
-            "tooltip-format": "{ifname} via {gwaddr} ",
-            "format-linked": "{ifname} (No IP) ",
-            "format-disconnected": " ⚠ ",
-            "format-alt": "{ifname}: {ipaddr}/{cidr}",
-            "on-click": "nm-connection-editor"
-        },
-        "pulseaudio": {
-            "format": "{icon}  {volume}%",
-            "format-bluetooth": "{volume}% {icon} {format_source}",
-            "format-bluetooth-muted": " {icon} {format_source}",
-            "format-muted": " {format_source}",
-            "format-icons": {
-                "headphone": "",
-                "hands-free": "",
-                "headset": "",
-                "phone": "",
-                "portable": "",
-                "car": "",
-                "default": ["", "", ""]
-            },
-            "on-click": "pavucontrol"
-        },
-        "backlight": {
-            "device": "intel_backlight",
-            "format": "{percent}% {icon}",
-            "format-icons": ["", ""]
-}
+        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e pulsemixer",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-connected": "󰂱 {num_connections}",
+        "format-disabled": "󰂲",
+        "tooltip-format": "{controller_alias}\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e bluetuith"
+    },
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}  {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-"
+    }
 }

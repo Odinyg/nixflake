@@ -2,34 +2,32 @@
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     programs.hyprpanel = {
-      enable = true;
+      enable = false;
       package = pkgs-unstable.hyprpanel;
       settings = {
         layout = {
           bar.layouts = {
             # Default for all monitors — no widget-triggering modules
             "*" = {
-              left = [ "media" ];
-              middle = [ "workspaces" ];
+              left = [ "submap" ];
+              middle = [ "workspaces" "clock" ];
               right = [
                 "volume"
                 "network"
                 "bluetooth"
                 "battery"
-                "clock"
                 "systray"
               ];
             };
             # Main monitor gets dashboard + notifications widgets
             "1" = {
-              left = [ "dashboard" "media" ];
-              middle = [ "workspaces" ];
+              left = [ "dashboard" "submap" ];
+              middle = [ "workspaces" "clock" ];
               right = [
                 "volume"
                 "network"
                 "bluetooth"
                 "battery"
-                "clock"
                 "systray"
                 "notifications"
               ];
@@ -38,7 +36,9 @@
         };
 
         bar.launcher.autoDetectIcon = true;
-        bar.workspaces.show_icons = true;
+        bar.workspaces.show_icons = false;
+        bar.workspaces.numbered = true;
+        bar.workspaces.monitorSpecific = true;
 
         menus.clock = {
           time = {
@@ -55,6 +55,8 @@
 
         menus.dashboard.directories.enabled = false;
         menus.dashboard.stats.enable_gpu = true;
+
+        menus.notifications.position = "TOP_RIGHT";
 
         theme.bar.transparent = true;
 

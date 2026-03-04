@@ -18,7 +18,7 @@
         # Startup applications
         exec-once = [
           "pypr"
-          "hyprpanel & ~/.config/hypr/random-wallpaper.sh & swaync"
+          "waybar & ~/.config/hypr/random-wallpaper.sh & swaync"
           "hyprctl setcursor Bibata-Modern-Ice 18"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "nm-applet --indicator"
@@ -39,7 +39,7 @@
         input = {
           kb_layout = "us";
           kb_variant = "altgr-intl";
-          kb_options = "caps:escape,compose:ralt";
+          kb_options = "compose:ralt";
           numlock_by_default = true;
           follow_mouse = 1;
           repeat_rate = 55;
@@ -145,6 +145,10 @@
           "match:class ^(nsxiv)$, float on"
           "match:class ^(nsxiv)$, size 90% 90%"
           "match:class ^(nsxiv)$, center on"
+          # Waybar popup TUI windows
+          "match:class ^(waybar-popup)$, float on"
+          "match:class ^(waybar-popup)$, size 800 500"
+          "match:class ^(waybar-popup)$, center on"
         ];
       };
     };

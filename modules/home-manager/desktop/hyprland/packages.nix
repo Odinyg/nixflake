@@ -9,11 +9,28 @@
       pyprland # Scratchpad & window manager plugins
       hyprshade # Shader control
       swww # Animated wallpaper daemon
+      pulsemixer # TUI volume control
+      bluetuith # TUI bluetooth manager
+      gnome-calendar # Calendar app
+      gnome-online-accounts # Account sync (Nextcloud, Google, etc.)
+      gnome-control-center # Settings GUI for GNOME Online Accounts
+      vdirsyncer # CalDAV/CardDAV sync daemon
+      khal # TUI calendar
+      khard # TUI contacts
+      calcurse # TUI calendar with built-in CalDAV
+      endeavour # GNOME Tasks with CalDAV sync
+      evolution # Mail, calendar, contacts (GNOME Online Accounts)
+      onedrive # OneDrive sync client
+      onedrivegui # GUI for OneDrive client
+      nextcloud-client # Nextcloud file sync
+      nextcloud-talk-desktop # Nextcloud Talk desktop app
     ]) ++ (with pkgs; [
       # Screenshot & Image Tools
       grim # Screenshot tool
       slurp # Region selector
+      satty # Screenshot annotation editor
       vimiv-qt # Image viewer
+      libnotify # Desktop notifications (notify-send)
 
       # Window Management
       wmctrl # Window control utility
