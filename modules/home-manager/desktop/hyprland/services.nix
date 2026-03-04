@@ -36,6 +36,12 @@
       };
     };
 
+    # SwayOSD on-screen display for volume/brightness/capslock
+    services.swayosd = {
+      enable = true;
+      topMargin = 0.85;
+    };
+
     # Kanshi dynamic display configuration
     services.kanshi = {
       enable = true;

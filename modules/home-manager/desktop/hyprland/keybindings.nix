@@ -10,14 +10,31 @@
         "$mainMod, mouse:273, resizewindow"
       ];
 
+      # Volume/brightness keys (repeatable)
+      bindel = [
+        ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+        ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+        ", XF86MonoBrightnessUp, exec, swayosd-client --brightness raise"
+        ", XF86MonoBrightnessDown, exec, swayosd-client --brightness lower"
+      ];
+
+      # Toggle keys (non-repeating)
+      bindl = [
+        '', switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1, 1920x1080, 0x0, 1"''
+        '', switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"''
+        ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+        ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
+      ];
+
       # Keyboard bindings
       bind = [
         # Wallpaper & Browser
         "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
         "$mainMod, W, exec, zen-beta"
 
-        # Screenshots
-        ''ALT CTRL, S, exec, grim -g "$(slurp -d)" - | wl-copy''
+        # Screenshots — region to clipboard + file + notification
+        ''ALT CTRL, S, exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp -d)" - | tee ~/Pictures/screenshots/screenshot-$(date '+%Y%m%d-%H%M%S').png | wl-copy && notify-send "Screenshot" "Copied to clipboard and saved" -t 2000''
+        # Screenshots — region with satty annotation editor
         ''CTRL SUPER, S, exec, grim -g "$(slurp -d)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png''
 
         # Applications
@@ -93,11 +110,6 @@
         "$mainMod, R, exec, pypr toggle cheatsheet-search"
       ];
 
-      # Lid switch bindings
-      bindl = [
-        '', switch:off:Lid Switch,exec,hyprctl keyword monitor "eDP-1, 1920x1080, 0x0, 1"''
-        '', switch:on:Lid Switch,exec,hyprctl keyword monitor "eDP-1, disable"''
-      ];
     };
   };
 }
