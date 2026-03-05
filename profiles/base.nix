@@ -76,6 +76,13 @@
   fail2ban-security.enable = lib.mkDefault true;
   tailscale.enable = true;
   sunshine.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PubkeyAuthentication = true;
+    };
+  };
   syncthing.enable = true;
   polkit.enable = true;
   xdg.enable = true;
