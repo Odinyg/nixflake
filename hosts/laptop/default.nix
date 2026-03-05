@@ -57,7 +57,6 @@
   ];
 
   gaming.enable = true;
-  crypt.enable = true;
   protonvpn.enable = true;
   fail2ban-security.enable = false;
 
@@ -83,13 +82,6 @@
     isBuilder = false;
     cachePublicKey = "station:IH2kzUkYwmAVyk7J1XIgfIMw4d2vb5xA8ID8Ns9m7Xc=";
   };
-
-  # ==============================================================================
-  # SYSTEM PACKAGES
-  # ==============================================================================
-  environment.systemPackages = [
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-  ];
 
   # Cursor customization
   styling.cursor.package = pkgs.bibata-cursors;

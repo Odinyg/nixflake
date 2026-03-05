@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
 
   options = {
@@ -7,8 +7,13 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.zen-browser.enable {
+  config = lib.mkIf config.zen-browser.enable {
+    # Install zen-browser as a system package (from flake input)
+    environment.systemPackages = [
+      inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+    ];
 
+    home-manager.users.${config.user} = {
     # Wayland and NVIDIA environment variables for Zen browser
     home.sessionVariables = {
       # Enable Wayland support
@@ -28,18 +33,6 @@
     home.file.".mozilla/native-messaging-hosts/firefoxpwa.json".source =
       "${pkgs.firefoxpwa}/lib/mozilla/native-messaging-hosts/firefoxpwa.json";
 
-    # Set Zen as default browser
-    xdg.mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "text/html" = "zen-browser.desktop";
-        "text/xml" = "zen-browser.desktop";
-        "application/xhtml+xml" = "zen-browser.desktop";
-        "x-scheme-handler/http" = "zen-browser.desktop";
-        "x-scheme-handler/https" = "zen-browser.desktop";
-      };
-    };
-
     # XDG desktop integration
     xdg.desktopEntries.zen-browser = {
       name = "Zen Browser";
@@ -58,6 +51,7 @@
         "x-scheme-handler/http"
         "x-scheme-handler/https"
       ];
+    };
     };
   };
 }

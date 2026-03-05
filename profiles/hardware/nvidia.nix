@@ -38,9 +38,6 @@
   };
 
   config = lib.mkIf config.hardware.nvidia-gpu.enable {
-    # Allow unfree packages (required for NVIDIA drivers)
-    nixpkgs.config.allowUnfree = true;
-
     # NVIDIA drivers
     services.xserver.videoDrivers = [ "nvidia" ];
 

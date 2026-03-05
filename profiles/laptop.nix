@@ -19,7 +19,6 @@
 
   # Laptop-specific services
   services = {
-    flatpak.enable = true;
     playerctld.enable = true;
   };
 

@@ -33,7 +33,6 @@
       filezilla # FTP/SFTP client
 
       # System Utilities
-      wine # Windows compatibility layer
       autokey # Automation tool
       xcape # Key modifier tool
 

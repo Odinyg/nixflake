@@ -51,7 +51,6 @@
       mesa-demos
       vulkan-tools
       wayland-utils
-      vesktop
       kdePackages.kate
       screen
       shutter
@@ -188,12 +187,10 @@
   # SYSTEM PACKAGES
   # ==============================================================================
   environment.systemPackages = with pkgs; [
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
     pciutils
     system-config-printer
     lshw
     tailscale
-    ptouch-driver
   ];
 
   # ==============================================================================

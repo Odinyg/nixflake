@@ -15,7 +15,6 @@
     environment.systemPackages = with pkgs; [
       insync
       flameshot
-      kuro
       onlyoffice-desktopeditors
     ];
   };

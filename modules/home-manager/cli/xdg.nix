@@ -17,6 +17,8 @@
       pkgs.xdg-user-dirs
     ];
 
+    home.sessionVariables.BROWSER = "zen";
+
     xdg = {
       enable = true;
 
@@ -24,6 +26,15 @@
 
       mimeApps = {
         enable = true;
+
+        associations.removed = {
+          "text/html" = "brave-browser.desktop";
+          "text/xml" = "brave-browser.desktop";
+          "application/xhtml+xml" = "brave-browser.desktop";
+          "application/pdf" = "brave-browser.desktop";
+          "x-scheme-handler/http" = "brave-browser.desktop";
+          "x-scheme-handler/https" = "brave-browser.desktop";
+        };
 
         defaultApplications =
           let

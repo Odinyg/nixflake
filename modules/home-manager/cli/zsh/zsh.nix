@@ -74,7 +74,6 @@
   };
   home.packages = with pkgs; [
     ueberzugpp
-    fzf
     ripgrep
     bat
     fd
