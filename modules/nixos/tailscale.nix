@@ -11,5 +11,6 @@
       package = pkgs-unstable.tailscale;
       extraUpFlags = [ "--accept-routes" ];
     };
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
   };
 }
