@@ -23,6 +23,7 @@
       settings = {
         sunshine_name = config.networking.hostName;
         origin_web_ui_allowed = "wan";
+        resolutions = "[\n  1920x1080,\n  2560x1440,\n  3840x2160\n]";
       };
     };
   };
