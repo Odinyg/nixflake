@@ -25,6 +25,7 @@
     ./hosted-services
     ./secrets.nix
     ./protonvpn.nix
+    ./localsend.nix
     ./fail2ban.nix
     ./postgresql.nix
   ];

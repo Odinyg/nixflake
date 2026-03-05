@@ -37,7 +37,7 @@
     xdg.desktopEntries.zen-browser = {
       name = "Zen Browser";
       genericName = "Web Browser";
-      exec = "zen %U";
+      exec = "zen-beta %U";
       terminal = false;
       categories = [ "Application" "Network" "WebBrowser" ];
       mimeType = [
