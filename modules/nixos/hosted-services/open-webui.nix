@@ -12,6 +12,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    networking.extraHosts = "127.0.0.1 open-webui.local";
     services.open-webui = {
       enable = true;
       port = 3000;

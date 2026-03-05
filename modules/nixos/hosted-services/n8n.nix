@@ -12,6 +12,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    networking.extraHosts = "127.0.0.1 n8n.local";
     services.n8n.enable = true;
   };
 }

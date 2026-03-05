@@ -7,6 +7,7 @@
     };
   };
   config = lib.mkIf config.syncthing.enable {
+    networking.extraHosts = "127.0.0.1 syncthing.local";
     services = {
       syncthing = {
         enable = true;

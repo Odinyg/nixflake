@@ -12,6 +12,7 @@
     };
   };
   config = lib.mkIf config.sunshine.enable {
+    networking.extraHosts = "127.0.0.1 sunshine.local";
     services.avahi.publish.enable = true;
     services.avahi.publish.userServices = true;
     services.sunshine = {
