@@ -29,8 +29,26 @@ just gc
 sudo nixos-rebuild switch --flake .#<hostname>
 ```
 
+### Deployment Commands
+```bash
+# Deploy to all hosts via colmena
+colmena apply
+
+# Deploy to a single host
+colmena apply --on VNPC-21
+
+# Dry evaluate colmena config
+colmena eval
+
+# Build all hosts without deploying
+colmena build
+```
+
 ### Development Commands
 ```bash
+# Format all .nix files
+nix fmt
+
 # View changes excluding flake.lock
 just diff
 
@@ -40,10 +58,20 @@ git add *.nix
 
 ## Architecture
 
+### Flake-Parts Structure
+The flake uses [flake-parts](https://flake.parts) to modularize outputs. The `flake.nix` is minimal — it declares inputs and imports modules from `parts/`:
+
+- **`parts/lib.nix`** — Shared helpers: `hostModules` function, `pkgs-unstable`, `commonModules` list. Both `hosts.nix` and `deploy.nix` import this to stay in sync.
+- **`parts/hosts.nix`** — `mkHost` helper + all `nixosConfigurations` (laptop, VNPC-21, station). To add a new host, add an entry here.
+- **`parts/dev.nix`** — `perSystem` config: formatter (`nixfmt-rfc-style`). Run `nix fmt` to format all `.nix` files.
+- **`parts/deploy.nix`** — [Colmena](https://colmena.cli.rs) multi-host deployment config. Use `colmena apply` to deploy to all hosts, or `colmena apply --on <host>` for one.
+
+When adding a new host, update both `parts/hosts.nix` (nixosConfigurations) and `parts/deploy.nix` (colmena node).
+
 ### Module System
 The configuration follows a hierarchical module structure:
 
-1. **Top Level (`flake.nix`)**: Defines hosts and imports common modules
+1. **Top Level (`flake.nix` + `parts/`)**: Defines hosts via flake-parts modules
 2. **Modules Layer (`modules/`)**: Split into two main categories:
    - `nixos/`: System-level configurations (services, hardware, boot)
    - `home-manager/`: User-level configurations (apps, dotfiles, desktop)
