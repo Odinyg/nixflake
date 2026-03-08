@@ -17,10 +17,17 @@ let
     config.allowUnfree = true;
   };
 
+  # Desktop hosts: full module tree with home-manager, stylix, nixvim
   commonModules = [
     ../modules
     stylix.nixosModules.stylix
     home-manager.nixosModules.home-manager
+    sops-nix.nixosModules.sops
+  ];
+
+  # Server hosts: lightweight — no home-manager, stylix, or desktop modules
+  serverCommonModules = [
+    ../modules/server
     sops-nix.nixosModules.sops
   ];
 
@@ -54,7 +61,26 @@ let
       }
     ]
     ++ extraModules;
+
+  serverModules =
+    {
+      hostPath,
+      stateVersion ? "25.05",
+      extraModules ? [ ],
+    }:
+    serverCommonModules
+    ++ [
+      hostPath
+    ]
+    ++ extraModules;
 in
 {
-  inherit system pkgs-unstable commonModules hostModules;
+  inherit
+    system
+    pkgs-unstable
+    commonModules
+    serverCommonModules
+    hostModules
+    serverModules
+    ;
 }

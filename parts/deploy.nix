@@ -25,6 +25,24 @@ let
         inherit hostPath user stateVersion extraModules;
       };
     };
+
+  mkColmenaServer =
+    {
+      hostPath,
+      targetHost,
+      stateVersion ? "25.05",
+      extraModules ? [ ],
+    }:
+    { ... }:
+    {
+      deployment = {
+        targetHost = targetHost;
+        targetUser = "root";
+      };
+      imports = lib.serverModules {
+        inherit hostPath stateVersion extraModules;
+      };
+    };
 in
 {
   flake.colmena = {
@@ -36,6 +54,7 @@ in
       };
     };
 
+    # Desktop hosts
     laptop = mkColmenaHost {
       hostPath = ../hosts/laptop;
       user = "none";
@@ -53,6 +72,27 @@ in
       hostPath = ../hosts/station;
       user = "none";
       targetHost = "station";
+    };
+
+    # Homelab servers (staging IPs — update to production after cutover)
+    pulse = mkColmenaServer {
+      hostPath = ../hosts/pulse;
+      targetHost = "10.10.30.112";
+    };
+
+    sugar = mkColmenaServer {
+      hostPath = ../hosts/sugar;
+      targetHost = "10.10.30.111";
+    };
+
+    byob = mkColmenaServer {
+      hostPath = ../hosts/byob;
+      targetHost = "10.10.50.110";
+    };
+
+    psychosocial = mkColmenaServer {
+      hostPath = ../hosts/psychosocial;
+      targetHost = "10.10.30.110";
     };
   };
 }
