@@ -52,7 +52,7 @@
           disabled: false
           displayname: Homelab Admin
           email: admin@pytt.io
-          password: '$$argon2id$$v=19$$m=65536,t=3,p=4$$g/+SvP06elXQTV8r2OeDcQ$$l64+8ouJBTYlKjVWHqUqXPwEaLq7U3/pFjG27vC0EKU'
+          password: '$argon2id$v=19$m=65536,t=3,p=4$g/+SvP06elXQTV8r2OeDcQ$l64+8ouJBTYlKjVWHqUqXPwEaLq7U3/pFjG27vC0EKU'
           groups:
             - admins
     '';
