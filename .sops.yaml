@@ -4,10 +4,9 @@ keys:
   - &laptop age1nw5rh8gcg2lzz20znnmrfn5nx62waprnrez8qg2wf9c2f698vaxsu662gp
   - &station age1nw5rh8gcg2lzz20znnmrfn5nx62waprnrez8qg2wf9c2f698vaxsu662gp
   - &vnpc21 age1nw5rh8gcg2lzz20znnmrfn5nx62waprnrez8qg2wf9c2f698vaxsu662gp
-  # Homelab servers — replace with actual age keys after VM creation
-  # Generate with: ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
-  - &homelab_low REPLACE_WITH_BYOB_AGE_KEY
-  - &homelab_general REPLACE_WITH_GENERAL_AGE_KEY
+  # Homelab servers
+  - &homelab_low age1p2gy6kqvj5gfz8enpf8adh652rpkqvu4muzrg2nf7f98sl45qgkspaah7f
+  - &homelab_general age1knseevsr30xnq67wuhfrtlfw43ryz4hgch3y0ae4rlppfdss6p7q0pqt6u
   - &homelab_critical age1l4q60pec49kr6cphaj80kunh7n6jt8cxan042lhac4herj0pqywquzxw5x
 
 creation_rules:
