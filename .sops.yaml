@@ -8,7 +8,7 @@ keys:
   # Generate with: ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
   - &homelab_low REPLACE_WITH_BYOB_AGE_KEY
   - &homelab_general REPLACE_WITH_GENERAL_AGE_KEY
-  - &homelab_critical REPLACE_WITH_CRITICAL_AGE_KEY
+  - &homelab_critical age1l4q60pec49kr6cphaj80kunh7n6jt8cxan042lhac4herj0pqywquzxw5x
 
 creation_rules:
   # Desktop secrets
