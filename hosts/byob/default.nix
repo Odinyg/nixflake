@@ -102,6 +102,14 @@
   services.nzbget = {
     enable = true;
     group = "media";
+    settings = {
+      MainDir = "/mnt/downloads";
+      DestDir = "/mnt/downloads/complete";
+      InterDir = "/mnt/downloads/incomplete";
+      NzbDir = "/mnt/downloads/nzb";
+      QueueDir = "/mnt/downloads/queue";
+      TempDir = "/mnt/downloads/tmp";
+    };
   };
   # NZBGet + Seerr don't have openFirewall options
   networking.firewall.allowedTCPPorts = [
