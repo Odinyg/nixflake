@@ -200,6 +200,7 @@
           scopes = [ "openid" "profile" "email" "groups" ];
           userinfo_signed_response_alg = "none";
         }
+
       ];
     };
   };
@@ -311,7 +312,7 @@
               icon = "nextcloud.png";
               href = "https://nextcloud.pytt.io";
               description = "File Storage & Collaboration";
-              siteMonitor = "http://10.10.30.11:8080";
+              siteMonitor = "http://10.10.30.111:80";
             };
           }
           {
@@ -319,6 +320,7 @@
               icon = "norish.png";
               href = "https://norish.pytt.io";
               description = "Bookmarks & Read Later";
+              siteMonitor = "http://10.10.30.111:3000";
             };
           }
           {
@@ -326,9 +328,10 @@
               icon = "perplexica.png";
               href = "https://perplexica.pytt.io";
               description = "AI Search Engine";
-              siteMonitor = "http://10.10.30.11:3001";
+              siteMonitor = "http://10.10.30.111:3001";
             };
           }
+
         ];
       }
       {
@@ -520,7 +523,7 @@
               icon = "searxng.png";
               href = "https://searxng.pytt.io";
               description = "Privacy Search Engine";
-              siteMonitor = "http://10.10.30.11:8888";
+              siteMonitor = "http://10.10.30.111:8888";
             };
           }
           {
@@ -528,7 +531,7 @@
               icon = "n8n.png";
               href = "https://n8n.pytt.io";
               description = "Workflow Automation";
-              siteMonitor = "http://10.10.30.11:5678";
+              siteMonitor = "http://10.10.30.111:5678";
             };
           }
           {
@@ -537,14 +540,6 @@
               href = "https://ollama.pytt.io";
               description = "LLM Server";
               siteMonitor = "http://192.168.1.91:11434";
-            };
-          }
-          {
-            Myrlin = {
-              icon = "mdi-book-open-variant";
-              href = "https://myrlin.pytt.io";
-              description = "Claude Code Workspace Manager";
-              siteMonitor = "http://10.10.30.11:3456";
             };
           }
         ];
@@ -653,54 +648,41 @@
           reverse_proxy 10.10.30.12:9090
         }
 
-        # --- sugar (old: 10.10.30.11) ---
+        # --- sugar (staging: 10.10.30.111) ---
 
         @n8n host n8n.pytt.io
         handle @n8n {
-          reverse_proxy 10.10.30.11:5678
+          reverse_proxy 10.10.30.111:5678
         }
 
         @nextcloud host nextcloud.pytt.io
         handle @nextcloud {
-          reverse_proxy 10.10.30.11:8080
+          reverse_proxy 10.10.30.111:80
         }
 
         @norish host norish.pytt.io
         handle @norish {
-          reverse_proxy 10.10.30.11:3000
+          reverse_proxy 10.10.30.111:3000
         }
 
-        @myrlin host myrlin.pytt.io
-        handle @myrlin {
-          reverse_proxy 10.10.30.11:3456
-        }
-
-        @paseo host paseo.pytt.io
-        handle @paseo {
-          reverse_proxy 10.10.30.11:6767
-        }
 
         @searxng host searxng.pytt.io
         handle @searxng {
           import authelia
-          reverse_proxy 10.10.30.11:8888
+          reverse_proxy 10.10.30.111:8888
         }
 
         @perplexica host perplexica.pytt.io
         handle @perplexica {
           import authelia
-          reverse_proxy 10.10.30.11:3001
+          reverse_proxy 10.10.30.111:3001
         }
 
-        @sparkyfitness host sparkyfitness.pytt.io
-        handle @sparkyfitness {
-          reverse_proxy 10.10.30.11:3004
-        }
 
         @netboot host netboot.pytt.io
         handle @netboot {
           import authelia
-          reverse_proxy 10.10.30.11:3003
+          reverse_proxy 10.10.30.111:3003
         }
 
         # --- TrueNAS / Kubernetes ---
