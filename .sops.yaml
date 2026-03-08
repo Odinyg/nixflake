@@ -1,15 +1,48 @@
-# This example uses YAML anchors which allows reuse of multiple keys
-# without having to repeat yourself.
-# Also see https://github.com/Mic92/dotfiles/blob/d6114726d859df36ccaa32891c4963ae5717ef7f/nixos/.sops.yaml
-# for a more complex example.
+# YAML anchors for key reuse
 keys:
+  # Desktop hosts
   - &laptop age1nw5rh8gcg2lzz20znnmrfn5nx62waprnrez8qg2wf9c2f698vaxsu662gp
   - &station age1nw5rh8gcg2lzz20znnmrfn5nx62waprnrez8qg2wf9c2f698vaxsu662gp
   - &vnpc21 age1nw5rh8gcg2lzz20znnmrfn5nx62waprnrez8qg2wf9c2f698vaxsu662gp
+  # Homelab servers — replace with actual age keys after VM creation
+  # Generate with: ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
+  - &homelab_low REPLACE_WITH_BYOB_AGE_KEY
+  - &homelab_general REPLACE_WITH_GENERAL_AGE_KEY
+  - &homelab_critical age1l4q60pec49kr6cphaj80kunh7n6jt8cxan042lhac4herj0pqywquzxw5x
+
 creation_rules:
-  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+  # Shared desktop secrets (all PCs)
+  - path_regex: secrets/secrets\.(yaml|json|env|ini)$
     key_groups:
       - age:
           - *laptop
           - *vnpc21
           - *station
+
+  # Per-desktop secrets
+  - path_regex: secrets/laptop\.yaml$
+    key_groups:
+      - age:
+          - *laptop
+  - path_regex: secrets/station\.yaml$
+    key_groups:
+      - age:
+          - *station
+  - path_regex: secrets/vnpc-21\.yaml$
+    key_groups:
+      - age:
+          - *vnpc21
+
+  # Homelab secrets — 3-tier model
+  - path_regex: secrets/byob\.yaml$
+    key_groups:
+      - age:
+          - *homelab_low
+  - path_regex: secrets/psychosocial\.yaml$
+    key_groups:
+      - age:
+          - *homelab_critical
+  - path_regex: secrets/(sugar|pulse|shared)\.yaml$
+    key_groups:
+      - age:
+          - *homelab_general

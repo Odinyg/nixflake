@@ -29,7 +29,9 @@
       "Bash(# Wait, using awk ''{sub\\(/^[^ ]+ /, \"\"\"\"\\); print}'' would also strip directory names with spaces # e.g. \"\"~/My Documents\"\" would become \"\"Documents\"\" # Let''s check if any paths have spaces in them from sesh list sesh list)",
       "Bash(# The ctrl-d bind in fzf uses {} which is the raw fzf selection\n# --bind \"\"ctrl-d:execute\\(tmux kill-session -t {}\\)+...\"\"\n# This {} would also contain the icon prefix, causing kill-session to fail\n# We need to fix that too\n\n# Let me now write the fix\n# I''ll add a strip_icons function and use it on $session, and also fix the ctrl-d bind)",
       "Bash(just rebuild:*)",
-      "WebFetch(domain:hyprpanel.com)"
+      "WebFetch(domain:hyprpanel.com)",
+      "Bash(cat:*)",
+      "Skill(server-plan-service)"
     ],
     "deny": [],
     "ask": []

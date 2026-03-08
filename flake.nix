@@ -22,112 +22,19 @@
     };
     claude-code.url = "github:sadjow/claude-code-nix";
     mcp-nixos.url = "github:utensils/mcp-nixos";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    colmena.url = "github:zhaofengli/colmena";
   };
   outputs =
-    {
-      nixpkgs,
-      nixpkgs-unstable,
-      home-manager,
-      nixvim,
-      nixos-hardware,
-      stylix,
-      sops-nix,
-      zen-browser,
-      claude-code,
-      mcp-nixos,
-      ...
-    }@inputs:
-
-    let
-      system = "x86_64-linux";
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      mkHomeConfig =
-        { username, stateVersion }:
-        {
-          imports = [ nixvim.homeModules.nixvim ];
-          home = {
-            username = username;
-            homeDirectory = "/home/${username}";
-            stateVersion = stateVersion;
-          };
-          programs.home-manager.enable = true;
-        };
-
-      commonModules = [
-        ./modules
-        stylix.nixosModules.stylix
-        home-manager.nixosModules.home-manager
-        sops-nix.nixosModules.sops
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+      imports = [
+        ./parts/hosts.nix
+        ./parts/dev.nix
+        ./parts/deploy.nix
       ];
-    in
-    {
-
-      nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs pkgs-unstable; };
-          modules = commonModules ++ [
-            ./hosts/laptop
-            { user = "none"; }
-            { nixpkgs.config.allowUnfree = true; }
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs pkgs-unstable; };
-                users.none = mkHomeConfig {
-                  username = "none";
-                  stateVersion = "25.05";
-                };
-              };
-            }
-          ];
-        };
-
-        VNPC-21 = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs pkgs-unstable; };
-          modules = commonModules ++ [
-            ./hosts/vnpc-21
-            { user = "odin"; }
-            { nixpkgs.config.allowUnfree = true; }
-            nixos-hardware.nixosModules.lenovo-thinkpad-p53
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs pkgs-unstable; };
-                users.odin = mkHomeConfig {
-                  username = "odin";
-                  stateVersion = "25.05";
-                };
-              };
-            }
-          ];
-        };
-
-        station = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs pkgs-unstable; };
-          modules = commonModules ++ [
-            ./hosts/station
-            { user = "none"; }
-            { nixpkgs.config.allowUnfree = true; }
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs pkgs-unstable; };
-                users.none = mkHomeConfig {
-                  username = "none";
-                  stateVersion = "25.05";
-                };
-              };
-            }
-          ];
-        };
-      };
-
-      # homeConfigurations removed - using integrated home-manager instead
     };
 }
