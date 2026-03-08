@@ -1,12 +1,25 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
+  inputs,
   lib,
   ...
 }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    "${inputs.nixpkgs-unstable}/nixos/modules/services/misc/homepage-dashboard.nix"
+  ];
+
+  # Use unstable homepage-dashboard module + package (for environmentFiles support)
+  disabledModules = [ "services/misc/homepage-dashboard.nix" ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      homepage-dashboard = pkgs-unstable.homepage-dashboard;
+    })
+  ];
 
   networking.hostName = "psychosocial";
 
@@ -196,6 +209,349 @@
     AUTHELIA_SESSION_REDIS_PASSWORD_FILE = config.sops.secrets.authelia_session_redis_password.path;
   };
 
+  # --- Homepage secrets ---
+  sops.secrets.homepage_jellyfin_api_key = { };
+  sops.secrets.homepage_jellyseerr_api_key = { };
+  sops.secrets.homepage_sonarr_api_key = { };
+  sops.secrets.homepage_radarr_api_key = { };
+  sops.secrets.homepage_lidarr_api_key = { };
+  sops.secrets.homepage_prowlarr_api_key = { };
+  sops.secrets.homepage_homeassistant_api_key = { };
+  sops.secrets.homepage_proxmox_token_id = { };
+  sops.secrets.homepage_proxmox_token_secret = { };
+  sops.secrets.homepage_truenas_api_key = { };
+  sops.secrets.homepage_nzbget_user = { };
+  sops.secrets.homepage_nzbget_pass = { };
+  sops.secrets.homepage_transmission_user = { };
+  sops.secrets.homepage_transmission_pass = { };
+
+  sops.templates."homepage-env".content = ''
+    HOMEPAGE_VAR_JELLYFIN_API_KEY=${config.sops.placeholder.homepage_jellyfin_api_key}
+    HOMEPAGE_VAR_JELLYSEERR_API_KEY=${config.sops.placeholder.homepage_jellyseerr_api_key}
+    HOMEPAGE_VAR_SONARR_API_KEY=${config.sops.placeholder.homepage_sonarr_api_key}
+    HOMEPAGE_VAR_RADARR_API_KEY=${config.sops.placeholder.homepage_radarr_api_key}
+    HOMEPAGE_VAR_LIDARR_API_KEY=${config.sops.placeholder.homepage_lidarr_api_key}
+    HOMEPAGE_VAR_PROWLARR_API_KEY=${config.sops.placeholder.homepage_prowlarr_api_key}
+    HOMEPAGE_VAR_HOMEASSISTANT_API_KEY=${config.sops.placeholder.homepage_homeassistant_api_key}
+    HOMEPAGE_VAR_PROXMOX_TOKEN_ID=${config.sops.placeholder.homepage_proxmox_token_id}
+    HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET=${config.sops.placeholder.homepage_proxmox_token_secret}
+    HOMEPAGE_VAR_TRUENAS_API_KEY=${config.sops.placeholder.homepage_truenas_api_key}
+    HOMEPAGE_VAR_NZBGET_USER=${config.sops.placeholder.homepage_nzbget_user}
+    HOMEPAGE_VAR_NZBGET_PASS=${config.sops.placeholder.homepage_nzbget_pass}
+    HOMEPAGE_VAR_TRANSMISSION_USER=${config.sops.placeholder.homepage_transmission_user}
+    HOMEPAGE_VAR_TRANSMISSION_PASS=${config.sops.placeholder.homepage_transmission_pass}
+  '';
+
+  # --- Homepage Dashboard ---
+  services.homepage-dashboard = {
+    enable = true;
+    listenPort = 3000;
+    allowedHosts = "pytt.io,home.pytt.io";
+    environmentFiles = [ config.sops.templates."homepage-env".path ];
+
+    settings = {
+      title = "pytt.io";
+      theme = "dark";
+      color = "slate";
+      headerStyle = "clean";
+      layout = {
+        Main = { style = "row"; columns = 4; };
+        Infrastructure = { style = "row"; columns = 3; };
+        Monitoring = { style = "row"; columns = 4; };
+        Media = { style = "row"; columns = 2; };
+        ARRrr = { style = "row"; columns = 4; };
+        Tools = { style = "row"; columns = 4; };
+      };
+    };
+
+    widgets = [
+      {
+        search = {
+          provider = "custom";
+          url = "https://searxng.pytt.io/search?q=";
+          suggestionUrl = "https://searxng.pytt.io/autocompleter?q=";
+          focus = true;
+          showSearchSuggestions = true;
+          target = "_blank";
+        };
+      }
+    ];
+
+    proxmox = {
+      pve = {
+        url = "https://10.10.10.227:8006";
+        token = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}";
+        secret = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}";
+      };
+      pve2 = {
+        url = "https://10.10.10.228:8006";
+        token = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}";
+        secret = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}";
+      };
+    };
+
+    services = [
+      {
+        Main = [
+          {
+            "Home Assistant" = {
+              icon = "home-assistant.png";
+              href = "https://homeassistant.pytt.io";
+              description = "Home Automation";
+              siteMonitor = "http://10.10.20.205:8123";
+              widget = {
+                type = "homeassistant";
+                url = "http://10.10.20.205:8123";
+                key = "{{HOMEPAGE_VAR_HOMEASSISTANT_API_KEY}}";
+              };
+            };
+          }
+          {
+            Nextcloud = {
+              icon = "nextcloud.png";
+              href = "https://nextcloud.pytt.io";
+              description = "File Storage & Collaboration";
+              siteMonitor = "http://10.10.30.11:8080";
+            };
+          }
+          {
+            Norish = {
+              icon = "norish.png";
+              href = "https://norish.pytt.io";
+              description = "Bookmarks & Read Later";
+            };
+          }
+          {
+            Perplexica = {
+              icon = "perplexica.png";
+              href = "https://perplexica.pytt.io";
+              description = "AI Search Engine";
+              siteMonitor = "http://10.10.30.11:3001";
+            };
+          }
+        ];
+      }
+      {
+        Infrastructure = [
+          {
+            "Proxmox 1" = {
+              icon = "proxmox.png";
+              href = "https://pve1.pytt.io";
+              description = "Hypervisor";
+              siteMonitor = "https://10.10.10.227:8006";
+              widget = {
+                type = "proxmox";
+                url = "https://10.10.10.227:8006";
+                username = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}";
+                password = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}";
+                node = "pve";
+              };
+            };
+          }
+          {
+            "Proxmox 2" = {
+              icon = "proxmox.png";
+              href = "https://pve2.pytt.io";
+              description = "Hypervisor";
+              siteMonitor = "https://10.10.10.228:8006";
+              widget = {
+                type = "proxmox";
+                url = "https://10.10.10.228:8006";
+                username = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_ID}}";
+                password = "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}";
+                node = "pve2";
+              };
+            };
+          }
+          {
+            TrueNAS = {
+              icon = "truenas.png";
+              href = "https://truenas.pytt.io";
+              description = "Storage Server";
+              siteMonitor = "https://10.10.10.20";
+              widget = {
+                type = "truenas";
+                url = "https://10.10.10.20";
+                key = "{{HOMEPAGE_VAR_TRUENAS_API_KEY}}";
+                enablePools = true;
+              };
+            };
+          }
+        ];
+      }
+      {
+        Monitoring = [
+          {
+            Gatus = {
+              icon = "gatus.png";
+              href = "https://gatus.pytt.io";
+              description = "Declarative Monitoring";
+              siteMonitor = "http://10.10.30.12:8080";
+            };
+          }
+          {
+            Grafana = {
+              icon = "grafana.png";
+              href = "https://grafana.pytt.io";
+              description = "Dashboards & Logs";
+              siteMonitor = "http://10.10.30.12:3000/api/health";
+            };
+          }
+        ];
+      }
+      {
+        Media = [
+          {
+            Jellyfin = {
+              icon = "jellyfin.png";
+              href = "https://jellyfin.pytt.io";
+              description = "Media Player";
+              siteMonitor = "http://10.10.10.20:30013";
+              widget = {
+                type = "jellyfin";
+                url = "http://10.10.10.20:30013";
+                key = "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}";
+                enableBlocks = true;
+                enableNowPlaying = true;
+              };
+            };
+          }
+          {
+            Jellyseerr = {
+              icon = "jellyseerr.png";
+              href = "https://jellyseerr.pytt.io";
+              description = "Media Requests";
+              siteMonitor = "http://10.10.50.110:5055";
+              widget = {
+                type = "jellyseerr";
+                url = "http://10.10.50.110:5055";
+                key = "{{HOMEPAGE_VAR_JELLYSEERR_API_KEY}}";
+              };
+            };
+          }
+        ];
+      }
+      {
+        ARRrr = [
+          {
+            Radarr = {
+              icon = "radarr.png";
+              href = "https://radarr.pytt.io";
+              description = "Movie Management";
+              siteMonitor = "http://10.10.50.110:7878";
+              widget = {
+                type = "radarr";
+                url = "http://10.10.50.110:7878";
+                key = "{{HOMEPAGE_VAR_RADARR_API_KEY}}";
+              };
+            };
+          }
+          {
+            Sonarr = {
+              icon = "sonarr.png";
+              href = "https://sonarr.pytt.io";
+              description = "TV Shows";
+              siteMonitor = "http://10.10.50.110:8989";
+              widget = {
+                type = "sonarr";
+                url = "http://10.10.50.110:8989";
+                key = "{{HOMEPAGE_VAR_SONARR_API_KEY}}";
+              };
+            };
+          }
+          {
+            Lidarr = {
+              icon = "lidarr.png";
+              href = "https://lidarr.pytt.io";
+              description = "Music Management";
+              siteMonitor = "http://10.10.50.110:8686";
+              widget = {
+                type = "lidarr";
+                url = "http://10.10.50.110:8686";
+                key = "{{HOMEPAGE_VAR_LIDARR_API_KEY}}";
+              };
+            };
+          }
+          {
+            Prowlarr = {
+              icon = "prowlarr.png";
+              href = "https://prowlarr.pytt.io";
+              description = "Indexer Manager";
+              siteMonitor = "http://10.10.50.110:9696";
+              widget = {
+                type = "prowlarr";
+                url = "http://10.10.50.110:9696";
+                key = "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}";
+              };
+            };
+          }
+          {
+            Transmission = {
+              icon = "transmission.png";
+              href = "https://transmission.pytt.io";
+              description = "Torrent Client";
+              widget = {
+                type = "transmission";
+                url = "http://10.10.50.110:9091";
+                username = "{{HOMEPAGE_VAR_TRANSMISSION_USER}}";
+                password = "{{HOMEPAGE_VAR_TRANSMISSION_PASS}}";
+              };
+            };
+          }
+          {
+            NZBGet = {
+              icon = "nzbget.png";
+              href = "https://nzbget.pytt.io";
+              description = "Usenet Downloader";
+              widget = {
+                type = "nzbget";
+                url = "http://10.10.50.110:6789";
+                username = "{{HOMEPAGE_VAR_NZBGET_USER}}";
+                password = "{{HOMEPAGE_VAR_NZBGET_PASS}}";
+              };
+            };
+          }
+        ];
+      }
+      {
+        Tools = [
+          {
+            SearXNG = {
+              icon = "searxng.png";
+              href = "https://searxng.pytt.io";
+              description = "Privacy Search Engine";
+              siteMonitor = "http://10.10.30.11:8888";
+            };
+          }
+          {
+            n8n = {
+              icon = "n8n.png";
+              href = "https://n8n.pytt.io";
+              description = "Workflow Automation";
+              siteMonitor = "http://10.10.30.11:5678";
+            };
+          }
+          {
+            Ollama = {
+              icon = "ollama.png";
+              href = "https://ollama.pytt.io";
+              description = "LLM Server";
+              siteMonitor = "http://192.168.1.91:11434";
+            };
+          }
+          {
+            Myrlin = {
+              icon = "mdi-book-open-variant";
+              href = "https://myrlin.pytt.io";
+              description = "Claude Code Workspace Manager";
+              siteMonitor = "http://10.10.30.11:3456";
+            };
+          }
+        ];
+      }
+    ];
+  };
+
   # --- Caddy ---
   services.caddy = {
     enable = true;
@@ -229,6 +585,12 @@
         @auth host auth.pytt.io
         handle @auth {
           reverse_proxy 127.0.0.1:9091
+        }
+
+        @home host home.pytt.io
+        handle @home {
+          import authelia
+          reverse_proxy 127.0.0.1:3000
         }
 
         # --- byob (staging: 10.10.50.110) ---
@@ -409,7 +771,8 @@
           resolvers 1.1.1.1
         }
 
-        respond "Coming soon" 200
+        import authelia
+        reverse_proxy 127.0.0.1:3000
       }
     '';
   };
