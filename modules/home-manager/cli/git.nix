@@ -27,7 +27,6 @@
         userEmail = config.git.userEmail;
         ignores = [
           "docs/rca"
-          "plans"
         ];
         extraConfig = {
           core.editor = "nvim";
