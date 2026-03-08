@@ -38,6 +38,13 @@
     "_netdev"
   ];
 
+  # Disable NAS downloads mount — byob uses a local disk instead
+  fileSystems."/mnt/nas/downloads" = lib.mkForce {
+    device = "none";
+    fsType = "none";
+    options = [ "noauto" ];
+  };
+
   # Local downloads disk (second VirtIO disk)
   fileSystems."/mnt/downloads" = {
     device = "/dev/vdb";
