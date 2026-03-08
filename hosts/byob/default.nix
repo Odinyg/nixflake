@@ -152,7 +152,7 @@
   };
   virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.seerr = {
-    image = "seerrarr/seerr:latest";
+    image = "seerr/seerr:latest";
     environment = {
       TZ = "Europe/Oslo";
     };
