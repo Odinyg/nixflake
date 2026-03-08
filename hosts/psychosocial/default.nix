@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -23,11 +28,228 @@
     ];
   };
 
-  # TODO: Phase 4 — reverse proxy, auth, homepage (Caddy, Authelia, Homepage)
-
   # sops.defaultSopsFile = ../../secrets/psychosocial.yaml; # TODO: enable after encrypting secrets
 
+  # --- Caddy ---
+  services.caddy = {
+    enable = true;
+    package = pkgs.caddy.withPlugins {
+      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.1" ];
+      hash = "sha256-48Xq2tb8ruAl87IJNWlIQa6bLISmNic0LuMNAJO7/n0=";
+    };
+    globalConfig = ''
+      admin 0.0.0.0:2019
+      servers {
+        metrics
+      }
+    '';
+    extraConfig = ''
+      (authelia) {
+        forward_auth 127.0.0.1:9091 {
+          uri /api/authz/forward-auth
+          copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+        }
+      }
+
+      *.pytt.io {
+        tls {
+          dns cloudflare {$CLOUDFLARE_API_TOKEN}
+          propagation_delay 2m
+          resolvers 1.1.1.1
+        }
+
+        # --- psychosocial (local) ---
+
+        @auth host auth.pytt.io
+        handle @auth {
+          reverse_proxy 127.0.0.1:9091
+        }
+
+        # --- byob (staging: 10.10.50.110) ---
+
+        @sonarr host sonarr.pytt.io
+        handle @sonarr {
+          reverse_proxy 10.10.50.110:8989
+        }
+
+        @radarr host radarr.pytt.io
+        handle @radarr {
+          reverse_proxy 10.10.50.110:7878
+        }
+
+        @lidarr host lidarr.pytt.io
+        handle @lidarr {
+          reverse_proxy 10.10.50.110:8686
+        }
+
+        @prowlarr host prowlarr.pytt.io
+        handle @prowlarr {
+          reverse_proxy 10.10.50.110:9696
+        }
+
+        @nzbget host nzbget.pytt.io
+        handle @nzbget {
+          reverse_proxy 10.10.50.110:6789
+        }
+
+        @transmission host transmission.pytt.io
+        handle @transmission {
+          reverse_proxy 10.10.50.110:9091
+        }
+
+        @jellyseerr host jellyseerr.pytt.io
+        handle @jellyseerr {
+          reverse_proxy 10.10.50.110:5055
+        }
+
+        @huntarr host huntarr.pytt.io
+        handle @huntarr {
+          reverse_proxy 10.10.50.110:9705
+        }
+
+        # --- pulse (old: 10.10.30.12) ---
+
+        @gatus host gatus.pytt.io
+        handle @gatus {
+          reverse_proxy 10.10.30.12:8080
+        }
+
+        @grafana host grafana.pytt.io
+        handle @grafana {
+          reverse_proxy 10.10.30.12:3000
+        }
+
+        @prometheus host prometheus.pytt.io
+        handle @prometheus {
+          import authelia
+          reverse_proxy 10.10.30.12:9090
+        }
+
+        # --- sugar (old: 10.10.30.11) ---
+
+        @n8n host n8n.pytt.io
+        handle @n8n {
+          reverse_proxy 10.10.30.11:5678
+        }
+
+        @nextcloud host nextcloud.pytt.io
+        handle @nextcloud {
+          reverse_proxy 10.10.30.11:8080
+        }
+
+        @norish host norish.pytt.io
+        handle @norish {
+          reverse_proxy 10.10.30.11:3000
+        }
+
+        @myrlin host myrlin.pytt.io
+        handle @myrlin {
+          reverse_proxy 10.10.30.11:3456
+        }
+
+        @paseo host paseo.pytt.io
+        handle @paseo {
+          reverse_proxy 10.10.30.11:6767
+        }
+
+        @searxng host searxng.pytt.io
+        handle @searxng {
+          import authelia
+          reverse_proxy 10.10.30.11:8888
+        }
+
+        @perplexica host perplexica.pytt.io
+        handle @perplexica {
+          import authelia
+          reverse_proxy 10.10.30.11:3001
+        }
+
+        @sparkyfitness host sparkyfitness.pytt.io
+        handle @sparkyfitness {
+          reverse_proxy 10.10.30.11:3004
+        }
+
+        @netboot host netboot.pytt.io
+        handle @netboot {
+          import authelia
+          reverse_proxy 10.10.30.11:3003
+        }
+
+        # --- TrueNAS / Kubernetes ---
+
+        @jellyfin host jellyfin.pytt.io
+        handle @jellyfin {
+          reverse_proxy 10.10.10.20:30013
+        }
+
+        # --- Infrastructure ---
+
+        @pve1 host pve1.pytt.io
+        handle @pve1 {
+          reverse_proxy https://10.10.10.227:8006 {
+            transport http {
+              tls
+              tls_insecure_skip_verify
+            }
+          }
+        }
+
+        @pve2 host pve2.pytt.io
+        handle @pve2 {
+          reverse_proxy https://10.10.10.228:8006 {
+            transport http {
+              tls
+              tls_insecure_skip_verify
+            }
+          }
+        }
+
+        @truenas host truenas.pytt.io
+        handle @truenas {
+          reverse_proxy https://10.10.10.20 {
+            transport http {
+              tls
+              tls_insecure_skip_verify
+            }
+          }
+        }
+
+        # --- Other ---
+
+        @craftbeerpi host craftbeerpi.pytt.io
+        handle @craftbeerpi {
+          reverse_proxy 10.10.20.174:8000
+        }
+
+        @homeassistant host homeassistant.pytt.io
+        handle @homeassistant {
+          reverse_proxy 10.10.20.205:8123
+        }
+
+        @ollama host ollama.pytt.io
+        handle @ollama {
+          reverse_proxy 192.168.1.91:11434
+        }
+
+        handle {
+          respond "Not found" 404
+        }
+      }
+
+      pytt.io {
+        tls {
+          dns cloudflare {$CLOUDFLARE_API_TOKEN}
+          propagation_delay 2m
+          resolvers 1.1.1.1
+        }
+
+        respond "Coming soon" 200
+      }
+    '';
+  };
+
   networking.firewall.allowedTCPPorts = [
+    80 # Caddy HTTP (ACME + redirect)
     443 # Caddy HTTPS
     9959 # Authelia metrics
   ];

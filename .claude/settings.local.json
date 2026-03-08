@@ -30,7 +30,8 @@
       "Bash(# The ctrl-d bind in fzf uses {} which is the raw fzf selection\n# --bind \"\"ctrl-d:execute\\(tmux kill-session -t {}\\)+...\"\"\n# This {} would also contain the icon prefix, causing kill-session to fail\n# We need to fix that too\n\n# Let me now write the fix\n# I''ll add a strip_icons function and use it on $session, and also fix the ctrl-d bind)",
       "Bash(just rebuild:*)",
       "WebFetch(domain:hyprpanel.com)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Skill(server-plan-service)"
     ],
     "deny": [],
     "ask": []
