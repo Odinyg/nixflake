@@ -22,7 +22,12 @@ let
         allowLocalDeployment = true;
       };
       imports = lib.hostModules {
-        inherit hostPath user stateVersion extraModules;
+        inherit
+          hostPath
+          user
+          stateVersion
+          extraModules
+          ;
       };
     };
 
@@ -37,7 +42,7 @@ let
     {
       deployment = {
         targetHost = targetHost;
-        targetUser = "root";
+        targetUser = "odin";
       };
       imports = lib.serverModules {
         inherit hostPath stateVersion extraModules;

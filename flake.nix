@@ -22,6 +22,8 @@
     };
     claude-code.url = "github:sadjow/claude-code-nix";
     mcp-nixos.url = "github:utensils/mcp-nixos";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     colmena.url = "github:zhaofengli/colmena";
   };

@@ -5,6 +5,24 @@
 
   networking.hostName = "pulse";
 
+  # Static IP — staging (change to 10.10.30.12 after cutover)
+  networking = {
+    useDHCP = false;
+    interfaces.ens18 = {
+      ipv4.addresses = [
+        {
+          address = "10.10.30.112";
+          prefixLength = 24;
+        }
+      ];
+    };
+    defaultGateway = "10.10.30.1";
+    nameservers = [
+      "10.10.30.1"
+      "1.1.1.1"
+    ];
+  };
+
   sops.defaultSopsFile = ../../secrets/pulse.yaml;
 
   sops.secrets.grafana_admin_password = {

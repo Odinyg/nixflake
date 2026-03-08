@@ -1,4 +1,3 @@
-# Placeholder — replace with output of nixos-generate-config after VM creation
 { lib, modulesPath, ... }:
 
 {
@@ -15,14 +14,12 @@
     "sd_mod"
     "sr_mod"
   ];
+
+  # Support both BIOS and EFI boot
   boot.loader.grub = {
     enable = true;
-    device = "/dev/sda";
-  };
-
-  fileSystems."/" = {
-    device = "/dev/sda1";
-    fsType = "ext4";
+    efiSupport = true;
+    efiInstallAsRemovable = true;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

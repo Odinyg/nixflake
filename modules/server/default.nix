@@ -4,6 +4,7 @@
   imports = [
     ./nfs.nix
     ./monitoring.nix
+    ./disko.nix
   ];
 
   options.server.enable = lib.mkEnableOption "headless server profile";
@@ -18,6 +19,7 @@
           "nix-command"
           "flakes"
         ];
+        trusted-users = [ "root" "odin" ];
         auto-optimise-store = true;
       };
       gc = {
@@ -39,6 +41,9 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINezFWDmtlGHBF674DcsNi+wDMrSp13pNX1lo4RcJTMm odin.nygard@vendanor.com"
       ];
     };
+
+    # Passwordless sudo for wheel (needed for colmena deploys)
+    security.sudo.wheelNeedsPassword = false;
 
     # SSH hardening
     services.openssh = {

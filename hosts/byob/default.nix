@@ -10,7 +10,25 @@
 
   networking.hostName = "byob";
 
-  sops.defaultSopsFile = ../../secrets/byob.yaml;
+  # Static IP — staging (change to 10.10.50.10 after cutover)
+  networking = {
+    useDHCP = false;
+    interfaces.ens18 = {
+      ipv4.addresses = [
+        {
+          address = "10.10.50.110";
+          prefixLength = 24;
+        }
+      ];
+    };
+    defaultGateway = "10.10.50.1";
+    nameservers = [
+      "10.10.10.1"
+      "1.1.1.1"
+    ];
+  };
+
+  # sops.defaultSopsFile = ../../secrets/byob.yaml; # TODO: enable after encrypting secrets
 
   # Enable NAS mounts — remove noauto to activate
   fileSystems."/mnt/nas/media".options = lib.mkForce [
@@ -102,6 +120,10 @@
       rpc-bind-address = "0.0.0.0";
       rpc-whitelist-enabled = false;
     };
+  };
+  systemd.services.transmission = {
+    after = [ "mnt-nas-downloads.automount" ];
+    requires = [ "mnt-nas-downloads.automount" ];
   };
 
   # --- Seerr (Overseerr replacement) ---

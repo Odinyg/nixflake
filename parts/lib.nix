@@ -29,6 +29,7 @@ let
   serverCommonModules = [
     ../modules/server
     sops-nix.nixosModules.sops
+    inputs.disko.nixosModules.disko
   ];
 
   hostModules =
