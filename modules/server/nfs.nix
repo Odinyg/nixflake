@@ -1,6 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  # NFS client support
+  boot.supportedFilesystems = [ "nfs" ];
+
   # NAS NFS mounts — matches current /etc/fstab entries
   # Default: noauto + x-systemd.automount (mount on first access)
   # Hosts that need mounts override options with lib.mkForce to remove noauto

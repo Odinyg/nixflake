@@ -30,19 +30,20 @@
 
   # sops.defaultSopsFile = ../../secrets/byob.yaml; # TODO: enable after encrypting secrets
 
-  # Enable NAS mounts — remove noauto to activate
+  # NAS media mount — remove noauto to activate
   fileSystems."/mnt/nas/media".options = lib.mkForce [
     "defaults"
     "x-systemd.automount"
     "x-systemd.idle-timeout=600"
     "_netdev"
   ];
-  fileSystems."/mnt/nas/downloads".options = lib.mkForce [
-    "defaults"
-    "x-systemd.automount"
-    "x-systemd.idle-timeout=600"
-    "_netdev"
-  ];
+
+  # Local downloads disk (second VirtIO disk)
+  fileSystems."/mnt/downloads" = {
+    device = "/dev/vdb";
+    fsType = "ext4";
+    options = [ "defaults" ];
+  };
 
   # Shared media group — all ARR services + download clients use this
   # for NAS filesystem access
@@ -114,16 +115,16 @@
     group = "media";
     openRPCPort = true;
     settings = {
-      download-dir = "/mnt/nas/downloads/complete";
-      incomplete-dir = "/mnt/nas/downloads/incomplete";
+      download-dir = "/mnt/downloads/complete";
+      incomplete-dir = "/mnt/downloads/incomplete";
       incomplete-dir-enabled = true;
       rpc-bind-address = "0.0.0.0";
       rpc-whitelist-enabled = false;
     };
   };
   systemd.services.transmission = {
-    after = [ "mnt-nas-downloads.automount" ];
-    requires = [ "mnt-nas-downloads.automount" ];
+    after = [ "mnt-downloads.mount" ];
+    requires = [ "mnt-downloads.mount" ];
   };
 
   # --- Seerr (Overseerr replacement) ---
