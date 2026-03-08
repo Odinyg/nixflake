@@ -85,6 +85,16 @@
       update.mechanism = "external";
     };
   };
+  # Disable DynamicUser so we can manage data/permissions
+  users.users.prowlarr = {
+    isSystemUser = true;
+    group = "media";
+  };
+  systemd.services.prowlarr.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = "prowlarr";
+    Group = "media";
+  };
 
   # --- Lidarr ---
   services.lidarr = {
