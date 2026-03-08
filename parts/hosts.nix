@@ -19,7 +19,10 @@ let
   mkServer =
     args:
     nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
+      specialArgs = {
+        inherit inputs;
+        inherit (lib) pkgs-unstable;
+      };
       modules = lib.serverModules args;
     };
 in

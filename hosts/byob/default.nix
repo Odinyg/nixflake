@@ -1,12 +1,25 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }:
 
 {
   imports = [ ./hardware-configuration.nix ];
+
+  # Use unstable packages for ARR stack (Docker :latest tracks unstable)
+  nixpkgs.overlays = [
+    (final: prev: {
+      sonarr = pkgs-unstable.sonarr;
+      radarr = pkgs-unstable.radarr;
+      prowlarr = pkgs-unstable.prowlarr;
+      lidarr = pkgs-unstable.lidarr;
+      nzbget = pkgs-unstable.nzbget;
+      overseerr = pkgs-unstable.overseerr;
+    })
+  ];
 
   networking.hostName = "byob";
 

@@ -72,6 +72,7 @@ let
     serverCommonModules
     ++ [
       hostPath
+      { _module.args = { inherit pkgs-unstable; }; }
     ]
     ++ extraModules;
 in
