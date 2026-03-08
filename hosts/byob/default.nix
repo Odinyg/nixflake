@@ -127,6 +127,12 @@
     requires = [ "mnt-downloads.mount" ];
   };
 
+  # Ensure download directories exist on boot
+  systemd.tmpfiles.rules = [
+    "d /mnt/downloads/complete 0775 transmission media -"
+    "d /mnt/downloads/incomplete 0775 transmission media -"
+  ];
+
   # --- Seerr (Overseerr replacement) ---
   # TODO: migrate to native NixOS service when seerr gets a module
   virtualisation.docker = {
