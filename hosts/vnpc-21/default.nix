@@ -127,6 +127,7 @@
   cosmic.autoLogin.enable = false;
 
   programs.kdeconnect.enable = true;
+  localsend.enable = true;
 
   # Secrets management
   secrets.enable = true;

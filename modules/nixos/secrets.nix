@@ -24,30 +24,6 @@
 
       # Define secrets to be decrypted
       secrets = {
-        # SSH keys
-        "ssh_keys/personal_key" = {
-          owner = config.user;
-          path = "/home/${config.user}/.ssh/id_personal";
-          mode = "0600";
-        };
-
-        "ssh_keys/work_key" = {
-          owner = config.user;
-          path = "/home/${config.user}/.ssh/id_work";
-          mode = "0600";
-        };
-
-        "ssh_public_keys/personal_key" = {
-          owner = config.user;
-          path = "/home/${config.user}/.ssh/id_personal.pub";
-          mode = "0644";
-        };
-
-        "ssh_public_keys/work_key" = {
-          owner = config.user;
-          path = "/home/${config.user}/.ssh/id_work.pub";
-          mode = "0644";
-        };
       } // lib.optionalAttrs config.smbmount.enable {
         # SMB credentials for NAS mounting (only when smbmount is enabled)
         "smb/credentials" = {
@@ -58,11 +34,5 @@
       };
     };
 
-    # Ensure .ssh directory exists with correct permissions
-    system.activationScripts.setupSSHDir = lib.mkAfter ''
-      mkdir -p /home/${config.user}/.ssh
-      chown ${config.user}:users /home/${config.user}/.ssh
-      chmod 700 /home/${config.user}/.ssh
-    '';
   };
 }
