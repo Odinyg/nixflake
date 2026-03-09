@@ -1,4 +1,3 @@
-# Placeholder — replace with output of nixos-generate-config after VM creation
 { lib, modulesPath, ... }:
 
 {
@@ -15,15 +14,9 @@
     "sd_mod"
     "sr_mod"
   ];
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-  };
 
-  fileSystems."/" = {
-    device = "/dev/sda1";
-    fsType = "ext4";
-  };
+  # Disk partitioning handled by disko (modules/server/disko.nix)
+  # Default device: /dev/vda — override with server.disk if needed
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
