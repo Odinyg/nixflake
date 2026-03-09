@@ -24,6 +24,22 @@
 
       # Define secrets to be decrypted
       secrets = {
+        # SSH private keys — deployed to user's ~/.ssh/
+        "ssh_keys/id_ed25519_sk" = {
+          owner = config.user;
+          mode = "0600";
+          path = "/home/${config.user}/.ssh/id_ed25519_sk";
+        };
+        "ssh_public_keys/id_ed25519_sk" = {
+          owner = config.user;
+          mode = "0644";
+          path = "/home/${config.user}/.ssh/id_ed25519_sk.pub";
+        };
+        "ssh_certs/id_ed25519_sk-cert" = {
+          owner = config.user;
+          mode = "0644";
+          path = "/home/${config.user}/.ssh/id_ed25519_sk-cert.pub";
+        };
       } // lib.optionalAttrs config.smbmount.enable {
         # SMB credentials for NAS mounting (only when smbmount is enabled)
         "smb/credentials" = {

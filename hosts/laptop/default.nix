@@ -56,6 +56,8 @@
     }
   ];
 
+  secrets.enable = true;
+
   gaming.enable = true;
   protonvpn.enable = true;
   fail2ban-security.enable = false;
