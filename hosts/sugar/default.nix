@@ -42,8 +42,9 @@
   # Nextcloud
   sops.secrets.nextcloud_admin_pass = { owner = "nextcloud"; };
   sops.secrets.nextcloud_db_pass = { owner = "nextcloud"; };
-  sops.secrets.nextcloud_redis_pass = { owner = "nextcloud"; };
-  sops.secrets.nextcloud_secret_file = { owner = "nextcloud"; };
+
+  # Shared Redis password
+  sops.secrets.redis_pass = { };
 
   # Norish
   sops.secrets.norish_db_pass = { };
@@ -89,14 +90,14 @@
 
   # Nextcloud secret file — JSON format for secretFile option
   sops.templates."nextcloud-secret".content = ''
-    {"redis":{"password":"${config.sops.placeholder.nextcloud_redis_pass}"}}
+    {"redis":{"password":"${config.sops.placeholder.redis_pass}"}}
   '';
 
   sops.templates."norish-env".content = ''
     AUTH_URL=https://norish.pytt.io
     DATABASE_URL=postgres://norish:${config.sops.placeholder.norish_db_pass}@10.10.10.20:5432/norish
     MASTER_KEY=${config.sops.placeholder.norish_master_key}
-    REDIS_URL=redis://:norish@127.0.0.1:6380
+    REDIS_URL=redis://:${config.sops.placeholder.redis_pass}@127.0.0.1:6380
     OIDC_NAME=Authelia
     OIDC_ISSUER=https://auth.pytt.io
     OIDC_CLIENT_ID=norish
@@ -144,7 +145,7 @@
     enable = true;
     port = 6379;
     bind = "127.0.0.1";
-    requirePassFile = config.sops.secrets.nextcloud_redis_pass.path;
+    requirePassFile = config.sops.secrets.redis_pass.path;
   };
 
   services.nextcloud = {
@@ -154,7 +155,7 @@
     maxUploadSize = "1G";
 
     config = {
-      adminuser = "admin";
+      adminuser = "none";
       adminpassFile = config.sops.secrets.nextcloud_admin_pass.path;
       dbtype = "pgsql";
       dbhost = "10.10.10.20";
@@ -255,7 +256,7 @@
     enable = true;
     port = 6380;
     bind = "127.0.0.1";
-    # No password required for local-only access by Norish
+    requirePassFile = config.sops.secrets.redis_pass.path;
   };
 
   # Persistent data directories
