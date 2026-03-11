@@ -9,6 +9,10 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "n8n-1.91.3"
+  ];
+
   networking.hostName = "sugar";
 
   # Static IP — staging (change to 10.10.30.11 after cutover)
@@ -158,8 +162,7 @@
       adminuser = "none";
       adminpassFile = config.sops.secrets.nextcloud_admin_pass.path;
       dbtype = "pgsql";
-      dbhost = "10.10.10.20";
-      dbport = 5432;
+      dbhost = "10.10.10.20:5432";
       dbname = "nextcloud";
       dbuser = "nextcloud";
       dbpassFile = config.sops.secrets.nextcloud_db_pass.path;

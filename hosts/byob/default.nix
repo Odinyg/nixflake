@@ -132,6 +132,9 @@
       NzbDir = "/mnt/downloads/nzb";
       QueueDir = "/mnt/downloads/queue";
       TempDir = "/mnt/downloads/tmp";
+      UnrarCmd = "${pkgs.unrar}/bin/unrar";
+      SevenZipCmd = "${pkgs.p7zip}/bin/7za";
+      CertStore = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     };
   };
   # NZBGet + Seerr don't have openFirewall options
@@ -158,10 +161,15 @@
     requires = [ "mnt-downloads.mount" ];
   };
 
-  # Ensure download directories exist on boot
+  # Ensure download + media directories exist on boot
   systemd.tmpfiles.rules = [
     "d /mnt/downloads/complete 0775 transmission media -"
     "d /mnt/downloads/incomplete 0775 transmission media -"
+    "d /mnt/downloads/nzb 0775 nzbget media -"
+    "d /mnt/downloads/queue 0775 nzbget media -"
+    "d /mnt/downloads/tmp 0775 nzbget media -"
+    "d /mnt/downloads/scripts 0775 nzbget media -"
+    "d /mnt/nas/media/tv 0775 root media -"
   ];
 
   # --- Seerr (Overseerr replacement) ---
