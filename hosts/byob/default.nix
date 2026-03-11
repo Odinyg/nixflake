@@ -132,6 +132,7 @@
       NzbDir = "/mnt/downloads/nzb";
       QueueDir = "/mnt/downloads/queue";
       TempDir = "/mnt/downloads/tmp";
+      ScriptDir = "/mnt/downloads/scripts";
       UnrarCmd = "${pkgs.unrar}/bin/unrar";
       SevenZipCmd = "${pkgs.p7zip}/bin/7za";
       CertStore = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
