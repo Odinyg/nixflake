@@ -2,9 +2,31 @@
 
 {
   imports = [
+    # Base
     ./nfs.nix
     ./monitoring.nix
     ./disko.nix
+    # Media (byob)
+    ./arr.nix
+    ./nzbget.nix
+    ./transmission.nix
+    ./seerr.nix
+    # Reverse proxy (psychosocial)
+    ./caddy.nix
+    ./authelia.nix
+    ./homepage.nix
+    # Monitoring (pulse)
+    ./prometheus.nix
+    ./loki.nix
+    ./grafana.nix
+    ./gatus.nix
+    # Apps (sugar)
+    ./n8n.nix
+    ./searxng.nix
+    ./nextcloud.nix
+    ./perplexica.nix
+    ./netbootxyz.nix
+    ./norish.nix
   ];
 
   options.server.enable = lib.mkEnableOption "headless server profile";
@@ -19,7 +41,10 @@
           "nix-command"
           "flakes"
         ];
-        trusted-users = [ "root" "odin" ];
+        trusted-users = [
+          "root"
+          "odin"
+        ];
         auto-optimise-store = true;
       };
       gc = {
@@ -36,7 +61,10 @@
     # User
     users.users.odin = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [
+        "wheel"
+        "docker"
+      ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINezFWDmtlGHBF674DcsNi+wDMrSp13pNX1lo4RcJTMm odin.nygard@vendanor.com"
       ];

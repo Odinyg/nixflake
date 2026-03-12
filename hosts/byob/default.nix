@@ -58,139 +58,16 @@
     options = [ "defaults" ];
   };
 
-  # Shared media group — all ARR services + download clients use this
-  # for NAS filesystem access
-  users.groups.media = {
-    gid = 1000;
-  };
+  # --- Services ---
+  server.arr.enable = true;
+  server.nzbget.enable = true;
+  server.transmission.enable = true;
+  server.seerr.enable = true;
 
-  # --- Sonarr ---
-  services.sonarr = {
-    enable = true;
-    openFirewall = true;
-    group = "media";
-    settings = {
-      server.port = 8989;
-      log.analyticsEnabled = false;
-      update.mechanism = "external";
-    };
-  };
-
-  # --- Radarr ---
-  services.radarr = {
-    enable = true;
-    openFirewall = true;
-    group = "media";
-    settings = {
-      server.port = 7878;
-      log.analyticsEnabled = false;
-      update.mechanism = "external";
-    };
-  };
-
-  # --- Prowlarr ---
-  services.prowlarr = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      server.port = 9696;
-      log.analyticsEnabled = false;
-      update.mechanism = "external";
-    };
-  };
-  # Disable DynamicUser so we can manage data/permissions
-  users.users.prowlarr = {
-    isSystemUser = true;
-    group = "media";
-  };
-  systemd.services.prowlarr.serviceConfig = {
-    DynamicUser = lib.mkForce false;
-    User = "prowlarr";
-    Group = "media";
-  };
-
-  # --- Lidarr ---
-  services.lidarr = {
-    enable = true;
-    openFirewall = true;
-    group = "media";
-    settings = {
-      server.port = 8686;
-      log.analyticsEnabled = false;
-      update.mechanism = "external";
-    };
-  };
-
-  # --- NZBGet ---
-  services.nzbget = {
-    enable = true;
-    group = "media";
-    settings = {
-      MainDir = "/mnt/downloads";
-      DestDir = "/mnt/downloads/complete";
-      InterDir = "/mnt/downloads/incomplete";
-      NzbDir = "/mnt/downloads/nzb";
-      QueueDir = "/mnt/downloads/queue";
-      TempDir = "/mnt/downloads/tmp";
-      ScriptDir = "/mnt/downloads/scripts";
-      UnrarCmd = "${pkgs.unrar}/bin/unrar";
-      SevenZipCmd = "${pkgs.p7zip}/bin/7za";
-      CertStore = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-    };
-  };
-  # NZBGet + Seerr don't have openFirewall options
-  networking.firewall.allowedTCPPorts = [
-    6789 # NZBGet
-    5055 # Seerr
-  ];
-
-  # --- Transmission ---
-  services.transmission = {
-    enable = true;
-    group = "media";
-    openRPCPort = true;
-    settings = {
-      download-dir = "/mnt/downloads/complete";
-      incomplete-dir = "/mnt/downloads/incomplete";
-      incomplete-dir-enabled = true;
-      rpc-bind-address = "0.0.0.0";
-      rpc-whitelist-enabled = false;
-    };
-  };
-  systemd.services.transmission = {
-    after = [ "mnt-downloads.mount" ];
-    requires = [ "mnt-downloads.mount" ];
-  };
-
-  # Ensure download + media directories exist on boot
+  # Media dirs on NAS
   systemd.tmpfiles.rules = [
-    "d /mnt/downloads/complete 0775 transmission media -"
-    "d /mnt/downloads/incomplete 0775 transmission media -"
-    "d /mnt/downloads/nzb 0775 nzbget media -"
-    "d /mnt/downloads/queue 0775 nzbget media -"
-    "d /mnt/downloads/tmp 0775 nzbget media -"
-    "d /mnt/downloads/scripts 0775 nzbget media -"
     "d /mnt/nas/media/tv 0775 root media -"
   ];
-
-  # --- Seerr (Overseerr replacement) ---
-  # TODO: migrate to native NixOS service when seerr gets a module
-  virtualisation.docker = {
-    enable = true;
-    autoPrune = {
-      enable = true;
-      dates = "weekly";
-    };
-  };
-  virtualisation.oci-containers.backend = "docker";
-  virtualisation.oci-containers.containers.seerr = {
-    image = "seerr/seerr:latest";
-    environment = {
-      TZ = "Europe/Oslo";
-    };
-    volumes = [ "/var/lib/homelab/seerr:/app/config" ];
-    ports = [ "5055:5055" ];
-  };
 
   system.stateVersion = "25.05";
 }
