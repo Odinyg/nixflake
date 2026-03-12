@@ -31,7 +31,7 @@ in
     sops.secrets.nextcloud_admin_pass = {
       owner = "nextcloud";
     };
-    sops.secrets.nextcloud_db_pass = {
+    sops.secrets.postgresql_nextcloud_password = {
       owner = "nextcloud";
     };
     sops.secrets.redis_pass = { };
@@ -61,7 +61,7 @@ in
         dbhost = cfg.dbHost;
         dbname = "nextcloud";
         dbuser = "nextcloud";
-        dbpassFile = config.sops.secrets.nextcloud_db_pass.path;
+        dbpassFile = config.sops.secrets.postgresql_nextcloud_password.path;
       };
 
       settings = {

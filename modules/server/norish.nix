@@ -32,14 +32,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets.norish_db_pass = { };
+    sops.secrets.postgresql_norish_password = { };
     sops.secrets.norish_master_key = { };
     sops.secrets.norish_oidc_client_secret = { };
     sops.secrets.redis_pass = { };
 
     sops.templates."norish-env".content = ''
       AUTH_URL=https://norish.${cfg.domain}
-      DATABASE_URL=postgres://norish:${config.sops.placeholder.norish_db_pass}@${cfg.dbHost}:5432/norish
+      DATABASE_URL=postgres://norish:${config.sops.placeholder.postgresql_norish_password}@${cfg.dbHost}:5432/norish
       MASTER_KEY=${config.sops.placeholder.norish_master_key}
       REDIS_URL=redis://:${config.sops.placeholder.redis_pass}@127.0.0.1:${toString cfg.redisPort}
       OIDC_NAME=Authelia

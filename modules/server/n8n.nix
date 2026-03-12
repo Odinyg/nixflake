@@ -22,7 +22,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets.n8n_db_password = { };
+    sops.secrets.postgresql_n8n_password = { };
 
     sops.templates."n8n-env".content = ''
       DB_TYPE=postgresdb
@@ -30,7 +30,7 @@ in
       DB_POSTGRESDB_PORT=5432
       DB_POSTGRESDB_DATABASE=n8n
       DB_POSTGRESDB_USER=n8n
-      DB_POSTGRESDB_PASSWORD=${config.sops.placeholder.n8n_db_password}
+      DB_POSTGRESDB_PASSWORD=${config.sops.placeholder.postgresql_n8n_password}
       N8N_SECURE_COOKIE=false
       N8N_METRICS=true
       GENERIC_TIMEZONE=Europe/Oslo
