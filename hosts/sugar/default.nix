@@ -35,6 +35,7 @@
   sops.defaultSopsFile = ../../secrets/sugar.yaml;
 
   # --- Services ---
+  server.disko.enable = true;
   server.n8n.enable = true;
   server.searxng.enable = true;
   server.nextcloud.enable = true;

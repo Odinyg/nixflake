@@ -59,6 +59,7 @@
   };
 
   # --- Services ---
+  server.disko.enable = true;
   server.arr.enable = true;
   server.nzbget.enable = true;
   server.transmission.enable = true;
