@@ -20,6 +20,8 @@
     ./loki.nix
     ./grafana.nix
     ./gatus.nix
+    # Database
+    ./postgresql.nix
     # Apps (sugar)
     ./n8n.nix
     ./searxng.nix

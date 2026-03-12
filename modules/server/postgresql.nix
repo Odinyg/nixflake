@@ -1,0 +1,107 @@
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.server.postgresql;
+  isLocalOnly = cfg.listenAddresses == "localhost" || cfg.listenAddresses == "127.0.0.1";
+in
+{
+  options.server.postgresql = {
+    enable = lib.mkEnableOption "PostgreSQL database server";
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 5432;
+      description = "Port for PostgreSQL";
+    };
+    databases = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "List of databases to create (each gets a matching user with ownership)";
+      example = [
+        "n8n"
+        "nextcloud"
+        "norish"
+      ];
+    };
+    listenAddresses = lib.mkOption {
+      type = lib.types.str;
+      default = "0.0.0.0";
+      description = "Addresses to listen on (use 'localhost' for local-only)";
+    };
+    allowedNetworks = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "10.10.0.0/16"
+      ];
+      description = "Networks allowed to connect via password auth";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    services.postgresql = {
+      enable = true;
+      package = pkgs.postgresql_16;
+      port = cfg.port;
+      enableTCPIP = true;
+      settings.listen_addresses = cfg.listenAddresses;
+
+      ensureDatabases = cfg.databases;
+
+      ensureUsers = map (db: {
+        name = db;
+        ensureDBOwnership = true;
+      }) cfg.databases;
+
+      # Password auth for TCP, peer auth for local socket
+      authentication = lib.mkForce (
+        ''
+          # Local socket — peer auth (system user = db user)
+          local all all              peer
+          # Localhost TCP — password auth
+          host  all all 127.0.0.1/32 scram-sha-256
+          host  all all ::1/128      scram-sha-256
+        ''
+        + lib.concatMapStringsSep "\n" (
+          net: "host  all all ${net}       scram-sha-256"
+        ) cfg.allowedNetworks
+      );
+    };
+
+    # Set passwords from sops secrets after every postgresql start
+    # Uses psql -v for safe quoting (no SQL injection from password content)
+    systemd.services.postgresql-set-passwords = {
+      after = [
+        "postgresql.service"
+        "sops-nix.service"
+      ];
+      requires = [ "postgresql.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = "postgres";
+        Group = "postgres";
+      };
+      script = lib.concatMapStringsSep "\n" (db: ''
+        ${config.services.postgresql.package}/bin/psql -v "pw=$(cat /run/secrets/postgresql_${db}_password)" \
+          -c "ALTER ROLE \"${db}\" PASSWORD :'pw'"
+      '') cfg.databases;
+    };
+
+    # Sops secrets for each database user password
+    sops.secrets = lib.listToAttrs (
+      map (db: {
+        name = "postgresql_${db}_password";
+        value = {
+          owner = "postgres";
+          group = "postgres";
+        };
+      }) cfg.databases
+    );
+
+    # Only open firewall if listening on non-localhost
+    networking.firewall.allowedTCPPorts = lib.mkIf (!isLocalOnly) [ cfg.port ];
+  };
+}

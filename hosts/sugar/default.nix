@@ -36,12 +36,32 @@
 
   # --- Services ---
   server.disko.enable = true;
-  server.n8n.enable = true;
+
+  server.postgresql = {
+    enable = true;
+    listenAddresses = "localhost";
+    databases = [
+      "n8n"
+      "nextcloud"
+      "norish"
+    ];
+  };
+
+  server.n8n = {
+    enable = true;
+    dbHost = "127.0.0.1";
+  };
   server.searxng.enable = true;
-  server.nextcloud.enable = true;
+  server.nextcloud = {
+    enable = true;
+    dbHost = "127.0.0.1:5432";
+  };
   server.perplexica.enable = true;
   server.netbootxyz.enable = true;
-  server.norish.enable = true;
+  server.norish = {
+    enable = true;
+    dbHost = "127.0.0.1";
+  };
 
   # Docker network for inter-container communication
   virtualisation.docker.autoPrune = {
