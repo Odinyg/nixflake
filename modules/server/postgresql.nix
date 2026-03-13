@@ -82,7 +82,10 @@ in
         "postgresql.service"
         "sops-nix.service"
       ];
-      requires = [ "postgresql.service" ];
+      requires = [
+        "postgresql.service"
+        "sops-nix.service"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
@@ -90,7 +93,8 @@ in
         Group = "postgres";
       };
       script = lib.concatMapStringsSep "\n" (db: ''
-        ${config.services.postgresql.package}/bin/psql -v "pw=$(cat /run/secrets/postgresql_${db}_password)" \
+        pw=$(cat /run/secrets/postgresql_${db}_password)
+        ${config.services.postgresql.package}/bin/psql -v pw="$pw" \
           -c "ALTER ROLE \"${db}\" PASSWORD :'pw'"
       '') cfg.databases;
     };
