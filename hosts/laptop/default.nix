@@ -76,6 +76,21 @@
       }
     ];
   };
+
+  # Lock keybinding and display-off timeout (laptop only)
+  home-manager.users.${config.user} = {
+    wayland.windowManager.hyprland.settings.bind = [
+      "SUPER SHIFT, L, exec, loginctl lock-session"
+    ];
+
+    services.hypridle.settings.listener = [
+      {
+        timeout = 3600;
+        on-timeout = "hyprctl dispatch dpms off";
+        on-resume = "hyprctl dispatch dpms on";
+      }
+    ];
+  };
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER
   # ==============================================================================

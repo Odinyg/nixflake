@@ -9,7 +9,7 @@
     services.tailscale = {
       enable = true;
       package = pkgs-unstable.tailscale;
-      extraUpFlags = [ "--accept-routes" ];
+      extraSetFlags = [ "--accept-routes" ];
     };
     networking.firewall.trustedInterfaces = [ "tailscale0" ];
   };
