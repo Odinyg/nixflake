@@ -66,10 +66,13 @@ in
           host  all all 127.0.0.1/32 scram-sha-256
           host  all all ::1/128      scram-sha-256
         ''
-        + lib.concatMapStringsSep "\n" (
-          net: "host  all all ${net}       scram-sha-256"
-        ) cfg.allowedNetworks
+        + lib.concatMapStringsSep "\n" (net: "host  all all ${net}       scram-sha-256") cfg.allowedNetworks
       );
+    };
+
+    systemd.services.postgresql = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
     };
 
     # Set passwords from sops secrets after every postgresql start

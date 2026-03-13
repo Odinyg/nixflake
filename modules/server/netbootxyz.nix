@@ -39,6 +39,11 @@ in
       extraOptions = [ "--network=iowa" ];
     };
 
+    systemd.services.docker-netbootxyz = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall = {
       allowedTCPPorts = [
         cfg.webPort

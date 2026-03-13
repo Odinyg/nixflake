@@ -35,6 +35,23 @@ in
     # Shared media group for filesystem access across all services
     users.groups.media.gid = 1000;
 
+    systemd.services.sonarr = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+    systemd.services.radarr = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+    systemd.services.prowlarr = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+    systemd.services.lidarr = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     # --- Sonarr ---
     services.sonarr = {
       enable = true;

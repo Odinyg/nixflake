@@ -33,7 +33,11 @@ in
       '';
     };
 
-    systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates."caddy-env".path;
+    systemd.services.caddy = {
+      serviceConfig.EnvironmentFile = config.sops.templates."caddy-env".path;
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
 
     networking.firewall.allowedTCPPorts = [
       80 # HTTP (ACME + redirect)

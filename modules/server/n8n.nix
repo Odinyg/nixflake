@@ -41,7 +41,11 @@ in
       openFirewall = false;
     };
 
-    systemd.services.n8n.serviceConfig.EnvironmentFile = config.sops.templates."n8n-env".path;
+    systemd.services.n8n = {
+      serviceConfig.EnvironmentFile = config.sops.templates."n8n-env".path;
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };

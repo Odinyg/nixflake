@@ -83,11 +83,15 @@ in
       };
     };
 
+    systemd.services.grafana = {
+      serviceConfig.EnvironmentFile = config.sops.templates."grafana-env".path;
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     sops.templates."grafana-env".content = ''
       GF_SECURITY_ADMIN_PASSWORD=${config.sops.placeholder.grafana_admin_password}
     '';
-    systemd.services.grafana.serviceConfig.EnvironmentFile = config.sops.templates."grafana-env".path;
-
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

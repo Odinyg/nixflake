@@ -51,6 +51,11 @@ in
       ];
     };
 
+    systemd.services.prometheus = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

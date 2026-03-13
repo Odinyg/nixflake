@@ -43,6 +43,7 @@
       ssh-to-age
       pkgs-unstable.obsidian
       ansible
+      colmena
       devenv
     ];
     services.gnome.gnome-online-accounts.enable = true;

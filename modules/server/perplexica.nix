@@ -33,6 +33,11 @@ in
       extraOptions = [ "--network=iowa" ];
     };
 
+    systemd.services.docker-perplexica = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     systemd.tmpfiles.rules = [

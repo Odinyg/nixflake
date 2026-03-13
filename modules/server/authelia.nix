@@ -229,6 +229,11 @@ in
       };
     };
 
+    systemd.services.authelia-main = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     # Inject Redis password via Authelia's _FILE env var mechanism
     services.authelia.instances.main.environmentVariables = {
       AUTHELIA_SESSION_REDIS_PASSWORD_FILE = config.sops.secrets.authelia_session_redis_password.path;

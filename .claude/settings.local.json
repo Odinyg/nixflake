@@ -32,7 +32,10 @@
       "WebFetch(domain:hyprpanel.com)",
       "Bash(cat:*)",
       "Skill(server-plan-service)",
-      "Skill(server-new-service)"
+      "Bash(git:*)",
+      "Bash(nix-shell:*)",
+      "Bash(nix eval:*)",
+      "Bash(nix fmt:*)"
     ],
     "deny": [],
     "ask": []

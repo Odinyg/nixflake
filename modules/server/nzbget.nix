@@ -40,6 +40,11 @@ in
       };
     };
 
+    systemd.services.nzbget = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     systemd.tmpfiles.rules = [

@@ -39,6 +39,8 @@ in
     systemd.services.transmission = {
       after = [ "mnt-downloads.mount" ];
       requires = [ "mnt-downloads.mount" ];
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
     };
 
     systemd.tmpfiles.rules = [

@@ -117,6 +117,12 @@
       jq
     ];
 
+    # Homelab service grouping target
+    systemd.targets.homelab = {
+      description = "All homelab services";
+      wantedBy = [ "multi-user.target" ];
+    };
+
     # Boot — limit generations to prevent /boot filling up
     boot.loader.systemd-boot.configurationLimit = 10;
   };

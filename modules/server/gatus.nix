@@ -31,6 +31,11 @@ in
       DOMAIN=${cfg.domain}
     '';
 
+    systemd.services.gatus = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     services.gatus = {
       enable = true;
       openFirewall = true;

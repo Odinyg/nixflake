@@ -127,6 +127,19 @@ moduleName.enable = true;  # Enables the module
 
 ## Working with This Repository
 
+### Adding New Server Services
+1. Create module file in `modules/server/`
+2. Add to `modules/server/default.nix` imports
+3. Use the enable pattern for optional features
+4. **Add `homelab.target` membership** to the main systemd service:
+   ```nix
+   systemd.services.<service-name> = {
+     partOf = [ "homelab.target" ];
+     wantedBy = [ "homelab.target" ];
+   };
+   ```
+5. Test with `nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath`
+
 ### Adding New Modules
 1. Create module file in appropriate directory
 2. Add to relevant `default.nix` imports

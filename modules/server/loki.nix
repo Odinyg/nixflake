@@ -63,6 +63,11 @@ in
       };
     };
 
+    systemd.services.loki = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

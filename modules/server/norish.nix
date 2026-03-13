@@ -62,6 +62,11 @@ in
       extraOptions = [ "--network=iowa" ];
     };
 
+    systemd.services.docker-norish = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     # Dedicated Redis instance for Norish
     services.redis.servers.norish = {
       enable = true;

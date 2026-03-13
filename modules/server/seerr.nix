@@ -35,6 +35,11 @@ in
       ports = [ "${toString cfg.port}:5055" ];
     };
 
+    systemd.services.docker-seerr = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

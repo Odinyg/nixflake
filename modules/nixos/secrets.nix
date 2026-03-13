@@ -40,6 +40,11 @@
           mode = "0644";
           path = "/home/${config.user}/.ssh/id_ed25519_sk-cert.pub";
         };
+        # GitHub personal access token for Claude Code MCP
+        "github_token" = {
+          owner = config.user;
+          mode = "0400";
+        };
       } // lib.optionalAttrs config.smbmount.enable {
         # SMB credentials for NAS mounting (only when smbmount is enabled)
         "smb/credentials" = {

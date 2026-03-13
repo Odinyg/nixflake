@@ -10,6 +10,13 @@ in
   config.home-manager.users.${config.user} = lib.mkIf config.mcp.enable {
     home.packages = [ mcp-nixos ];
 
+    # Load GitHub token from sops-decrypted secret for Claude Code MCP
+    home.sessionVariablesExtra = ''
+      if [ -r /run/secrets/github_token ]; then
+        export GITHUB_PERSONAL_ACCESS_TOKEN="$(cat /run/secrets/github_token)"
+      fi
+    '';
+
     home.file.".config/claude/mcp.json" = {
       text = builtins.toJSON {
         mcpServers = {
@@ -56,6 +63,21 @@ in
           fetch = {
             command = "${pkgs.uv}/bin/uvx";
             args = [ "mcp-server-fetch" ];
+          };
+
+          github = {
+            command = "${pkgs.gh}/bin/gh";
+            args = [ "mcp" "serve" ];
+          };
+
+          context7 = {
+            command = "${pkgs.nodejs}/bin/npx";
+            args = [ "-y" "@upstash/context7-mcp" ];
+          };
+
+          playwright = {
+            command = "${pkgs.nodejs}/bin/npx";
+            args = [ "@playwright/mcp@latest" ];
           };
 
         };

@@ -46,6 +46,11 @@ in
       };
     };
 
+    systemd.services.searx = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

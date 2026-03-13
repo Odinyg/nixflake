@@ -69,6 +69,11 @@ in
       HOMEPAGE_VAR_TRANSMISSION_PASS=${config.sops.placeholder.homepage_transmission_pass}
     '';
 
+    systemd.services.homepage-dashboard = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     services.homepage-dashboard = {
       enable = true;
       listenPort = cfg.port;
