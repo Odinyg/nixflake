@@ -76,7 +76,6 @@ in
     };
 
     # Set passwords from sops secrets after every postgresql start
-    # Uses psql -v for safe quoting (no SQL injection from password content)
     systemd.services.postgresql-set-passwords = {
       after = [ "postgresql.service" ];
       requires = [ "postgresql.service" ];
@@ -89,7 +88,7 @@ in
       script = lib.concatMapStringsSep "\n" (db: ''
         pw=$(cat /run/secrets/postgresql_${db}_password)
         ${config.services.postgresql.package}/bin/psql -v pw="$pw" \
-          -c "ALTER ROLE \"${db}\" PASSWORD :'pw'"
+          <<< "ALTER ROLE \"${db}\" PASSWORD :'pw'"
       '') cfg.databases;
     };
 
