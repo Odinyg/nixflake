@@ -67,12 +67,6 @@ in
       wantedBy = [ "homelab.target" ];
     };
 
-    # Redis needs sops secrets decrypted for requirePassFile
-    systemd.services.redis-norish = {
-      after = [ "sops-nix.service" ];
-      requires = [ "sops-nix.service" ];
-    };
-
     # Dedicated Redis instance for Norish
     services.redis.servers.norish = {
       enable = true;

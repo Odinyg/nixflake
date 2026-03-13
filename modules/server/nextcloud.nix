@@ -80,11 +80,6 @@ in
       requires = [ "redis-nextcloud.service" ];
     };
 
-    # Redis needs sops secrets decrypted for requirePassFile
-    systemd.services.redis-nextcloud = {
-      after = [ "sops-nix.service" ];
-      requires = [ "sops-nix.service" ];
-    };
 
     systemd.services.phpfpm-nextcloud = {
       partOf = [ "homelab.target" ];

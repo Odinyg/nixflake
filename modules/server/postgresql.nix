@@ -78,14 +78,8 @@ in
     # Set passwords from sops secrets after every postgresql start
     # Uses psql -v for safe quoting (no SQL injection from password content)
     systemd.services.postgresql-set-passwords = {
-      after = [
-        "postgresql.service"
-        "sops-nix.service"
-      ];
-      requires = [
-        "postgresql.service"
-        "sops-nix.service"
-      ];
+      after = [ "postgresql.service" ];
+      requires = [ "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
