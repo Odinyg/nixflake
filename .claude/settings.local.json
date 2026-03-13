@@ -35,7 +35,9 @@
       "Bash(git:*)",
       "Bash(nix-shell:*)",
       "Bash(nix eval:*)",
-      "Bash(nix fmt:*)"
+      "Bash(nix fmt:*)",
+      "Bash(nix shell nixpkgs#colmena -c colmena build:*)",
+      "Bash(colmena build:*)"
     ],
     "deny": [],
     "ask": []
