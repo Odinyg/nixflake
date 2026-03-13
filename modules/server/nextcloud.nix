@@ -36,9 +36,12 @@ in
     };
     sops.secrets.redis_pass = { };
 
-    sops.templates."nextcloud-secret".content = ''
-      {"redis":{"password":"${config.sops.placeholder.redis_pass}"}}
-    '';
+    sops.templates."nextcloud-secret" = {
+      content = builtins.toJSON {
+        redis.password = config.sops.placeholder.redis_pass;
+      };
+      owner = "nextcloud";
+    };
 
     # Redis for Nextcloud caching
     services.redis.servers.nextcloud = {
@@ -68,7 +71,7 @@ in
         overwriteprotocol = "https";
         trusted_proxies = cfg.trustedProxies;
         default_phone_region = "NO";
-        log_type = "systemd";
+        log_type = "file";
       };
 
       secretFile = config.sops.templates."nextcloud-secret".path;
