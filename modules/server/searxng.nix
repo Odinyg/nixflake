@@ -51,6 +51,12 @@ in
       wantedBy = [ "homelab.target" ];
     };
 
+    # searx-init needs sops secrets decrypted before it can load the env file
+    systemd.services.searx-init = {
+      after = [ "sops-nix.service" ];
+      requires = [ "sops-nix.service" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }
