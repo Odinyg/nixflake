@@ -80,14 +80,10 @@ in
       after = [ "postgresql.service" ];
       requires = [ "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        User = "postgres";
-        Group = "postgres";
-      };
+      serviceConfig.Type = "oneshot";
       script = lib.concatMapStringsSep "\n" (db: ''
         pw=$(cat /run/secrets/postgresql_${db}_password)
-        ${config.services.postgresql.package}/bin/psql -v pw="$pw" \
+        sudo -u postgres ${config.services.postgresql.package}/bin/psql -v pw="$pw" \
           <<< "ALTER ROLE \"${db}\" PASSWORD :'pw'"
       '') cfg.databases;
     };
