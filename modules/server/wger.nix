@@ -87,7 +87,19 @@ in
         "/var/lib/homelab/wger/static:/home/wger/static"
         "/var/lib/homelab/wger/media:/home/wger/media"
       ];
-      ports = [ "${toString cfg.port}:8000" ];
+      extraOptions = [ "--network=iowa" ];
+    };
+
+    # nginx to serve static/media and proxy to gunicorn
+    virtualisation.oci-containers.containers.wger-nginx = {
+      image = "docker.io/nginx:stable";
+      dependsOn = [ "wger" ];
+      volumes = [
+        "/var/lib/homelab/wger/static:/home/wger/static:ro"
+        "/var/lib/homelab/wger/media:/home/wger/media:ro"
+        "/etc/homelab/wger-nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+      ];
+      ports = [ "${toString cfg.port}:80" ];
       extraOptions = [ "--network=iowa" ];
     };
 
@@ -127,7 +139,35 @@ in
       wantedBy = [ "homelab.target" ];
     };
 
+    systemd.services.docker-wger-nginx = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
+
+    # nginx config for wger static files
+    environment.etc."homelab/wger-nginx.conf".text = ''
+      upstream wger {
+        server wger:8000;
+      }
+      server {
+        listen 80;
+        location /static/ {
+          alias /home/wger/static/;
+        }
+        location /media/ {
+          alias /home/wger/media/;
+        }
+        location / {
+          proxy_pass http://wger;
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_redirect off;
+        }
+      }
+    '';
 
     systemd.tmpfiles.rules = [
       "d /var/lib/homelab/wger 0755 root root -"
