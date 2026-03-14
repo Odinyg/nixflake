@@ -64,7 +64,7 @@
   };
   server.wger = {
     enable = true;
-    dbHost = "127.0.0.1";
+    dbHost = "172.18.0.1";
   };
 
   # Docker network for inter-container communication

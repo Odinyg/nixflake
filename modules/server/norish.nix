@@ -67,11 +67,11 @@ in
       wantedBy = [ "homelab.target" ];
     };
 
-    # Dedicated Redis instance for Norish
+    # Dedicated Redis instance for Norish (binds 0.0.0.0 for Docker container access)
     services.redis.servers.norish = {
       enable = true;
       port = cfg.redisPort;
-      bind = "127.0.0.1";
+      bind = "0.0.0.0";
       requirePassFile = config.sops.secrets.redis_pass.path;
     };
 

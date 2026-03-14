@@ -53,12 +53,12 @@ in
       DJANGO_DB_PORT=5432
       DJANGO_PERFORM_MIGRATIONS=True
       DJANGO_CACHE_BACKEND=django_redis.cache.RedisCache
-      DJANGO_CACHE_LOCATION=redis://:${config.sops.placeholder.redis_pass}@127.0.0.1:${toString cfg.redisPort}/1
+      DJANGO_CACHE_LOCATION=redis://:${config.sops.placeholder.redis_pass}@${cfg.dbHost}:${toString cfg.redisPort}/1
       DJANGO_CACHE_TIMEOUT=1296000
       DJANGO_CACHE_CLIENT_CLASS=django_redis.client.DefaultClient
       USE_CELERY=True
-      CELERY_BROKER=redis://:${config.sops.placeholder.redis_pass}@127.0.0.1:${toString cfg.redisPort}/2
-      CELERY_BACKEND=redis://:${config.sops.placeholder.redis_pass}@127.0.0.1:${toString cfg.redisPort}/2
+      CELERY_BROKER=redis://:${config.sops.placeholder.redis_pass}@${cfg.dbHost}:${toString cfg.redisPort}/2
+      CELERY_BACKEND=redis://:${config.sops.placeholder.redis_pass}@${cfg.dbHost}:${toString cfg.redisPort}/2
       CELERY_WORKER_CONCURRENCY=2
       ALLOW_REGISTRATION=False
       ALLOW_GUEST_USERS=False
@@ -107,6 +107,19 @@ in
         "/var/lib/homelab/wger/beat:/home/wger/beat"
       ];
       extraOptions = [ "--network=iowa" ];
+    };
+
+    systemd.services.docker-wger = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+    systemd.services.docker-wger-worker = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+    systemd.services.docker-wger-beat = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
     };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
