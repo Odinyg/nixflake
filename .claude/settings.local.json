@@ -31,7 +31,8 @@
       "Bash(just rebuild:*)",
       "WebFetch(domain:hyprpanel.com)",
       "Bash(cat:*)",
-      "Skill(server-plan-service)"
+      "Skill(server-plan-service)",
+      "Skill(server-new-service)"
     ],
     "deny": [],
     "ask": []
