@@ -40,7 +40,7 @@ in
     sops.secrets.postgresql_wger_password = { };
     sops.secrets.wger_secret_key = { };
     sops.secrets.wger_signing_key = { };
-    sops.secrets.redis_pass = { };
+    sops.secrets.redis_nas_pass = { };
 
     sops.templates."wger-env".content = ''
       SECRET_KEY=${config.sops.placeholder.wger_secret_key}
@@ -58,12 +58,12 @@ in
       DJANGO_DB_PORT=5432
       DJANGO_PERFORM_MIGRATIONS=True
       DJANGO_CACHE_BACKEND=django_redis.cache.RedisCache
-      DJANGO_CACHE_LOCATION=redis://:${config.sops.placeholder.redis_pass}@${cfg.redisHost}:${toString cfg.redisPort}/1
+      DJANGO_CACHE_LOCATION=redis://:${config.sops.placeholder.redis_nas_pass}@${cfg.redisHost}:${toString cfg.redisPort}/1
       DJANGO_CACHE_TIMEOUT=1296000
       DJANGO_CACHE_CLIENT_CLASS=django_redis.client.DefaultClient
       USE_CELERY=True
-      CELERY_BROKER=redis://:${config.sops.placeholder.redis_pass}@${cfg.redisHost}:${toString cfg.redisPort}/2
-      CELERY_BACKEND=redis://:${config.sops.placeholder.redis_pass}@${cfg.redisHost}:${toString cfg.redisPort}/2
+      CELERY_BROKER=redis://:${config.sops.placeholder.redis_nas_pass}@${cfg.redisHost}:${toString cfg.redisPort}/2
+      CELERY_BACKEND=redis://:${config.sops.placeholder.redis_nas_pass}@${cfg.redisHost}:${toString cfg.redisPort}/2
       CELERY_WORKER_CONCURRENCY=2
       ALLOW_REGISTRATION=False
       ALLOW_GUEST_USERS=False
