@@ -37,7 +37,8 @@
       "Bash(nix eval:*)",
       "Bash(nix fmt:*)",
       "Bash(nix shell nixpkgs#colmena -c colmena build:*)",
-      "Bash(colmena build:*)"
+      "Bash(colmena build:*)",
+      "mcp__context7__resolve-library-id"
     ],
     "deny": [],
     "ask": []
