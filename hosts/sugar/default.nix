@@ -39,11 +39,11 @@
 
   server.postgresql = {
     enable = true;
-    listenAddresses = "localhost";
     databases = [
       "n8n"
       "nextcloud"
       "norish"
+      "wger"
     ];
   };
 
@@ -59,6 +59,10 @@
   server.perplexica.enable = true;
   server.netbootxyz.enable = true;
   server.norish = {
+    enable = true;
+    dbHost = "127.0.0.1";
+  };
+  server.wger = {
     enable = true;
     dbHost = "127.0.0.1";
   };

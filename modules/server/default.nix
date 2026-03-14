@@ -29,6 +29,7 @@
     ./perplexica.nix
     ./netbootxyz.nix
     ./norish.nix
+    ./wger.nix
   ];
 
   options.server.enable = lib.mkEnableOption "headless server profile";

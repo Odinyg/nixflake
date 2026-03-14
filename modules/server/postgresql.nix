@@ -35,6 +35,7 @@ in
       type = lib.types.listOf lib.types.str;
       default = [
         "10.10.0.0/16"
+        "172.16.0.0/12"
       ];
       description = "Networks allowed to connect via password auth";
     };
@@ -44,9 +45,10 @@ in
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
-      port = cfg.port;
-      enableTCPIP = true;
-      settings.listen_addresses = cfg.listenAddresses;
+      settings = {
+        port = cfg.port;
+        listen_addresses = lib.mkForce cfg.listenAddresses;
+      };
 
       ensureDatabases = cfg.databases;
 
@@ -95,8 +97,9 @@ in
       map (db: {
         name = "postgresql_${db}_password";
         value = {
-          owner = "postgres";
-          group = "postgres";
+          owner = lib.mkDefault "postgres";
+          group = lib.mkDefault "postgres";
+          mode = lib.mkDefault "0440";
         };
       }) cfg.databases
     );

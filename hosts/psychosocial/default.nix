@@ -144,6 +144,11 @@
           reverse_proxy 10.10.30.111:3000
         }
 
+        @wger host wger.pytt.io
+        handle @wger {
+          import authelia
+          reverse_proxy 10.10.30.111:8000
+        }
 
         @searxng host searxng.pytt.io
         handle @searxng {
@@ -314,6 +319,11 @@
         reverse_proxy 10.10.30.111:3000
       }
 
+      @wger host wger.pytt.io
+      handle @wger {
+        import authelia
+        reverse_proxy 10.10.30.111:8000
+      }
 
       @searxng host searxng.pytt.io
       handle @searxng {
