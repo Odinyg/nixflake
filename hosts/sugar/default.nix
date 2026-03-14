@@ -65,6 +65,7 @@
   server.wger = {
     enable = true;
     dbHost = "172.18.0.1";
+    redisHost = "10.10.10.20";
   };
 
   # Docker network for inter-container communication

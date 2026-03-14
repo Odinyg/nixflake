@@ -24,10 +24,15 @@ in
       default = "127.0.0.1";
       description = "PostgreSQL host for wger";
     };
+    redisHost = lib.mkOption {
+      type = lib.types.str;
+      default = "127.0.0.1";
+      description = "Redis host for wger";
+    };
     redisPort = lib.mkOption {
       type = lib.types.port;
-      default = 6380;
-      description = "Redis port (reuses norish Redis instance with separate DB indices)";
+      default = 6379;
+      description = "Redis port for wger";
     };
   };
 
@@ -53,12 +58,12 @@ in
       DJANGO_DB_PORT=5432
       DJANGO_PERFORM_MIGRATIONS=True
       DJANGO_CACHE_BACKEND=django_redis.cache.RedisCache
-      DJANGO_CACHE_LOCATION=redis://:${config.sops.placeholder.redis_pass}@${cfg.dbHost}:${toString cfg.redisPort}/1
+      DJANGO_CACHE_LOCATION=redis://:${config.sops.placeholder.redis_pass}@${cfg.redisHost}:${toString cfg.redisPort}/1
       DJANGO_CACHE_TIMEOUT=1296000
       DJANGO_CACHE_CLIENT_CLASS=django_redis.client.DefaultClient
       USE_CELERY=True
-      CELERY_BROKER=redis://:${config.sops.placeholder.redis_pass}@${cfg.dbHost}:${toString cfg.redisPort}/2
-      CELERY_BACKEND=redis://:${config.sops.placeholder.redis_pass}@${cfg.dbHost}:${toString cfg.redisPort}/2
+      CELERY_BROKER=redis://:${config.sops.placeholder.redis_pass}@${cfg.redisHost}:${toString cfg.redisPort}/2
+      CELERY_BACKEND=redis://:${config.sops.placeholder.redis_pass}@${cfg.redisHost}:${toString cfg.redisPort}/2
       CELERY_WORKER_CONCURRENCY=2
       ALLOW_REGISTRATION=False
       ALLOW_GUEST_USERS=False
