@@ -32,13 +32,8 @@
       "WebFetch(domain:hyprpanel.com)",
       "Bash(cat:*)",
       "Skill(server-plan-service)",
-      "Bash(git:*)",
-      "Bash(nix-shell:*)",
-      "Bash(nix eval:*)",
-      "Bash(nix fmt:*)",
-      "Bash(nix shell nixpkgs#colmena -c colmena build:*)",
-      "Bash(colmena build:*)",
-      "mcp__context7__resolve-library-id"
+      "Skill(server-new-service)",
+      "Bash(colmena apply:*)"
     ],
     "deny": [],
     "ask": []
