@@ -52,6 +52,10 @@ in
       OIDC_CLIENT_ID=norish
       OIDC_CLIENT_SECRET=${config.sops.placeholder.norish_oidc_client_secret}
       TRUSTED_ORIGINS=https://norish.${cfg.domain}
+      AI_PROVIDER=openai
+      AI_ENDPOINT=http://192.168.1.91:11434/v1
+      AI_MODEL=gemma3:27b
+      AI_API_KEY=ollama
     '';
 
     virtualisation.docker.enable = true;
