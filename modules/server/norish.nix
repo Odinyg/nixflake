@@ -80,7 +80,7 @@ in
       requirePassFile = config.sops.secrets.redis_pass.path;
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = [ cfg.port cfg.redisPort ];
 
     systemd.tmpfiles.rules = [
       "d /var/lib/homelab/norish 0755 root root -"
