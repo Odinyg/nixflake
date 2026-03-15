@@ -26,6 +26,8 @@
   sops.defaultSopsFile = ../../secrets/pulse.yaml;
 
   # --- Services ---
+  server.disko.enable = true;
+
   server.prometheus.enable = true;
   server.loki.enable = true;
   server.grafana.enable = true;
