@@ -234,7 +234,7 @@
 
       @ollama host ollama.pytt.io
       handle @ollama {
-        reverse_proxy 192.168.1.91:11434
+        reverse_proxy 10.10.10.10:11434
       }
 
       handle {

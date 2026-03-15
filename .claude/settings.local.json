@@ -34,7 +34,11 @@
       "Skill(server-plan-service)",
       "Skill(server-new-service)",
       "Bash(colmena apply:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "WebFetch(domain:community.ui.com)",
+      "WebFetch(domain:forum.proxmox.com)",
+      "WebFetch(domain:help.ui.com)",
+      "WebFetch(domain:lazyadmin.nl)"
     ],
     "deny": [],
     "ask": []

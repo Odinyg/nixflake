@@ -229,7 +229,7 @@ in
           {
             name = "Ollama";
             group = "Apps";
-            url = "http://192.168.1.91:11434";
+            url = "http://10.10.10.10:11434";
             interval = "5m";
             conditions = httpOk;
           }

@@ -23,9 +23,16 @@
   # ==============================================================================
   networking.hostName = "station";
 
-  # Loose reverse path filtering — allow cross-subnet access to services
-  boot.kernel.sysctl."net.ipv4.conf.all.rp_filter" = lib.mkForce 2;
-  boot.kernel.sysctl."net.ipv4.conf.default.rp_filter" = lib.mkForce 2;
+  # Static IP on Servers VLAN (10.10.10.0/24, VLAN 5)
+  networking.interfaces.enp82s0.ipv4.addresses = [{
+    address = "10.10.10.10";
+    prefixLength = 24;
+  }];
+  networking.defaultGateway = {
+    address = "10.10.10.1";
+    interface = "enp82s0";
+  };
+  networking.nameservers = [ "10.10.10.1" "1.1.1.1" ];
 
   # ==============================================================================
   # USERS

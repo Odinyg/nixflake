@@ -54,7 +54,7 @@ in
       TRUSTED_ORIGINS=https://norish.${cfg.domain}
       CHROME_WS_ENDPOINT=ws://norish-chrome:3000
       AI_PROVIDER=openai
-      AI_ENDPOINT=http://192.168.1.91:11434/v1
+      AI_ENDPOINT=http://10.10.10.10:11434/v1
       AI_MODEL=gemma3:27b
       AI_API_KEY=ollama
     '';
