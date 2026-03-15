@@ -74,6 +74,10 @@
     redisHost = "10.10.10.20";
     redisPort = 30059;
   };
+  server.freshrss = {
+    enable = true;
+    defaultUser = "homelab";
+  };
 
   # Docker network for inter-container communication
   virtualisation.docker.autoPrune = {

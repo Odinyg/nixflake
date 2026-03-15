@@ -31,6 +31,7 @@
     ./mealie.nix
     ./norish.nix
     ./wger.nix
+    ./freshrss.nix
   ];
 
   options.server.enable = lib.mkEnableOption "headless server profile";

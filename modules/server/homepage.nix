@@ -1,7 +1,5 @@
 {
   config,
-  pkgs-unstable,
-  inputs,
   lib,
   ...
 }:
@@ -9,13 +7,6 @@ let
   cfg = config.server.homepage;
 in
 {
-  imports = [
-    "${inputs.nixpkgs-unstable}/nixos/modules/services/misc/homepage-dashboard.nix"
-  ];
-
-  # Use unstable homepage-dashboard module (for environmentFiles support)
-  disabledModules = [ "services/misc/homepage-dashboard.nix" ];
-
   options.server.homepage = {
     enable = lib.mkEnableOption "Homepage dashboard";
     port = lib.mkOption {
@@ -31,12 +22,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = [
-      (final: prev: {
-        homepage-dashboard = pkgs-unstable.homepage-dashboard;
-      })
-    ];
-
     sops.secrets.homepage_jellyfin_api_key = { };
     sops.secrets.homepage_jellyseerr_api_key = { };
     sops.secrets.homepage_sonarr_api_key = { };

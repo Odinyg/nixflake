@@ -7,57 +7,35 @@ argument-hint: <service-name> on <host>
 
 # New Server Service Pipeline
 
-End-to-end pipeline for adding a service to a NixOS homelab server. Runs two phases with user review between them.
-
-Parse `$ARGUMENTS` for the service name and target host (e.g. `/server-new-service grafana on pulse`). If either is missing, ask the user.
-
-Valid hosts: `psychosocial`, `byob`, `sugar`, `pulse`
-
----
+End-to-end pipeline: research, plan, review, execute, secrets. Parse `$ARGUMENTS` for service name and host. Valid hosts: `psychosocial`, `byob`, `sugar`, `pulse`. Ask if missing.
 
 ## Phase 1: Research & Plan
 
-Use the **Agent tool** with `subagent_type: "general-purpose"` and `model: "sonnet"` to run the research and planning phase.
+Use **Agent** (`subagent_type: "general-purpose"`, `model: "opus"`):
 
-Give the subagent this prompt (filling in the service name and host):
+> Read `.claude/skills/server-plan-service/SKILL.md` and follow it exactly.
+> Service: `<service-name>`, Host: `<host>`. Write output to `plans/<service-name>.md`.
 
-> Read the skill file at `.claude/skills/server-plan-service/SKILL.md` and follow its instructions exactly.
-> Service: `<service-name>`, Host: `<host>`.
-> Write the output to `plans/<service-name>.md`.
-
-Wait for the subagent to finish, then read `plans/<service-name>.md` and display the research findings and implementation plan to the user.
-
-### Review gate
-
-Ask the user:
-
-**"Research & plan complete. Review the findings and implementation plan above. Ready to execute?"**
-
-Options:
-- **Execute the plan** — proceed to Phase 2
-- **Edit plan first** — pause so the user can edit `plans/<service-name>.md` manually, then re-read and continue
-- **Stop here** — end the pipeline (plan is saved for later `/server-add-service`)
-
----
+Display the plan, then ask: **"Research & plan complete. Ready to execute?"**
+- **Execute** → Phase 2
+- **Edit first** → pause for manual edits to `plans/<service-name>.md`, then continue
+- **Stop** → plan saved for later `/server-add-service`
 
 ## Phase 2: Execute
 
-Use the **Agent tool** with `subagent_type: "general-purpose"` and `model: "sonnet"` to run the execution phase.
+Use **Agent** (`subagent_type: "general-purpose"`, `model: "sonnet"`):
 
-Give the subagent this prompt (filling in the service name):
+> Read `.claude/skills/server-add-service/SKILL.md` and follow it exactly.
+> Service: `<service-name>`. Plan at `plans/<service-name>.md`.
+> Execute all changes, then move plan to `plans/archive/<service-name>.md`.
 
-> Read the skill file at `.claude/skills/server-add-service/SKILL.md` and follow its instructions exactly.
-> Service: `<service-name>`.
-> The plan file is at `plans/<service-name>.md`.
-> Execute all changes described in the Implementation Plan section.
-> After execution, move the plan to `plans/archive/<service-name>.md`.
+Display the summary of changes made.
 
-Wait for the subagent to finish, then display the summary of all changes made.
+## Phase 3: Secrets
 
----
+Automatically run after execution. Use **Agent** (`subagent_type: "general-purpose"`, `model: "opus"`):
 
-## If the user stops at the gate
+> Read `.claude/skills/server-add-secrets/SKILL.md` and follow it exactly.
+> Service: `<service-name>`, Host: `<host>`.
 
-The plan file at `plans/<service-name>.md` is preserved. Tell the user they can:
-- Edit the file and resume with `/server-add-service <service>`
-- Or re-run `/server-new-service <service> on <host>` later
+Display the secrets summary. The full pipeline is now complete — user just needs to deploy.

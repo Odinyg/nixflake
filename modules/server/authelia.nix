@@ -200,7 +200,7 @@ in
           {
             client_id = "gatus";
             client_name = "Gatus";
-            client_secret = "$pbkdf2-sha512$310000$4ER2edlklu3DXb01L4x/rw$svXMXo1NHy8hDyh62DH3YPA1YKI4mU6ilL6/esaStHfk55IqYs5Cx4xVGzu8nq1VQFYSbrReysTzQgod1Uk9tQ";
+            client_secret = "$pbkdf2-sha512$310000$srEhEp1Vl5Ak902Q7aCHQw$tuKE6HTzV0WqWnfE.W318WUQfYA4xdEinSQxBLIrRGZ0zEb1LmZ6rkpT9t13AB4fPR/TxwK8HVTC5yse7QFjoA";
             public = false;
             authorization_policy = "one_factor";
             redirect_uris = [ "https://gatus.${cfg.domain}/authorization-code/callback" ];
@@ -229,7 +229,7 @@ in
           {
             client_id = "grafana";
             client_name = "Grafana";
-            client_secret = "$pbkdf2-sha512$310000$K2HozYqmNUwBDwq2YG86eQ$Z7ZEuA7Lmx4CgA92QBJe4orFdAFAoyWQXD/T.VwYNtTr7VDrdXOQ/SlMS8v32s93PEsl.KOoCRvijHPJx7rd5Q";
+            client_secret = "$pbkdf2-sha512$310000$mlrcehvaVkO7pG/6lOFlZg$VXlPBeLyTeOApNNFDI8pjI6nd2u62JUQ8rXKxgxo/XOyvidwPSW/0tlEuh2RF4tnfpOFDCAGTi/DRtb7MUbZlw";
             public = false;
             authorization_policy = "one_factor";
             redirect_uris = [ "https://grafana.${cfg.domain}/login/generic_oauth" ];

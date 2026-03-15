@@ -31,6 +31,9 @@ in
     sops.secrets.grafana_oauth_client_secret = {
       owner = "grafana";
     };
+    sops.secrets.grafana_secret_key = {
+      owner = "grafana";
+    };
 
     services.grafana = {
       enable = true;
@@ -39,6 +42,7 @@ in
           http_port = cfg.port;
           root_url = "https://grafana.${cfg.domain}";
         };
+        security.secret_key = "$__file{${config.sops.secrets.grafana_secret_key.path}}";
         analytics.reporting_enabled = false;
 
         "auth.generic_oauth" = {

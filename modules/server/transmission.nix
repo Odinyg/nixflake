@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -24,6 +25,7 @@ in
   config = lib.mkIf cfg.enable {
     services.transmission = {
       enable = true;
+      package = pkgs.transmission_4;
       group = "media";
       openRPCPort = true;
       settings = {

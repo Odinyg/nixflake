@@ -27,6 +27,7 @@ in {
 ```
 
 ## Rules
+- IMPORTANT: Servers use `nixpkgs-unstable` — all NixOS module options and packages are from unstable, no `pkgs-unstable` overlay needed
 - IMPORTANT: Every service with a systemd unit MUST join `homelab.target` via `partOf` + `wantedBy`
 - Use `lib.types.port` for port options, `lib.types.str` for domains
 - Name port options as `<service>Port` (e.g., `sonarrPort`, `metricsPort`)

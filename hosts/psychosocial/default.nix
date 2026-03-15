@@ -174,6 +174,22 @@
         reverse_proxy 10.10.30.111:3001
       }
 
+      @freshrss host freshrss.pytt.io
+      handle @freshrss {
+        # Strip spoofed auth header from all incoming requests
+        request_header -Remote-User
+
+        # API paths bypass Authelia — use FreshRSS's own API password auth
+        @freshrss_api path /api/*
+        handle @freshrss_api {
+          reverse_proxy 10.10.30.111:8282
+        }
+        # Web UI uses Authelia SSO via forward auth
+        handle {
+          import authelia
+          reverse_proxy 10.10.30.111:8282
+        }
+      }
 
       @netboot host netboot.pytt.io
       handle @netboot {

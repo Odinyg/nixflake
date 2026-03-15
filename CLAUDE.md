@@ -33,6 +33,7 @@
 - Ollama intentionally binds to `0.0.0.0` with `openFirewall = true` for LAN access — not a security issue
 
 ## Gotchas
+- Servers use `nixpkgs-unstable`, desktops use `nixos-25.05` (stable) — server modules get the latest NixOS options/packages
 - `flake.lock` must NOT be in `.gitignore` — colmena needs it
 - `just rebuild` runs `git add .` automatically before building
 - Hyprpaper configs must NOT use quotes around file paths

@@ -3,7 +3,7 @@
   ...
 }:
 let
-  inherit (inputs) nixpkgs nixos-hardware;
+  inherit (inputs) nixpkgs nixpkgs-unstable nixos-hardware;
   lib = import ./lib.nix { inherit inputs; };
 
   mkHost =
@@ -18,7 +18,7 @@ let
 
   mkServer =
     args:
-    nixpkgs.lib.nixosSystem {
+    nixpkgs-unstable.lib.nixosSystem {
       specialArgs = {
         inherit inputs;
         inherit (lib) pkgs-unstable;

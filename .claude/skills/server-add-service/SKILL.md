@@ -8,78 +8,28 @@ argument-hint: <service-name>
 
 # Add a server service (execute plan)
 
-Execute the implementation plan from `plans/<service>.md` to add a service to a NixOS homelab server.
+Execute the plan from `plans/<service>.md`. Requires `Status: plan-complete`. If missing, tell user to run `/server-plan-service` first.
 
-**Prerequisites:** The plan file must exist and have `Status: plan-complete`. If not, tell the user to run `/server-plan-service` first.
+## Step 1: Read and validate
 
-## Parse arguments
-
-Parse `$ARGUMENTS` for the service name (e.g. `/server-add-service grafana`). If missing, check `plans/` for plan-complete files and ask.
-
-## Step 1: Read and validate the plan
-
-Read `plans/<service>.md`. Verify:
-- `**Status:** plan-complete` is present
-- The Implementation Plan section exists with concrete Nix expressions
-
-If the plan is missing or incomplete, stop and tell the user.
+Read `plans/<service>.md`. Verify status and that Implementation Plan has concrete Nix expressions.
 
 ## Step 2: Execute each change
 
-Follow the plan's Implementation Plan section **exactly**. For each file listed:
+Follow the Implementation Plan **exactly**:
 
-### EDIT files
-- Read the target file first
-- Apply the edit as specified in the plan
-- For `hosts/<host>/default.nix`: add the service config block in a logical position (imports at top, sops.secrets early, services in order, firewall ports grouped)
-- For `hosts/psychosocial/default.nix`: add Caddy route block alphabetically within the relevant server section
-- For `modules/server/*.nix`: if creating a reusable module, also register it in `modules/server/default.nix` imports
-
-### CREATE files
-- Write new module files with exact content from the plan
-- Verify the parent directory exists
-
-### Database
-- If the service needs PostgreSQL, add the database name to `server.postgresql.databases` in the host's `default.nix`
-- The `server.postgresql` module auto-creates the database, user, and handles password via `sops.secrets.postgresql_<db>_password`
+- **EDIT files** — Read target first, apply edits. Host configs: imports at top, sops early, services in order, firewall grouped. Caddy routes: alphabetical.
+- **CREATE files** — Write with exact content. If creating `modules/server/*.nix`, also add import to `modules/server/default.nix`.
+- **Database** — If PostgreSQL needed, add to `server.postgresql.databases` in host config.
 
 ## Step 3: Verify
 
-After all changes:
+Read back all modified files. Check Nix syntax. Run `nix flake check` (git add new files first). Fix and re-run until passing.
 
-### 3a. Read back files
-- Read each created/modified file to confirm edits look correct
-- Check Nix syntax (balanced braces, semicolons, proper indentation)
+## Step 4: Archive and summarize
 
-### 3b. Run flake check
 ```bash
-nix flake check
-```
-If it fails, read the error, fix the issue, and re-run until it passes.
-
-Note: new files must be `git add`ed before `nix flake check` can see them.
-
-## Step 4: Archive the plan
-
-Move the plan file to the archive:
-```bash
-mkdir -p plans/archive
-mv plans/<service>.md plans/archive/<service>.md
+mkdir -p plans/archive && mv plans/<service>.md plans/archive/<service>.md
 ```
 
-## Step 5: Summary
-
-Show the user:
-
-**Files created:**
-- List new files
-
-**Files modified:**
-- List modified files and what changed
-
-**Manual steps remaining:**
-- Add secrets: `/server-add-secrets <service>` — generates and writes all secrets to SOPS
-- Deploy: `colmena apply --on <host>`
-- Verify: `systemctl status <service>` on the host
-
-**Plan archived to:** `plans/archive/<service>.md`
+Show: files created, files modified, manual steps remaining (secrets via `/server-add-secrets`, deploy via `colmena apply --on <host>`, verify via `systemctl status`).
