@@ -52,6 +52,7 @@ in
       OIDC_CLIENT_ID=norish
       OIDC_CLIENT_SECRET=${config.sops.placeholder.norish_oidc_client_secret}
       TRUSTED_ORIGINS=https://norish.${cfg.domain}
+      CHROME_WS_ENDPOINT=ws://norish-chrome:3000
       AI_PROVIDER=openai
       AI_ENDPOINT=http://192.168.1.91:11434/v1
       AI_MODEL=gemma3:27b
@@ -71,7 +72,24 @@ in
       extraOptions = [ "--network=iowa" ];
     };
 
+    virtualisation.oci-containers.containers.norish-chrome = {
+      image = "zenika/alpine-chrome:latest";
+      cmd = [
+        "--no-sandbox"
+        "--disable-gpu"
+        "--disable-dev-shm-usage"
+        "--remote-debugging-address=0.0.0.0"
+        "--remote-debugging-port=3000"
+        "--headless"
+      ];
+      extraOptions = [ "--network=iowa" ];
+    };
+
     systemd.services.docker-norish = {
+      partOf = [ "homelab.target" ];
+      wantedBy = [ "homelab.target" ];
+    };
+    systemd.services.docker-norish-chrome = {
       partOf = [ "homelab.target" ];
       wantedBy = [ "homelab.target" ];
     };
