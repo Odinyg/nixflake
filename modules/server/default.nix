@@ -86,8 +86,8 @@
       };
     };
 
-    # Firewall on by default
-    networking.firewall.enable = true;
+    # Firewall disabled for cross-subnet debugging
+    networking.firewall.enable = false;
 
     # SOPS — use existing age keys
     sops = {

@@ -73,7 +73,7 @@
   # ==============================================================================
   # SYSTEM UTILITIES
   # ==============================================================================
-  fail2ban-security.enable = lib.mkDefault true;
+  fail2ban-security.enable = lib.mkDefault false;
   tailscale.enable = true;
   sunshine.enable = true;
   services.openssh = {
