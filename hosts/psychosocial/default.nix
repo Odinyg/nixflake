@@ -144,7 +144,6 @@
 
       @wger host wger.pytt.io
       handle @wger {
-        import authelia
         reverse_proxy 10.10.30.111:8000
       }
 
