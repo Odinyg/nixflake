@@ -40,10 +40,6 @@ let
     }:
     { ... }:
     {
-      nixpkgs.pkgs = import nixpkgs-unstable {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
       deployment = {
         targetHost = targetHost;
         targetUser = "odin";
@@ -57,6 +53,12 @@ in
   flake.colmena = {
     meta = {
       nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+      nodeNixpkgs = {
+        pulse = import nixpkgs-unstable { system = "x86_64-linux"; };
+        sugar = import nixpkgs-unstable { system = "x86_64-linux"; };
+        byob = import nixpkgs-unstable { system = "x86_64-linux"; };
+        psychosocial = import nixpkgs-unstable { system = "x86_64-linux"; };
+      };
       specialArgs = {
         inherit inputs;
         inherit (lib) pkgs-unstable;
