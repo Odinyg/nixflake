@@ -23,6 +23,10 @@
   # ==============================================================================
   networking.hostName = "station";
 
+  # Loose reverse path filtering — allow cross-subnet access to services
+  boot.kernel.sysctl."net.ipv4.conf.all.rp_filter" = lib.mkForce 2;
+  boot.kernel.sysctl."net.ipv4.conf.default.rp_filter" = lib.mkForce 2;
+
   # ==============================================================================
   # USERS
   # ==============================================================================
