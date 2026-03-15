@@ -61,6 +61,7 @@
   server.norish = {
     enable = true;
     dbHost = "172.18.0.1";
+    redisHost = "172.18.0.1";
   };
   server.wger = {
     enable = true;

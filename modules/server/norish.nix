@@ -24,6 +24,11 @@ in
       default = "10.10.10.20";
       description = "PostgreSQL host for Norish";
     };
+    redisHost = lib.mkOption {
+      type = lib.types.str;
+      default = "127.0.0.1";
+      description = "Redis host for Norish";
+    };
     redisPort = lib.mkOption {
       type = lib.types.port;
       default = 6380;
@@ -41,7 +46,7 @@ in
       AUTH_URL=https://norish.${cfg.domain}
       DATABASE_URL=postgres://norish:${config.sops.placeholder.postgresql_norish_password}@${cfg.dbHost}:5432/norish
       MASTER_KEY=${config.sops.placeholder.norish_master_key}
-      REDIS_URL=redis://:${config.sops.placeholder.redis_pass}@127.0.0.1:${toString cfg.redisPort}
+      REDIS_URL=redis://:${config.sops.placeholder.redis_pass}@${cfg.redisHost}:${toString cfg.redisPort}
       OIDC_NAME=Authelia
       OIDC_ISSUER=https://auth.${cfg.domain}
       OIDC_CLIENT_ID=norish
