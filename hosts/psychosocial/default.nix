@@ -137,6 +137,11 @@
         reverse_proxy 10.10.30.111:80
       }
 
+      @mealie host mealie.pytt.io
+      handle @mealie {
+        reverse_proxy 10.10.30.111:9925
+      }
+
       @norish host norish.pytt.io
       handle @norish {
         reverse_proxy 10.10.30.111:3000

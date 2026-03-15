@@ -40,6 +40,7 @@
   server.postgresql = {
     enable = true;
     databases = [
+      "mealie"
       "n8n"
       "nextcloud"
       "norish"
@@ -58,6 +59,10 @@
   };
   server.perplexica.enable = true;
   server.netbootxyz.enable = true;
+  server.mealie = {
+    enable = true;
+    dbHost = "172.18.0.1";
+  };
   server.norish = {
     enable = true;
     dbHost = "172.18.0.1";

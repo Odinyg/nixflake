@@ -32,15 +32,16 @@ Follow the plan's Implementation Plan section **exactly**. For each file listed:
 - Read the target file first
 - Apply the edit as specified in the plan
 - For `hosts/<host>/default.nix`: add the service config block in a logical position (imports at top, sops.secrets early, services in order, firewall ports grouped)
-- For `hosts/psychosocial/default.nix`: add Caddy route block in the virtualHosts section, alphabetically
+- For `hosts/psychosocial/default.nix`: add Caddy route block alphabetically within the relevant server section
 - For `modules/server/*.nix`: if creating a reusable module, also register it in `modules/server/default.nix` imports
 
 ### CREATE files
 - Write new module files with exact content from the plan
 - Verify the parent directory exists
 
-### REMINDER files (like secrets/*.yaml)
-- Do NOT edit encrypted files — just note them in the summary
+### Database
+- If the service needs PostgreSQL, add the database name to `server.postgresql.databases` in the host's `default.nix`
+- The `server.postgresql` module auto-creates the database, user, and handles password via `sops.secrets.postgresql_<db>_password`
 
 ## Step 3: Verify
 
@@ -55,6 +56,8 @@ After all changes:
 nix flake check
 ```
 If it fails, read the error, fix the issue, and re-run until it passes.
+
+Note: new files must be `git add`ed before `nix flake check` can see them.
 
 ## Step 4: Archive the plan
 
@@ -75,9 +78,7 @@ Show the user:
 - List modified files and what changed
 
 **Manual steps remaining:**
-- Add secrets: `sops secrets/<host>.yaml` — add the listed secret keys
-- Database creation (if needed): `/server-create-db <service>`
-- OIDC client registration in Authelia (if auth mode is oidc)
+- Add secrets: `/server-add-secrets <service>` — generates and writes all secrets to SOPS
 - Deploy: `colmena apply --on <host>`
 - Verify: `systemctl status <service>` on the host
 

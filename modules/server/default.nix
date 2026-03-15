@@ -28,6 +28,7 @@
     ./nextcloud.nix
     ./perplexica.nix
     ./netbootxyz.nix
+    ./mealie.nix
     ./norish.nix
     ./wger.nix
   ];

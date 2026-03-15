@@ -212,6 +212,21 @@ in
             userinfo_signed_response_alg = "none";
           }
           {
+            client_id = "mealie";
+            client_name = "Mealie";
+            client_secret = "$pbkdf2-sha512$310000$MRIYNYy8FfS6JuYaX6Q7mQ$zqIPa5ehgSMquRV.LjEahiFVdVBmMI/NgixIoDlKlHT6afF6lY6QT0tfOmXE4JciWN.9rRF8lsVtDjiZ0kgi6Q";
+            public = false;
+            authorization_policy = "one_factor";
+            redirect_uris = [ "https://mealie.${cfg.domain}/login" ];
+            scopes = [
+              "openid"
+              "profile"
+              "email"
+              "groups"
+            ];
+            userinfo_signed_response_alg = "none";
+          }
+          {
             client_id = "grafana";
             client_name = "Grafana";
             client_secret = "$pbkdf2-sha512$310000$K2HozYqmNUwBDwq2YG86eQ$Z7ZEuA7Lmx4CgA92QBJe4orFdAFAoyWQXD/T.VwYNtTr7VDrdXOQ/SlMS8v32s93PEsl.KOoCRvijHPJx7rd5Q";
