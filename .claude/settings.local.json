@@ -19,7 +19,8 @@
       "Bash(git add:*)",
       "Bash(gh api:*)",
       "Skill(server-plan-service)",
-      "Skill(server-new-service)"
+      "Skill(server-new-service)",
+      "Bash(nix log:*)"
     ],
     "deny": [],
     "ask": []
