@@ -149,13 +149,11 @@
 
       @searxng host searxng.pytt.io
       handle @searxng {
-        import authelia
         reverse_proxy 10.10.30.111:8888
       }
 
       @perplexica host perplexica.pytt.io
       handle @perplexica {
-        import authelia
         reverse_proxy 10.10.30.111:3001
       }
 
