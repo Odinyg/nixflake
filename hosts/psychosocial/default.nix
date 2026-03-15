@@ -144,7 +144,19 @@
 
       @wger host wger.pytt.io
       handle @wger {
-        reverse_proxy 10.10.30.111:8000
+        # Strip spoofed auth header from all incoming requests
+        request_header -Remote-User
+
+        # API paths bypass Authelia — use wger's own token auth
+        @wger_api path /api/*
+        handle @wger_api {
+          reverse_proxy 10.10.30.111:8000
+        }
+        # Web UI uses Authelia SSO via proxy auth header
+        handle {
+          import authelia
+          reverse_proxy 10.10.30.111:8000
+        }
       }
 
       @searxng host searxng.pytt.io
