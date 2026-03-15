@@ -67,7 +67,7 @@
 
   # Media dirs on NAS
   systemd.tmpfiles.rules = [
-    "d /mnt/nas/media/tv 0775 root media -"
+    "d /mnt/nas/media/tvshows 0775 root media -"
   ];
 
   system.stateVersion = "25.05";
