@@ -189,6 +189,7 @@ in
             public = false;
             authorization_policy = "one_factor";
             redirect_uris = [ "https://norish.${cfg.domain}/api/auth/oauth2/callback/oidc" ];
+            token_endpoint_auth_method = "client_secret_post";
             scopes = [
               "openid"
               "profile"
