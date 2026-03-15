@@ -7,6 +7,7 @@ keys:
   # Homelab servers
   - &homelab_low age1p2gy6kqvj5gfz8enpf8adh652rpkqvu4muzrg2nf7f98sl45qgkspaah7f
   - &homelab_general age1knseevsr30xnq67wuhfrtlfw43ryz4hgch3y0ae4rlppfdss6p7q0pqt6u
+  - &pulse age1pxp8l64sgske7kqqedst69pzufwjark5n3dxcl3u5crkfvzcffzsrxlmlu
   - &homelab_critical age1l4q60pec49kr6cphaj80kunh7n6jt8cxan042lhac4herj0pqywquzxw5x
 
 creation_rules:
@@ -41,7 +42,12 @@ creation_rules:
     key_groups:
       - age:
           - *homelab_critical
-  - path_regex: secrets/(sugar|pulse|shared)\.yaml$
+  - path_regex: secrets/pulse\.yaml$
+    key_groups:
+      - age:
+          - *homelab_general
+          - *pulse
+  - path_regex: secrets/(sugar|shared)\.yaml$
     key_groups:
       - age:
           - *homelab_general
