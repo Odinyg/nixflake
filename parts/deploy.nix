@@ -3,7 +3,7 @@
   ...
 }:
 let
-  inherit (inputs) nixpkgs nixos-hardware;
+  inherit (inputs) nixpkgs nixpkgs-unstable nixos-hardware;
   lib = import ./lib.nix { inherit inputs; };
 
   mkColmenaHost =
@@ -40,6 +40,10 @@ let
     }:
     { ... }:
     {
+      nixpkgs.pkgs = import nixpkgs-unstable {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
       deployment = {
         targetHost = targetHost;
         targetUser = "odin";
