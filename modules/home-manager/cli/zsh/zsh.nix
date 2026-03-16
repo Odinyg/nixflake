@@ -25,18 +25,6 @@
       stty -ixon
       bindkey '^S' history-incremental-search-forward
 
-      # Auto-launch tmux if not already inside tmux, not in a tty, and tmux is available
-      if [[ -z "$TMUX" && -z "$INSIDE_EMACS" && -z "$VSCODE_RESOLVING_ENVIRONMENT" && "$TERM_PROGRAM" != "vscode" && -t 0 ]]; then
-        if command -v tmux &>/dev/null; then
-          # Attach to first detached session, or create a new one
-          detached=$(tmux list-sessions -F '#{session_name} #{session_attached}' 2>/dev/null | awk '$2 == "0" { print $1; exit }')
-          if [[ -n "$detached" ]]; then
-            exec tmux attach-session -t "$detached"
-          else
-            exec tmux new-session
-          fi
-        fi
-      fi
     '';
     envExtra = ''
             source <(kubectl completion zsh)
