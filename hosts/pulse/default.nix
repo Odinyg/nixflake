@@ -32,6 +32,7 @@
   server.loki.enable = true;
   server.grafana.enable = true;
   server.gatus.enable = true;
+  server.ntfy.enable = true;
 
   system.stateVersion = "25.05";
 }

@@ -109,6 +109,20 @@
 
       # --- pulse (old: 10.10.30.12) ---
 
+      @ntfy host ntfy.pytt.io
+      handle @ntfy {
+        # API and publish/subscribe paths bypass Authelia for programmatic access
+        @ntfy_api path /v1/* /*.json /*/json /*/sse /*/raw /*/ws /*/auth /*/publish
+        handle @ntfy_api {
+          reverse_proxy 10.10.30.12:2586
+        }
+        # Web UI uses Authelia SSO
+        handle {
+          import authelia
+          reverse_proxy 10.10.30.12:2586
+        }
+      }
+
       @gatus host gatus.pytt.io
       handle @gatus {
         reverse_proxy 10.10.30.12:8080
