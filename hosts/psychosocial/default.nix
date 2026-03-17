@@ -111,12 +111,18 @@
 
       @ntfy host ntfy.pytt.io
       handle @ntfy {
-        # API and publish/subscribe paths bypass Authelia for programmatic access
-        @ntfy_api path /v1/* /*.json /*/json /*/sse /*/raw /*/ws /*/auth /*/publish
+        # Non-GET requests (POST/PUT publish) and API paths bypass Authelia
+        @ntfy_api {
+          not method GET HEAD OPTIONS
+        }
         handle @ntfy_api {
           reverse_proxy 10.10.30.12:2586
         }
-        # Web UI uses Authelia SSO
+        @ntfy_paths path /v1/* /*.json /*/json /*/sse /*/raw /*/ws /*/auth
+        handle @ntfy_paths {
+          reverse_proxy 10.10.30.12:2586
+        }
+        # Web UI (GET) uses Authelia SSO
         handle {
           import authelia
           reverse_proxy 10.10.30.12:2586
