@@ -6,6 +6,23 @@
 }:
 let
   cfg = config.server.freshrss;
+
+  af-readability = pkgs.freshrss-extensions.buildFreshRssExtension {
+    FreshRssExtUniqueId = "Af_Readability";
+    pname = "af-readability";
+    version = "unstable-2026-03-12";
+    src = pkgs.fetchFromGitHub {
+      owner = "Niehztog";
+      repo = "freshrss-af-readability";
+      rev = "c0867be4692fa7de3e3d4bb0b88ec5d2a2a7def1";
+      hash = "sha256-y9+7kkzNRmOHNFVhv004ZVVnhoeVEvbDjLE2AGlztTE=";
+    };
+    meta = {
+      description = "FreshRSS extension to fetch full article content using Readability";
+      homepage = "https://github.com/Niehztog/freshrss-af-readability";
+      license = lib.licenses.agpl3Only;
+    };
+  };
 in
 {
   options.server.freshrss = {
@@ -43,6 +60,8 @@ in
       api.enable = true;
 
       database.type = "sqlite";
+
+      extensions = [ af-readability ];
 
       virtualHost = cfg.domain;
     };
