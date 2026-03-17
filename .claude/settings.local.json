@@ -21,9 +21,11 @@
       "Skill(server-plan-service)",
       "Skill(server-new-service)",
       "Bash(nix log:*)",
-      "Skill(cleanup-nixos-config)",
-      "Bash(nmcli connection:*)",
-      "Bash(nmcli device:*)"
+      "WebFetch(domain:mynixos.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(nix-prefetch-url:*)",
+      "Bash(nix hash:*)",
+      "Bash(just deploy:*)"
     ],
     "deny": [],
     "ask": []
