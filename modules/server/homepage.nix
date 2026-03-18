@@ -221,7 +221,7 @@ in
                 icon = "gatus.png";
                 href = "https://gatus.${cfg.domain}";
                 description = "Declarative Monitoring";
-                siteMonitor = "http://10.10.30.12:8080";
+                siteMonitor = "http://10.10.30.112:8080";
               };
             }
             {
@@ -229,7 +229,7 @@ in
                 icon = "grafana.png";
                 href = "https://grafana.${cfg.domain}";
                 description = "Dashboards & Logs";
-                siteMonitor = "http://10.10.30.12:3000/api/health";
+                siteMonitor = "http://10.10.30.112:3000/api/health";
               };
             }
           ];

@@ -107,7 +107,7 @@
         reverse_proxy 10.10.50.110:9705
       }
 
-      # --- pulse (old: 10.10.30.12) ---
+      # --- pulse (10.10.30.112) ---
 
       @ntfy host ntfy.pytt.io
       handle @ntfy {
@@ -116,33 +116,33 @@
           not method GET HEAD OPTIONS
         }
         handle @ntfy_api {
-          reverse_proxy 10.10.30.12:2586
+          reverse_proxy 10.10.30.112:2586
         }
         @ntfy_paths path /v1/* /*.json /*/json /*/sse /*/raw /*/ws /*/auth
         handle @ntfy_paths {
-          reverse_proxy 10.10.30.12:2586
+          reverse_proxy 10.10.30.112:2586
         }
         # Web UI (GET) uses Authelia SSO
         handle {
           import authelia
-          reverse_proxy 10.10.30.12:2586
+          reverse_proxy 10.10.30.112:2586
         }
       }
 
       @gatus host gatus.pytt.io
       handle @gatus {
-        reverse_proxy 10.10.30.12:8080
+        reverse_proxy 10.10.30.112:8080
       }
 
       @grafana host grafana.pytt.io
       handle @grafana {
-        reverse_proxy 10.10.30.12:3000
+        reverse_proxy 10.10.30.112:3000
       }
 
       @prometheus host prometheus.pytt.io
       handle @prometheus {
         import authelia
-        reverse_proxy 10.10.30.12:9090
+        reverse_proxy 10.10.30.112:9090
       }
 
       # --- sugar (staging: 10.10.30.111) ---
