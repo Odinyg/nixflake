@@ -20,6 +20,29 @@
   networking.networkmanager = {
     enable = true;
     unmanaged = [ ];
+    ensureProfiles.profiles.modem = {
+      connection = {
+        id = "modem";
+        type = "802-3-ethernet";
+        interface-name = "enp0s31f6";
+        autoconnect = "true";
+        autoconnect-priority = "-1";
+      };
+      "802-3-ethernet" = {
+        mac-address = "98:FA:9B:B7:3A:A3";
+      };
+      ipv4 = {
+        method = "auto";
+        addresses = "192.168.1.99/24,192.168.2.99/24,192.168.250.99/24";
+        never-default = "true";
+        ignore-auto-routes = "true";
+        ignore-auto-dns = "true";
+      };
+      ipv6 = {
+        method = "disabled";
+        never-default = "true";
+      };
+    };
   };
 
   # Disable wait-online to speed up boot
@@ -150,9 +173,6 @@
 
   # Network sharing
   init-net.enable = true;
-
-  # Hosted services
-  hosted-services.n8n.enable = false;
 
   # ==============================================================================
   # DISTRIBUTED BUILDS - USE STATION AS BUILDER

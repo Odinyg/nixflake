@@ -10,13 +10,9 @@
         search_method = "cover_or_next";
       };
       comment = { };
-      #      completion = { };
-
       bracketed = { };
       files = { };
       icons = { };
-      # jump = { };
-      # indentscope = { };
       trailspace = { };
       map = { };
       tabline = { };

@@ -32,6 +32,11 @@ let
     inputs.disko.nixosModules.disko
   ];
 
+  # Applied to every host (desktop + server)
+  sharedConfig = {
+    networking.enableIPv6 = false;
+  };
+
   hostModules =
     {
       hostPath,
@@ -41,6 +46,7 @@ let
     }:
     commonModules
     ++ [
+      sharedConfig
       hostPath
       { user = user; }
       { nixpkgs.config.allowUnfree = true; }
@@ -71,6 +77,7 @@ let
     }:
     serverCommonModules
     ++ [
+      sharedConfig
       hostPath
       { _module.args = { inherit pkgs-unstable; }; }
     ]

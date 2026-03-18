@@ -168,7 +168,6 @@
   # AI / LLM Tools
   ollama.enable = true;
   mcp.enable = true;
-  # oterm.enable = true;  # Disabled due to broken fastmcp dependency
 
   # VPN
   protonvpn.enable = true;
@@ -198,7 +197,6 @@
 
   postgresql.enable = true;
 
-  hosted-services.n8n.enable = false;
   hosted-services.open-webui.enable = true;
   # ==============================================================================
   # SYSTEM VERSION

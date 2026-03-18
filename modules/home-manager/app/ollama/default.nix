@@ -1,6 +1,0 @@
-{ ... }:
-{
-  imports = [
-    ./oterm.nix
-  ];
-}

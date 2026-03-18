@@ -7,7 +7,6 @@
     ./media.nix
     ./communication.nix
     ./utilities.nix
-    ./ollama
   ];
 
 }

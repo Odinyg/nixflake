@@ -9,7 +9,6 @@
   config.home-manager.users.${config.user} = lib.mkIf config.development.enable {
     home.packages = with pkgs; [
       # Code Editors & IDEs
-      # pkgs-unstable.zed-editor  # Modern code editor (disabled — build on station first)
       pkgs-unstable.code-cursor # AI-powered code editor
 
       # API Development

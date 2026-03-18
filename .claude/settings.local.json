@@ -20,7 +20,8 @@
       "Bash(gh api:*)",
       "Skill(server-plan-service)",
       "Skill(server-new-service)",
-      "Bash(nix log:*)"
+      "Bash(nix log:*)",
+      "Skill(cleanup-nixos-config)"
     ],
     "deny": [],
     "ask": []

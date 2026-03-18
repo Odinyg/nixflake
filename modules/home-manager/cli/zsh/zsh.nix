@@ -25,6 +25,11 @@
       stty -ixon
       bindkey '^S' history-incremental-search-forward
 
+      # SSH into modem with auto-filled password from 1Password
+      modem() {
+        sshpass -p "$(op item get w4zusfbv3ztnl4flzm2vrga6ki --fields password --reveal)" ssh -o StrictHostKeyChecking=no root@"$1"
+      }
+
     '';
     envExtra = ''
             source <(kubectl completion zsh)
@@ -33,7 +38,6 @@
     oh-my-zsh = {
       enable = true;
       theme = "cloud";
-      #    custom = "$HOME/.config/zsh/oh-my-zsh";
       plugins = [
         "fzf"
         "sudo"
