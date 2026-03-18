@@ -25,7 +25,8 @@
       "WebFetch(domain:api.github.com)",
       "Bash(nix-prefetch-url:*)",
       "Bash(nix hash:*)",
-      "Bash(just deploy:*)"
+      "Bash(just deploy:*)",
+      "Read(//tmp/**)"
     ],
     "deny": [],
     "ask": []

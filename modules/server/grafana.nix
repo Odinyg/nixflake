@@ -68,12 +68,14 @@ in
         datasources.settings.datasources = [
           {
             name = "Prometheus";
+            uid = "prometheus";
             type = "prometheus";
             url = "http://127.0.0.1:9090";
             isDefault = true;
           }
           {
             name = "Loki";
+            uid = "loki";
             type = "loki";
             url = "http://127.0.0.1:3100";
           }
@@ -82,7 +84,6 @@ in
           {
             name = "default";
             options.path = "/etc/grafana/dashboards";
-            options.foldersFromFilesStructure = true;
           }
         ];
       };
@@ -97,6 +98,12 @@ in
     sops.templates."grafana-env".content = ''
       GF_SECURITY_ADMIN_PASSWORD=${config.sops.placeholder.grafana_admin_password}
     '';
+    environment.etc = {
+      "grafana/dashboards/node-exporter.json".source = ./dashboards/node-exporter.json;
+      "grafana/dashboards/caddy.json".source = ./dashboards/caddy.json;
+      "grafana/dashboards/loki-logs.json".source = ./dashboards/loki-logs.json;
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }
