@@ -65,21 +65,30 @@ in
       };
 
       provision = {
-        datasources.settings.datasources = [
-          {
-            name = "Prometheus";
-            uid = "prometheus";
-            type = "prometheus";
-            url = "http://127.0.0.1:9090";
-            isDefault = true;
-          }
-          {
-            name = "Loki";
-            uid = "loki";
-            type = "loki";
-            url = "http://127.0.0.1:3100";
-          }
-        ];
+        datasources.settings = {
+          apiVersion = 1;
+          deleteDatasources = [
+            { name = "Prometheus"; orgId = 1; }
+            { name = "Loki"; orgId = 1; }
+          ];
+          datasources = [
+            {
+              name = "Prometheus";
+              uid = "prometheus";
+              type = "prometheus";
+              url = "http://127.0.0.1:9090";
+              isDefault = true;
+              orgId = 1;
+            }
+            {
+              name = "Loki";
+              uid = "loki";
+              type = "loki";
+              url = "http://127.0.0.1:3100";
+              orgId = 1;
+            }
+          ];
+        };
         dashboards.settings.providers = [
           {
             name = "default";
