@@ -73,11 +73,11 @@ in
         layout = {
           Main = {
             style = "row";
-            columns = 4;
+            columns = 3;
           };
           Infrastructure = {
             style = "row";
-            columns = 3;
+            columns = 4;
           };
           Monitoring = {
             style = "row";
@@ -164,6 +164,22 @@ in
                 siteMonitor = "http://10.10.30.111:3001";
               };
             }
+            {
+              FreshRSS = {
+                icon = "freshrss.png";
+                href = "https://freshrss.${cfg.domain}";
+                description = "RSS Reader";
+                siteMonitor = "http://10.10.30.111:8282";
+              };
+            }
+            {
+              Mealie = {
+                icon = "mealie.png";
+                href = "https://mealie.${cfg.domain}";
+                description = "Recipe Manager";
+                siteMonitor = "http://10.10.30.111:9925";
+              };
+            }
           ];
         }
         {
@@ -212,6 +228,14 @@ in
                 };
               };
             }
+            {
+              Authelia = {
+                icon = "authelia.png";
+                href = "https://auth.${cfg.domain}";
+                description = "SSO & Authentication";
+                siteMonitor = "https://auth.${cfg.domain}";
+              };
+            }
           ];
         }
         {
@@ -230,6 +254,22 @@ in
                 href = "https://grafana.${cfg.domain}";
                 description = "Dashboards & Logs";
                 siteMonitor = "http://10.10.30.112:3000/api/health";
+              };
+            }
+            {
+              Prometheus = {
+                icon = "prometheus.png";
+                href = "https://prometheus.${cfg.domain}";
+                description = "Metrics Database";
+                siteMonitor = "http://10.10.30.112:9090/-/healthy";
+              };
+            }
+            {
+              Loki = {
+                icon = "loki.png";
+                href = "https://grafana.${cfg.domain}/explore";
+                description = "Log Aggregation";
+                siteMonitor = "http://10.10.30.112:3100/ready";
               };
             }
           ];
@@ -372,6 +412,46 @@ in
                 href = "https://ollama.${cfg.domain}";
                 description = "LLM Server";
                 siteMonitor = "http://10.10.10.10:11434";
+              };
+            }
+            {
+              ntfy = {
+                icon = "ntfy.png";
+                href = "https://ntfy.${cfg.domain}";
+                description = "Push Notifications";
+                siteMonitor = "http://10.10.30.112:2586";
+              };
+            }
+            {
+              Wger = {
+                icon = "wger.png";
+                href = "https://wger.${cfg.domain}";
+                description = "Fitness Tracker";
+                siteMonitor = "http://10.10.30.111:8000";
+              };
+            }
+            {
+              Huntarr = {
+                icon = "huntarr.png";
+                href = "https://huntarr.${cfg.domain}";
+                description = "Missing Media Hunter";
+                siteMonitor = "http://10.10.50.110:9705";
+              };
+            }
+            {
+              Netboot = {
+                icon = "netboot-xyz.png";
+                href = "https://netboot.${cfg.domain}";
+                description = "Network Boot Manager";
+                siteMonitor = "http://10.10.30.111:3003";
+              };
+            }
+            {
+              CraftBeerPi = {
+                icon = "mdi-beer-outline";
+                href = "https://craftbeerpi.${cfg.domain}";
+                description = "Brewing Controller";
+                siteMonitor = "http://10.10.20.174:8000";
               };
             }
           ];
