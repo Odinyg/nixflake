@@ -19,30 +19,18 @@
   networking.hostName = "VNPC-21";
   networking.networkmanager = {
     enable = true;
-    unmanaged = [ ];
-    ensureProfiles.profiles.modem = {
-      connection = {
-        id = "modem";
-        type = "802-3-ethernet";
-        interface-name = "enp0s31f6";
-        autoconnect = "true";
-        autoconnect-priority = "-1";
-      };
-      "802-3-ethernet" = {
-        mac-address = "98:FA:9B:B7:3A:A3";
-      };
-      ipv4 = {
-        method = "auto";
-        addresses = "192.168.1.99/24,192.168.2.99/24,192.168.250.99/24";
-        never-default = "true";
-        ignore-auto-routes = "true";
-        ignore-auto-dns = "true";
-      };
-      ipv6 = {
-        method = "disabled";
-        never-default = "true";
-      };
-    };
+    unmanaged = [ "enp0s31f6" ];
+  };
+
+  # Built-in ethernet: static IPs for device config (no DHCP, won't affect WiFi)
+  networking.interfaces.enp0s31f6 = {
+    useDHCP = false;
+    ipv4.addresses = [
+      { address = "192.168.1.99"; prefixLength = 24; }
+      { address = "192.168.2.99"; prefixLength = 24; }
+      { address = "192.168.105.99"; prefixLength = 24; }
+      { address = "192.168.250.99"; prefixLength = 24; }
+    ];
   };
 
   # Disable wait-online to speed up boot

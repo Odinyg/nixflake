@@ -21,7 +21,9 @@
       "Skill(server-plan-service)",
       "Skill(server-new-service)",
       "Bash(nix log:*)",
-      "Skill(cleanup-nixos-config)"
+      "Skill(cleanup-nixos-config)",
+      "Bash(nmcli connection:*)",
+      "Bash(nmcli device:*)"
     ],
     "deny": [],
     "ask": []

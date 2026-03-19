@@ -15,10 +15,6 @@
     };
 
     initContent = ''
-      # Stub compdef if completion system isn't loaded yet (fixes errors in non-interactive shells)
-      if (( ! $+functions[compdef] )); then
-        compdef() { : }
-      fi
       export PATH=$PATH:/usr/local/bin
 
       # Disable XON/XOFF flow control so Ctrl+S works for forward search
@@ -32,7 +28,6 @@
 
     '';
     envExtra = ''
-            source <(kubectl completion zsh)
       export AGE_PUBLIC=age1sy97xhs7my3793xjeyggvam25qhdv63f05h3f3ftevqfkjsh7cpqapg6f2
     '';
     oh-my-zsh = {
@@ -46,10 +41,8 @@
         "1password"
         "direnv"
         "kubectl"
-        "kubectx"
         "fluxcd"
         "gh"
-        "minikube"
         "ssh"
         "tldr"
         "zsh-interactive-cd"

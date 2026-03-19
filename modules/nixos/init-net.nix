@@ -37,6 +37,7 @@ in
         default = [
           { address = "192.168.1.99"; network = "192.168.1.0/24"; }
           { address = "192.168.2.99"; network = "192.168.2.0/24"; }
+          { address = "192.168.105.99"; network = "192.168.105.0/24"; }
           { address = "192.168.250.99"; network = "192.168.250.0/24"; }
         ];
         description = "Subnets to configure on the internal interface";

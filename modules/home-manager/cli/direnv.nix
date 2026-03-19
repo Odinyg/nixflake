@@ -16,6 +16,11 @@
 
       # Custom stdlib functions
       stdlib = ''
+        # devenv integration
+        if command -v devenv &>/dev/null; then
+          source "$(devenv direnvrc 2>/dev/null)"
+        fi
+
         # Layout for Python projects with virtualenv
         layout_python() {
           local python_version=''${1:-python3}
