@@ -118,6 +118,7 @@
       htop
       curl
       jq
+      kitty.terminfo
     ];
 
     # Homelab service grouping target
