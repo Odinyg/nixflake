@@ -35,6 +35,42 @@ in
     # Shared media group for filesystem access across all services
     users.groups.media.gid = 1000;
 
+    # Sops secrets for exportarr API keys
+    sops.secrets.sonarr_api_key = { };
+    sops.secrets.radarr_api_key = { };
+    sops.secrets.lidarr_api_key = { };
+    sops.secrets.prowlarr_api_key = { };
+
+    # Prometheus exporters for arr services
+    services.prometheus.exporters.exportarr-sonarr = {
+      enable = true;
+      port = 9707;
+      url = "http://127.0.0.1:${toString cfg.sonarrPort}";
+      apiKeyFile = config.sops.secrets.sonarr_api_key.path;
+      openFirewall = true;
+    };
+    services.prometheus.exporters.exportarr-radarr = {
+      enable = true;
+      port = 9708;
+      url = "http://127.0.0.1:${toString cfg.radarrPort}";
+      apiKeyFile = config.sops.secrets.radarr_api_key.path;
+      openFirewall = true;
+    };
+    services.prometheus.exporters.exportarr-lidarr = {
+      enable = true;
+      port = 9709;
+      url = "http://127.0.0.1:${toString cfg.lidarrPort}";
+      apiKeyFile = config.sops.secrets.lidarr_api_key.path;
+      openFirewall = true;
+    };
+    services.prometheus.exporters.exportarr-prowlarr = {
+      enable = true;
+      port = 9710;
+      url = "http://127.0.0.1:${toString cfg.prowlarrPort}";
+      apiKeyFile = config.sops.secrets.prowlarr_api_key.path;
+      openFirewall = true;
+    };
+
     systemd.services.sonarr = {
       partOf = [ "homelab.target" ];
       wantedBy = [ "homelab.target" ];

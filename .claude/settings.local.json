@@ -26,7 +26,8 @@
       "Bash(nix-prefetch-url:*)",
       "Bash(nix hash:*)",
       "Bash(just deploy:*)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(nix search:*)"
     ],
     "deny": [],
     "ask": []

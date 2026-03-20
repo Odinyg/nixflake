@@ -100,6 +100,14 @@ in
       }) cfg.databases
     );
 
+    # Prometheus postgres exporter
+    services.prometheus.exporters.postgres = {
+      enable = true;
+      port = 9187;
+      runAsLocalSuperUser = true;
+      openFirewall = true;
+    };
+
     # Only open firewall if listening on non-localhost
     networking.firewall.allowedTCPPorts = lib.mkIf (!isLocalOnly) [ cfg.port ];
   };

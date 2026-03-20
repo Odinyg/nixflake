@@ -89,6 +89,16 @@ in
       wantedBy = [ "homelab.target" ];
     };
 
+    # Prometheus nextcloud exporter
+    services.prometheus.exporters.nextcloud = {
+      enable = true;
+      port = 9205;
+      url = "http://localhost/ocs/v2.php/apps/serverinfo/api/v1/info";
+      username = "none";
+      passwordFile = config.sops.secrets.nextcloud_admin_pass.path;
+      openFirewall = true;
+    };
+
     networking.firewall.allowedTCPPorts = [ 80 ];
   };
 }

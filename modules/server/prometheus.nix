@@ -48,6 +48,60 @@ in
             { targets = [ "10.10.30.110:9959" ]; }
           ];
         }
+        {
+          job_name = "postgres";
+          static_configs = [
+            {
+              targets = [ "10.10.30.111:9187" ];
+              labels.instance = "sugar";
+            }
+          ];
+        }
+        {
+          job_name = "nextcloud";
+          static_configs = [
+            {
+              targets = [ "10.10.30.111:9205" ];
+              labels.instance = "sugar";
+            }
+          ];
+        }
+        {
+          job_name = "sonarr";
+          static_configs = [
+            {
+              targets = [ "10.10.50.110:9707" ];
+              labels.instance = "byob";
+            }
+          ];
+        }
+        {
+          job_name = "radarr";
+          static_configs = [
+            {
+              targets = [ "10.10.50.110:9708" ];
+              labels.instance = "byob";
+            }
+          ];
+        }
+        {
+          job_name = "lidarr";
+          static_configs = [
+            {
+              targets = [ "10.10.50.110:9709" ];
+              labels.instance = "byob";
+            }
+          ];
+        }
+        {
+          job_name = "prowlarr";
+          static_configs = [
+            {
+              targets = [ "10.10.50.110:9710" ];
+              labels.instance = "byob";
+            }
+          ];
+        }
       ];
     };
 

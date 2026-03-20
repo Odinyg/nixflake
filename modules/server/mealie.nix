@@ -45,6 +45,7 @@ in
       OIDC_CLIENT_SECRET=${config.sops.placeholder.mealie_oidc_client_secret}
       OIDC_AUTO_REDIRECT=true
       OIDC_ADMIN_GROUP=admins
+      OIDC_USER_GROUP=Home
     '';
 
     virtualisation.docker.enable = true;

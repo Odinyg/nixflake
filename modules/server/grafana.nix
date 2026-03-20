@@ -111,6 +111,7 @@ in
       "grafana/dashboards/node-exporter.json".source = ./dashboards/node-exporter.json;
       "grafana/dashboards/caddy.json".source = ./dashboards/caddy.json;
       "grafana/dashboards/loki-logs.json".source = ./dashboards/loki-logs.json;
+      "grafana/dashboards/homelab-services.json".source = ./dashboards/homelab-services.json;
     };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];

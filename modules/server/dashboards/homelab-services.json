@@ -1,0 +1,482 @@
+{
+  "annotations": {"list": []},
+  "description": "Homelab service status, health, and metrics across all servers",
+  "editable": false,
+  "id": null,
+  "uid": "homelab-services",
+  "title": "Homelab Services",
+  "tags": ["homelab", "services"],
+  "schemaVersion": 39,
+  "panels": [
+    {
+      "id": 1,
+      "title": "Service Status",
+      "description": "Green = active, Red = inactive/failed",
+      "type": "state-timeline",
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 0},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "green", "value": 1}
+            ]
+          },
+          "mappings": [
+            {"type": "value", "options": {"0": {"text": "DOWN", "color": "red"}, "1": {"text": "UP", "color": "green"}}}
+          ]
+        },
+        "overrides": []
+      },
+      "options": {"showValue": "auto", "alignValue": "center", "mergeValues": true, "rowHeight": 0.8},
+      "targets": [
+        {
+          "expr": "node_systemd_unit_state{name=~\"$service\", state=\"active\"}",
+          "legendFormat": "{{instance}} / {{name}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Service Restarts (last 24h)",
+      "type": "bargauge",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 2},
+              {"color": "red", "value": 5}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {"orientation": "horizontal", "displayMode": "gradient", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [
+        {
+          "expr": "increase(node_systemd_unit_state{name=~\"$service\", state=\"activating\"}[24h]) > 0",
+          "legendFormat": "{{instance}} / {{name}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Timer Last Triggered",
+      "type": "table",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "custom": {"align": "auto"}
+        },
+        "overrides": [
+          {
+            "matcher": {"id": "byName", "options": "Value"},
+            "properties": [{"id": "unit", "value": "dateTimeFromNow"}]
+          }
+        ]
+      },
+      "options": {"showHeader": true, "sortBy": [{"displayName": "Value", "desc": true}]},
+      "transformations": [
+        {"id": "reduce", "options": {"reducers": ["lastNotNull"]}},
+        {"id": "sortBy", "options": {"sort": [{"field": "Value", "desc": true}]}}
+      ],
+      "targets": [
+        {
+          "expr": "node_systemd_timer_last_trigger_seconds{name=~\".*cron.*|.*updater.*|.*gc.*|.*prune.*\"} * 1000",
+          "legendFormat": "{{instance}} / {{name}}",
+          "refId": "A",
+          "format": "table",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Caddy — Requests/sec",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []},
+      "targets": [
+        {
+          "expr": "rate(caddy_http_requests_total[5m])",
+          "legendFormat": "requests/s",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Caddy — Error Rate",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "reqps", "color": {"mode": "palette-classic"}}, "overrides": []},
+      "targets": [
+        {
+          "expr": "rate(caddy_http_request_errors_total[5m])",
+          "legendFormat": "errors/s",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Caddy — Response Duration p50/p95/p99",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 24},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, rate(caddy_http_response_duration_seconds_bucket[5m]))",
+          "legendFormat": "p50",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.95, rate(caddy_http_response_duration_seconds_bucket[5m]))",
+          "legendFormat": "p95",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(caddy_http_response_duration_seconds_bucket[5m]))",
+          "legendFormat": "p99",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Caddy — Reverse Proxy Upstream Health",
+      "type": "stat",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 24},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "green", "value": 1}
+            ]
+          },
+          "mappings": [
+            {"type": "value", "options": {"0": {"text": "UNHEALTHY"}, "1": {"text": "HEALTHY"}}}
+          ]
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "caddy_reverse_proxy_upstreams_healthy",
+          "legendFormat": "{{upstream}}",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "title": "PostgreSQL",
+      "type": "row",
+      "gridPos": {"h": 1, "w": 24, "x": 0, "y": 32},
+      "collapsed": false
+    },
+    {
+      "id": 21,
+      "title": "PostgreSQL — Active Connections",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 33},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "pg_stat_activity_count{state=\"active\"}",
+          "legendFormat": "{{datname}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "title": "PostgreSQL — Database Size",
+      "type": "bargauge",
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 33},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+      "options": {"orientation": "horizontal", "displayMode": "gradient", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [
+        {
+          "expr": "pg_database_size_bytes{datname!~\"template.*|postgres\"}",
+          "legendFormat": "{{datname}}",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "title": "PostgreSQL — Cache Hit Ratio",
+      "type": "gauge",
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 33},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0, "max": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "yellow", "value": 0.9},
+              {"color": "green", "value": 0.95}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "pg_stat_database_blks_hit{datname!~\"template.*|postgres\"} / (pg_stat_database_blks_hit{datname!~\"template.*|postgres\"} + pg_stat_database_blks_read{datname!~\"template.*|postgres\"} + 1)",
+          "legendFormat": "{{datname}}",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Nextcloud",
+      "type": "row",
+      "gridPos": {"h": 1, "w": 24, "x": 0, "y": 41},
+      "collapsed": false
+    },
+    {
+      "id": 31,
+      "title": "Nextcloud — Active Users",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 0, "y": 42},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "nextcloud_active_users_total",
+          "legendFormat": "active users",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "title": "Nextcloud — Storage",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 6, "y": 42},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+      "targets": [
+        {
+          "expr": "nextcloud_free_space_bytes",
+          "legendFormat": "free space",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "title": "Nextcloud — Files",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 12, "y": 42},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "nextcloud_files_total",
+          "legendFormat": "total files",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "title": "Nextcloud — Shares",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 18, "y": 42},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "nextcloud_shares_total",
+          "legendFormat": "shares",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "title": "Media Stack (ARR)",
+      "type": "row",
+      "gridPos": {"h": 1, "w": 24, "x": 0, "y": 48},
+      "collapsed": false
+    },
+    {
+      "id": 41,
+      "title": "Sonarr — Series / Episodes",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 0, "y": 49},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "sonarr_series_total",
+          "legendFormat": "series",
+          "refId": "A",
+          "instant": true
+        },
+        {
+          "expr": "sonarr_episode_missing_total",
+          "legendFormat": "missing episodes",
+          "refId": "B",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "title": "Radarr — Movies",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 6, "y": 49},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "radarr_movie_total",
+          "legendFormat": "total movies",
+          "refId": "A",
+          "instant": true
+        },
+        {
+          "expr": "radarr_movie_missing_total",
+          "legendFormat": "missing",
+          "refId": "B",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "title": "Lidarr — Artists / Albums",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 12, "y": 49},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "lidarr_artist_total",
+          "legendFormat": "artists",
+          "refId": "A",
+          "instant": true
+        },
+        {
+          "expr": "lidarr_album_missing_total",
+          "legendFormat": "missing albums",
+          "refId": "B",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "title": "Prowlarr — Indexers",
+      "type": "stat",
+      "gridPos": {"h": 6, "w": 6, "x": 18, "y": 49},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "prowlarr_indexer_count",
+          "legendFormat": "indexers",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "title": "Sonarr — Queue",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 55},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {
+          "expr": "sonarr_queue_total",
+          "legendFormat": "sonarr queue",
+          "refId": "A"
+        },
+        {
+          "expr": "radarr_queue_total",
+          "legendFormat": "radarr queue",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "title": "Disk Usage — Media & Downloads",
+      "type": "gauge",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 55},
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "min": 0, "max": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 0.7},
+              {"color": "red", "value": 0.9}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "expr": "1 - (node_filesystem_avail_bytes{instance=~\".*50.110.*\",mountpoint=~\"/mnt/.*\"} / node_filesystem_size_bytes{instance=~\".*50.110.*\",mountpoint=~\"/mnt/.*\"})",
+          "legendFormat": "{{mountpoint}}",
+          "refId": "A",
+          "instant": true
+        }
+      ]
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "definition": "label_values(node_systemd_unit_state{name=~\".*.service\"}, name)",
+        "includeAll": true,
+        "label": "Service",
+        "multi": true,
+        "name": "service",
+        "query": "label_values(node_systemd_unit_state{name=~\".*.service\"}, name)",
+        "refresh": 2,
+        "regex": "/(sonarr|radarr|lidarr|prowlarr|nzbget|transmission|caddy|authelia-main|grafana|prometheus|loki|gatus|ntfy-sh|homepage-dashboard|n8n|searx|nginx|phpfpm-nextcloud|phpfpm-freshrss|postgresql|docker-mealie|docker-norish|docker-perplexica|docker-wger|docker-seerr|docker-netbootxyz|alloy|freshrss-updater)\\.service/",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {"from": "now-6h", "to": "now"},
+  "timepicker": {},
+  "timezone": "",
+  "version": 1
+}

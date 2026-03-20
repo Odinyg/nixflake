@@ -41,7 +41,7 @@
     ];
   };
 
-  # sops.defaultSopsFile = ../../secrets/byob.yaml; # TODO: enable after encrypting secrets
+  sops.defaultSopsFile = ../../secrets/byob.yaml;
 
   # NAS media mount — remove noauto to activate
   fileSystems."/mnt/nas/media".options = lib.mkForce [
