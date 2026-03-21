@@ -43,4 +43,16 @@
       "noauto"
     ];
   };
+
+  fileSystems."/mnt/nas/movies" = {
+    device = "10.10.10.20:/mnt/medium/movies";
+    fsType = "nfs";
+    options = [
+      "defaults"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=600"
+      "_netdev"
+      "noauto"
+    ];
+  };
 }

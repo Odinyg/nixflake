@@ -43,8 +43,15 @@
 
   sops.defaultSopsFile = ../../secrets/byob.yaml;
 
-  # NAS media mount — remove noauto to activate
+  # NAS mounts — remove noauto to activate
   fileSystems."/mnt/nas/media".options = lib.mkForce [
+    "defaults"
+    "x-systemd.automount"
+    "x-systemd.idle-timeout=600"
+    "_netdev"
+  ];
+
+  fileSystems."/mnt/nas/movies".options = lib.mkForce [
     "defaults"
     "x-systemd.automount"
     "x-systemd.idle-timeout=600"
