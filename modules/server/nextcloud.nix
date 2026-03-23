@@ -30,6 +30,8 @@ in
   config = lib.mkIf cfg.enable {
     sops.secrets.nextcloud_admin_pass = {
       owner = "nextcloud";
+      group = "nextcloud";
+      mode = "0440";
     };
     sops.secrets.postgresql_nextcloud_password = {
       owner = "nextcloud";
@@ -98,6 +100,8 @@ in
       passwordFile = config.sops.secrets.nextcloud_admin_pass.path;
       openFirewall = true;
     };
+
+    users.users.nextcloud-exporter.extraGroups = [ "nextcloud" ];
 
     networking.firewall.allowedTCPPorts = [ 80 ];
   };
