@@ -18,7 +18,7 @@
       stdlib = ''
         # devenv integration
         if command -v devenv &>/dev/null; then
-          source "$(devenv direnvrc 2>/dev/null)"
+          eval "$(devenv direnvrc 2>/dev/null)"
         fi
 
         # Layout for Python projects with virtualenv

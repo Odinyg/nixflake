@@ -27,6 +27,9 @@
       usbutils           # USB device utilities (lsusb)
       bc                 # Calculator
 
+      # File Management
+      trash-cli          # FreeDesktop trash (safe rm replacement)
+
       # Log Analysis & Debugging
       lnav               # Interactive log navigator with SQL queries
       tailspin           # Auto-colorizing log tail (replaces tail -f)

@@ -12,4 +12,5 @@
   k = "kubectl";
   kg = "kubectl get";
   cd = "z";
+  rm = "trash-put";
 }
