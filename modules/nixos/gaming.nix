@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 {
@@ -103,25 +104,26 @@
     };
 
     environment.systemPackages =
-      with pkgs;
       lib.flatten [
-        (lib.optionals config.gaming.launchers.lutris [ lutris ])
-        (lib.optionals config.gaming.launchers.heroic [ heroic ])
-        (lib.optionals config.gaming.launchers.bottles [ bottles ])
-        (lib.optionals config.gaming.emulation.enable [
-          retroarch
-          pcsx2
-          dolphin-emu
-          mupen64plus
-        ])
+        (lib.optionals config.gaming.launchers.lutris [ pkgs-unstable.lutris ])
+        (lib.optionals config.gaming.launchers.heroic [ pkgs-unstable.heroic ])
+        (lib.optionals config.gaming.launchers.bottles [ pkgs-unstable.bottles ])
+        (lib.optionals config.gaming.emulation.enable (
+          with pkgs-unstable; [
+            retroarch
+            pcsx2
+            dolphin-emu
+            mupen64plus
+          ]
+        ))
 
-        wineWowPackages.stable
-        winetricks
-        protontricks
+        pkgs-unstable.wineWowPackages.stable
+        pkgs-unstable.winetricks
+        pkgs-unstable.protontricks
 
-        antimicrox # Controller mapping
+        pkgs.antimicrox # Controller mapping
 
-        pulseeffects-legacy
+        pkgs.pulseeffects-legacy
       ];
 
     hardware.graphics.enable32Bit = true;
