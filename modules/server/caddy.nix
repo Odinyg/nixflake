@@ -21,9 +21,9 @@ in
 
     services.caddy = {
       enable = true;
-      package = pkgs.caddy.withPlugins {
+      package = (pkgs.caddy.override { buildGoModule = pkgs.buildGo126Module; }).withPlugins {
         plugins = [ "github.com/caddy-dns/cloudflare@v0.2.1" ];
-        hash = "sha256-o0zYCp3h7E0L1cgmJwNtGNgzhmZk5BAVoWQA+eL+zqc=";
+        hash = "";
       };
       globalConfig = ''
         admin 0.0.0.0:2019
