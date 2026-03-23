@@ -63,6 +63,7 @@
   hardware.nvidia-gpu = {
     enable = true;
     driverPackage = "latest";  # Use latest drivers for better OpenGL support
+    open = false;  # Use proprietary drivers for better gaming stability
     prime.enable = false;  # Desktop GPU, no hybrid graphics
   };
 

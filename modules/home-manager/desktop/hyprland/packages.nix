@@ -16,7 +16,7 @@
       gnome-control-center # Settings GUI for GNOME Online Accounts
       vdirsyncer # CalDAV/CardDAV sync daemon
       khal # TUI calendar
-      khard # TUI contacts
+      # khard # TUI contacts — disabled: upstream build broken (sphinx-argparse incompatibility)
       calcurse # TUI calendar with built-in CalDAV
       endeavour # GNOME Tasks with CalDAV sync
       evolution # Mail, calendar, contacts (GNOME Online Accounts)

@@ -117,9 +117,11 @@
           ]
         ))
 
-        pkgs-unstable.wineWowPackages.stable
+        pkgs-unstable.wineWow64Packages.stable
         pkgs-unstable.winetricks
         pkgs-unstable.protontricks
+
+        pkgs.vulkan-tools # vulkaninfo for diagnostics
 
         pkgs.antimicrox # Controller mapping
 
@@ -133,5 +135,8 @@
     users.users.${config.user}.extraGroups = [ "gamemode" ];
 
     security.rtkit.enable = true;
+
+    # Enable nix-ld for dynamically linked binaries (umu-run/pressure-vessel)
+    programs.nix-ld.enable = true;
   };
 }

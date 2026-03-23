@@ -15,6 +15,12 @@
         description = "NVIDIA driver package to use (stable, beta, latest, or production)";
       };
 
+      open = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Use NVIDIA open-source kernel modules (false = proprietary)";
+      };
+
       prime = {
         enable = lib.mkOption {
           type = lib.types.bool;
@@ -45,7 +51,7 @@
       package = config.boot.kernelPackages.nvidiaPackages.${config.hardware.nvidia-gpu.driverPackage};
       modesetting.enable = true;
       powerManagement.enable = false;
-      open = true;
+      open = config.hardware.nvidia-gpu.open;
       nvidiaSettings = true;
       prime.sync.enable = config.hardware.nvidia-gpu.prime.enable;
       prime.nvidiaBusId = lib.mkIf config.hardware.nvidia-gpu.prime.enable config.hardware.nvidia-gpu.prime.nvidiaBusId;
@@ -68,7 +74,13 @@
       "fbdev=1"
     ];
 
-    # Enable 32-bit graphics for gaming/compatibility
-    hardware.graphics.enable32Bit = true;
+    # Enable graphics with 32-bit support for gaming/Wine/Vulkan
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        nvidia-vaapi-driver
+      ];
+    };
   };
 }
