@@ -27,7 +27,8 @@
       "Bash(nix hash:*)",
       "Bash(just deploy:*)",
       "Read(//tmp/**)",
-      "Bash(nix search:*)"
+      "Bash(nix search:*)",
+      "Bash(journalctl -u prometheus-nextcloud-exporter -n 50)"
     ],
     "deny": [],
     "ask": []
