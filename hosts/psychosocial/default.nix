@@ -8,13 +8,6 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  # Caddy 2.11.2 requires Go 1.26.1 but nixpkgs ships buildGo125Module — override until upstream catches up
-  nixpkgs.overlays = [
-    (final: prev: {
-      buildGo125Module = prev.buildGo126Module;
-    })
-  ];
-
   networking.hostName = "psychosocial";
 
   # Static IP — staging (change to 10.10.30.10 after cutover)
