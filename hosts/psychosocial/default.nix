@@ -268,6 +268,11 @@
         reverse_proxy 10.10.20.205:8123
       }
 
+      @openwebui host openwebui.pytt.io
+      handle @openwebui {
+        reverse_proxy 10.10.10.10:3000
+      }
+
       @ollama host ollama.pytt.io
       handle @ollama {
         reverse_proxy 10.10.10.10:11434
