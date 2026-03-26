@@ -7,6 +7,7 @@
     ./media.nix
     ./communication.nix
     ./utilities.nix
+    ./lmstudio.nix
   ];
 
 }

@@ -168,6 +168,7 @@
 
   # AI / LLM Tools
   ollama.enable = true;
+  lmstudio.enable = true;
   mcp.enable = true;
 
   # VPN
@@ -195,6 +196,8 @@
     monitor = HDMI-A-1, 3840x2160@60, 1920x0, 1
     monitor = DP-1, 1920x1080@120, 0x0, 1
   '';
+
+  environment.systemPackages = [ pkgs.woeusb-ng pkgs.ntfs3g ];
 
   postgresql.enable = true;
 
