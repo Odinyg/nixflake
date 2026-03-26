@@ -241,6 +241,20 @@ in
             ];
             userinfo_signed_response_alg = "none";
           }
+          {
+            client_id = "open-webui";
+            client_name = "Open WebUI";
+            client_secret = "$pbkdf2-sha512$310000$3e8ViE4tbf2LhZNcLnkyTg$Pzs4SQmHYMuVHia8qUiDZAIUsIxh.e87aLhN1ugsr.jjMfnEXpNaIslyR124FeLvpxnIr7CeyYsVQsoknLrFKA";
+            public = false;
+            authorization_policy = "one_factor";
+            redirect_uris = [ "https://openwebui.${cfg.domain}/oauth/oidc/callback" ];
+            scopes = [
+              "openid"
+              "profile"
+              "email"
+            ];
+            userinfo_signed_response_alg = "none";
+          }
         ];
       };
     };
