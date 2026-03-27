@@ -38,6 +38,7 @@
   zsh.enable = true;
   prompt.enable = true;
   kitty.enable = true;
+  ghostty.enable = true;
   tmux.enable = true;
   system-tools.enable = true;
 

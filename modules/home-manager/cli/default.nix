@@ -9,6 +9,7 @@
     ./zellij.nix
     ./git.nix
     ./kitty.nix
+    ./ghostty.nix
     ./direnv.nix
     ./kubernetes.nix
     ./languages.nix

@@ -13,6 +13,15 @@
       enableZshIntegration = true;
     };
 
+    xdg.desktopEntries.win11-rdp = {
+      name = "Win11 RDP";
+      comment = "Connect to Windows 11 via RDP";
+      exec = "remmina -c /home/odin/.local/share/remmina/group_rdp_quick-connect_win11.remmina";
+      icon = "remmina";
+      terminal = false;
+      categories = [ "Network" "RemoteAccess" ];
+    };
+
     home.packages = with pkgs; [
       # File Managers
       yazi # Terminal file manager
@@ -54,6 +63,8 @@
       # Development Tools
       inputs.claude-code.packages.${pkgs.system}.default # Claude Code CLI (latest)
       pkgs-unstable.opencode
+      pkgs-unstable.opencode-desktop
+      pkgs-unstable.opencode-claude-auth
       uv # Python package manager / MCP server runner
       xh
       posting

@@ -21,6 +21,14 @@
       stty -ixon
       bindkey '^S' history-incremental-search-forward
 
+      # Reset terminal state before each prompt to fix corruption from programs
+      # that exit without restoring the terminal (e.g. Claude Code)
+      precmd_reset_terminal() {
+        stty sane 2>/dev/null
+        printf '\e[?1l' 2>/dev/null
+      }
+      precmd_functions+=(precmd_reset_terminal)
+
       # SSH into modem with auto-filled password from 1Password
       modem() {
         sshpass -p "$(op item get w4zusfbv3ztnl4flzm2vrga6ki --fields password --reveal)" ssh -o StrictHostKeyChecking=no root@"$1"

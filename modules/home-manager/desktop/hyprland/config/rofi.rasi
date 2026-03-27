@@ -1,6 +1,7 @@
 configuration {
   modes: [ combi ];
   combi-modes: [ window, drun, run ];
+  drun-match-fields: [ name, generic, keywords, categories ];
 }
 
 @theme "nord"

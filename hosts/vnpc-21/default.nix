@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }: {
+{ config, pkgs, pkgs-unstable, lib, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../profiles/workstation.nix
@@ -23,6 +23,7 @@
   };
 
   # Built-in ethernet: static IPs for device config (no DHCP, won't affect WiFi)
+  # Higher metric (200) so USB NIC (enp45s0u2u3) is preferred when both are connected
   networking.interfaces.enp0s31f6 = {
     useDHCP = false;
     ipv4.addresses = [
@@ -31,16 +32,19 @@
       { address = "192.168.105.99"; prefixLength = 24; }
       { address = "192.168.250.99"; prefixLength = 24; }
     ];
+    ipv4.routes = [
+      { address = "192.168.1.0"; prefixLength = 24; options.metric = "200"; }
+      { address = "192.168.2.0"; prefixLength = 24; options.metric = "200"; }
+      { address = "192.168.105.0"; prefixLength = 24; options.metric = "200"; }
+      { address = "192.168.250.0"; prefixLength = 24; options.metric = "200"; }
+    ];
   };
 
   # Disable wait-online to speed up boot
   systemd.network.wait-online.enable = false;
 
-  # Don't block boot waiting for USB NIC — configure it only when plugged in
-  systemd.services."network-addresses-enp45s0u2u3".wantedBy = lib.mkForce [ ];
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="net", KERNEL=="enp45s0u2u3", TAG+="systemd", ENV{SYSTEMD_WANTS}+="network-addresses-enp45s0u2u3.service"
-  '';
+  # Start USB NIC config when device appears, don't block boot if absent
+  systemd.services."network-addresses-enp45s0u2u3".wantedBy = lib.mkForce [ "sys-subsystem-net-devices-enp45s0u2u3.device" ];
 
   # ==============================================================================
   # USERS
@@ -65,6 +69,7 @@
       kdePackages.kate
       screen
       shutter
+      pkgs-unstable.rpi-imager
     ];
   };
 

@@ -50,6 +50,7 @@ let
       hostPath
       { user = user; }
       { nixpkgs.config.allowUnfree = true; }
+      { _module.args = { inherit pkgs-unstable; }; }
       {
         home-manager = {
           useGlobalPkgs = true;

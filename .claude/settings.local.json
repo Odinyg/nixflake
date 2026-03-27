@@ -28,7 +28,14 @@
       "Bash(just deploy:*)",
       "Read(//tmp/**)",
       "Bash(nix search:*)",
-      "Bash(journalctl -u prometheus-nextcloud-exporter -n 50)"
+      "Bash(journalctl -u prometheus-nextcloud-exporter -n 50)",
+      "Skill(cleanup-nixos-config)",
+      "Bash(nmcli connection:*)",
+      "Bash(nmcli device:*)",
+      "Bash(dmesg)",
+      "Bash(ip addr:*)",
+      "Bash(systemctl status:*)",
+      "Bash(systemctl is-enabled:*)"
     ],
     "deny": [],
     "ask": []
