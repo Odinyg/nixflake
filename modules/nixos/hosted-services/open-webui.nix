@@ -14,7 +14,9 @@ in
   config = lib.mkIf cfg.enable {
     networking.extraHosts = "127.0.0.1 open-webui.local";
 
-    sops.secrets.openwebui_oauth_client_secret = { };
+    sops.secrets.openwebui_oauth_client_secret = {
+      sopsFile = ../../../secrets/station.yaml;
+    };
 
     sops.templates."open-webui-env".content = ''
       OAUTH_CLIENT_SECRET=${config.sops.placeholder.openwebui_oauth_client_secret}
