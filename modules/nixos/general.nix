@@ -45,6 +45,10 @@
       ansible
       colmena
       devenv
+      ventoy-full
+    ];
+    nixpkgs.config.permittedInsecurePackages = [
+      "ventoy-1.1.05"
     ];
     services.gnome.gnome-online-accounts.enable = true;
     services.flatpak.enable = true;

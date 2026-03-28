@@ -33,6 +33,8 @@
     ./norish.nix
     ./wger.nix
     ./freshrss.nix
+    # VPN / overlay network (spiders)
+    ./netbird.nix
   ];
 
   options.server.enable = lib.mkEnableOption "headless server profile";

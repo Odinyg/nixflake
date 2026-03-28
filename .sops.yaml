@@ -9,6 +9,7 @@ keys:
   - &homelab_general age1knseevsr30xnq67wuhfrtlfw43ryz4hgch3y0ae4rlppfdss6p7q0pqt6u
   - &pulse age1pxp8l64sgske7kqqedst69pzufwjark5n3dxcl3u5crkfvzcffzsrxlmlu
   - &homelab_critical age1l4q60pec49kr6cphaj80kunh7n6jt8cxan042lhac4herj0pqywquzxw5x
+  - &spiders PLACEHOLDER_UPDATE_AFTER_NIXOS_INSTALL
 
 creation_rules:
   # Shared desktop secrets (all PCs)
@@ -47,6 +48,10 @@ creation_rules:
       - age:
           - *homelab_general
           - *pulse
+  - path_regex: secrets/spiders\.yaml$
+    key_groups:
+      - age:
+          - *spiders
   - path_regex: secrets/(sugar|shared)\.yaml$
     key_groups:
       - age:

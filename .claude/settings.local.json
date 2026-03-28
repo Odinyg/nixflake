@@ -35,7 +35,8 @@
       "Bash(dmesg)",
       "Bash(ip addr:*)",
       "Bash(systemctl status:*)",
-      "Bash(systemctl is-enabled:*)"
+      "Bash(systemctl is-enabled:*)",
+      "Bash(nixfmt:*)"
     ],
     "deny": [],
     "ask": []

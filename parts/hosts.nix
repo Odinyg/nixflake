@@ -62,6 +62,10 @@ in
       hostPath = ../hosts/psychosocial;
     };
 
+    spiders = mkServer {
+      hostPath = ../hosts/spiders;
+    };
+
     # Installer ISO with SSH key baked in
     installer = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

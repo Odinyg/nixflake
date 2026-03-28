@@ -58,6 +58,7 @@ in
         sugar = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
         byob = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
         psychosocial = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
+        spiders = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
       };
       specialArgs = {
         inherit inputs;
@@ -104,6 +105,11 @@ in
     psychosocial = mkColmenaServer {
       hostPath = ../hosts/psychosocial;
       targetHost = "10.10.30.110";
+    };
+
+    spiders = mkColmenaServer {
+      hostPath = ../hosts/spiders;
+      targetHost = "netbird.pytt.io"; # Public VPS — update to IP if DNS not ready
     };
   };
 }
