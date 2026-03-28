@@ -255,28 +255,30 @@ in
             ];
             userinfo_signed_response_alg = "none";
           }
-          {
-            client_id = "netbird";
-            client_name = "Netbird";
-            client_secret = "$pbkdf2-sha512$310000$PLACEHOLDER_GENERATE_WITH_AUTHELIA_CRYPTO_HASH$PLACEHOLDER";
-            public = false;
-            authorization_policy = "one_factor";
-            redirect_uris = [
-              "https://netbird.${cfg.domain}"
-              "http://localhost:53000"
-            ];
-            scopes = [
-              "openid"
-              "profile"
-              "email"
-              "groups"
-            ];
-            grant_types = [
-              "authorization_code"
-            ];
-            response_types = [ "code" ];
-            userinfo_signed_response_alg = "none";
-          }
+          # TODO: re-enable after generating real PBKDF2 hash:
+          #   authelia crypto hash generate pbkdf2 --password 'your-secret'
+          # {
+          #   client_id = "netbird";
+          #   client_name = "Netbird";
+          #   client_secret = "$pbkdf2-sha512$310000$HASH_HERE";
+          #   public = false;
+          #   authorization_policy = "one_factor";
+          #   redirect_uris = [
+          #     "https://netbird.${cfg.domain}"
+          #     "http://localhost:53000"
+          #   ];
+          #   scopes = [
+          #     "openid"
+          #     "profile"
+          #     "email"
+          #     "groups"
+          #   ];
+          #   grant_types = [
+          #     "authorization_code"
+          #   ];
+          #   response_types = [ "code" ];
+          #   userinfo_signed_response_alg = "none";
+          # }
         ];
       };
     };
