@@ -35,7 +35,7 @@ let
   # Applied to every host (desktop + server)
   sharedConfig = {
     networking.enableIPv6 = false;
-    services.qemu-guest-agent.enable = true;
+    services.qemuGuest.enable = true;
   };
 
   hostModules =
