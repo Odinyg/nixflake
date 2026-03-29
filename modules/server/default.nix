@@ -90,8 +90,8 @@
       };
     };
 
-    # Firewall disabled for cross-subnet debugging
-    networking.firewall.enable = false;
+    # Firewall disabled for cross-subnet debugging (override per-host for public VPS)
+    networking.firewall.enable = lib.mkDefault false;
 
     # SOPS — use existing age keys
     sops = {

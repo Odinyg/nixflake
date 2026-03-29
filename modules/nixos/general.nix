@@ -1,4 +1,11 @@
-{ lib, pkgs, pkgs-unstable, config, ... }: {
+{
+  lib,
+  pkgs,
+  pkgs-unstable,
+  config,
+  ...
+}:
+{
 
   options = {
     general = {
@@ -47,16 +54,12 @@
       devenv
       ventoy-full
     ];
-    nixpkgs.config.permittedInsecurePackages = [
-      "ventoy-1.1.05"
-    ];
     services.gnome.gnome-online-accounts.enable = true;
     services.flatpak.enable = true;
     programs.appimage.enable = true;
     programs.zsh = {
       enable = true;
-      };
-
+    };
 
     # Keyd: CapsLock → Escape on tap, Ctrl on hold
     services.keyd = {

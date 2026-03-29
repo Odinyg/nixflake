@@ -36,7 +36,17 @@
       "Bash(ip addr:*)",
       "Bash(systemctl status:*)",
       "Bash(systemctl is-enabled:*)",
-      "Bash(nixfmt:*)"
+      "Bash(nixfmt:*)",
+      "mcp__github__search_repositories",
+      "Bash(curl -s https://wiki.nixos.org/wiki/Microvm)",
+      "WebFetch(domain:www.nijho.lt)",
+      "WebFetch(domain:microvm-nix.github.io)",
+      "WebFetch(domain:blog.arsfeld.dev)",
+      "WebFetch(domain:docs.clan.lol)",
+      "WebFetch(domain:clan.lol)",
+      "Bash(wc:*)",
+      "Bash(nix flake:*)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d[''''locks''''][''''nodes''''].get\\(''''nixpkgs-unstable'''',{}\\).get\\(''''locked'''',{}\\).get\\(''''rev'''',''''''''\\)\\)\")"
     ],
     "deny": [],
     "ask": []

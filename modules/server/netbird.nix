@@ -5,6 +5,7 @@
 }:
 let
   cfg = config.server.netbird;
+  authDomain = "auth.pytt.io";
 in
 {
   options.server.netbird = {
@@ -12,11 +13,6 @@ in
     domain = lib.mkOption {
       type = lib.types.str;
       description = "Public domain for the Netbird server (e.g. netbird.pytt.io)";
-    };
-    oidcConfigEndpoint = lib.mkOption {
-      type = lib.types.str;
-      default = "https://auth.pytt.io/.well-known/openid-configuration";
-      description = "OIDC discovery endpoint (Authelia)";
     };
   };
 
@@ -33,7 +29,7 @@ in
       management = {
         enable = true;
         domain = cfg.domain;
-        oidcConfigEndpoint = cfg.oidcConfigEndpoint;
+        oidcConfigEndpoint = "https://${authDomain}/.well-known/openid-configuration";
         turnDomain = cfg.domain;
         dnsDomain = "netbird.selfhosted";
         disableAnonymousMetrics = true;
@@ -62,8 +58,8 @@ in
               Audience = "netbird";
               ClientID = "netbird";
               ClientSecret = "";
-              AuthorizationEndpoint = "https://auth.pytt.io/api/oidc/authorization";
-              TokenEndpoint = "https://auth.pytt.io/api/oidc/token";
+              AuthorizationEndpoint = "https://${authDomain}/api/oidc/authorization";
+              TokenEndpoint = "https://${authDomain}/api/oidc/token";
               Scope = "openid profile email offline_access";
               RedirectURLs = "http://localhost:53000";
               UseIDToken = false;
@@ -85,7 +81,7 @@ in
       dashboard = {
         enable = true;
         settings = {
-          AUTH_AUTHORITY = "https://auth.pytt.io";
+          AUTH_AUTHORITY = "https://${authDomain}";
           AUTH_CLIENT_ID = "netbird";
           AUTH_AUDIENCE = "netbird";
           AUTH_SUPPORTED_SCOPES = "openid profile email";

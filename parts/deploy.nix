@@ -48,18 +48,21 @@ let
         inherit hostPath stateVersion extraModules;
       };
     };
+
+  serverNixpkgs = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
+  serverHosts = [
+    "pulse"
+    "sugar"
+    "byob"
+    "psychosocial"
+    "spiders"
+  ];
 in
 {
   flake.colmena = {
     meta = {
       nixpkgs = import nixpkgs { localSystem = "x86_64-linux"; };
-      nodeNixpkgs = {
-        pulse = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
-        sugar = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
-        byob = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
-        psychosocial = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
-        spiders = import nixpkgs-unstable { localSystem = "x86_64-linux"; };
-      };
+      nodeNixpkgs = nixpkgs.lib.genAttrs serverHosts (_: serverNixpkgs);
       specialArgs = {
         inherit inputs;
         inherit (lib) pkgs-unstable;

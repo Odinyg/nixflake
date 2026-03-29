@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -16,18 +16,12 @@
   server.netbird.domain = "netbird.pytt.io";
 
   # Firewall — VPS is public-facing, keep enabled
-  networking.firewall.enable = lib.mkForce true;
+  # UDP ports (STUN/TURN) are opened automatically by coturn module
+  networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
     80
     443
     22
-  ];
-  networking.firewall.allowedUDPPorts = [ 3478 ];
-  networking.firewall.allowedUDPPortRanges = [
-    {
-      from = 49152;
-      to = 65535;
-    }
   ];
 
   system.stateVersion = "25.05";

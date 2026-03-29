@@ -232,7 +232,7 @@ in
     # Sesh — smart session manager with fzf + zoxide
     programs.sesh = {
       enable = true;
-      enableTmuxIntegration = false; # custom binding with layout picker
+      enableTmuxIntegration = true; # custom binding with layout picker
       settings = {
         session = cfg.sessions;
       };
