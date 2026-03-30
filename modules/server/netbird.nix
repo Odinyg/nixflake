@@ -19,7 +19,9 @@ in
   config = lib.mkIf cfg.enable {
     # Sops secrets
     sops.secrets.netbird_datastore_encryption_key = { };
-    sops.secrets.netbird_coturn_password = { };
+    sops.secrets.netbird_coturn_password = {
+      owner = "turnserver";
+    };
     sops.secrets.netbird_oidc_client_secret = { };
 
     services.netbird.server = {
