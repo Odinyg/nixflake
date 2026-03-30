@@ -43,6 +43,11 @@ let
                 - nvim
                 - claude
                 - ""
+          - terminal:
+              layout: main-vertical
+              panes:
+                - nvim
+                - ""
       '';
     };
 
@@ -59,6 +64,11 @@ let
                 -
                 -
                 -
+          - terminal:
+              layout: main-vertical
+              panes:
+                - nvim
+                - ""
       '';
     };
 
@@ -87,6 +97,11 @@ let
           - notes:
               panes:
                 - nvim notes.md
+          - terminal:
+              layout: main-vertical
+              panes:
+                - nvim
+                - ""
       '';
     };
   };
