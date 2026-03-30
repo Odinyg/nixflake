@@ -16,19 +16,10 @@ term_classed = "kitty --class"
 
 [scratchpads.term]
 animation = "fromTop"
-command = "[term_classed] main-dropterm"
+command = "kitty --class main-dropterm zsh -c 'tmux has-session -t dropdown 2>/dev/null && tmux attach -t dropdown || tmuxinator start dropdown'"
 class = "main-dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"
-
-
-[scratchpads.gpt]
-animation = "fromTop"
-command = "kitty --class secound-dropterm claude -m"
-class = "secound-dropterm"
-size = "75% 60%"
-max_size = "1920px 100%"
-lazy = true
 
 [scratchpads.notes]
 command = "obsidian --disable-gpu"

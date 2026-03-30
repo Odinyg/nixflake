@@ -8,19 +8,25 @@
 let
   cfg = config.tmux;
 
-  # Tmuxinator layout definitions (YAML)
+  # Tmuxinator layout definitions (YAML) — only layouts that need
+  # multi-pane/per-pane commands or ERB templates stay here.
+  # Simple layouts (universal, git) moved to sesh sessions below.
   tmuxinatorLayouts = {
-    universal = {
-      name = "universal";
+    dropdown = {
+      name = "dropdown";
       yaml = ''
-        name: <%= @args[0] || "dev" %>
-        root: <%= @args[1] || "." %>
+        name: dropdown
+        root: ~/
+        on_project_start: mkdir -p ~/Projects/worksite/random
+        startup_window: shell
         windows:
-          - editor:
-              layout: main-vertical
+          - shell:
               panes:
-                - nvim
-                -
+                - ""
+          - claude:
+              root: ~/Projects/worksite/random
+              panes:
+                - claude
       '';
     };
 
@@ -53,18 +59,6 @@ let
                 -
                 -
                 -
-      '';
-    };
-
-    git = {
-      name = "git";
-      yaml = ''
-        name: <%= @args[0] || "git" %>
-        root: <%= @args[1] || "." %>
-        windows:
-          - main:
-              panes:
-                - lazygit
       '';
     };
 
@@ -140,10 +134,8 @@ let
     export PATH="${lib.makeBinPath [ pkgs.fzf pkgs.gawk pkgs.coreutils pkgs.tmuxinator ]}:$PATH"
 
     layout=$(printf '%s\n' \
-      "universal    nvim + terminal" \
       "dev-claude   nvim + claude + terminal" \
       "monitor      4-pane grid" \
-      "git          lazygit fullscreen" \
       "debug        ssh + claude + logs (host)" \
       | fzf --no-sort --border-label " tmuxinator " --prompt "  " \
       | awk '{print $1}')
@@ -172,24 +164,32 @@ let
       LC_ALL=C sed $'s/^[\xee\xef][\x80-\xbf][\x80-\xbf] //'
     }
 
-    session=$(sesh list -itTc | fzf-tmux -p 80%,70% \
+    session=$(sesh list -itTc | grep -v ' dropdown$' | fzf-tmux -p 80%,70% \
         --no-sort --ansi --border-label " sesh " --prompt "  " \
         --header "  ^a all  ^t tmux  ^T muxinator  ^s remote  ^x zoxide  ^f find  ^r rename  ^d kill" \
         --preview-window "right:55%:border-left" \
         --preview "sesh preview {2..}" \
         --bind "tab:down,btab:up" \
-        --bind "ctrl-a:change-prompt(  )+reload(sesh list -itTc)" \
+        --bind "ctrl-a:change-prompt(  )+reload(sesh list -itTc | grep -v ' dropdown$')" \
         --bind "ctrl-t:change-prompt(  )+reload(sesh list -it)" \
-        --bind "ctrl-T:change-prompt(  )+reload(sesh list -iT)" \
+        --bind "ctrl-T:change-prompt(  )+reload(sesh list -iT | grep -v ' dropdown$')" \
         --bind "ctrl-s:change-prompt(  )+reload(sesh list -ic)" \
         --bind "ctrl-x:change-prompt(  )+reload(sesh list -iz)" \
         --bind "ctrl-f:change-prompt(  )+reload(fd -H -d 2 -t d -E .Trash . ~)" \
-        --bind "ctrl-r:execute(${seshRename} {2..})+reload(sesh list -itTc)" \
-        --bind "ctrl-d:execute(tmux kill-session -t {2..})+reload(sesh list -itTc)" \
+        --bind "ctrl-r:execute(${seshRename} {2..})+reload(sesh list -itTc | grep -v ' dropdown$')" \
+        --bind "ctrl-d:execute(tmux kill-session -t {2..})+reload(sesh list -itTc | grep -v ' dropdown$')" \
       | strip_icon)
 
     [ -z "$session" ] && exit 0
-    sesh connect --tmuxinator "$session"
+
+    # If it's a tmuxinator layout, start it in the current pane's directory
+    dir=$(tmux display-message -p '#{pane_current_path}')
+    if tmuxinator list -n | grep -qx "$session"; then
+      name=$(basename "$dir")
+      tmuxinator start "$session" "$name" "$dir"
+    else
+      sesh connect "$session"
+    fi
   '';
 in
 {
@@ -234,7 +234,16 @@ in
       enable = true;
       enableTmuxIntegration = true; # custom binding with layout picker
       settings = {
-        session = cfg.sessions;
+        session = [
+          {
+            name = "universal";
+            startup_command = "nvim";
+          }
+          {
+            name = "git";
+            startup_command = "lazygit";
+          }
+        ] ++ cfg.sessions;
       };
     };
 

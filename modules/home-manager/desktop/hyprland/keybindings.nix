@@ -102,7 +102,6 @@
         # Pyprland scratchpad bindings
         "$mainMod, T, exec, pypr toggle term"
         "$mainMod, N, exec, pypr toggle notes"
-        "$mainMod, C, exec, pypr toggle gpt"
         "$mainMod, F, exec, pypr toggle todo"
         "$mainMod, G, exec, pypr toggle scratch"
         "$mainMod SHIFT, G, exec, pypr toggle daily"
