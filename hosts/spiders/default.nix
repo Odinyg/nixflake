@@ -12,6 +12,7 @@
 
   # --- Services ---
   server.disko.enable = true;
+  server.disko.disk = "/dev/sda";
   server.netbird.enable = true;
   server.netbird.domain = "netbird.pytt.io";
 

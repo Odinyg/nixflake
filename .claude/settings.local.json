@@ -16,6 +16,12 @@
       "Bash(nix flake show:*)",
       "Bash(nix eval:*)",
       "Bash(nix fmt:*)",
+      "Bash(nix build:*)",
+      "Bash(nix run:*)",
+      "Bash(nix develop:*)",
+      "Bash(nix path-info:*)",
+      "Bash(nix derivation:*)",
+      "Bash(nix store:*)",
       "Bash(git add:*)",
       "Bash(gh api:*)",
       "Skill(server-plan-service)",
@@ -50,6 +56,43 @@
     ],
     "deny": [],
     "ask": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath' | { read -r f; [[ \"$f\" == *.nix ]] && nix fmt -- \"$f\" 2>/dev/null || true; }",
+            "timeout": 30,
+            "statusMessage": "Formatting .nix file..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; [[ \"$f\" == /home/none/nixflake/* ]] && git -C /home/none/nixflake ls-files --error-unmatch \"$f\" 2>/dev/null || git -C /home/none/nixflake add \"$f\" 2>/dev/null; true; }",
+            "timeout": 10,
+            "statusMessage": "Staging new file..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; [[ \"$f\" == */secrets/*.yaml ]] && echo '{\"decision\":\"block\",\"reason\":\"This is a sops-encrypted secrets file. Use just secrets-<host> to edit.\"}' || true; }"
+          }
+        ]
+      }
+    ]
   },
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
