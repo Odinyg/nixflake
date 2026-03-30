@@ -26,19 +26,7 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d4f11461-9763-4597-b184-ee994e180cdb";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/5441-97C7";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
+  # Filesystem mounts managed by disko (modules/server/disko.nix)
 
   swapDevices = [ ];
 
