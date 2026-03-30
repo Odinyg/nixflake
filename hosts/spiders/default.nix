@@ -53,5 +53,15 @@
     22
   ];
 
+  # ACME / Let's Encrypt for nginx TLS
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "admin@pytt.io";
+  };
+  services.nginx.virtualHosts."netbird.pytt.io" = {
+    forceSSL = true;
+    enableACME = true;
+  };
+
   system.stateVersion = "25.05";
 }
