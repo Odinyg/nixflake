@@ -38,6 +38,13 @@
 
   sops.defaultSopsFile = ../../secrets/spiders.yaml;
 
+  # Temporary: Tailscale for reaching Authelia until Netbird replaces it
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--accept-routes" ];
+  };
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
   # --- Services ---
   server.disko.enable = true;
   server.disko.disk = "/dev/sda";
