@@ -275,7 +275,11 @@
 
       @ollama host ollama.pytt.io
       handle @ollama {
-        reverse_proxy 10.10.10.10:11434
+        reverse_proxy https://10.10.10.10:11434 {
+          transport http {
+            tls_insecure_skip_verify
+          }
+        }
       }
 
       handle {

@@ -411,7 +411,7 @@ in
                 icon = "ollama.png";
                 href = "https://ollama.${cfg.domain}";
                 description = "LLM Server";
-                siteMonitor = "http://10.10.10.10:11434";
+                siteMonitor = "https://10.10.10.10:11434";
               };
             }
             {
