@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -7,7 +7,7 @@
 
   # Static IP — Cantabo VPS
   networking.useDHCP = false;
-  networking.enableIPv6 = true;
+  networking.enableIPv6 = lib.mkForce true;
   networking.interfaces.eth0 = {
     ipv4.addresses = [
       {
