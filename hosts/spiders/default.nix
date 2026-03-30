@@ -5,8 +5,36 @@
 
   networking.hostName = "spiders";
 
-  # DHCP — VPS provider assigns IP
-  networking.useDHCP = true;
+  # Static IP — Cantabo VPS
+  networking.useDHCP = false;
+  networking.enableIPv6 = true;
+  networking.interfaces.eth0 = {
+    ipv4.addresses = [
+      {
+        address = "95.111.255.104";
+        prefixLength = 20;
+      }
+    ];
+    ipv6.addresses = [
+      {
+        address = "2a02:c207:2318:6493::1";
+        prefixLength = 64;
+      }
+    ];
+  };
+  networking.defaultGateway = {
+    address = "95.111.240.1";
+    interface = "eth0";
+  };
+  networking.defaultGateway6 = {
+    address = "fe80::1";
+    interface = "eth0";
+  };
+  networking.nameservers = [
+    "213.136.95.10"
+    "213.136.95.11"
+    "2a02:c207::1:53"
+  ];
 
   sops.defaultSopsFile = ../../secrets/spiders.yaml;
 
