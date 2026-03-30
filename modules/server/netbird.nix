@@ -66,7 +66,7 @@ in
               AuthorizationEndpoint = "https://${authDomain}/api/oidc/authorization";
               TokenEndpoint = "https://${authDomain}/api/oidc/token";
               Scope = "openid profile email offline_access";
-              RedirectURLs = "http://localhost:53000";
+              RedirectURLs = [ "http://localhost:53000" ];
               UseIDToken = false;
             };
           };
