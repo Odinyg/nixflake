@@ -262,11 +262,11 @@ in
             public = false;
             authorization_policy = "one_factor";
             redirect_uris = [
-              "https://netbird.${cfg.domain}/#callback"
-              "https://netbird.${cfg.domain}/callback"
-              "https://netbird.${cfg.domain}"
+              "https://netbird.${cfg.domain}/auth"
+              "https://netbird.${cfg.domain}/silent-auth"
               "http://localhost:53000"
             ];
+            token_endpoint_auth_method = "client_secret_post";
             scopes = [
               "openid"
               "profile"

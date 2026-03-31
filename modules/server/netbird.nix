@@ -67,7 +67,7 @@ in
               TokenEndpoint = "https://${authDomain}/api/oidc/token";
               Scope = "openid profile email offline_access";
               RedirectURLs = [ "http://localhost:53000" ];
-              UseIDToken = false;
+              UseIDToken = true;
             };
           };
           DeviceAuthorizationFlow = {
@@ -90,6 +90,8 @@ in
           AUTH_CLIENT_ID = "netbird";
           AUTH_AUDIENCE = "netbird";
           AUTH_SUPPORTED_SCOPES = "openid profile email";
+          AUTH_REDIRECT_URI = "/auth";
+          AUTH_SILENT_REDIRECT_URI = "/silent-auth";
           USE_AUTH0 = false;
           NETBIRD_TOKEN_SOURCE = "idToken";
         };
