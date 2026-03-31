@@ -40,6 +40,10 @@ in
           DataStoreEncryptionKey = {
             _secret = config.sops.secrets.netbird_datastore_encryption_key.path;
           };
+          HttpConfig = {
+            AuthAudience = "netbird";
+            AuthIssuer = "https://${authDomain}";
+          };
           TURNConfig = {
             Turns = [
               {
