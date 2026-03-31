@@ -277,12 +277,7 @@ in
               "authorization_code"
             ];
             response_types = [ "code" ];
-            response_modes = [
-              "query"
-              "fragment"
-            ];
             userinfo_signed_response_alg = "none";
-            token_endpoint_auth_method = "none";
           }
         ];
       };
