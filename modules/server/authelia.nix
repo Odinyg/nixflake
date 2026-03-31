@@ -262,7 +262,7 @@ in
             public = false;
             authorization_policy = "one_factor";
             redirect_uris = [
-              "https://netbird.${cfg.domain}"
+              "https://netbird.${cfg.domain}/#callback"
               "http://localhost:53000"
             ];
             scopes = [
