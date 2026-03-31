@@ -164,6 +164,7 @@ in
 
         notifier.filesystem.filename = "/var/lib/authelia-main/notification.txt";
 
+        identity_providers.oidc.cors.allowed_origins_from_client_redirect_uris = true;
         identity_providers.oidc.clients = [
           {
             client_id = "proxmox";
@@ -258,16 +259,16 @@ in
           {
             client_id = "netbird";
             client_name = "Netbird";
-            client_secret = "$pbkdf2-sha512$310000$xsnLBEGlzFXsP2givlLTLA$u4ygPk0z7/DQ3rYs52ub236JioF9K8AMudBLTwJGGUpvDL9bOcHgmtFx9bJDSInjmbheuZj.oeEHH86R3fndPQ";
-            public = false;
+            public = true;
             authorization_policy = "one_factor";
+            require_pkce = true;
+            pkce_challenge_method = "S256";
             redirect_uris = [
               "https://netbird.${cfg.domain}/auth"
               "https://netbird.${cfg.domain}/silent-auth"
               "http://localhost:53000"
             ];
             audience = [ "netbird" ];
-            token_endpoint_auth_method = "client_secret_post";
             scopes = [
               "openid"
               "profile"
