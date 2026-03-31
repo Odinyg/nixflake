@@ -94,3 +94,7 @@ deploy-pulse: rebuild-pre
 # Deploy to sugar
 deploy-sugar: rebuild-pre
   nix shell nixpkgs#colmena -c colmena apply --on sugar
+
+# Deploy to spiders
+deploy-spiders: rebuild-pre
+  nix shell nixpkgs#colmena -c colmena apply --on spiders

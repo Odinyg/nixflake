@@ -25,14 +25,19 @@ in
       description = "Internal listen port for Authelia";
     };
     redisHost = lib.mkOption {
-      type = lib.types.str;
-      default = "10.10.10.20";
-      description = "Redis host for session storage";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Redis host for session storage (null = in-memory sessions)";
     };
     redisPort = lib.mkOption {
       type = lib.types.port;
-      default = 30059;
+      default = 6379;
       description = "Redis port for session storage";
+    };
+    redisPasswordSecret = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether Redis requires password from sops secret authelia_session_redis_password";
     };
   };
 
@@ -49,7 +54,7 @@ in
     sops.secrets.authelia_oidc_hmac_secret = {
       owner = "authelia-main";
     };
-    sops.secrets.authelia_session_redis_password = {
+    sops.secrets.authelia_session_redis_password = lib.mkIf cfg.redisPasswordSecret {
       owner = "authelia-main";
     };
 
@@ -121,6 +126,8 @@ in
               default_redirection_url = "https://home.${cfg.domain}";
             }
           ];
+        }
+        // lib.optionalAttrs (cfg.redisHost != null) {
           redis = {
             host = cfg.redisHost;
             port = cfg.redisPort;
@@ -164,7 +171,16 @@ in
 
         notifier.filesystem.filename = "/var/lib/authelia-main/notification.txt";
 
-        identity_providers.oidc.cors.allowed_origins_from_client_redirect_uris = true;
+        identity_providers.oidc.cors = {
+          allowed_origins_from_client_redirect_uris = true;
+          endpoints = [
+            "userinfo"
+            "authorization"
+            "token"
+            "revocation"
+            "introspection"
+          ];
+        };
         identity_providers.oidc.clients = [
           {
             client_id = "proxmox";
@@ -291,7 +307,7 @@ in
     };
 
     # Inject Redis password via Authelia's _FILE env var mechanism
-    services.authelia.instances.main.environmentVariables = {
+    services.authelia.instances.main.environmentVariables = lib.mkIf cfg.redisPasswordSecret {
       AUTHELIA_SESSION_REDIS_PASSWORD_FILE = config.sops.secrets.authelia_session_redis_password.path;
     };
 

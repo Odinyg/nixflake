@@ -38,18 +38,21 @@
 
   sops.defaultSopsFile = ../../secrets/spiders.yaml;
 
-  # Temporary: Tailscale for reaching Authelia until Netbird replaces it
-  services.tailscale = {
-    enable = true;
-    extraSetFlags = [ "--accept-routes" ];
-  };
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
-
   # --- Services ---
   server.disko.enable = true;
   server.disko.disk = "/dev/sda";
   server.netbird.enable = true;
   server.netbird.domain = "netbird.pytt.io";
+  server.authelia.enable = true;
+
+  # Local Redis for Authelia session storage
+  server.authelia.redisHost = "127.0.0.1";
+  server.authelia.redisPort = 6370;
+  services.redis.servers.authelia = {
+    enable = true;
+    port = 6370;
+    bind = "127.0.0.1";
+  };
 
   # Firewall — VPS is public-facing, keep enabled
   # UDP ports (STUN/TURN) are opened automatically by coturn module
@@ -70,20 +73,18 @@
     enableACME = true;
   };
 
-  # Reverse proxy auth.pytt.io to psychosocial via Tailscale (through aerials)
+  # Authelia SSO — served locally on this host
   services.nginx.virtualHosts."auth.pytt.io" = {
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "https://100.120.92.67";
+      proxyPass = "http://127.0.0.1:9091";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_ssl_server_name on;
-        proxy_ssl_name auth.pytt.io;
       '';
     };
   };

@@ -30,25 +30,21 @@
 
   sops.defaultSopsFile = ../../secrets/psychosocial.yaml;
 
-  # Temporary: Tailscale for spiders to reach Authelia
-  services.tailscale = {
-    enable = true;
-    extraSetFlags = [ "--accept-routes" ];
-  };
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
-
   # --- Services ---
   server.disko.enable = true;
   server.caddy.enable = true;
-  server.authelia.enable = true;
   server.homepage.enable = true;
 
   # Caddy routes — all reverse proxy rules for pytt.io
   services.caddy.extraConfig = ''
     (authelia) {
-      forward_auth 127.0.0.1:9091 {
+      forward_auth auth.pytt.io:443 {
         uri /api/authz/forward-auth
         copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+        transport http {
+          tls
+          tls_server_name auth.pytt.io
+        }
       }
     }
 
@@ -60,11 +56,6 @@
       }
 
       # --- psychosocial (local) ---
-
-      @auth host auth.pytt.io
-      handle @auth {
-        reverse_proxy 127.0.0.1:9091
-      }
 
       @home host home.pytt.io
       handle @home {
