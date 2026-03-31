@@ -75,7 +75,7 @@
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "https://100.80.149.86";
+      proxyPass = "https://100.120.92.67";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
