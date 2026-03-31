@@ -1,4 +1,11 @@
-{ config, pkgs, lib, inputs, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../profiles/desktop.nix
@@ -25,15 +32,20 @@
   networking.hostName = "station";
 
   # Static IP on Servers VLAN (10.10.10.0/24, VLAN 5)
-  networking.interfaces.enp82s0.ipv4.addresses = [{
-    address = "10.10.10.10";
-    prefixLength = 24;
-  }];
+  networking.interfaces.enp82s0.ipv4.addresses = [
+    {
+      address = "10.10.10.10";
+      prefixLength = 24;
+    }
+  ];
   networking.defaultGateway = {
     address = "10.10.10.1";
     interface = "enp82s0";
   };
-  networking.nameservers = [ "10.10.10.1" "1.1.1.1" ];
+  networking.nameservers = [
+    "10.10.10.1"
+    "1.1.1.1"
+  ];
 
   # ==============================================================================
   # USERS
@@ -42,7 +54,12 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "none";
-    extraGroups = [ "networkmanager" "wheel" "plugdev" "dialout" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "plugdev"
+      "dialout"
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEb3q553HODR8Yipt69tmLrGOqLTfde/G8yntaitNkA3"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINezFWDmtlGHBF674DcsNi+wDMrSp13pNX1lo4RcJTMm"
@@ -63,9 +80,9 @@
   # ==============================================================================
   hardware.nvidia-gpu = {
     enable = true;
-    driverPackage = "latest";  # Use latest drivers for better OpenGL support
-    open = false;  # Use proprietary drivers for better gaming stability
-    prime.enable = false;  # Desktop GPU, no hybrid graphics
+    driverPackage = "latest"; # Use latest drivers for better OpenGL support
+    open = false; # Use proprietary drivers for better gaming stability
+    prime.enable = false; # Desktop GPU, no hybrid graphics
   };
 
   # ==============================================================================
@@ -176,21 +193,23 @@
   protonvpn.enable = true;
 
   # Monitor Configuration
-  hyprland.kanshi.profiles = [{
-    profile.name = "station-dual";
-    profile.outputs = [
-      {
-        criteria = "DP-1";
-        mode = "1920x1080@120";
-        position = "0,0";
-      }
-      {
-        criteria = "HDMI-A-1";
-        mode = "3840x2160@60";
-        position = "1920,0";
-      }
-    ];
-  }];
+  hyprland.kanshi.profiles = [
+    {
+      profile.name = "station-dual";
+      profile.outputs = [
+        {
+          criteria = "DP-1";
+          mode = "1920x1080@120";
+          position = "0,0";
+        }
+        {
+          criteria = "HDMI-A-1";
+          mode = "3840x2160@60";
+          position = "1920,0";
+        }
+      ];
+    }
+  ];
 
   # Monitor configuration
   hyprland.monitors.extraConfig = ''
@@ -198,7 +217,10 @@
     monitor = DP-1, 1920x1080@120, 0x0, 1
   '';
 
-  environment.systemPackages = [ pkgs.woeusb-ng pkgs.ntfs3g ];
+  environment.systemPackages = [
+    pkgs.woeusb-ng
+    pkgs.ntfs3g
+  ];
 
   postgresql.enable = true;
 
@@ -208,4 +230,3 @@
   # ==============================================================================
   system.stateVersion = "25.05";
 }
-

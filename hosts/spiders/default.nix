@@ -70,5 +70,23 @@
     enableACME = true;
   };
 
+  # Reverse proxy auth.pytt.io to psychosocial via Tailscale (through aerials)
+  services.nginx.virtualHosts."auth.pytt.io" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = "https://100.107.226.30";
+      proxyWebsockets = true;
+      extraConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_ssl_server_name on;
+        proxy_ssl_name auth.pytt.io;
+      '';
+    };
+  };
+
   system.stateVersion = "25.05";
 }
