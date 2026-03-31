@@ -263,6 +263,8 @@ in
             authorization_policy = "one_factor";
             redirect_uris = [
               "https://netbird.${cfg.domain}/#callback"
+              "https://netbird.${cfg.domain}/callback"
+              "https://netbird.${cfg.domain}"
               "http://localhost:53000"
             ];
             scopes = [
@@ -275,7 +277,12 @@ in
               "authorization_code"
             ];
             response_types = [ "code" ];
+            response_modes = [
+              "query"
+              "fragment"
+            ];
             userinfo_signed_response_alg = "none";
+            token_endpoint_auth_method = "none";
           }
         ];
       };
