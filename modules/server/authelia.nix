@@ -266,6 +266,7 @@ in
               "https://netbird.${cfg.domain}/silent-auth"
               "http://localhost:53000"
             ];
+            audience = [ "netbird" ];
             token_endpoint_auth_method = "client_secret_post";
             scopes = [
               "openid"
