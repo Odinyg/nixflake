@@ -30,6 +30,13 @@
 
   sops.defaultSopsFile = ../../secrets/psychosocial.yaml;
 
+  # Temporary: Tailscale for spiders to reach Authelia
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--accept-routes" ];
+  };
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
   # --- Services ---
   server.disko.enable = true;
   server.caddy.enable = true;
