@@ -44,6 +44,7 @@
   server.netbird.enable = true;
   server.netbird.domain = "netbird.pytt.io";
   server.authelia.enable = true;
+  server.authelia.listenPort = 9092;
 
   # Local Redis for Authelia session storage
   server.authelia.redisHost = "127.0.0.1";
@@ -78,7 +79,7 @@
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:9091";
+      proxyPass = "http://127.0.0.1:9092";
       proxyWebsockets = true;
       extraConfig = ''
         proxy_set_header Host $host;
