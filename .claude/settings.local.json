@@ -61,7 +61,19 @@
       "WebFetch(domain:forum.netbird.io)",
       "Bash(ssh:*)",
       "mcp__context7__query-docs",
-      "Bash(curl:*)"
+      "Bash(curl -s \"https://www.google.com/search?q=NetBird+expose+services+SSL+reverse+proxy+caddy+homelab\")",
+      "Bash(curl -s \"https://www.google.com/search?q=NetBird+split+DNS+homelab+service+discovery\")",
+      "Bash(grep -E \"\\\\.nix$\")",
+      "Bash(curl -s \"https://www.google.com/search?q=caddy+wildcard+certificate+local+network+cloudflare+dns+challenge+homelab\")",
+      "Bash(grep -r \"ACME\\\\|acme\\\\|dns\\\\|DNS\\\\|cloudflare\" /home/none/nixflake/modules/server/*.nix /home/none/nixflake/hosts/*/default.nix)",
+      "Bash(grep -rn \"10\\\\.10\\\\.\" /home/none/nixflake/hosts/*/default.nix /home/none/nixflake/modules/server/)",
+      "Bash(grep -rn \"port\\\\|Port\" /home/none/nixflake/modules/server/*.nix)",
+      "WebFetch(domain:aottr.dev)",
+      "WebFetch(domain:samedwardes.com)",
+      "WebFetch(domain:netbird.io)",
+      "WebFetch(domain:davidjusto.com)",
+      "WebFetch(domain:sergiogimenez.com)",
+      "WebFetch(domain:noah.masu.rs)"
     ],
     "deny": [],
     "ask": []
