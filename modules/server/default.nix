@@ -129,6 +129,10 @@
       wantedBy = [ "multi-user.target" ];
     };
 
+    # Netbird client — mesh VPN for inter-server communication
+    services.netbird.enable = true;
+    networking.firewall.trustedInterfaces = [ "wt0" ];
+
     # Boot — limit generations to prevent /boot filling up
     boot.loader.systemd-boot.configurationLimit = 10;
   };

@@ -12,7 +12,7 @@
   # Nix configuration
   services.envfs.enable = true;
   home-manager.backupFileExtension = "backup-$(date +%Y%m%d_%H%M%S)";
-  
+
   # Networking
   networking.firewall.enable = true;
 
@@ -76,6 +76,7 @@
   # ==============================================================================
   fail2ban-security.enable = lib.mkDefault false;
   tailscale.enable = true;
+  netbird-client.enable = true;
   sunshine.enable = true;
   services.openssh = {
     enable = true;
