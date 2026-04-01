@@ -33,7 +33,7 @@ in
         domain = cfg.domain;
         oidcConfigEndpoint = "https://${authDomain}/.well-known/openid-configuration";
         turnDomain = cfg.domain;
-        dnsDomain = "n.b";
+        dnsDomain = "netbird.pytt.io";
         disableAnonymousMetrics = true;
         settings = {
           DataStoreEncryptionKey = {

@@ -133,6 +133,9 @@
     services.netbird.enable = true;
     networking.firewall.trustedInterfaces = [ "wt0" ];
 
+    # systemd-resolved for proper split DNS (Netbird registers via D-Bus)
+    services.resolved.enable = true;
+
     # Boot — limit generations to prevent /boot filling up
     boot.loader.systemd-boot.configurationLimit = 10;
   };
