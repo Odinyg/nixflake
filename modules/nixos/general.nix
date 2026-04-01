@@ -52,7 +52,6 @@
       ansible
       colmena
       devenv
-      ventoy-full
     ];
     services.gnome.gnome-online-accounts.enable = true;
     services.flatpak.enable = true;

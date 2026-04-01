@@ -14,7 +14,6 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-36.9.5"
-    "ventoy-1.1.05"
   ];
 
   # ==============================================================================

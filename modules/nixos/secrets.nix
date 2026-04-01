@@ -13,8 +13,7 @@
   config = lib.mkIf config.secrets.enable {
     # Configure sops-nix
     sops = {
-      # Path to the age key for decryption
-      age.keyFile = "/var/lib/sops-nix/key.txt";
+      age.keyFile = "/home/${config.user}/.config/sops/age/keys.txt";
 
       # Default sops file
       defaultSopsFile = ../../secrets/secrets.yaml;
