@@ -131,7 +131,11 @@
 
     # Netbird client — mesh VPN for inter-server communication
     services.netbird.enable = true;
+    services.netbird.useRoutingFeatures = "both";
     networking.firewall.trustedInterfaces = [ "wt0" ];
+
+    # IP forwarding — needed for NetBird routing peers to forward LAN traffic
+    boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
     # systemd-resolved for proper split DNS (Netbird registers via D-Bus)
     services.resolved.enable = true;
