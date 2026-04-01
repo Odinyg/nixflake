@@ -22,7 +22,6 @@ in
     sops.secrets.netbird_coturn_password = {
       owner = "turnserver";
     };
-    sops.secrets.netbird_oidc_client_secret = { };
 
     services.netbird.server = {
       enable = true;
@@ -63,9 +62,6 @@ in
             ProviderConfig = {
               Audience = "netbird";
               ClientID = "netbird";
-              ClientSecret = {
-                _secret = config.sops.secrets.netbird_oidc_client_secret.path;
-              };
               AuthorizationEndpoint = "https://${authDomain}/api/oidc/authorization";
               TokenEndpoint = "https://${authDomain}/api/oidc/token";
               Scope = "openid profile email offline_access";
