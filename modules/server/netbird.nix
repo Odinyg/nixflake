@@ -33,7 +33,7 @@ in
         domain = cfg.domain;
         oidcConfigEndpoint = "https://${authDomain}/.well-known/openid-configuration";
         turnDomain = cfg.domain;
-        dnsDomain = "netbird.selfhosted";
+        dnsDomain = "mesh";
         disableAnonymousMetrics = true;
         settings = {
           DataStoreEncryptionKey = {
