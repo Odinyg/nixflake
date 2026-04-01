@@ -1,4 +1,10 @@
-{ config, lib, pkgs-unstable, ... }: {
+{
+  config,
+  lib,
+  pkgs-unstable,
+  ...
+}:
+{
 
   imports = [
     ./packages.nix
@@ -44,7 +50,9 @@
           follow_mouse = 1;
           repeat_rate = 55;
           repeat_delay = 400;
-          touchpad = { natural_scroll = false; };
+          touchpad = {
+            natural_scroll = false;
+          };
           sensitivity = 0;
         };
 
@@ -94,7 +102,9 @@
         };
 
         # NVIDIA-specific OpenGL settings
-        opengl = { nvidia_anti_flicker = true; };
+        opengl = {
+          nvidia_anti_flicker = true;
+        };
 
         # Miscellaneous settings
         misc = {
@@ -149,6 +159,11 @@
           "match:class ^(waybar-popup)$, float on"
           "match:class ^(waybar-popup)$, size 800 500"
           "match:class ^(waybar-popup)$, center on"
+          # Gaming — keep games responsive across workspace switches
+          "match:class ^(steam_app_.*)$, renderunfocused on"
+          "match:class ^(steam_app_.*)$, immediate on"
+          "match:class ^(steam_app_.*)$, idle_inhibit always"
+          "match:class ^(steam_app_.*)$, fullscreen on"
         ];
       };
     };

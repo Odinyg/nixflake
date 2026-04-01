@@ -60,7 +60,8 @@
       "WebFetch(domain:docs.netbird.io)",
       "WebFetch(domain:forum.netbird.io)",
       "Bash(ssh:*)",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

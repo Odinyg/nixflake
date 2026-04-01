@@ -13,7 +13,8 @@
 
 ## Hosts
 - **Desktops**: laptop (`none`), vnpc-21 (`odin`), station (`none`)
-- **Servers**: pulse, sugar, byob, psychosocial (all on 10.10.x.x subnets)
+- **Servers (homelab)**: pulse, sugar, byob, psychosocial (LAN, 10.10.x.x subnets)
+- **Servers (VPS)**: spiders (public Cantabo VPS at netbird.pytt.io — runs netbird + authelia)
 
 ## Commands
 - `just rebuild` — rebuild current host (auto-detects hostname)
