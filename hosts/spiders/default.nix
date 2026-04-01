@@ -55,14 +55,33 @@
     bind = "127.0.0.1";
   };
 
-  # Firewall — VPS is public-facing, keep enabled
-  # UDP ports (STUN/TURN) are opened automatically by coturn module
+  # Firewall — VPS is public-facing, hardened
+  # mkForce to override ports opened by shared server modules (node_exporter 9100, authelia metrics 9959)
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-    22
+  networking.firewall.allowedTCPPorts = lib.mkForce [
+    22 # SSH
+    80 # HTTP (ACME)
+    443 # HTTPS (auth + netbird)
+    3478 # TURN
+    3479 # TURN alt
+    5349 # TURNS (TLS)
+    5350 # TURNS alt (TLS)
   ];
+
+  # Disable rpcbind — not needed, NFS is for LAN servers only
+  services.rpcbind.enable = lib.mkForce false;
+  boot.supportedFilesystems = lib.mkForce [ ];
+
+  # SSH hardening — rate limit connections
+  services.openssh.settings.MaxAuthTries = 3;
+
+  # Fail2ban for SSH brute force protection
+  services.fail2ban = {
+    enable = true;
+    maxretry = 3;
+    bantime = "1h";
+    bantime-increment.enable = true;
+  };
 
   # ACME / Let's Encrypt for nginx TLS
   security.acme = {
