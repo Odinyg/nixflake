@@ -58,7 +58,8 @@
       "Bash(curl -s https://docs.netbird.io/selfhosted/selfhosted-guide)",
       "WebFetch(domain:www.authelia.com)",
       "WebFetch(domain:docs.netbird.io)",
-      "WebFetch(domain:forum.netbird.io)"
+      "WebFetch(domain:forum.netbird.io)",
+      "Bash(ssh:*)"
     ],
     "deny": [],
     "ask": []
