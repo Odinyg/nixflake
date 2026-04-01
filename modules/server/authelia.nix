@@ -290,9 +290,11 @@ in
               "profile"
               "email"
               "groups"
+              "offline_access"
             ];
             grant_types = [
               "authorization_code"
+              "refresh_token"
             ];
             response_types = [ "code" ];
             userinfo_signed_response_alg = "none";
