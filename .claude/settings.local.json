@@ -59,7 +59,8 @@
       "WebFetch(domain:www.authelia.com)",
       "WebFetch(domain:docs.netbird.io)",
       "WebFetch(domain:forum.netbird.io)",
-      "Bash(ssh:*)"
+      "Bash(ssh:*)",
+      "mcp__context7__query-docs"
     ],
     "deny": [],
     "ask": []
