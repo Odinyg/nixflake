@@ -1,6 +1,13 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+  hmConfig = {
     wayland.windowManager.hyprland.settings = {
       "$mainMod" = "SUPER";
 
@@ -111,4 +118,16 @@
 
     };
   };
+in
+{
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.hyprland.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.hyprland.enable hmConfig)
+    ]
+  );
 }

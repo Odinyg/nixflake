@@ -1,6 +1,14 @@
-{ config, lib, pkgs-unstable, ... }: {
+{
+  config,
+  lib,
+  options,
+  pkgs-unstable,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+  hmConfig = {
     # Swaylock screen locker
     programs.swaylock = {
       enable = true;
@@ -45,20 +53,35 @@
     # Kanshi dynamic display configuration
     services.kanshi = {
       enable = true;
-      settings = if (config.hyprland.kanshi.profiles != []) then
-        config.hyprland.kanshi.profiles
-      else
-        # Default fallback profile for hosts without custom configuration
-        [
-          {
-            profile.name = "default";
-            profile.outputs = [{
-              criteria = "eDP-1";
-              mode = "1920x1080";
-              scale = 1.0;
-            }];
-          }
-        ];
+      settings =
+        if (config.hyprland.kanshi.profiles != [ ]) then
+          config.hyprland.kanshi.profiles
+        else
+          # Default fallback profile for hosts without custom configuration
+          [
+            {
+              profile.name = "default";
+              profile.outputs = [
+                {
+                  criteria = "eDP-1";
+                  mode = "1920x1080";
+                  scale = 1.0;
+                }
+              ];
+            }
+          ];
     };
   };
+in
+{
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.hyprland.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.hyprland.enable hmConfig)
+    ]
+  );
 }

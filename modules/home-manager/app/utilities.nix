@@ -1,12 +1,16 @@
-{ config, pkgs, pkgs-unstable, inputs, lib, ... }: {
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  pkgs-unstable,
+  inputs,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  options = {
-    utilities = {
-      enable = lib.mkEnableOption "miscellaneous utility applications";
-    };
-  };
-
-  config.home-manager.users.${config.user} = lib.mkIf config.utilities.enable {
+  hmConfig = {
     # Smart directory navigation
     programs.zoxide = {
       enable = true;
@@ -19,7 +23,10 @@
       exec = "remmina -c /home/odin/.local/share/remmina/group_rdp_quick-connect_win11.remmina";
       icon = "remmina";
       terminal = false;
-      categories = [ "Network" "RemoteAccess" ];
+      categories = [
+        "Network"
+        "RemoteAccess"
+      ];
     };
 
     home.packages = with pkgs; [
@@ -70,4 +77,20 @@
       posting
     ];
   };
+in
+{
+  options = {
+    utilities = {
+      enable = lib.mkEnableOption "miscellaneous utility applications";
+    };
+  };
+
+  config = lib.mkMerge (
+    [
+      { home-manager.users.${config.user} = lib.mkIf config.utilities.enable hmConfig; }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.utilities.enable hmConfig)
+    ]
+  );
 }

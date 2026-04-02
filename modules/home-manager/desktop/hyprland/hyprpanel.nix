@@ -1,6 +1,14 @@
-{ config, lib, pkgs-unstable, ... }: {
+{
+  config,
+  lib,
+  options,
+  pkgs-unstable,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+  hmConfig = {
     programs.hyprpanel = {
       enable = false;
       package = pkgs-unstable.hyprpanel;
@@ -10,7 +18,10 @@
             # Default for all monitors — no widget-triggering modules
             "*" = {
               left = [ "submap" ];
-              middle = [ "workspaces" "clock" ];
+              middle = [
+                "workspaces"
+                "clock"
+              ];
               right = [
                 "volume"
                 "network"
@@ -21,8 +32,14 @@
             };
             # Main monitor gets dashboard + notifications widgets
             "1" = {
-              left = [ "dashboard" "submap" ];
-              middle = [ "workspaces" "clock" ];
+              left = [
+                "dashboard"
+                "submap"
+              ];
+              middle = [
+                "workspaces"
+                "clock"
+              ];
               right = [
                 "volume"
                 "network"
@@ -67,4 +84,16 @@
       };
     };
   };
+in
+{
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.hyprland.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.hyprland.enable hmConfig)
+    ]
+  );
 }

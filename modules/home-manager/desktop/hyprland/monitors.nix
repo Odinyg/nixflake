@@ -1,6 +1,13 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+  hmConfig = {
     wayland.windowManager.hyprland.extraConfig =
       if (config.hyprland.monitors.extraConfig != "") then
         config.hyprland.monitors.extraConfig
@@ -11,4 +18,16 @@
           workspace = 1, default:true
         '';
   };
+in
+{
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.hyprland.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.hyprland.enable hmConfig)
+    ]
+  );
 }

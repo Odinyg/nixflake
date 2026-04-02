@@ -91,3 +91,12 @@
 - `hosts/station-arch/home.nix`: added `neovim.enable = true`.
 - Station NixOS drvPath unchanged: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
 - Standalone HM eval succeeded: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv` ✓
+
+## [2026-04-02] Task 12 — Remaining hyprland modules dual-mode refactor
+- Applied the dual-mode pattern (`standalone = !(options ? nixpkgs)`) to all 5 remaining hyprland modules: `packages.nix`, `services.nix`, `hyprpanel.nix`, `keybindings.nix`, `monitors.nix`.
+- All modules follow the same `let standalone = ...; hmConfig = {...}; in { config = lib.mkMerge ([NixOS] ++ lib.optionals standalone [standalone]) }` structure.
+- `services.nix` references `config.hyprland.kanshi.profiles` inside `hmConfig` — lazy Nix evaluation means this is safe; `standalone-compat.nix` provides the option with default `[]` which triggers the fallback kanshi config (correct).
+- `monitors.nix` references `config.hyprland.monitors.extraConfig` inside `hmConfig` — same pattern; default `""` triggers the fallback workspace config (correct).
+- All 5 modules added to `parts/home-manager-standalone.nix` modules list after `hyprland/default.nix`.
+- station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
+- standalone HM eval SUCCESS: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv` ✓

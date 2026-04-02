@@ -8,6 +8,13 @@
 
   neovim.enable = true;
 
+  discord.enable = true;
+  development.enable = true;
+  media.enable = true;
+  communication.enable = true;
+  utilities.enable = true;
+  lmstudio.enable = true;
+
   home.username = "none";
   home.homeDirectory = "/home/none";
   home.stateVersion = "25.05";

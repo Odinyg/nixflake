@@ -1,0 +1,17 @@
+Task 12 — Standalone HM activationPackage drvPath verification
+
+Command: nix eval .#homeConfigurations."none@station".activationPackage.drvPath
+Result:  "/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv"
+
+SUCCESS — standalone HM evaluates correctly with all 5 hyprland modules loaded.
+
+Modules added to parts/home-manager-standalone.nix:
+- ../modules/home-manager/desktop/hyprland/packages.nix
+- ../modules/home-manager/desktop/hyprland/services.nix
+- ../modules/home-manager/desktop/hyprland/hyprpanel.nix
+- ../modules/home-manager/desktop/hyprland/keybindings.nix
+- ../modules/home-manager/desktop/hyprland/monitors.nix
+
+All 5 modules refactored with dual-mode pattern:
+  standalone = !(options ? nixpkgs)
+  lib.mkMerge ([NixOS branch] ++ lib.optionals standalone [HM branch])

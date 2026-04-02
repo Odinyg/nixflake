@@ -1,0 +1,6 @@
+Task 12 — NixOS station drvPath verification
+
+Command: nix eval .#nixosConfigurations.station.config.system.build.toplevel.drvPath
+Result:  "/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv"
+
+IDENTICAL to pre-refactor value — output-identical confirmed.
