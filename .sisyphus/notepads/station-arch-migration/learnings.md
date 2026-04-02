@@ -75,3 +75,10 @@
 - Verification results:
   - standalone HM eval with shim + git pilot succeeded: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv`
   - station NixOS drvPath remained identical before/after: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv`
+
+## [2026-04-02] Task 7 — pilot dual-mode expansion (hyprland + mcp)
+- Applied the same dual-mode pattern from `git.nix` to `modules/home-manager/desktop/hyprland/default.nix` and `modules/home-manager/cli/mcp.nix` using `standalone = !(options ? nixpkgs)` and `lib.mkMerge` with a direct standalone HM branch.
+- `hyprland/default.nix` now preserves NixOS behavior while standalone HM overrides only `wayland.windowManager.hyprland.package = null` so Arch/pacman Hyprland is used.
+- `mcp.nix` now splits config into `hmConfigNixOS` (keeps `/run/secrets/github_token`) and `hmConfigStandalone` (uses `config.sops.secrets.github_token.path` when available, otherwise `/run/user/1000/secrets/github_token`). MCP server definitions were left unchanged.
+- Standalone module list now imports all three pilot modules (`git.nix`, `hyprland/default.nix`, `mcp.nix`), and `hosts/station-arch/home.nix` enables `mcp.enable = true`.
+- Verified station NixOS drvPath stayed identical through pilot checks (`/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv`) and standalone HM eval succeeded (`/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv`).

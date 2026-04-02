@@ -4,6 +4,7 @@
   user = "none";
   hyprland.enable = true;
   git.enable = true;
+  mcp.enable = true;
 
   home.username = "none";
   home.homeDirectory = "/home/none";

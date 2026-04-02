@@ -1,20 +1,14 @@
 {
   config,
   lib,
+  options,
   pkgs-unstable,
   ...
 }:
-{
+let
+  standalone = !(options ? nixpkgs);
 
-  imports = [
-    ./packages.nix
-    ./hyprpanel.nix
-    ./services.nix
-    ./keybindings.nix
-    ./monitors.nix
-  ];
-
-  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+  hmConfig = {
     wayland.windowManager.hyprland = {
       enable = true;
       package = pkgs-unstable.hyprland;
@@ -112,6 +106,7 @@
           key_press_enables_dpms = true;
           force_default_wallpaper = 0;
           disable_hyprland_logo = true;
+          render_unfocused_fps = 15;
         };
 
         # Window rules (new syntax: match:prop value, effect value)
@@ -159,13 +154,40 @@
           "match:class ^(waybar-popup)$, float on"
           "match:class ^(waybar-popup)$, size 800 500"
           "match:class ^(waybar-popup)$, center on"
-          # Gaming — keep games responsive across workspace switches
-          "match:class ^(steam_app_.*)$, renderunfocused on"
-          "match:class ^(steam_app_.*)$, immediate on"
-          "match:class ^(steam_app_.*)$, idle_inhibit always"
-          "match:class ^(steam_app_.*)$, fullscreen on"
+          # Gaming — keep Wine/Proton games responsive across workspace switches
+          "match:class \\.(exe)$, render_unfocused on"
+          "match:class \\.(exe)$, immediate yes"
+          "match:class \\.(exe)$, idle_inhibit always"
+          "match:class \\.(exe)$, suppress_event maximize"
+          "match:class \\.(exe)$, float on"
         ];
       };
     };
   };
+in
+{
+
+  imports = [
+    ./packages.nix
+    ./hyprpanel.nix
+    ./services.nix
+    ./keybindings.nix
+    ./monitors.nix
+  ];
+
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.hyprland.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.hyprland.enable (lib.mkMerge [
+        hmConfig
+        {
+          wayland.windowManager.hyprland.package = null;
+        }
+      ]))
+    ]
+  );
 }

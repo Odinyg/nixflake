@@ -1,0 +1,3 @@
+warning: Git tree '/home/none/nixflake' is dirty
+error (ignored): error: SQLite database '/home/none/.cache/nix/eval-cache-v5/63fbebfe25deb5bce38de8bd5ad03a80d9e77be2e63ca61fa01b764920d4fba7.sqlite' is busy
+"/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv"
