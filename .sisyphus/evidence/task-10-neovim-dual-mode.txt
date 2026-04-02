@@ -1,0 +1,20 @@
+# Task 10: neovim/default.nix dual-mode refactor
+
+## Station NixOS (unchanged)
+nix eval .#nixosConfigurations.station.config.system.build.toplevel.drvPath
+= "/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv"
+SAME as inherited: gzimfjqgby17ap6cjrdpjiwi3w2slw7l ✓
+
+## Standalone HM (neovim enabled)
+nix eval .#homeConfigurations."none@station".activationPackage.drvPath
+= "/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv"
+SUCCESS ✓
+
+## Changes made
+- modules/home-manager/cli/neovim/default.nix: added dual-mode pattern (options arg, standalone detection, lib.mkMerge)
+- parts/home-manager-standalone.nix: added ../modules/home-manager/cli/neovim/default.nix to modules
+- hosts/station-arch/home.nix: added neovim.enable = true
+
+## Verified
+- neovim submodules (nixvim.nix, lsp.nix, etc.) left UNCHANGED — all pure HM modules
+- nixvim.nix: { pkgs, ... }: { programs.nixvim = { ... }; } — pure HM ✓

@@ -25,6 +25,7 @@ in
       inputs.nixvim.homeModules.nixvim
       ../modules/home-manager/standalone-compat.nix
       ../modules/home-manager/cli/git.nix
+      ../modules/home-manager/cli/neovim/default.nix
       ../modules/home-manager/desktop/hyprland/default.nix
       ../modules/home-manager/cli/mcp.nix
       ../hosts/station-arch/home.nix

@@ -1,0 +1,141 @@
+Task 20 — station-arch-setup.md Evidence
+Generated: 2026-04-02
+
+FILE CREATED: docs/station-arch-setup.md
+
+SECTIONS PRESENT (14 total):
+1. Prerequisites
+   - Download Arch ISO from archlinux.org
+   - dd command for bootable USB creation
+   - UEFI boot instructions
+   - Verification: ls /sys/firmware/efi/efivars
+
+2. Disk Partitioning
+   - Device: /dev/nvme0n1 (NVMe SSD — station hardware)
+   - Layout: nvme0n1p1 (EFI 1G), nvme0n1p2 (swap 16G), nvme0n1p3 (root ext4)
+   - fdisk commands with full interactive sequence
+   - mkfs.fat, mkswap, swapon, mkfs.ext4 commands
+   - mount commands
+   - Verification: lsblk -f, free -h
+
+3. Base Install
+   - pacstrap with: base, base-devel, linux-lts, linux-lts-headers, linux-firmware, nvidia-dkms
+   - NOTE: linux-lts kernel explicitly chosen for NVIDIA dkms stability
+   - genfstab -U /mnt >> /mnt/etc/fstab
+   - arch-chroot /mnt
+   - Verification: uname -r, pacman -Q linux-lts nvidia-dkms
+
+4. System Configuration
+   - Locale: en_US.UTF-8 via /etc/locale.gen + locale-gen
+   - Timezone: Europe/Oslo (ln -sf /usr/share/zoneinfo/Europe/Oslo /etc/localtime)
+   - Hostname: echo "station" > /etc/hostname
+   - /etc/hosts entries
+   - Root password
+   - GRUB: grub-install --target=x86_64-efi, GRUB_CMDLINE with nvidia-drm.modeset=1
+   - Verification: ls /boot/efi/EFI/GRUB/, grep CMDLINE
+
+5. NVIDIA Setup
+   - mkinitcpio.conf MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+   - mkinitcpio -P rebuild
+   - Mask nvidia-suspend/hibernate/resume services
+   - /etc/environment with GBM_BACKEND, WLR_NO_HARDWARE_CURSORS, LIBVA_DRIVER_NAME, __GLX_VENDOR_LIBRARY_NAME, NIXOS_OZONE_WL
+   - Verification: nvidia-smi, lsmod | grep nvidia
+
+6. User Setup
+   - useradd -m -G wheel,plugdev,dialout,video -s /bin/zsh none
+   - passwd none
+   - visudo: %wheel ALL=(ALL:ALL) ALL
+   - Verification: id none, groups, echo $SHELL
+
+7. Networking — Static IP
+   - systemd-networkd approach (matches NixOS)
+   - /etc/systemd/network/20-wired.network with:
+     - Match: Name=enp82s0
+     - Address=10.10.10.10/24
+     - Gateway=10.10.10.1
+     - DNS=10.10.10.1, DNS=1.1.1.1
+   - systemctl enable systemd-networkd systemd-resolved
+   - ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+   - NetworkManager unmanaged config for enp82s0
+   - Verification: ip addr show enp82s0, ip route, ping 10.10.10.1
+
+8. Hyprland + Display Manager
+   - pacman -S hyprland greetd greetd-tuigreet xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
+   - /usr/share/wayland-sessions/hyprland.desktop session file
+   - /etc/greetd/config.toml with tuigreet
+   - systemctl enable greetd
+   - Minimal /home/none/.config/hypr/hyprland.conf with dual monitor config (HDMI-A-1 + DP-1)
+   - Verification: systemctl status greetd, ls /usr/share/wayland-sessions/
+
+9. Nix Installation
+   - sh <(curl -L https://nixos.org/nix/install) --daemon
+   - /etc/nix/nix.conf: experimental-features = nix-command flakes, trusted-users = root none
+   - systemctl restart nix-daemon
+   - Verification: nix --version, systemctl status nix-daemon
+
+10. Home Manager Standalone
+    - git clone nixflake repo
+    - SOPS age key setup at ~/.config/sops/age/keys.txt
+    - nix run home-manager/release-25.05 -- switch --flake ~/nixflake#none@station
+    - home-manager binary install for subsequent runs
+    - Verification: home-manager --version, ls ~/.nix-profile/bin/
+
+11. Essential System Packages
+    - PipeWire: pipewire, pipewire-alsa, pipewire-pulse, pipewire-jack, wireplumber, pavucontrol
+    - Bluetooth: bluez, bluez-utils + systemctl enable bluetooth
+    - Printing: cups, avahi, nss-mdns + nsswitch.conf mdns_minimal
+    - Fonts: noto-fonts, noto-fonts-cjk, noto-fonts-emoji
+    - AUR helper: paru (built from AUR)
+    - Docker: docker, docker-compose + usermod -aG docker none
+    - Virtualization: qemu-full, libvirt, virt-manager + usermod -aG libvirt none
+    - Verification: systemctl status pipewire, docker run hello-world
+
+12. Sleep/Suspend Prevention
+    - systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+    - /etc/systemd/logind.conf: HandleSuspendKey=ignore, HandleLidSwitch=ignore, IdleAction=ignore
+    - /etc/systemd/sleep.conf: AllowSuspend=no, AllowHibernation=no
+    - Verification: systemctl status sleep.target (masked)
+
+13. Environment Variables
+    - /etc/environment: LOCALE_ARCHIVE, XDG_DATA_DIRS, NVIDIA vars
+    - /home/none/.zshenv: PATH ordering (system before nix-profile)
+    - /etc/profile.d/wayland.sh: MOZ_ENABLE_WAYLAND, QT_QPA_PLATFORM=wayland
+    - CRITICAL NOTE: /usr/bin must come before ~/.nix-profile/bin in PATH
+    - Verification: echo $PATH, echo $GBM_BACKEND, which hyprland
+
+14. nixGL (GPU Apps via Nix)
+    - Explanation of why nixGL is needed on non-NixOS
+    - nix profile install github:nix-community/nixGL
+    - Usage: nixGL kitty, nixGL chromium, nixVulkan
+    - Shell aliases for convenience
+    - Alternative: install GPU apps via pacman/AUR instead
+    - Verification: nixGL nix run nixpkgs#glxinfo
+
+HARDWARE DETAILS SOURCED FROM:
+- hosts/station/hardware-configuration.nix:
+  - Device: /dev/nvme0n1 (NVMe)
+  - Kernel modules: nvme, xhci_pci, ahci, usbhid, usb_storage, sd_mod
+  - CPU: AMD (hardware.cpu.amd.updateMicrocode)
+  - Network interfaces: enp79s0, enp82s0, wlp80s0
+
+- hosts/station/default.nix:
+  - Static IP: 10.10.10.10/24 on enp82s0
+  - Gateway: 10.10.10.1
+  - DNS: 10.10.10.1, 1.1.1.1
+  - User: none, groups: networkmanager, wheel, plugdev, dialout
+  - Shell: zsh
+  - GRUB on /dev/nvme0n1 with useOSProber=true
+  - NVIDIA: latest drivers, proprietary (open=false), no PRIME
+  - Sleep disabled: AllowSuspend=no, AllowHibernation=no
+  - Monitors: HDMI-A-1 (3840x2160@60) + DP-1 (1920x1080@120)
+  - greetd.enable = true
+
+- profiles/hardware/nvidia.nix:
+  - Kernel params: nvidia-drm.modeset=1, nvidia_drm.fbdev=1, fbdev=1
+  - Env vars: GBM_BACKEND=nvidia-drm, WLR_NO_HARDWARE_CURSORS=1, LIBVA_DRIVER_NAME=nvidia, __GLX_VENDOR_LIBRARY_NAME=nvidia, NIXOS_OZONE_WL=1
+  - hardware.graphics.enable32Bit = true (for gaming/Wine/Vulkan)
+
+- .sisyphus/notepads/station-arch-migration/learnings.md:
+  - HM standalone target: none@station in parts/home-manager-standalone.nix
+  - Uses home-manager/release-25.05
+  - SOPS age key at ~/.config/sops/age/keys.txt

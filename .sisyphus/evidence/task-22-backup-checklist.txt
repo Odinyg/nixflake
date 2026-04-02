@@ -1,0 +1,44 @@
+Task 22: station-arch-backup.md creation
+========================================
+Date: 2026-04-02
+
+## File Created
+docs/station-arch-backup.md
+
+## Sources Read
+- hosts/station/default.nix — confirmed services: postgresql, open-webui, ollama, lmstudio, distributedBuilds (isBuilder=true), protonvpn, gaming
+- modules/nixos/secrets.nix — SOPS age key path: /home/${config.user}/.config/sops/age/keys.txt, defaultSopsFile: secrets/secrets.yaml
+- modules/nixos/distributed-builds.nix — nix-serve key path: /var/lib/nix-serve/cache-priv-key.pem, port 5000
+- modules/nixos/hosted-services/open-webui.nix — Open WebUI on port 3000, uses station.yaml sops secret
+- .sisyphus/notepads/station-arch-migration/learnings.md — confirmed age key path, general.yaml stale reference
+
+## Sections in docs/station-arch-backup.md
+1. Overview (purpose, timing, storage estimate)
+2. Section 1: Critical Keys
+   - 1.1 SOPS Age Key (~/.config/sops/age/keys.txt)
+   - 1.2 SSH Private Keys (~/.ssh/)
+   - 1.3 SSH Host Keys (/etc/ssh/ssh_host_*)
+   - 1.4 nix-serve Signing Key (/var/lib/nix-serve/cache-priv-key.pem)
+3. Section 2: Service State
+   - 2.1 Syncthing (~/.config/syncthing/)
+   - 2.2 PostgreSQL (pg_dumpall)
+   - 2.3 Open WebUI (/var/lib/open-webui/)
+   - 2.4 Docker Volumes
+   - 2.5 Ollama Models (/var/lib/ollama/models/)
+4. Section 3: Data Files
+   - 3.1 Home Directory Inventory
+   - 3.2 Git Repositories (push to remote)
+   - 3.3 GPG Keys
+   - 3.4 LM Studio Models (~/.cache/lm-studio/)
+5. Section 4: Cloud-Backed (no action needed)
+6. Section 5: Backup Verification (8 checks)
+7. Section 6: Post-Migration Restore Order (12 steps)
+8. Quick Reference table
+
+## Key Facts Confirmed
+- nix-serve key: /var/lib/nix-serve/cache-priv-key.pem (from distributed-builds.nix line 74)
+- Public key: station:IH2kzUkYwmAVyk7J1XIgfIMw4d2vb5xA8ID8Ns9m7Xc=
+- SOPS age key: /home/none/.config/sops/age/keys.txt (from secrets.nix line 16)
+- station/default.nix line 73 references general.yaml — confirmed stale per learnings.md
+- Open WebUI added to backup (not in original task spec but present in station config)
+- LM Studio added to backup (lmstudio.enable = true in station/default.nix)

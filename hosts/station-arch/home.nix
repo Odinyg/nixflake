@@ -6,6 +6,8 @@
   git.enable = true;
   mcp.enable = true;
 
+  neovim.enable = true;
+
   home.username = "none";
   home.homeDirectory = "/home/none";
   home.stateVersion = "25.05";

@@ -1,16 +1,13 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  options = {
-    neovim = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable Neovim";
-      };
-    };
-  };
-
-  config.home-manager.users.${config.user} = lib.mkIf config.neovim.enable {
+  hmConfig = {
     imports = [
       ./nixvim.nix
       ./lsp.nix
@@ -38,5 +35,26 @@
       };
     };
   };
+in
+{
+  options = {
+    neovim = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Enable Neovim";
+      };
+    };
+  };
 
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.neovim.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.neovim.enable hmConfig)
+    ]
+  );
 }

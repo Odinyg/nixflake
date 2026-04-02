@@ -1,0 +1,60 @@
+Task 21 — Station Arch Linux Services Guide
+Created: 2026-04-02
+
+## File Created
+docs/station-arch-services.md
+
+## Services Documented
+All services from hosts/station/default.nix and profiles/base.nix:
+
+1. Docker (non-rootless) — virtualization.nix: docker.rootless = false
+2. QEMU/KVM + libvirt — virtualization.nix: qemu.virt-manager = true, OVMF + swtpm enabled
+3. PostgreSQL 17 — postgresql.nix: services.postgresql.package = pkgs.postgresql_17
+4. Tailscale — tailscale.nix: extraSetFlags = ["--accept-routes"], trustedInterfaces = ["tailscale0"]
+5. Netbird — netbird-client.nix: wt0 interface, port 51820, systemd-resolved, loose rp_filter
+6. Syncthing — syncthing.nix: user = none, dataDir = ~/Documents, overrideDevices = false
+7. Sunshine — sunshine.nix: capSysAdmin = true, openFirewall = true, origin_web_ui_allowed = wan
+8. SSH — base.nix: PasswordAuthentication = false, PubkeyAuthentication = true
+9. Ollama (CUDA) — ollama.nix: host = 0.0.0.0, acceleration = cuda, TLS cert at /var/lib/ollama/tls/
+10. PipeWire — audio.nix: alsa + alsa.support32Bit + pulse, wireplumber
+11. Bluetooth — bluetooth.nix: powerOnBoot = true, UserspaceHID = true, blueman enabled
+12. Greetd — greetd.nix: tuigreet --time --cmd Hyprland, user = greeter
+13. Polkit — polkit.nix: polkit-gnome agent, gnome-keyring, PAM integration for greetd
+14. XDG Portals — xdg.enable = true in base.nix
+15. Open WebUI — open-webui.nix: port 3000, OAuth via Authelia at auth.pytt.io
+16. ProtonVPN — protonvpn.nix: protonvpn-gui package, systemd-resolved
+17. Gaming — gaming.nix: steam + gamemode + gamescope + heroic + bottles + wine
+
+## Package Ownership Table
+Present in Section 1 with 25 rows covering all components.
+
+## Source Files Read
+- hosts/station/default.nix (234 lines)
+- profiles/base.nix (154 lines)
+- modules/nixos/ollama.nix
+- modules/nixos/virtualization.nix
+- modules/nixos/syncthing.nix
+- modules/nixos/sunshine.nix
+- modules/nixos/greetd.nix
+- modules/nixos/postgresql.nix
+- modules/nixos/tailscale.nix
+- modules/nixos/netbird-client.nix
+- modules/nixos/hardware/audio.nix
+- modules/nixos/hardware/bluetooth.nix
+- modules/nixos/hosted-services/open-webui.nix
+- modules/nixos/polkit.nix
+- modules/nixos/gaming.nix
+- modules/nixos/protonvpn.nix
+- profiles/hardware/nvidia.nix
+- .sisyphus/notepads/station-arch-migration/learnings.md
+
+## Key Notes Captured
+- Ollama binds 0.0.0.0 intentionally for LAN access (not a security issue)
+- Open WebUI OAuth secret stored in secrets/station.yaml (openwebui_oauth_client_secret)
+- Station never sleeps — AllowSuspend=no etc. in systemd sleep config
+- NVIDIA: proprietary drivers (open = false), latest driver series, no PRIME (desktop GPU)
+- Netbird uses loose rp_filter (value=2) for routing features
+- Syncthing overrideDevices=false — devices managed via web UI
+- Docker non-rootless — user none must be in docker group
+- PostgreSQL 17 specifically (not default version)
+- Greetd PAM integration with gnome-keyring for greetd session

@@ -139,6 +139,9 @@
     };
   };
 
+  # Display manager for proper session management
+  greetd.enable = true;
+
   # Encryption tools
   crypt.enable = true;
 

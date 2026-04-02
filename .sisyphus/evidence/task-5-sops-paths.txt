@@ -1,0 +1,2 @@
+modules/home-manager/cli/mcp.nix:      if [ -r /run/secrets/github_token ]; then
+modules/home-manager/cli/mcp.nix:        export GITHUB_PERSONAL_ACCESS_TOKEN="$(cat /run/secrets/github_token)"

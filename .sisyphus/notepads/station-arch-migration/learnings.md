@@ -82,3 +82,12 @@
 - `mcp.nix` now splits config into `hmConfigNixOS` (keeps `/run/secrets/github_token`) and `hmConfigStandalone` (uses `config.sops.secrets.github_token.path` when available, otherwise `/run/user/1000/secrets/github_token`). MCP server definitions were left unchanged.
 - Standalone module list now imports all three pilot modules (`git.nix`, `hyprland/default.nix`, `mcp.nix`), and `hosts/station-arch/home.nix` enables `mcp.enable = true`.
 - Verified station NixOS drvPath stayed identical through pilot checks (`/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv`) and standalone HM eval succeeded (`/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv`).
+
+## [2026-04-02] Task 10 — neovim/default.nix dual-mode migration
+- Applied dual-mode pattern to `modules/home-manager/cli/neovim/default.nix`: added `options` arg, `standalone = !(options ? nixpkgs)` detection, extracted `hmConfig` with imports + home settings, `lib.mkMerge` with standalone branch.
+- All neovim submodules (`nixvim.nix`, `lsp.nix`, `harpoon.nix`, etc.) confirmed pure HM modules — they set `programs.nixvim.*` or similar HM attrs directly with no NixOS wrapping. Left UNCHANGED.
+- `hmConfig` contains `imports = [ ./nixvim.nix ./lsp.nix ... ]` — relative paths in the attrset work correctly in both NixOS (nested under `home-manager.users.${user}`) and standalone HM (merged at top level) because Nix resolves them relative to `default.nix` at parse time.
+- `parts/home-manager-standalone.nix`: added `../modules/home-manager/cli/neovim/default.nix` to modules list.
+- `hosts/station-arch/home.nix`: added `neovim.enable = true`.
+- Station NixOS drvPath unchanged: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
+- Standalone HM eval succeeded: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv` ✓

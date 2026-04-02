@@ -1,0 +1,4 @@
+nix eval .#homeConfigurations."none@station".activationPackage.drvPath 2>&1
+
+warning: Git tree '/home/none/nixflake' is dirty
+"/nix/store/js4nwqvsqgwcsi61l1f7lrpg9lx6y82v-home-manager-generation.drv"

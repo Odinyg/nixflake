@@ -1,0 +1,20 @@
+{
+  "active_plan": "/home/none/nixflake/.sisyphus/plans/station-arch-migration.md",
+  "started_at": "2026-04-02T16:22:26.763Z",
+  "session_ids": [
+    "ses_2b1a518e6ffeJL1cKPsSX3lm7e",
+    "ses_2b0fcb6cdffeqX66Wbyg7wcPAX",
+    "ses_2b0f562c2ffe1b9uVVPf0AJVEP",
+    "ses_2b0f4698cffeh24Qa2A87Mty2b",
+    "ses_2b0f511daffeqM8y67FltVz00u",
+    "ses_2b0f318ceffeNtnKigWjdaGWTM",
+    "ses_2b0f3d35affeGUFoaGhMhVhPoW",
+    "ses_2b0edffc3ffe6U13ne7Tod0Hy2",
+    "ses_2b0df4751ffe0aPSmB5IpPKqwE",
+    "ses_2b0df4765ffeYMOZU6TforNGbk",
+    "ses_2b0d53649ffeVH8FMBzDNKU7Ua"
+  ],
+  "plan_name": "station-arch-migration",
+  "agent": "atlas",
+  "task_sessions": {}
+}
