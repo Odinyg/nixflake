@@ -6,7 +6,8 @@
   ...
 }:
 let
-  standalone = !(options ? nixpkgs);
+  # options.environment only exists in NixOS, not standalone Home Manager
+  standalone = !(options ? environment);
 
   hmConfig = {
     xdg.configFile."xfce4/helpers.rc".text = ''

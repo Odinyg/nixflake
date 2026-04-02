@@ -110,3 +110,28 @@
 - `development.nix` and `media.nix` use `pkgs-unstable` — also available.
 - station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
 - standalone HM eval SUCCESS: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv` ✓
+
+## [2026-04-02] Task 9 — CLI modules dual-mode refactor
+
+- Applied `standalone = !(options ? nixpkgs)` + `lib.mkMerge` dual-mode pattern to 11 CLI modules:
+  `zsh/default.nix`, `tmux.nix`, `kitty.nix`, `ghostty.nix`, `zellij.nix`, `direnv.nix`,
+  `kubernetes.nix`, `languages.nix`, `system-tools.nix`, `xdg.nix`, `prompt.nix`.
+- Skipped 3 pure HM sub-modules (no `config.home-manager.users` pattern):
+  - `zsh/zsh.nix` — pure HM module, sets `programs.zsh.*` directly
+  - `zsh/aliases.nix` — plain Nix attrset, not a NixOS module
+  - `zsh/eza.nix` — pure HM module, sets `programs.eza.*` directly
+- `zsh/default.nix` had submodule imports inside `home-manager.users.*`. Solution: NixOS path
+  kept unchanged (still uses `imports = [./zsh.nix ./eza.nix]`); standalone path uses an
+  inlined `hmConfig` with equivalent content from `zsh.nix` + `eza.nix` merged.
+- `xdg.nix` had `options.xdg.enable` conflicting with HM's own `xdg.enable` in standalone.
+  Fix: moved the option declaration to `modules/home-manager/default.nix` (NixOS-only chain).
+  In standalone, HM's own `xdg.enable` is used as gate — no re-declaration needed.
+  NixOS drvPath unchanged because option is still declared, just in the parent file.
+- `parts/home-manager-standalone.nix` was already updated (from a previous task) to import
+  `cli/default.nix` which pulls in all CLI modules.
+- `hosts/station-arch/home.nix` updated with all CLI enables:
+  `zsh.enable`, `prompt.enable`, `kitty.enable`, `ghostty.enable`, `tmux.enable`,
+  `system-tools.enable`, `direnv.enable`, `languages.enable`, `kubernetes.enable`,
+  `xdg.enable`, `zellij.enable` all set to `true`.
+- station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
+- standalone HM eval SUCCESS: `/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv` ✓

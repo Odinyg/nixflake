@@ -1,13 +1,12 @@
-{ config, lib, ... }:
 {
-
-  options = {
-    zellij = {
-      enable = lib.mkEnableOption "Zellij terminal multiplexer";
-    };
-  };
-  config.home-manager.users.${config.user} = lib.mkIf config.zellij.enable {
-
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
+  hmConfig = {
     programs.zellij = {
       enable = true;
       enableZshIntegration = true;
@@ -46,4 +45,22 @@
       }
     '';
   };
+in
+{
+  options = {
+    zellij = {
+      enable = lib.mkEnableOption "Zellij terminal multiplexer";
+    };
+  };
+
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.zellij.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.zellij.enable hmConfig)
+    ]
+  );
 }

@@ -1,12 +1,12 @@
-{ config, lib, ... }: {
-
-  options = {
-    prompt = {
-      enable = lib.mkEnableOption "Starship prompt";
-    };
-  };
-
-  config.home-manager.users.${config.user} = lib.mkIf config.prompt.enable {
+{
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
+  hmConfig = {
     programs.starship = {
       enable = true;
       enableZshIntegration = true;
@@ -124,4 +124,22 @@
       };
     };
   };
+in
+{
+  options = {
+    prompt = {
+      enable = lib.mkEnableOption "Starship prompt";
+    };
+  };
+
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.prompt.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.prompt.enable hmConfig)
+    ]
+  );
 }

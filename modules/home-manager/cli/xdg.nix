@@ -2,16 +2,12 @@
   config,
   lib,
   pkgs,
+  options,
   ...
 }:
-{
-
-  options = {
-    xdg = {
-      enable = lib.mkEnableOption "XDG base directory specification";
-    };
-  };
-  config.home-manager.users.${config.user} = lib.mkIf config.xdg.enable {
+let
+  standalone = !(options ? nixpkgs);
+  hmConfig = {
     home.packages = [
       pkgs.xdg-utils
       pkgs.xdg-user-dirs
@@ -92,4 +88,19 @@
       };
     };
   };
+in
+{
+  # options.xdg.enable is declared in modules/home-manager/default.nix (NixOS chain only).
+  # In standalone HM mode, home-manager's own xdg.enable option is used as the gate.
+
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.xdg.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.xdg.enable hmConfig)
+    ]
+  );
 }

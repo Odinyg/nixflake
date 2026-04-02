@@ -1,0 +1,21 @@
+Task 9 — Standalone HM eval
+Command: nix eval .#homeConfigurations."none@station".activationPackage.drvPath
+Result: "/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv"
+Status: PASS — eval succeeds
+Date: 2026-04-02
+
+Modules refactored with dual-mode pattern (cli/):
+  zsh/default.nix, tmux.nix, kitty.nix, ghostty.nix, zellij.nix,
+  direnv.nix, kubernetes.nix, languages.nix, system-tools.nix, xdg.nix, prompt.nix
+
+Skipped (pure HM sub-modules, no config.home-manager.users pattern):
+  zsh/zsh.nix  — pure HM module, sets programs.zsh.* directly
+  zsh/aliases.nix — plain Nix attrset, not a module
+  zsh/eza.nix  — pure HM module, sets programs.eza.* directly
+
+Special handling:
+  xdg.nix: options.xdg.enable moved to modules/home-manager/default.nix to avoid
+            conflict with HM's own xdg.enable in standalone mode.
+            NixOS eval unchanged (option still declared, just in parent file).
+  zsh/default.nix: NixOS path unchanged (imports submodules); standalone path uses
+                   inlined equivalent content from zsh.nix + eza.nix.

@@ -1,13 +1,12 @@
-{ config, lib, ... }:
 {
-
-  options = {
-    direnv = {
-      enable = lib.mkEnableOption "direnv automatic environment switching";
-    };
-  };
-  config.home-manager.users.${config.user} = lib.mkIf config.direnv.enable {
-
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
+  hmConfig = {
     programs.direnv = {
       enable = true;
       silent = true;
@@ -127,4 +126,22 @@
       '';
     };
   };
+in
+{
+  options = {
+    direnv = {
+      enable = lib.mkEnableOption "direnv automatic environment switching";
+    };
+  };
+
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.direnv.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.direnv.enable hmConfig)
+    ]
+  );
 }

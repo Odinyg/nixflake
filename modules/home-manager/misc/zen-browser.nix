@@ -7,7 +7,8 @@
   ...
 }:
 let
-  standalone = !(options ? nixpkgs);
+  # options.environment only exists in NixOS, not standalone Home Manager
+  standalone = !(options ? environment);
 
   hmConfig = {
     # Wayland and NVIDIA environment variables for Zen browser

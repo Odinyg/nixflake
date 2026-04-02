@@ -2,11 +2,13 @@
   config,
   pkgs,
   lib,
+  options,
   ...
 }:
 
 let
   cfg = config.tmux;
+  standalone = !(options ? nixpkgs);
 
   # Tmuxinator layout definitions (YAML) — only layouts that need
   # multi-pane/per-pane commands or ERB templates stay here.
@@ -146,7 +148,14 @@ let
 
   # Layout picker — fzf popup to start a tmuxinator project (prefix+L)
   layoutPicker = pkgs.writeShellScript "tmux-layout-picker" ''
-    export PATH="${lib.makeBinPath [ pkgs.fzf pkgs.gawk pkgs.coreutils pkgs.tmuxinator ]}:$PATH"
+    export PATH="${
+      lib.makeBinPath [
+        pkgs.fzf
+        pkgs.gawk
+        pkgs.coreutils
+        pkgs.tmuxinator
+      ]
+    }:$PATH"
 
     layout=$(printf '%s\n' \
       "dev-claude   nvim + claude + terminal" \
@@ -173,7 +182,15 @@ let
 
   # Sesh session picker (canonical pattern: run-shell + fzf-tmux)
   seshConnect = pkgs.writeShellScript "sesh-smart-connect" ''
-    export PATH="${lib.makeBinPath [ pkgs.sesh pkgs.fzf pkgs.coreutils pkgs.gnused pkgs.tmuxinator ]}:$PATH"
+    export PATH="${
+      lib.makeBinPath [
+        pkgs.sesh
+        pkgs.fzf
+        pkgs.coreutils
+        pkgs.gnused
+        pkgs.tmuxinator
+      ]
+    }:$PATH"
 
     strip_icon() {
       LC_ALL=C sed $'s/^[\xee\xef][\x80-\xbf][\x80-\xbf] //'
@@ -206,35 +223,18 @@ let
       sesh connect "$session"
     fi
   '';
-in
-{
-  options.tmux = {
-    enable = lib.mkEnableOption "tmux terminal multiplexer";
 
-    sessions = lib.mkOption {
-      type = with lib.types; listOf attrs;
-      default = [ ];
-      description = ''
-        Additional sesh session definitions. Each entry maps to a [[session]] in sesh.toml.
-        Available fields: name, path, startup_command, startup_script.
-      '';
-      example = [
-        {
-          name = "myproject";
-          path = "~/projects/myproject";
-          startup_command = "nvim";
-        }
-      ];
-    };
-  };
-
-  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
-
-    home.packages = with pkgs; [ tmuxinator tmux-xpanes ansifilter debugNew ];
+  hmConfig = {
+    home.packages = with pkgs; [
+      tmuxinator
+      tmux-xpanes
+      ansifilter
+      debugNew
+    ];
 
     # Tmuxinator project files
-    xdg.configFile = lib.mapAttrs' (name: layout:
-      lib.nameValuePair "tmuxinator/${name}.yml" { text = layout.yaml; }
+    xdg.configFile = lib.mapAttrs' (
+      name: layout: lib.nameValuePair "tmuxinator/${name}.yml" { text = layout.yaml; }
     ) tmuxinatorLayouts;
 
     # fzf integration (required for sesh tmux popup)
@@ -258,7 +258,8 @@ in
             name = "git";
             startup_command = "lazygit";
           }
-        ] ++ cfg.sessions;
+        ]
+        ++ cfg.sessions;
       };
     };
 
@@ -423,4 +424,36 @@ in
       fleet = "xpanes --ssh station laptop";
     };
   };
+in
+{
+  options.tmux = {
+    enable = lib.mkEnableOption "tmux terminal multiplexer";
+
+    sessions = lib.mkOption {
+      type = with lib.types; listOf attrs;
+      default = [ ];
+      description = ''
+        Additional sesh session definitions. Each entry maps to a [[session]] in sesh.toml.
+        Available fields: name, path, startup_command, startup_script.
+      '';
+      example = [
+        {
+          name = "myproject";
+          path = "~/projects/myproject";
+          startup_command = "nvim";
+        }
+      ];
+    };
+  };
+
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf cfg.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf cfg.enable hmConfig)
+    ]
+  );
 }
