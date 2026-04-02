@@ -23,6 +23,8 @@ in
     };
     modules = [
       inputs.nixvim.homeModules.nixvim
+      ../modules/home-manager/standalone-compat.nix
+      ../modules/home-manager/cli/git.nix
       ../hosts/station-arch/home.nix
     ];
   };

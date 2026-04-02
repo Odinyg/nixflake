@@ -1,25 +1,13 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  options = {
-    git = {
-      enable = lib.mkEnableOption "Git version control tools and configuration";
-
-      userName = lib.mkOption {
-        type = lib.types.str;
-        default = "Odin";
-        description = "Git user name for commits";
-      };
-
-      userEmail = lib.mkOption {
-        type = lib.types.str;
-        default = "git@pytt.io";
-        description = "Git user email for commits";
-      };
-    };
-  };
-  config.home-manager.users.${config.user} = lib.mkIf config.git.enable {
-
+  hmConfig = {
     programs = {
       git = {
         enable = true;
@@ -76,5 +64,35 @@
       gf = "git fetch";
     };
   };
+in
+{
+
+  options = {
+    git = {
+      enable = lib.mkEnableOption "Git version control tools and configuration";
+
+      userName = lib.mkOption {
+        type = lib.types.str;
+        default = "Odin";
+        description = "Git user name for commits";
+      };
+
+      userEmail = lib.mkOption {
+        type = lib.types.str;
+        default = "git@pytt.io";
+        description = "Git user email for commits";
+      };
+    };
+  };
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.git.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.git.enable hmConfig)
+    ]
+  );
 
 }

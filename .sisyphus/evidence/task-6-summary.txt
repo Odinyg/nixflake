@@ -1,0 +1,10 @@
+Baseline station NixOS drvPath:
+/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv
+
+Post-change station NixOS drvPath:
+/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv
+
+Result:
+- NixOS drvPath is identical before and after.
+- Standalone HM eval succeeded with shim imported and git pilot enabled.
+- Pure merge-back shim variants recursed; fallback was a pilot standalone branch in git.nix while preserving NixOS behavior.

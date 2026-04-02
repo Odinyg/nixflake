@@ -1,0 +1,2 @@
+warning: Git tree '/home/none/nixflake' is dirty
+"/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv"

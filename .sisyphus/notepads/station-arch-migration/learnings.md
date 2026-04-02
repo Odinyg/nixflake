@@ -49,3 +49,29 @@
 - Standalone modules are intentionally minimal: `inputs.nixvim.homeModules.nixvim` + `hosts/station-arch/home.nix` only (no `modules/nixos` or `modules/server`, no shared HM module tree yet).
 - `nix eval .#homeConfigurations."none@station".activationPackage.drvPath` and all requested nixosConfiguration drvPath evals succeed.
 - Note: `nix flake show --json | jq '.homeConfigurations'` renders `{ "type": "unknown" }` on this Nix version for non-standard outputs; direct eval confirms `none@station` exists.
+
+## [2026-04-02] Task 5 — sops-nix standalone HM validation
+- `inputs.sops-nix.homeManagerModules.sops` evaluates successfully in standalone HM (`none@station`) when added to `parts/home-manager-standalone.nix` and `sops` basics are set in `hosts/station-arch/home.nix`.
+- Eval proof: `.sisyphus/evidence/task-5-sops-standalone.txt` contains a successful activation derivation path.
+- Standalone HM path behavior (from evaluated options + upstream module source):
+  - `sops.defaultSymlinkPath` default resolves to `${config.xdg.configHome}/sops-nix/secrets` (here: `/home/none/.config/sops-nix/secrets`)
+  - `sops.defaultSecretsMountPoint` default is `%r/secrets.d` (`%r` = runtime dir on Linux)
+  - So HM consumers should not assume `/run/secrets/*`.
+- Full grep under `modules/home-manager/**/*.nix` found only one impacted module/path:
+  - `modules/home-manager/cli/mcp.nix` uses `/run/secrets/github_token` (2 hits)
+- Recommended migration pattern: declare `sops.secrets.github_token = { };` in standalone `home.nix`, then consume `config.sops.secrets.github_token.path` in modules.
+
+## [2026-04-02T00:00:00Z] Task: T4 Stylix standalone HM validation
+- Verified standalone Stylix works when importing `inputs.stylix.homeModules.stylix` in `parts/home-manager-standalone.nix` modules list.
+- Full tested option set evaluated successfully in standalone HM: `stylix.enable`, `base16Scheme`, `image`, `polarity`, `opacity.terminal`, `autoEnable`, and `cursor.{package,name,size}`.
+- Eval command: `nix eval .#homeConfigurations."none@station".activationPackage.drvPath 2>&1` → returned a valid home-manager generation drv path.
+- `modules/nixos/styling.nix` remains a NixOS wrapper (`styling.*` namespace + `home-manager.users.${config.user}` wiring); for standalone HM, configure `stylix.*` directly in HM config/module.
+- Temporary test changes were reverted: `hosts/station-arch/home.nix` back to minimal skeleton and `parts/home-manager-standalone.nix` back to no Stylix module.
+
+## [2026-04-02] Task 6 — standalone HM compatibility layer
+- A pure shim that both defines `home-manager.users` and merges `lib.attrValues config.home-manager.users` back into top-level standalone HM config still hit infinite recursion in this module graph, even after trying `submoduleWith { freeformType = lib.types.anything; }` for mergeable user entries.
+- The stable fallback was to keep `modules/home-manager/standalone-compat.nix` focused on providing the shared option surface (`user`, `hyprland.*`, `home-manager.users`) and add a pilot standalone branch directly in `modules/home-manager/cli/git.nix`.
+- The git pilot uses `options ? nixpkgs` to distinguish NixOS mode from standalone HM mode: NixOS still writes only to `home-manager.users.${config.user}`, while standalone HM additionally emits the same HM config at top level.
+- Verification results:
+  - standalone HM eval with shim + git pilot succeeded: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv`
+  - station NixOS drvPath remained identical before/after: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv`
