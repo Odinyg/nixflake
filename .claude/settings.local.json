@@ -61,10 +61,7 @@
       "WebFetch(domain:forum.netbird.io)",
       "Bash(ssh:*)",
       "mcp__context7__query-docs",
-      "Bash(curl:*)",
-      "WebFetch(domain:netbird.io)",
-      "Bash(ping:*)",
-      "Bash(python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(f''''#{i[number]} [{i[state]}] {i[title]}''''\\) for i in data.get\\(''''items'''',[]\\)]\")"
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
