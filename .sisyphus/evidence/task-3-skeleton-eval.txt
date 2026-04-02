@@ -1,0 +1,4 @@
+Task 3: hosts/station-arch/home.nix skeleton created as part of Task 2
+Skeleton home.nix created with: home.username, home.homeDirectory, home.stateVersion, programs.home-manager.enable
+Eval result (from task-2 evidence):
+"/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv"

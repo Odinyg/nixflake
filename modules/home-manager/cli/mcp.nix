@@ -20,12 +20,19 @@ let
 
       filesystem = {
         command = "${pkgs.uv}/bin/uvx";
-        args = [ "mcp-server-filesystem" "/home/${config.user}" ];
+        args = [
+          "mcp-server-filesystem"
+          "/home/${config.user}"
+        ];
       };
 
       git = {
         command = "${pkgs.uv}/bin/uvx";
-        args = [ "mcp-server-git" "--repository" "/home/${config.user}" ];
+        args = [
+          "mcp-server-git"
+          "--repository"
+          "/home/${config.user}"
+        ];
       };
 
       sequentialthinking = {
@@ -50,7 +57,11 @@ let
 
       obsidian = {
         command = "${pkgs.uv}/bin/uvx";
-        args = [ "mcp-server-obsidian" "--vault-path" "/home/${config.user}/Documents/Main" ];
+        args = [
+          "mcp-server-obsidian"
+          "--vault-path"
+          "/home/${config.user}/Documents/Main"
+        ];
       };
 
       fetch = {
@@ -60,12 +71,18 @@ let
 
       github = {
         command = "${pkgs.gh}/bin/gh";
-        args = [ "mcp" "serve" ];
+        args = [
+          "mcp"
+          "serve"
+        ];
       };
 
       context7 = {
         command = "${pkgs.nodejs}/bin/npx";
-        args = [ "-y" "@upstash/context7-mcp" ];
+        args = [
+          "-y"
+          "@upstash/context7-mcp"
+        ];
       };
 
       playwright = {
@@ -92,7 +109,12 @@ let
   };
 
   standaloneSecretPath =
-    if config ? sops && config.sops ? secrets && config.sops.secrets ? github_token && config.sops.secrets.github_token ? path then
+    if
+      config ? sops
+      && config.sops ? secrets
+      && config.sops.secrets ? github_token
+      && config.sops.secrets.github_token ? path
+    then
       config.sops.secrets.github_token.path
     else
       "/run/user/1000/secrets/github_token";

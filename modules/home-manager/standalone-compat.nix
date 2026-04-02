@@ -52,13 +52,15 @@
     };
 
     home-manager.users = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.submoduleWith {
-        modules = [
-          {
-            freeformType = lib.types.anything;
-          }
-        ];
-      });
+      type = lib.types.attrsOf (
+        lib.types.submoduleWith {
+          modules = [
+            {
+              freeformType = lib.types.anything;
+            }
+          ];
+        }
+      );
       default = { };
       description = "Home-manager user configurations collected in standalone mode";
     };

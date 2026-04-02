@@ -182,12 +182,14 @@ in
       }
     ]
     ++ lib.optionals standalone [
-      (lib.mkIf config.hyprland.enable (lib.mkMerge [
-        hmConfig
-        {
-          wayland.windowManager.hyprland.package = null;
-        }
-      ]))
+      (lib.mkIf config.hyprland.enable (
+        lib.mkMerge [
+          hmConfig
+          {
+            wayland.windowManager.hyprland.package = null;
+          }
+        ]
+      ))
     ]
   );
 }
