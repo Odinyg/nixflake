@@ -1,0 +1,20 @@
+Full NixOS regression after app module dual-mode refactor:
+
+laptop:  /nix/store/9x860q4fg263bhvrgk0vl70v64i75wbp-nixos-system-laptop-25.05.20260102.ac62194.drv   PASS
+VNPC-21: /nix/store/rxa0jsq0fw84f3173cnkz000xc61pi6r-nixos-system-VNPC-21-25.05.20260102.ac62194.drv  PASS
+station: /nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv PASS (identical to expected)
+
+Server hosts (pulse, sugar, byob, psychosocial, spiders) timed out during bulk eval - expected since app modules
+are home-manager only and only imported by desktop hosts (station, laptop, VNPC-21).
+
+Modules refactored (6 total):
+  modules/home-manager/app/discord.nix
+  modules/home-manager/app/development.nix
+  modules/home-manager/app/media.nix
+  modules/home-manager/app/communication.nix
+  modules/home-manager/app/utilities.nix
+  modules/home-manager/app/lmstudio.nix
+
+Pattern applied: standalone = !(options ? nixpkgs)
+  - NixOS mode: config written to home-manager.users.${config.user}
+  - Standalone HM mode: config also written at top-level via lib.mkMerge + lib.optionals

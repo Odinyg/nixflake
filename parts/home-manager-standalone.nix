@@ -23,25 +23,14 @@ in
     };
     modules = [
       inputs.nixvim.homeModules.nixvim
+      # standalone-compat provides options.user + options.hyprland.* + options.home-manager.users
+      # Do NOT import ../modules/home-manager/default.nix — it also defines options.user (duplicate)
       ../modules/home-manager/standalone-compat.nix
-      ../modules/home-manager/cli/git.nix
-      ../modules/home-manager/cli/neovim/default.nix
-      ../modules/home-manager/desktop/hyprland/default.nix
-      ../modules/home-manager/desktop/hyprland/packages.nix
-      ../modules/home-manager/desktop/hyprland/services.nix
-      ../modules/home-manager/desktop/hyprland/hyprpanel.nix
-      ../modules/home-manager/desktop/hyprland/keybindings.nix
-      ../modules/home-manager/desktop/hyprland/monitors.nix
-      ../modules/home-manager/cli/mcp.nix
-      ../modules/home-manager/app/discord.nix
-      ../modules/home-manager/app/development.nix
-      ../modules/home-manager/app/media.nix
-      ../modules/home-manager/app/communication.nix
-      ../modules/home-manager/app/utilities.nix
-      ../modules/home-manager/app/lmstudio.nix
-      ../modules/home-manager/misc/chromium.nix
-      ../modules/home-manager/misc/zen-browser.nix
-      ../modules/home-manager/misc/thunar.nix
+      # Category defaults — each imports all its member modules
+      ../modules/home-manager/cli/default.nix
+      ../modules/home-manager/app/default.nix
+      ../modules/home-manager/desktop/default.nix
+      ../modules/home-manager/misc/default.nix
       ../hosts/station-arch/home.nix
     ];
   };

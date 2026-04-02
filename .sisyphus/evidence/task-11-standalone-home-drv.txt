@@ -1,0 +1,12 @@
+"/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv"
+
+Command: nix eval .#homeConfigurations."none@station".activationPackage.drvPath
+Status: PASS - standalone HM with all app modules evaluates successfully
+
+Modules enabled in hosts/station-arch/home.nix:
+  discord.enable = true
+  development.enable = true
+  media.enable = true
+  communication.enable = true
+  utilities.enable = true
+  lmstudio.enable = true

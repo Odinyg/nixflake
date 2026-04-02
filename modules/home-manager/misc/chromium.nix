@@ -1,13 +1,13 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  options,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  options = {
-    chromium = {
-      enable = lib.mkEnableOption "Chromium browser";
-    };
-  };
-  config.home-manager.users.${config.user} = lib.mkIf config.chromium.enable {
-
+  hmConfig = {
     programs.google-chrome.enable = true;
     programs.chromium = {
       enable = true;
@@ -31,9 +31,25 @@
         { id = "nbdfpcokndmapcollfpjdpjlabnibjdi"; } # saka
         { id = "bfhkfdnddlhfippjbflipboognpdpoeh"; } # reMarkable
         { id = "ponfpcnoihfmfllpaingbgckeeldkhle"; } # youtube enhancer
-
       ];
     };
-
   };
+in
+{
+
+  options = {
+    chromium = {
+      enable = lib.mkEnableOption "Chromium browser";
+    };
+  };
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.chromium.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.chromium.enable hmConfig)
+    ]
+  );
 }

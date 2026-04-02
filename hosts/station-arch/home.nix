@@ -14,6 +14,9 @@
   communication.enable = true;
   utilities.enable = true;
   lmstudio.enable = true;
+  chromium.enable = true;
+  zen-browser.enable = true;
+  thunar.enable = true;
 
   home.username = "none";
   home.homeDirectory = "/home/none";

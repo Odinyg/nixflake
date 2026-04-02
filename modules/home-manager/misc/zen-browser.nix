@@ -1,19 +1,15 @@
-{ config, lib, pkgs, inputs, ... }:
 {
+  config,
+  lib,
+  options,
+  pkgs,
+  inputs,
+  ...
+}:
+let
+  standalone = !(options ? nixpkgs);
 
-  options = {
-    zen-browser = {
-      enable = lib.mkEnableOption "Zen browser";
-    };
-  };
-
-  config = lib.mkIf config.zen-browser.enable {
-    # Install zen-browser as a system package (from flake input)
-    environment.systemPackages = [
-      inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-    ];
-
-    home-manager.users.${config.user} = {
+  hmConfig = {
     # Wayland and NVIDIA environment variables for Zen browser
     home.sessionVariables = {
       # Enable Wayland support
@@ -39,7 +35,11 @@
       genericName = "Web Browser";
       exec = "zen-beta %U";
       terminal = false;
-      categories = [ "Application" "Network" "WebBrowser" ];
+      categories = [
+        "Application"
+        "Network"
+        "WebBrowser"
+      ];
       mimeType = [
         "text/html"
         "text/xml"
@@ -52,6 +52,32 @@
         "x-scheme-handler/https"
       ];
     };
+  };
+in
+{
+
+  options = {
+    zen-browser = {
+      enable = lib.mkEnableOption "Zen browser";
     };
   };
+
+  config = lib.mkMerge (
+    [
+      {
+        home-manager.users.${config.user} = lib.mkIf config.zen-browser.enable hmConfig;
+      }
+    ]
+    ++ lib.optionals (!standalone) [
+      (lib.mkIf config.zen-browser.enable {
+        # Install zen-browser as a system package (from flake input)
+        environment.systemPackages = [
+          inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+        ];
+      })
+    ]
+    ++ lib.optionals standalone [
+      (lib.mkIf config.zen-browser.enable hmConfig)
+    ]
+  );
 }

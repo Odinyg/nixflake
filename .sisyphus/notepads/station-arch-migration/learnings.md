@@ -100,3 +100,13 @@
 - All 5 modules added to `parts/home-manager-standalone.nix` modules list after `hyprland/default.nix`.
 - station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
 - standalone HM eval SUCCESS: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv` ✓
+
+## [2026-04-02] Task 11 — dual-mode app modules
+- Applied `standalone = !(options ? nixpkgs)` + `lib.mkMerge` dual-mode pattern to all 6 app modules: `discord.nix`, `development.nix`, `media.nix`, `communication.nix`, `utilities.nix`, `lmstudio.nix`.
+- `app/default.nix` needed NO changes — it only imports the individual files, no options defined.
+- All app modules added to `parts/home-manager-standalone.nix` modules list (after `mcp.nix`, before `hosts/station-arch/home.nix`).
+- `hosts/station-arch/home.nix` updated with: `discord.enable`, `development.enable`, `media.enable`, `communication.enable`, `utilities.enable`, `lmstudio.enable` all set to `true`.
+- `utilities.nix` uses `inputs` for `claude-code` and `pkgs-unstable` for opencode — both available via `extraSpecialArgs` in standalone.
+- `development.nix` and `media.nix` use `pkgs-unstable` — also available.
+- station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
+- standalone HM eval SUCCESS: `/nix/store/npv6nzcis6qg4lgvr2allw3knjkvw7ph-home-manager-generation.drv` ✓
