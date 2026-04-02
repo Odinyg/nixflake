@@ -817,7 +817,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
   **Commit**: NO (verification only)
 
-- [ ] 9. Refactor remaining `cli/` modules for standalone compatibility
+- [x] 9. Refactor remaining `cli/` modules for standalone compatibility
 
   **What to do**:
   Apply the SAME compatibility approach validated in Task 7 to ALL remaining CLI modules (excluding `git.nix` and `mcp.nix` — already done in pilot):
@@ -895,7 +895,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 10. Refactor `neovim/` submodules for standalone compatibility
+- [x] 10. Refactor `neovim/` submodules for standalone compatibility
 
   **What to do**:
   Apply compatibility approach to ALL neovim submodules:
@@ -948,7 +948,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 11. Refactor `app/` modules for standalone compatibility
+- [x] 11. Refactor `app/` modules for standalone compatibility
 
   **What to do**:
   Apply compatibility approach to ALL app modules:
@@ -1001,7 +1001,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 12. Refactor remaining `desktop/hyprland/` modules for standalone compatibility
+- [x] 12. Refactor remaining `desktop/hyprland/` modules for standalone compatibility
 
   **What to do**:
   Apply compatibility approach to remaining Hyprland modules (excluding `default.nix` — done in Task 7 pilot):
@@ -1060,7 +1060,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 13. Refactor `misc/` modules for standalone compatibility
+- [x] 13. Refactor `misc/` modules for standalone compatibility
 
   **What to do**:
   Apply compatibility approach to:
@@ -1112,7 +1112,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 14. Update module index files (`default.nix`) for standalone compatibility
+- [x] 14. Update module index files (`default.nix`) for standalone compatibility
 
   **What to do**:
   Update the category-level and top-level `default.nix` files to work in both NixOS and standalone mode:
@@ -1174,7 +1174,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 15. Full station-arch `home.nix` with all module enables + overrides
+- [x] 15. Full station-arch `home.nix` with all module enables + overrides
 
   **What to do**:
   Build the complete `hosts/station-arch/home.nix` configuration that replicates station's current NixOS setup:
@@ -1279,7 +1279,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 16. Stylix standalone theming configuration
+- [x] 16. Stylix standalone theming configuration
 
   **What to do**:
   Based on Task 4 validation results, configure stylix in the station-arch standalone config:
@@ -1344,7 +1344,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 17. SOPS standalone secrets configuration + path migration
+- [x] 17. SOPS standalone secrets configuration + path migration
 
   **What to do**:
   Based on Task 5 validation results, configure SOPS in station-arch:
@@ -1411,7 +1411,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 18. Nix daemon + build server configuration documentation
+- [x] 18. Nix daemon + build server configuration documentation
 
   **What to do**:
   Document how to configure station as a Nix remote builder on Arch Linux:
@@ -1472,7 +1472,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 ---
 
-- [ ] 19. Full evaluation test — all homeConfigurations + nixosConfigurations
+- [x] 19. Full evaluation test — all homeConfigurations + nixosConfigurations
 
   **What to do**:
   Final integration test after all Wave 4 work:
