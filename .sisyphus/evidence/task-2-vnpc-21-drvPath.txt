@@ -1,0 +1,1 @@
+"/nix/store/rxa0jsq0fw84f3173cnkz000xc61pi6r-nixos-system-VNPC-21-25.05.20260102.ac62194.drv"

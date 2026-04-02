@@ -33,6 +33,7 @@
       systems = [ "x86_64-linux" ];
       imports = [
         ./parts/hosts.nix
+        ./parts/home-manager-standalone.nix
         ./parts/dev.nix
         ./parts/deploy.nix
       ];

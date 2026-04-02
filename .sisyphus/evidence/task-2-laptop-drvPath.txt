@@ -1,0 +1,1 @@
+"/nix/store/9x860q4fg263bhvrgk0vl70v64i75wbp-nixos-system-laptop-25.05.20260102.ac62194.drv"
