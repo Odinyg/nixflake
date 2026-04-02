@@ -143,3 +143,41 @@
 - chromium has only HM config → standard dual-mode with `lib.optionals standalone`.
 - station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
 - standalone HM eval SUCCESS: `/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv` ✓
+
+## [2026-04-02] Task 14 — category-level default.nix index files for standalone
+
+### Problem
+`modules/home-manager/default.nix` defines `options.user` AND imports all 4 category defaults. `standalone-compat.nix` also defines `options.user`. If both were imported in standalone → duplicate option definition error.
+
+### Solution (Option A)
+`parts/home-manager-standalone.nix` now imports the 4 category defaults DIRECTLY, skipping the top-level `modules/home-manager/default.nix`:
+```nix
+modules = [
+  inputs.nixvim.homeModules.nixvim
+  ../modules/home-manager/standalone-compat.nix  # provides options.user (NOT default.nix)
+  ../modules/home-manager/cli/default.nix
+  ../modules/home-manager/app/default.nix
+  ../modules/home-manager/desktop/default.nix
+  ../modules/home-manager/misc/default.nix
+  ../hosts/station-arch/home.nix
+];
+```
+
+### Key insight: nixvim defines options.nixpkgs in standalone HM
+`inputs.nixvim.homeModules.nixvim` defines `options.nixpkgs`. So `options ? nixpkgs = true` in standalone, making `standalone = !(options ? nixpkgs)` evaluate to `false` in standalone — the WRONG direction for guards around NixOS-only code.
+
+- **Safe for guard-free dual-mode modules** (git, mcp, discord, etc.): with `standalone = false`, config goes to freeform `home-manager.users` (no-op) and no NixOS-only code runs.
+- **WRONG for modules with `environment.systemPackages`** (zen-browser, thunar): `!(options ? nixpkgs)` makes the NixOS guard run in standalone → "option environment does not exist" error.
+- **Correct detector for NixOS-only code**: `standalone = !(options ? environment)` — `options.environment` doesn't exist in HM (even with nixvim), confirmed by test.
+
+### Category defaults are safe to import wholesale
+- All `app/` modules: already dual-mode (T11)
+- All `desktop/` modules: already dual-mode (T7/T12)
+- `cli/` modules not enabled in home.nix: NixOS-only but disabled by default → `lib.mkIf false` prevents eval of undefined options
+- `misc/zen-browser.nix`, `misc/thunar.nix`: use `standalone = !(options ? environment)` to guard `environment.systemPackages`
+- `cli/xdg.nix`: no longer defines `options.xdg.enable` (T9 moved it); uses HM's own `xdg.enable`
+
+### Verified results
+- station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
+- standalone HM eval SUCCESS: `/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv` ✓
+- All 8 NixOS hosts: PASS

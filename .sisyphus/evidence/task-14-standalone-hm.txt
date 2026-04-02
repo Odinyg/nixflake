@@ -1,0 +1,14 @@
+Standalone HM drvPath after T14 (category defaults):
+/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv
+
+Command: nix eval .#homeConfigurations."none@station".activationPackage.drvPath
+Result: SUCCESS ✓
+
+Module list in parts/home-manager-standalone.nix:
+- inputs.nixvim.homeModules.nixvim
+- ../modules/home-manager/standalone-compat.nix (provides options.user, options.hyprland.*, options.home-manager.users)
+- ../modules/home-manager/cli/default.nix     (imports all cli modules)
+- ../modules/home-manager/app/default.nix     (imports all app modules)
+- ../modules/home-manager/desktop/default.nix (imports hyprland/ and all its sub-modules)
+- ../modules/home-manager/misc/default.nix    (imports chromium, zen-browser, thunar)
+- ../hosts/station-arch/home.nix

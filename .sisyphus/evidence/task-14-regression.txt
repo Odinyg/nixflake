@@ -1,0 +1,11 @@
+Full NixOS regression after T14:
+laptop:         /nix/store/9x860q4fg263bhvrgk0vl70v64i75wbp-nixos-system-laptop-25.05.20260102.ac62194.drv  ✓
+VNPC-21:        /nix/store/rxa0jsq0fw84f3173cnkz000xc61pi6r-nixos-system-VNPC-21-25.05.20260102.ac62194.drv ✓
+station:        /nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv ✓ (UNCHANGED)
+pulse:          /nix/store/p0fzddipqx35a22iivi7zx698q7114g0-nixos-system-pulse-26.05.20260328.8110df5.drv   ✓
+sugar:          /nix/store/c8f94106qh16jlby8x15cpf587x5r9mm-nixos-system-sugar-26.05.20260328.8110df5.drv   ✓
+byob:           /nix/store/0lkrg3lbpzzw3ryz1sd6ldxs91knl86s-nixos-system-byob-26.05.20260328.8110df5.drv   ✓
+psychosocial:   /nix/store/nkgqsgxa49lfh542by0a0cfyd1wk6rw5-nixos-system-psychosocial-26.05.20260328.8110df5.drv ✓
+spiders:        /nix/store/pxd2j4hli8y8i1s92h4dk89dxri6xss5-nixos-system-spiders-26.05.20260328.8110df5.drv ✓
+
+All 8 NixOS hosts evaluated successfully.
