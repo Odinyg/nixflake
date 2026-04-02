@@ -1764,15 +1764,15 @@ Max Concurrent: 6 (Waves 1, 3, 5)
 
 > 4 review agents run in PARALLEL. ALL must APPROVE. Present consolidated results to user and get explicit "okay" before completing.
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
+- [x] F1. **Plan Compliance Audit** — `oracle`
   Read the plan end-to-end. For each "Must Have": verify implementation exists (nix eval outputs, read config files). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in `.sisyphus/evidence/`. Compare deliverables against plan. Verify `nixosConfigurations.station` still exists (not removed). Verify all documentation files have required sections.
   Output: `Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT`
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
+- [x] F2. **Code Quality Review** — `unspecified-high`
   Run `nix flake check` and `nix fmt -- --check .`. Review all changed/new Nix files for: unused imports, inconsistent patterns, hardcoded paths that should be variables, missing `lib.mkIf` guards. Check that module compatibility layer is clean (no hacks, no `builtins.tryEval`). Verify all modules follow the same refactoring pattern consistently.
   Output: `Flake Check [PASS/FAIL] | Format [PASS/FAIL] | Files [N clean/N issues] | VERDICT`
 
-- [ ] F3. **Real QA — Full Nix Eval Suite** — `unspecified-high`
+- [x] F3. **Real QA — Full Nix Eval Suite** — `unspecified-high`
   Run ALL these commands and capture output:
   - `nix eval .#homeConfigurations."none@station".activationPackage.drvPath`
   - `nix eval .#nixosConfigurations.laptop.config.system.build.toplevel.drvPath`
@@ -1782,7 +1782,7 @@ Max Concurrent: 6 (Waves 1, 3, 5)
   ALL must succeed. Save evidence to `.sisyphus/evidence/final-qa/`.
   Output: `Evaluations [N/N pass] | Build [PASS/FAIL] | VERDICT`
 
-- [ ] F4. **Scope Fidelity Check** — `deep`
+- [x] F4. **Scope Fidelity Check** — `deep`
   For each task: read "What to do", read actual diff (`git diff main...HEAD`). Verify 1:1 — everything in spec was built, nothing beyond spec was built. Check "Must NOT do" compliance: no module behavior changes, no theme changes, no server config changes, no removed nixosConfigurations.station. Flag unaccounted files.
   Output: `Tasks [N/N compliant] | Contamination [CLEAN/N issues] | Unaccounted [CLEAN/N files] | VERDICT`
 
