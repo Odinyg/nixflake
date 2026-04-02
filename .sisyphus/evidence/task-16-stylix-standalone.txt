@@ -1,0 +1,18 @@
+Task 16 — Stylix standalone integration
+
+Changes:
+- Added `inputs.stylix.homeModules.stylix` to `parts/home-manager-standalone.nix` modules list.
+- Added standalone `stylix.*` config in `hosts/station-arch/home.nix`:
+  - enable = true
+  - base16Scheme = nord
+  - image = ../../modules/home-manager/desktop/hyprland/wallpaper/wallpaper.png
+  - polarity = dark
+  - opacity.terminal = 0.85
+  - autoEnable = true
+  - cursor = Bibata-Modern-Ice, size 18
+
+Verification:
+- `nix eval .#homeConfigurations."none@station".activationPackage.drvPath` succeeded:
+  - "/nix/store/26grwsnakv75cqfl407i2dr9b6fghl53-home-manager-generation.drv"
+- Station NixOS drvPath remained unchanged:
+  - "/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv"

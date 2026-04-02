@@ -1,0 +1,17 @@
+Task 15 — station-specific HM overrides in standalone home.nix
+
+Applied in `hosts/station-arch/home.nix`:
+- `tmux.sessions` for `vnpc-21` and `laptop`
+- `programs.swaylock.enable = lib.mkForce false`
+- `services.hypridle.enable = lib.mkForce false`
+- `wayland.windowManager.hyprland.package = null`
+- `wayland.windowManager.hyprland.settings.general.gaps_in = lib.mkForce 0`
+- `wayland.windowManager.hyprland.settings.general.gaps_out = lib.mkForce 0`
+- Workspace monitor assignments (1-5 HDMI-A-1, 6-10 DP-1)
+- Workspace gap rules via `wayland.windowManager.hyprland.extraConfig`
+- `hyprland.kanshi.profiles` dual-monitor profile
+- `hyprland.monitors.extraConfig` dual-monitor static config
+
+Eval checks:
+- standalone HM: "/nix/store/26grwsnakv75cqfl407i2dr9b6fghl53-home-manager-generation.drv"
+- station NixOS unchanged: "/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv"

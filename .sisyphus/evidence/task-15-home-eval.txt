@@ -1,0 +1,2 @@
+warning: Git tree '/home/none/nixflake' is dirty
+"/nix/store/26grwsnakv75cqfl407i2dr9b6fghl53-home-manager-generation.drv"

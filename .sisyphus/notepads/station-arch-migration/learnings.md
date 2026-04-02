@@ -181,3 +181,21 @@ modules = [
 - station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
 - standalone HM eval SUCCESS: `/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv` ✓
 - All 8 NixOS hosts: PASS
+
+## [2026-04-02] Task 15/16/17 — station-arch home completion + standalone Stylix/SOPS
+- `hosts/station-arch/home.nix` now contains all station-specific HM overrides from `hosts/station/default.nix`:
+  - `tmux.sessions` remote entries for `vnpc-21` and `laptop`
+  - forced disable for `programs.swaylock.enable` and `services.hypridle.enable`
+  - forced `hyprland` gaps (`gaps_in = 0`, `gaps_out = 0`), workspace assignment map (1-10 across HDMI-A-1/DP-1)
+  - workspace gap rules in `wayland.windowManager.hyprland.extraConfig`
+  - `wayland.windowManager.hyprland.package = null` (use system Hyprland on Arch)
+  - `hyprland.kanshi.profiles` + `hyprland.monitors.extraConfig` dual-monitor layout
+- `parts/home-manager-standalone.nix` now imports:
+  - `inputs.stylix.homeModules.stylix`
+  - `inputs.sops-nix.homeManagerModules.sops`
+- Standalone Stylix config added directly in `hosts/station-arch/home.nix` with Nord theme, dark polarity, wallpaper path, terminal opacity `0.85`, and Bibata cursor.
+- Standalone SOPS config added directly in `hosts/station-arch/home.nix` with key file, `secrets/secrets.yaml`, validation disabled, and four declared secrets (`ssh_keys/*`, `ssh_public_keys/*`, `ssh_certs/*`, `github_token`).
+- Verification:
+  - `nix eval .#homeConfigurations."none@station".activationPackage.drvPath` → `/nix/store/26grwsnakv75cqfl407i2dr9b6fghl53-home-manager-generation.drv`
+  - `nix eval .#nixosConfigurations.station.config.system.build.toplevel.drvPath` remained unchanged:
+    `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv`

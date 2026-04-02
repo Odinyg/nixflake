@@ -23,6 +23,8 @@ in
     };
     modules = [
       inputs.nixvim.homeModules.nixvim
+      inputs.stylix.homeModules.stylix
+      inputs.sops-nix.homeManagerModules.sops
       # standalone-compat provides options.user + options.hyprland.* + options.home-manager.users
       # Do NOT import ../modules/home-manager/default.nix — it also defines options.user (duplicate)
       ../modules/home-manager/standalone-compat.nix

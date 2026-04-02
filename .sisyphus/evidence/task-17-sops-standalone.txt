@@ -1,0 +1,19 @@
+Task 17 — SOPS standalone integration
+
+Changes:
+- Added `inputs.sops-nix.homeManagerModules.sops` to `parts/home-manager-standalone.nix` modules list.
+- Added standalone `sops.*` config in `hosts/station-arch/home.nix`:
+  - age.keyFile = /home/none/.config/sops/age/keys.txt
+  - defaultSopsFile = ../../secrets/secrets.yaml
+  - validateSopsFiles = false
+  - secrets:
+    - ssh_keys/id_ed25519_sk -> /home/none/.ssh/id_ed25519_sk (0600)
+    - ssh_public_keys/id_ed25519_sk -> /home/none/.ssh/id_ed25519_sk.pub (0644)
+    - ssh_certs/id_ed25519_sk-cert -> /home/none/.ssh/id_ed25519_sk-cert.pub (0644)
+    - github_token (0400)
+
+Verification:
+- `nix eval .#homeConfigurations."none@station".activationPackage.drvPath` succeeded:
+  - "/nix/store/26grwsnakv75cqfl407i2dr9b6fghl53-home-manager-generation.drv"
+- Station NixOS drvPath remained unchanged:
+  - "/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv"
