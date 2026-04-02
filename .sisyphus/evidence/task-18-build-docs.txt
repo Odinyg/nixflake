@@ -1,0 +1,31 @@
+Task 18 Evidence — station Arch build/cache documentation
+Date: 2026-04-02
+
+Created:
+- docs/station-arch-build-server.md
+
+Required source files reviewed:
+- hosts/station/default.nix
+- hosts/laptop/default.nix
+- modules/nixos/general.nix
+- .sisyphus/notepads/station-arch-migration/learnings.md
+
+Cross-check notes from repo state:
+- station configured as distributed builder host (`distributedBuilds.isBuilder = true`)
+- laptop configured as non-builder client with station cache public key
+- vnpc-21 configured as non-builder client with station cache public key
+- station network IP documented as 10.10.10.10
+
+Documentation sections included in docs/station-arch-build-server.md:
+- Overview
+- Nix Daemon Configuration (nix-daemon + nix.conf)
+- nix-serve Binary Cache
+- Signing key restoration details and public key
+- Firewall (port 5000 LAN access)
+- Garbage collection (systemd service+timer)
+- Remote builder configuration
+- Client configuration
+- Verification commands and expected output
+
+Requested commit message target:
+- feat(station-arch): add nix-daemon build server documentation
