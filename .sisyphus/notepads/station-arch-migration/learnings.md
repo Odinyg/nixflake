@@ -135,3 +135,11 @@
   `xdg.enable`, `zellij.enable` all set to `true`.
 - station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
 - standalone HM eval SUCCESS: `/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv` ✓
+
+## [2026-04-02] Task 13 — misc modules dual-mode (chromium, zen-browser, thunar)
+- All three misc modules were already fully refactored in commit `0d87b4a` (T9) as part of the cli modules migration. T13 confirmed correctness and produced evidence.
+- CRITICAL: `options ? nixpkgs` is TRUE in standalone HM (HM defines its own `nixpkgs.*` options). Correct NixOS-vs-standalone check is `standalone = !(options ? environment)`.
+- zen-browser and thunar have NixOS-only `environment.systemPackages` guarded with `lib.optionals (!standalone)`.
+- chromium has only HM config → standard dual-mode with `lib.optionals standalone`.
+- station NixOS drvPath UNCHANGED: `/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv` ✓
+- standalone HM eval SUCCESS: `/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv` ✓

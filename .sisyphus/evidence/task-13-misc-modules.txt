@@ -1,0 +1,26 @@
+# Task 13 Evidence: Misc Modules Dual-Mode Compatibility
+
+## Date: 2026-04-02
+
+## Modules Refactored
+- modules/home-manager/misc/chromium.nix
+- modules/home-manager/misc/zen-browser.nix
+- modules/home-manager/misc/thunar.nix
+
+## Key Findings
+- options ? nixpkgs is TRUE in standalone HM (HM defines its own nixpkgs.* options)
+  → Used options ? environment instead (environment is NixOS-only)
+- zen-browser.nix and thunar.nix have NixOS-only environment.systemPackages
+  → Guarded with lib.optionals (!standalone)
+- cli/xdg.nix was already refactored (working tree) to remove duplicate options.xdg.enable
+
+## NixOS station drvPath (UNCHANGED)
+/nix/store/gzimfjqgby17ap6cjrdpjiwi3w2slw7l-nixos-system-station-25.05.20260102.ac62194.drv
+
+## Standalone HM activationPackage drvPath (SUCCEEDS)
+/nix/store/gyjz2jf2fgl7bhxiswzr4s175hq3rbkc-home-manager-generation.drv
+
+## Standalone detection
+standalone = !(options ? environment)
+- In NixOS: options.environment exists → standalone = false → NixOS path
+- In standalone HM: options.environment absent → standalone = true → HM path
