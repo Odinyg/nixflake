@@ -47,7 +47,7 @@ in
       package = pkgs.postgresql_16;
       settings = {
         port = cfg.port;
-        listen_addresses = cfg.listenAddresses;
+        listen_addresses = lib.mkForce cfg.listenAddresses;
       };
 
       ensureDatabases = cfg.databases;
