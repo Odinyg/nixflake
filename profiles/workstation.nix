@@ -14,9 +14,13 @@
   # WORKSTATION-SPECIFIC CONFIGURATION
   # ==============================================================================
 
-  # Additional desktop environments
-  randr.enable = lib.mkDefault true;
-  
+  # Display management
+  environment.systemPackages = [
+    pkgs.xorg.xrandr
+    pkgs.arandr
+  ];
+  services.autorandr.enable = true;
+
   # Work tools
   programs.dconf.enable = true;
 
@@ -25,6 +29,5 @@
     logLevel = "debug";
     openFirewall = true;
   };
-
 
 }

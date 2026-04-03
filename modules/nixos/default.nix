@@ -2,7 +2,6 @@
 {
   imports = [
     ./tailscale.nix
-    ./onedrive.nix
     ./gaming.nix
     ./work
     ./password.nix
@@ -24,10 +23,7 @@
     ./init-net.nix
     ./hosted-services
     ./secrets.nix
-    ./protonvpn.nix
     ./netbird-client.nix
-    ./localsend.nix
     ./fail2ban.nix
-    ./postgresql.nix
   ];
 }

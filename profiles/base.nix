@@ -29,7 +29,9 @@
   audio.enable = true;
   wireless.enable = true;
   bluetooth.enable = true;
-  zsa.enable = true;
+
+  # ZSA keyboard support
+  hardware.keyboard.zsa.enable = true;
 
   # ==============================================================================
   # TERMINAL & CLI TOOLS
@@ -49,12 +51,14 @@
   direnv.enable = true;
   languages.enable = true;
 
-  # Development packages needed for building C/C++ projects
+  # Development packages + ZSA keyboard tools
   environment.systemPackages = with pkgs; [
     gcc
     gnumake
     pkg-config
     libusb1
+    wally-cli
+    zsa-udev-rules
   ];
 
   # ==============================================================================

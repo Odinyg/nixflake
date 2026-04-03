@@ -59,20 +59,25 @@
   secrets.enable = true;
 
   gaming.enable = true;
-  protonvpn.enable = true;
   fail2ban-security.enable = false;
+
+  # ProtonVPN
+  environment.systemPackages = [ pkgs.protonvpn-gui ];
+  services.resolved.enable = true;
 
   # Hyprland display configuration
   hyprland = {
     kanshi.profiles = [
       {
         profile.name = "laptop-only";
-        profile.outputs = [{
-          criteria = "eDP-1";
-          status = "enable";
-          mode = "1920x1200";
-          scale = 1.0;
-        }];
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+            mode = "1920x1200";
+            scale = 1.0;
+          }
+        ];
       }
     ];
   };
@@ -109,4 +114,3 @@
   # ==============================================================================
   system.stateVersion = "25.05";
 }
-

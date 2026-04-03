@@ -11,9 +11,6 @@
   # LAPTOP-SPECIFIC CONFIGURATION
   # ==============================================================================
 
-  # Hardware for mobile systems
-  randr.enable = false;
-
   # Work
   crypt.enable = true;
 
@@ -26,4 +23,3 @@
   styling.opacity.terminal = 0.92;
   styling.cursor.size = 18;
 }
-
