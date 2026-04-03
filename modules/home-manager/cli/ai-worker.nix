@@ -8,7 +8,7 @@ let
   cfg = config.aiWorker;
 
   aiWorkerScript = pkgs.writeShellScript "ai-worker" ''
-    set -euo pipefail
+    set -u
 
     NTFY_TOPIC="''${NTFY_TOPIC:-https://ntfy.pytt.io/ai-tasks/json}"
     FORGEJO_URL="''${FORGEJO_URL:-https://git.pytt.io}"
@@ -93,20 +93,32 @@ let
     log "AI Worker started - listening on ntfy topic: ai-tasks"
     log "Work directory: $WORK_DIR"
 
-    ${pkgs.curl}/bin/curl -s -N -H "Authorization: Bearer ''${NTFY_TOKEN}" "$NTFY_TOPIC" | while read -r line; do
-      IS_LABEL_EVENT=$(echo "$line" | ${pkgs.jq}/bin/jq -r 'select(.action == "label") | .issue.number // empty' 2>/dev/null || true)
-
-      if [ -n "''${IS_LABEL_EVENT:-}" ]; then
-        LABEL_NAME=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.label.name // empty' 2>/dev/null || true)
-        if [ "$LABEL_NAME" = "ai-task" ]; then
-          REPO=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.repository.full_name' 2>/dev/null)
-          ISSUE_NUM=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.number' 2>/dev/null)
-          ISSUE_TITLE=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.title' 2>/dev/null)
-          ISSUE_BODY=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.body' 2>/dev/null)
-
-          process_issue "$REPO" "$ISSUE_NUM" "$ISSUE_TITLE" "$ISSUE_BODY" &
+    while true; do
+      log "Connecting to ntfy stream..."
+      ${pkgs.curl}/bin/curl -s -N -H "Authorization: Bearer ''${NTFY_TOKEN}" "$NTFY_TOPIC" | while IFS= read -r line; do
+        # Skip ntfy control events (open, keepalive)
+        EVENT_TYPE=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.event // .action // empty' 2>/dev/null || true)
+        if [ "$EVENT_TYPE" = "open" ] || [ "$EVENT_TYPE" = "keepalive" ]; then
+          log "ntfy: $EVENT_TYPE"
+          continue
         fi
-      fi
+
+        IS_LABEL_EVENT=$(echo "$line" | ${pkgs.jq}/bin/jq -r 'select(.action == "label") | .issue.number // empty' 2>/dev/null || true)
+
+        if [ -n "''${IS_LABEL_EVENT:-}" ]; then
+          LABEL_NAME=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.label.name // empty' 2>/dev/null || true)
+          if [ "$LABEL_NAME" = "ai-task" ]; then
+            REPO=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.repository.full_name' 2>/dev/null)
+            ISSUE_NUM=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.number' 2>/dev/null)
+            ISSUE_TITLE=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.title' 2>/dev/null)
+            ISSUE_BODY=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.body' 2>/dev/null)
+
+            process_issue "$REPO" "$ISSUE_NUM" "$ISSUE_TITLE" "$ISSUE_BODY" &
+          fi
+        fi
+      done
+      log "Stream disconnected, reconnecting in 5s..."
+      sleep 5
     done
   '';
 in
