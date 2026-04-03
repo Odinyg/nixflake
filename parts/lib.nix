@@ -77,11 +77,16 @@ let
       stateVersion ? "25.05",
       extraModules ? [ ],
     }:
+    let
+      hostname = builtins.baseNameOf (toString hostPath);
+    in
     serverCommonModules
     ++ [
       sharedConfig
       hostPath
       { _module.args = { inherit pkgs-unstable; }; }
+      # Auto-derive sops secrets file from hostname (secrets/<hostname>.yaml)
+      { sops.defaultSopsFile = ../secrets + "/${hostname}.yaml"; }
     ]
     ++ extraModules;
 in

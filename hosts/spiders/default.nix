@@ -36,8 +36,6 @@
     "2a02:c207::1:53"
   ];
 
-  sops.defaultSopsFile = ../../secrets/spiders.yaml;
-
   # --- Services ---
   server.disko.enable = true;
   server.disko.disk = "/dev/sda";

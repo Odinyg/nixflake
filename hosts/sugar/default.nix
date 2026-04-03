@@ -32,8 +32,6 @@
     ];
   };
 
-  sops.defaultSopsFile = ../../secrets/sugar.yaml;
-
   # --- Services ---
   server.disko.enable = true;
 

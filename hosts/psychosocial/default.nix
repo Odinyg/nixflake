@@ -28,8 +28,6 @@
     ];
   };
 
-  sops.defaultSopsFile = ../../secrets/psychosocial.yaml;
-
   # --- Services ---
   server.disko.enable = true;
   server.caddy.enable = true;
