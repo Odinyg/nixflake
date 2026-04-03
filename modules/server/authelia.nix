@@ -313,6 +313,6 @@ in
       AUTHELIA_SESSION_REDIS_PASSWORD_FILE = config.sops.secrets.authelia_session_redis_password.path;
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.metricsPort ]; # Authelia metrics
+    # Metrics accessible via trusted VPN (wt0) only — no public firewall opening needed
   };
 }

@@ -33,7 +33,7 @@ in
         incomplete-dir = "${cfg.downloadDir}/incomplete";
         incomplete-dir-enabled = true;
         rpc-port = cfg.port;
-        rpc-bind-address = "0.0.0.0";
+        rpc-bind-address = "0.0.0.0"; # Caddy on psychosocial reverse-proxies to this host over LAN
         rpc-whitelist-enabled = false;
       };
     };

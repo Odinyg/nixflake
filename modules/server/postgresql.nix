@@ -28,8 +28,8 @@ in
     };
     listenAddresses = lib.mkOption {
       type = lib.types.str;
-      default = "0.0.0.0";
-      description = "Addresses to listen on (use 'localhost' for local-only)";
+      default = "localhost";
+      description = "Addresses to listen on (use '0.0.0.0' for network access from Caddy/Docker)";
     };
     allowedNetworks = lib.mkOption {
       type = lib.types.listOf lib.types.str;

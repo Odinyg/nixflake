@@ -26,7 +26,7 @@ in
         hash = "sha256-o0zYCp3h7E0L1cgmJwNtGNgzhmZk5BAVoWQA+eL+zqc=";
       };
       globalConfig = ''
-        admin 0.0.0.0:2019
+        admin 127.0.0.1:2019
         servers {
           metrics
         }

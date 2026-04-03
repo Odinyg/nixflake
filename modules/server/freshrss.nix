@@ -67,6 +67,7 @@ in
     };
 
     # Override nginx to listen on cfg.port instead of 80 (Nextcloud already uses 80)
+    # Binds 0.0.0.0 — Caddy on psychosocial reverse-proxies to this host over the LAN
     services.nginx.virtualHosts.${cfg.domain} = {
       listen = [
         {

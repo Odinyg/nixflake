@@ -39,6 +39,7 @@
 
   server.postgresql = {
     enable = true;
+    listenAddresses = "0.0.0.0"; # Docker containers and Caddy connect over the network
     databases = [
       "mealie"
       "n8n"

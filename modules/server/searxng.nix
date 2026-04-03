@@ -32,7 +32,7 @@ in
       settings = {
         server = {
           port = cfg.port;
-          bind_address = "0.0.0.0";
+          bind_address = "0.0.0.0"; # Caddy on psychosocial reverse-proxies to this host over LAN
           secret_key = "$SEARXNG_SECRET";
         };
         search = {
@@ -50,7 +50,6 @@ in
       partOf = [ "homelab.target" ];
       wantedBy = [ "homelab.target" ];
     };
-
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };

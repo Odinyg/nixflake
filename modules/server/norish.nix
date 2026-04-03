@@ -78,7 +78,7 @@ in
         "--no-sandbox"
         "--disable-gpu"
         "--disable-dev-shm-usage"
-        "--remote-debugging-address=0.0.0.0"
+        "--remote-debugging-address=0.0.0.0" # Required for inter-container communication on iowa network
         "--remote-debugging-port=3000"
         "--headless"
       ];
@@ -94,7 +94,7 @@ in
       wantedBy = [ "homelab.target" ];
     };
 
-    # Dedicated Redis instance for Norish (binds 0.0.0.0 for Docker container access)
+    # Dedicated Redis for Norish — 0.0.0.0 required so Docker containers on the iowa network can reach it
     services.redis.servers.norish = {
       enable = true;
       port = cfg.redisPort;
@@ -102,7 +102,10 @@ in
       requirePassFile = config.sops.secrets.redis_pass.path;
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port cfg.redisPort ];
+    networking.firewall.allowedTCPPorts = [
+      cfg.port
+      cfg.redisPort
+    ];
 
     systemd.tmpfiles.rules = [
       "d /var/lib/homelab/norish 0755 root root -"
