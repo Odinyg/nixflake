@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -160,6 +155,14 @@
 
       @norish host norish.pytt.io
       handle @norish {
+        reverse_proxy 10.10.30.111:3100
+      }
+
+      @forgejo host forgejo.pytt.io git.pytt.io
+      handle @forgejo {
+        request_body {
+          max_size 1G
+        }
         reverse_proxy 10.10.30.111:3000
       }
 

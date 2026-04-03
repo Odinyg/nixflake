@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
 
@@ -38,6 +36,7 @@
   server.postgresql = {
     enable = true;
     databases = [
+      "forgejo"
       "mealie"
       "n8n"
       "nextcloud"
@@ -47,6 +46,10 @@
   };
 
   server.n8n = {
+    enable = true;
+    dbHost = "127.0.0.1";
+  };
+  server.forgejo = {
     enable = true;
     dbHost = "127.0.0.1";
   };
