@@ -95,6 +95,12 @@ in
       requires = [ "forgejo.service" ];
       partOf = [ "homelab.target" ];
       wantedBy = [ "homelab.target" ];
+      environment = {
+        FORGEJO_CUSTOM = config.services.forgejo.customDir;
+        FORGEJO_WORK_DIR = config.services.forgejo.stateDir;
+        HOME = config.services.forgejo.stateDir;
+        USER = "forgejo";
+      };
       serviceConfig = {
         Type = "oneshot";
         User = "forgejo";
