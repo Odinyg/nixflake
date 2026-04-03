@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ ./base.nix ];
+  imports = [ ./desktop.nix ];
 
   # ==============================================================================
   # LAPTOP-SPECIFIC CONFIGURATION
@@ -26,4 +26,3 @@
   styling.opacity.terminal = 0.92;
   styling.cursor.size = 18;
 }
-
