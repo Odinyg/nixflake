@@ -20,7 +20,7 @@
   audio.enable = true;
   wireless.enable = true;
   bluetooth.enable = true;
-  zsa.enable = true;
+  hardware.keyboard.zsa.enable = true;
 
   # ==============================================================================
   # TERMINAL & CLI TOOLS
