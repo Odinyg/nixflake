@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
 
@@ -55,6 +53,7 @@
     enable = true;
     dbHost = "127.0.0.1";
   };
+  server.forgejo-runner.enable = true;
   server.searxng.enable = true;
   server.nextcloud = {
     enable = true;

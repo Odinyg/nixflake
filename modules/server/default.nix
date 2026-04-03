@@ -34,6 +34,7 @@
     ./wger.nix
     ./freshrss.nix
     ./forgejo.nix
+    ./forgejo-runner.nix
     # VPN / overlay network (spiders)
     ./netbird.nix
   ];
