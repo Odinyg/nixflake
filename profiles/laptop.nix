@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ ./base.nix ];
+  imports = [ ./desktop.nix ];
 
   # ==============================================================================
   # LAPTOP-SPECIFIC CONFIGURATION

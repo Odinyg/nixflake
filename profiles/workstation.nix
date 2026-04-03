@@ -5,21 +5,14 @@
   ...
 }:
 {
-  imports = [
-    ./base.nix
-    ./desktop.nix
-  ];
+  imports = [ ./desktop.nix ];
 
   # ==============================================================================
   # WORKSTATION-SPECIFIC CONFIGURATION
   # ==============================================================================
 
-  # Display management
-  environment.systemPackages = [
-    pkgs.xorg.xrandr
-    pkgs.arandr
-  ];
-  services.autorandr.enable = true;
+  # Additional desktop environments
+  randr.enable = lib.mkDefault true;
 
   # Work tools
   programs.dconf.enable = true;
