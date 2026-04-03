@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.services.ai-worker;
+  cfg = config.services.aiWorker;
 
   aiWorkerScript = pkgs.writeShellScript "ai-worker" ''
     set -euo pipefail
@@ -111,7 +111,7 @@ let
   '';
 in
 {
-  options.services.ai-worker = {
+  options.services.aiWorker = {
     enable = lib.mkEnableOption "AI task worker for Forgejo";
     workDir = lib.mkOption {
       type = lib.types.str;

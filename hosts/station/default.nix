@@ -148,7 +148,7 @@
 
   # Disable lockscreen/idle management (causes crashes on HDMI disconnect)
   home-manager.users.none = {
-    services.ai-worker.enable = true;
+    services.aiWorker.enable = true;
     programs.swaylock.enable = lib.mkForce false;
     services.hypridle.enable = lib.mkForce false;
 
