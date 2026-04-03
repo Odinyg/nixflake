@@ -115,13 +115,13 @@ in
     enable = lib.mkEnableOption "AI task worker for Forgejo";
     workDir = lib.mkOption {
       type = lib.types.str;
-      default = "${config.home.homeDirectory}/ai-workbench";
+      default = "/home/${config.user}/ai-workbench";
       description = "Directory for AI work repos";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.user.services.ai-worker = {
+    home-manager.users.${config.user}.systemd.user.services.ai-worker = {
       Unit = {
         Description = "AI Task Worker - processes Forgejo issues via Claude";
         After = [ "network-online.target" ];
