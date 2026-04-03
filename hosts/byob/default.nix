@@ -66,6 +66,7 @@
   };
 
   # --- Services ---
+  server.nfs.enable = true;
   server.disko.enable = true;
   server.arr.enable = true;
   server.nzbget.enable = true;
