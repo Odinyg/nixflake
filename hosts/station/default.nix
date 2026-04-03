@@ -83,6 +83,8 @@
     prime.enable = false; # Desktop GPU, no hybrid graphics
   };
 
+  environment.variables.__GL_VRR_ALLOWED = "0";
+
   # ==============================================================================
   # POWER MANAGEMENT - DISABLE SLEEP/SUSPEND
   # ==============================================================================
@@ -156,6 +158,10 @@
         gaps_out = lib.mkForce 0;
       };
 
+      decoration.blur.enabled = lib.mkForce false;
+      misc.vrr = lib.mkForce 0;
+      render.direct_scanout = lib.mkForce 0;
+
       # Assign workspaces to monitors
       workspace = [
         "1, monitor:HDMI-A-1, default:true"
@@ -168,6 +174,15 @@
         "8, monitor:DP-1"
         "9, monitor:DP-1"
         "10, monitor:DP-1"
+      ];
+
+      windowrule = lib.mkAfter [
+        # Keep Battle.net / WoW on the HDMI gaming workspace and avoid
+        # workspace-switch compositor effects that can freeze Proton windows.
+        "match:title ^(.*(Battle\\.net|World of Warcraft|WoW Classic).*)$, workspace 1 silent"
+        "match:title ^(.*Battle\\.net.*)$, float on"
+        "match:title ^(.*(Battle\\.net|World of Warcraft|WoW Classic).*)$, idle_inhibit always"
+        "match:title ^(.*(World of Warcraft|WoW Classic).*)$, border_size 0"
       ];
     };
 

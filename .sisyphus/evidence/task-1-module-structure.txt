@@ -1,0 +1,10 @@
+$ grep -c "options.server.forgejo" modules/server/forgejo.nix
+1
+$ grep -c "lib.mkEnableOption" modules/server/forgejo.nix
+1
+$ grep -c "lib.mkIf cfg.enable" modules/server/forgejo.nix
+1
+$ grep -c "homelab.target" modules/server/forgejo.nix
+4
+$ grep -c "createDatabase = false" modules/server/forgejo.nix
+1

@@ -1,0 +1,5 @@
+Checks:
+  grep -c "git.pytt.io" hosts/psychosocial/default.nix -> 1
+  grep -c "10.10.30.111:3000" hosts/psychosocial/default.nix -> 1
+  grep -c "max_size" hosts/psychosocial/default.nix -> 1
+  grep "10.10.30.111:3100" hosts/psychosocial/default.nix -> reverse_proxy 10.10.30.111:3100

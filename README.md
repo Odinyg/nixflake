@@ -18,16 +18,21 @@ A modular, reproducible NixOS configuration using flakes with home-manager integ
 |------|------|----------|--------------|
 | **psychosocial** | Reverse proxy & gateway | LAN (10.10.30.x) | Caddy, Homepage, Authelia SSO integration |
 | **pulse** | Monitoring & observability | LAN (10.10.30.x) | Prometheus, Grafana, Loki, Gatus, ntfy |
-| **sugar** | Applications & automation | LAN (10.10.30.x) | Nextcloud, Mealie, n8n, FreshRSS, SearXNG, PostgreSQL |
-| **byob** | Media management | LAN (10.10.50.x) | Sonarr, Radarr, Lidarr, Prowlarr, Transmission |
+| **sugar** | Applications & automation | LAN (10.10.30.x) | Nextcloud, Mealie, n8n, FreshRSS, SearXNG, Perplexica, Norish, wger, Netboot.xyz, PostgreSQL |
+| **byob** | Media management | LAN (10.10.50.x) | Sonarr, Radarr, Lidarr, Prowlarr, NZBGet, Transmission, Jellyseerr |
 | **spiders** | Auth & VPN (public VPS) | Cantabo VPS (netbird.pytt.io) | Netbird, Authelia, Nginx, Fail2ban |
+
+### Other
+| Host | Description |
+|------|-------------|
+| **installer** | Minimal ISO with SSH key baked in — for bootstrapping new hosts |
 
 ## Key Features
 
 ### Desktop Environment
 - **Hyprland** — Modern Wayland compositor with custom animations and keybinds
 - **COSMIC** (experimental) — System76's new desktop environment
-- **Waybar** — Customized status bar with system monitoring
+- **Waybar** + **HyprPanel** — Status bars with system monitoring
 - **Rofi** — Application launcher with Nord theming
 - **SwayNC** — Notification daemon for Wayland
 
@@ -49,10 +54,15 @@ A modular, reproducible NixOS configuration using flakes with home-manager integ
 - **Colmena** — Declarative multi-host deployment for all servers
 - **Netbird** — WireGuard-based mesh VPN (managed on spiders VPS)
 - **Authelia** — SSO/2FA authentication (hosted on spiders, integrated via psychosocial)
-- **Caddy** — Reverse proxy with automatic TLS via Cloudflare DNS-01
+- **Caddy** — Reverse proxy with automatic TLS via Cloudflare DNS-01, all services exposed via `*.pytt.io` subdomains
 - **Prometheus + Grafana + Loki** — Full monitoring and log aggregation stack
 - **Nextcloud, Mealie, FreshRSS, n8n** — Self-hosted productivity and automation
-- **ARR stack** — Sonarr, Radarr, Lidarr, Prowlarr for media management
+- **Perplexica** — AI-powered search engine
+- **Norish** — Nutrition tracking application
+- **wger** — Workout/fitness manager with Authelia SSO integration
+- **Netboot.xyz** — Network boot environment for PXE booting
+- **Jellyseerr** — Media request management
+- **ARR stack** — Sonarr, Radarr, Lidarr, Prowlarr, NZBGet for media management
 - **SOPS-nix** — Encrypted secrets with tiered key groups per server
 
 ### System Services
@@ -161,8 +171,23 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 │       ├── authelia.nix       # SSO/2FA
 │       ├── nextcloud.nix      # File sync
 │       ├── arr.nix            # Media stack (sonarr, radarr, etc.)
+│       ├── nzbget.nix         # Usenet downloader
+│       ├── seerr.nix          # Jellyseerr media requests
+│       ├── transmission.nix   # BitTorrent client
 │       ├── postgresql.nix     # Database
-│       └── ...                # 15+ more service modules
+│       ├── mealie.nix         # Recipe manager
+│       ├── norish.nix         # Nutrition tracker
+│       ├── wger.nix           # Workout manager
+│       ├── perplexica.nix     # AI search engine
+│       ├── freshrss.nix       # RSS reader
+│       ├── searxng.nix        # Meta search engine
+│       ├── ntfy.nix           # Push notifications
+│       ├── n8n.nix            # Workflow automation
+│       ├── netbootxyz.nix     # Network boot (PXE)
+│       ├── nfs.nix            # NAS mounts
+│       ├── homepage.nix       # Dashboard
+│       ├── disko.nix          # Disk management
+│       └── gatus.nix          # Health monitoring
 │
 └── secrets/                    # Encrypted secrets (SOPS)
     ├── secrets.yaml           # Shared desktop secrets

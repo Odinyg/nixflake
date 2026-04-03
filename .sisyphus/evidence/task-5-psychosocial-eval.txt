@@ -1,0 +1,7 @@
+Nix eval succeeded.
+
+Command:
+  nix eval .#nixosConfigurations.psychosocial.config.system.build.toplevel.drvPath
+
+Result:
+  "/nix/store/p5qhi5ad06g7iznmgc58mw125znpxrlh-nixos-system-psychosocial-26.05.20260328.8110df5.drv"

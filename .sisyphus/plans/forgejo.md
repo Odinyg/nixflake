@@ -163,7 +163,7 @@ Wave FINAL (After deployment — 4 parallel reviews):
 
 ## TODOs
 
-- [ ] 1. Create Forgejo NixOS Module + Add to Imports
+- [x] 1. Create Forgejo NixOS Module + Add to Imports
 
   **What to do**:
   - Create `modules/server/forgejo.nix` following the codebase's canonical module pattern
@@ -279,7 +279,7 @@ Wave FINAL (After deployment — 4 parallel reviews):
   - Files: `modules/server/forgejo.nix`, `modules/server/default.nix`, `modules/server/norish.nix`
   - Pre-commit: `nix eval .#nixosConfigurations.sugar.config.system.build.toplevel.drvPath` (may fail until secrets exist — that's expected)
 
-- [ ] 2. Move Norish from Port 3000 to Port 3100
+- [x] 2. Move Norish from Port 3000 to Port 3100
 
   **What to do**:
   - Edit `modules/server/norish.nix` — change the port default from `3000` to `3100`
@@ -328,7 +328,7 @@ Wave FINAL (After deployment — 4 parallel reviews):
   - Message: `feat(server): add forgejo module and move norish port`
   - Files: `modules/server/norish.nix`
 
-- [ ] 3. Add Forgejo Secrets to sugar.yaml
+- [x] 3. Add Forgejo Secrets to sugar.yaml
 
   **What to do**:
   - Edit `secrets/sugar.yaml` (using `sops secrets/sugar.yaml` or `just secrets-sugar`) to add:
@@ -395,7 +395,7 @@ Wave FINAL (After deployment — 4 parallel reviews):
   - Message: `chore(secrets): add forgejo secrets to sugar`
   - Files: `secrets/sugar.yaml`
 
-- [ ] 4. Enable Forgejo on Sugar Host Config
+- [x] 4. Enable Forgejo on Sugar Host Config
 
   **What to do**:
   - Edit `hosts/sugar/default.nix` to:
@@ -465,7 +465,7 @@ Wave FINAL (After deployment — 4 parallel reviews):
   - Message: `feat(server): enable forgejo on sugar with caddy route`
   - Files: `hosts/sugar/default.nix`
 
-- [ ] 5. Add Caddy Reverse Proxy Route on Psychosocial
+- [x] 5. Add Caddy Reverse Proxy Route on Psychosocial
 
   **What to do**:
   - Edit `hosts/psychosocial/default.nix` to add a Forgejo handler inside the existing `*.pytt.io` Caddy block
@@ -548,7 +548,7 @@ Wave FINAL (After deployment — 4 parallel reviews):
   - Message: `feat(server): enable forgejo on sugar with caddy route`
   - Files: `hosts/psychosocial/default.nix`
 
-- [ ] 6. Final Nix Eval Verification for Both Hosts
+- [x] 6. Final Nix Eval Verification for Both Hosts
 
   **What to do**:
   - Run `nix eval .#nixosConfigurations.sugar.config.system.build.toplevel.drvPath` — must succeed

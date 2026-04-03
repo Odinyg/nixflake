@@ -46,12 +46,13 @@ sops.templates."service-env".content = ''
 systemd.services.<service>.serviceConfig.EnvironmentFile = config.sops.templates."service-env".path;
 ```
 
-## Server Assignments (from default.nix imports)
+## Server Assignments (from default.nix imports + host configs)
 - **byob**: media (arr, nzbget, transmission, seerr)
-- **psychosocial**: reverse proxy + auth (caddy, authelia, homepage)
-- **pulse**: monitoring (prometheus, loki, grafana, gatus)
-- **sugar**: apps + DB (n8n, searxng, nextcloud, perplexica, norish, postgresql)
-- **all**: base (nfs, monitoring exporters, disko)
+- **psychosocial**: reverse proxy + auth (caddy, authelia, homepage) — all `*.pytt.io` routes
+- **pulse**: monitoring (prometheus, loki, grafana, gatus, ntfy)
+- **sugar**: apps + DB (n8n, searxng, nextcloud, perplexica, netbootxyz, mealie, norish, wger, freshrss, postgresql)
+- **spiders**: VPN + auth (netbird, authelia) — public VPS, uses nginx not Caddy
+- **all**: base (nfs, monitoring exporters, disko, netbird client)
 
 ## Observability Stack
 - Logs -> Loki, Metrics -> Prometheus, Dashboards -> Grafana, Health -> Gatus

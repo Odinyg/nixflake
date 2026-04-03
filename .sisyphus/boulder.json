@@ -2,8 +2,14 @@
   "active_plan": "/home/none/nixflake/.sisyphus/plans/forgejo.md",
   "started_at": "2026-04-03T15:36:24.432Z",
   "session_ids": [
-    "ses_2ac64a375ffe9Ko8bxY79b9oMO"
+    "ses_2ac64a375ffe9Ko8bxY79b9oMO",
+    "ses_2abffe063ffeEq9SLi7ceHDC2f",
+    "ses_2ac00032cffe1FSgUF9k0QwSQU",
+    "ses_2abf971b7ffe6PiHI4fCreP64Y",
+    "ses_2abf7e232ffeqphMuZtkUQnAwp",
+    "ses_2abf56c26ffet7riRK0HgI4Oia"
   ],
   "plan_name": "forgejo",
-  "agent": "atlas"
+  "agent": "atlas",
+  "task_sessions": {}
 }

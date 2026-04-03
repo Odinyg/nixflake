@@ -132,6 +132,7 @@
 
     # Netbird client — mesh VPN for inter-server communication
     services.netbird.enable = true;
+    services.netbird.useRoutingFeatures = "both";
     networking.firewall.trustedInterfaces = [ "wt0" ];
 
     # IP forwarding — needed for NetBird routing peers to forward LAN traffic

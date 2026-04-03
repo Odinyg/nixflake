@@ -1,0 +1,44 @@
+hosts/sugar/default.nix excerpt after edit:
+
+  server.postgresql = {
+    enable = true;
+    databases = [
+      "forgejo"
+      "mealie"
+      "n8n"
+      "nextcloud"
+      "norish"
+      "wger"
+    ];
+  };
+
+  server.n8n = {
+    enable = true;
+    dbHost = "127.0.0.1";
+  };
+  server.forgejo = {
+    enable = true;
+    dbHost = "127.0.0.1";
+  };
+  server.searxng.enable = true;
+  server.nextcloud = {
+    enable = true;
+    dbHost = "127.0.0.1:5432";
+  };
+  server.perplexica.enable = true;
+  server.netbootxyz.enable = true;
+  server.mealie = {
+    enable = true;
+    dbHost = "172.18.0.1";
+  };
+  server.norish = {
+    enable = true;
+    dbHost = "172.18.0.1";
+    redisHost = "172.18.0.1";
+  };
+  server.wger = {
+    enable = true;
+    dbHost = "172.18.0.1";
+    redisHost = "10.10.10.20";
+    redisPort = 30059;
+  };

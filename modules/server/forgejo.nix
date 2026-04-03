@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -28,7 +27,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets.forgejo_admin_password = { owner = "forgejo"; };
+    sops.secrets.forgejo_admin_password = {
+      owner = "forgejo";
+    };
     sops.secrets.postgresql_forgejo_password = { };
 
     sops.templates."forgejo-env".content = ''
@@ -109,6 +110,9 @@ in
       '';
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    # Dump service — part of homelab target so it stops cleanly with the homelab
+    systemd.services.forgejo-dump = {
+      partOf = [ "homelab.target" ];
+    };
   };
 }

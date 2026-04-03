@@ -160,10 +160,7 @@
           "match:class ^(waybar-popup)$, size 800 500"
           "match:class ^(waybar-popup)$, center on"
           # Gaming — keep games responsive across workspace switches
-          "match:class ^(steam_app_.*)$, renderunfocused on"
-          "match:class ^(steam_app_.*)$, immediate on"
           "match:class ^(steam_app_.*)$, idle_inhibit always"
-          "match:class ^(steam_app_.*)$, fullscreen on"
         ];
       };
     };

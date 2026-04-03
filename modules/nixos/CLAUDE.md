@@ -13,8 +13,8 @@
 ## Desktop Environments
 - **Hyprland** (primary): system backend in `nixos/hyprland.nix`, user config in `home-manager/desktop/hyprland/`
 - **COSMIC**: system-only in `nixos/cosmic.nix`, no home-manager config needed
-- **BSPWM**: X11-based alternative in `home-manager/desktop/bspwm/`
 - Hyprland sub-modules: `monitors.nix`, `keybindings.nix`, `services.nix`, `hyprpanel.nix`, `packages.nix`
+- Status bars: both **Waybar** and **HyprPanel** are in use — waybar config in `hyprland/config/waybar/`, hyprpanel in `hyprpanel.nix`
 - System-level options (e.g., `config.hyprland.monitors`) are read by home-manager modules
 
 ## Theming

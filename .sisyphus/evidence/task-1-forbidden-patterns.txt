@@ -1,0 +1,6 @@
+$ grep -c "createDatabase = true" modules/server/forgejo.nix
+0
+$ grep -c "agenix\|age.secrets" modules/server/forgejo.nix
+0
+$ grep -c "mailer\|SMTP\|smtp" modules/server/forgejo.nix
+0

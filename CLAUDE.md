@@ -2,9 +2,10 @@
 
 ## Architecture
 - `flake.nix` is minimal — imports modules from `parts/`
-- `parts/lib.nix` — shared helpers: `mkHost`/`mkServer` builders, `commonModules`, `serverCommonModules`
-- `parts/hosts.nix` — all nixosConfigurations. New host? Add here AND in `parts/deploy.nix`
+- `parts/lib.nix` — shared helpers: `hostModules`/`serverModules` builders, `commonModules`, `serverCommonModules`, `pkgs-unstable`
+- `parts/hosts.nix` — all nixosConfigurations (`mkHost`/`mkServer` wrappers). New host? Add here AND in `parts/deploy.nix`
 - `parts/deploy.nix` — colmena deployment. Servers deploy as user `odin`
+- `parts/dev.nix` — perSystem config: formatter (`nixfmt-rfc-style`)
 - `modules/nixos/` — system-level (desktop machines)
 - `modules/home-manager/` — user-level (desktop machines, home-manager only on desktops)
 - `modules/server/` — homelab services (servers have NO home-manager or stylix)
@@ -14,11 +15,15 @@
 ## Hosts
 - **Desktops**: laptop (`none`), vnpc-21 (`odin`), station (`none`)
 - **Servers (homelab)**: pulse, sugar, byob, psychosocial (LAN, 10.10.x.x subnets)
-- **Servers (VPS)**: spiders (public Cantabo VPS at netbird.pytt.io — runs netbird + authelia)
+- **Servers (VPS)**: spiders (public Cantabo VPS at netbird.pytt.io — runs netbird + authelia + nginx)
+- **Installer**: minimal ISO with SSH key baked in — for bootstrapping new hosts
 
 ## Commands
 - `just rebuild` — rebuild current host (auto-detects hostname)
 - `just verbose` — rebuild with verbose output
+- `just upgrade` — update flake inputs + rebuild
+- `just boot` — build new boot configuration
+- `just gc` — clean generations older than 14 days
 - `just deploy-all` — deploy all servers via colmena
 - `just deploy <host>` — deploy single host
 - `just secrets` / `just secrets-<host>` — edit sops secrets
@@ -32,6 +37,7 @@
 - All modules use `options.<namespace>.enable = lib.mkEnableOption` + `config = lib.mkIf cfg.enable`
 - Secrets managed with sops-nix — `secrets/secrets.yaml` (shared) + per-host files
 - Ollama intentionally binds to `0.0.0.0` with `openFirewall = true` for LAN access — not a security issue
+- All services are exposed via `*.pytt.io` subdomains through Caddy on psychosocial
 
 ## Gotchas
 - Servers use `nixpkgs-unstable`, desktops use `nixos-25.05` (stable) — server modules get the latest NixOS options/packages
@@ -39,3 +45,4 @@
 - `just rebuild` runs `git add .` automatically before building
 - Hyprpaper configs must NOT use quotes around file paths
 - Server hosts use `mkServer` (no home-manager/stylix), desktops use `mkHost` — don't mix patterns
+- spiders (VPS) is the only server with firewall enabled + nginx — all other servers use Caddy via psychosocial
