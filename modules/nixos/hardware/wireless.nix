@@ -11,7 +11,6 @@
     };
   };
   config = lib.mkIf config.wireless.enable {
-    #  networking.hostName = "XPS";
     networking.networkmanager = {
       enable = true;
       plugins = with pkgs; [

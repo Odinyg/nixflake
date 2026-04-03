@@ -13,7 +13,6 @@
   config = lib.mkIf config.bluetooth.enable {
     services.libinput.enable = true;
 
-    #  sound.enable = true;
     hardware = {
       bluetooth.enable = true; # enables support for Bluetooth
       bluetooth.powerOnBoot = true;

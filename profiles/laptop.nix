@@ -11,9 +11,6 @@
   # LAPTOP-SPECIFIC CONFIGURATION
   # ==============================================================================
 
-  # Hardware for mobile systems
-  randr.enable = false;
-
   # Work
   crypt.enable = true;
 

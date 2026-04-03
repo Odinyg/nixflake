@@ -71,7 +71,6 @@
   # Note: Station uses direct sops configuration instead of the secrets module
   # because it has different requirements (different user, no SSH key management)
   sops.defaultSopsFile = ./../../secrets/general.yaml;
-  sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/${config.user}/.config/sops/age/keys.txt";
 
   # ==============================================================================
@@ -188,8 +187,8 @@
   lmstudio.enable = true;
   mcp.enable = true;
 
-  # VPN
-  protonvpn.enable = true;
+  # ProtonVPN
+  services.resolved.enable = true;
 
   # Monitor Configuration
   hyprland.kanshi.profiles = [
@@ -217,11 +216,17 @@
   '';
 
   environment.systemPackages = [
+    pkgs.protonvpn-gui
     pkgs.woeusb-ng
     pkgs.ntfs3g
   ];
 
-  postgresql.enable = true;
+  # Local dev database
+  networking.extraHosts = "127.0.0.1 postgres.local";
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_17;
+  };
 
   hosted-services.open-webui.enable = true;
   # ==============================================================================

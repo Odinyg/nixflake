@@ -23,8 +23,6 @@
     ];
   };
 
-  sops.defaultSopsFile = ../../secrets/pulse.yaml;
-
   # --- Services ---
   server.disko.enable = true;
 

@@ -140,6 +140,9 @@
     # systemd-resolved for proper split DNS (Netbird registers via D-Bus)
     services.resolved.enable = true;
 
+    # Monitoring on all servers (log + metric collection → pulse)
+    server.monitoring.enable = lib.mkDefault true;
+
     # Boot — limit generations to prevent /boot filling up
     boot.loader.systemd-boot.configurationLimit = 10;
   };
