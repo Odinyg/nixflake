@@ -11,7 +11,7 @@ in
     enable = lib.mkEnableOption "Norish recipe app (Docker)";
     port = lib.mkOption {
       type = lib.types.port;
-      default = 3000;
+      default = 3100;
       description = "Port for the Norish web interface";
     };
     domain = lib.mkOption {
