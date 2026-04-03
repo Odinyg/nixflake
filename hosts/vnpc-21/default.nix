@@ -1,4 +1,12 @@
-{ config, pkgs, pkgs-unstable, lib, inputs, ... }: {
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  lib,
+  inputs,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../profiles/workstation.nix
@@ -27,16 +35,44 @@
   networking.interfaces.enp0s31f6 = {
     useDHCP = false;
     ipv4.addresses = [
-      { address = "192.168.1.99"; prefixLength = 24; }
-      { address = "192.168.2.99"; prefixLength = 24; }
-      { address = "192.168.105.99"; prefixLength = 24; }
-      { address = "192.168.250.99"; prefixLength = 24; }
+      {
+        address = "192.168.1.99";
+        prefixLength = 24;
+      }
+      {
+        address = "192.168.2.99";
+        prefixLength = 24;
+      }
+      {
+        address = "192.168.105.99";
+        prefixLength = 24;
+      }
+      {
+        address = "192.168.250.99";
+        prefixLength = 24;
+      }
     ];
     ipv4.routes = [
-      { address = "192.168.1.0"; prefixLength = 24; options.metric = "200"; }
-      { address = "192.168.2.0"; prefixLength = 24; options.metric = "200"; }
-      { address = "192.168.105.0"; prefixLength = 24; options.metric = "200"; }
-      { address = "192.168.250.0"; prefixLength = 24; options.metric = "200"; }
+      {
+        address = "192.168.1.0";
+        prefixLength = 24;
+        options.metric = "200";
+      }
+      {
+        address = "192.168.2.0";
+        prefixLength = 24;
+        options.metric = "200";
+      }
+      {
+        address = "192.168.105.0";
+        prefixLength = 24;
+        options.metric = "200";
+      }
+      {
+        address = "192.168.250.0";
+        prefixLength = 24;
+        options.metric = "200";
+      }
     ];
   };
 
@@ -44,7 +80,9 @@
   systemd.network.wait-online.enable = false;
 
   # Start USB NIC config when device appears, don't block boot if absent
-  systemd.services."network-addresses-enp45s0u2u3".wantedBy = lib.mkForce [ "sys-subsystem-net-devices-enp45s0u2u3.device" ];
+  systemd.services."network-addresses-enp45s0u2u3".wantedBy = lib.mkForce [
+    "sys-subsystem-net-devices-enp45s0u2u3.device"
+  ];
 
   # ==============================================================================
   # USERS
@@ -54,8 +92,14 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "odin";
-    extraGroups =
-      [ "lp" "scanner" "docker" "networkmanager" "wheel" "plugdev" ];
+    extraGroups = [
+      "lp"
+      "scanner"
+      "docker"
+      "networkmanager"
+      "wheel"
+      "plugdev"
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEb3q553HODR8Yipt69tmLrGOqLTfde/G8yntaitNkA3"
     ];
@@ -111,12 +155,14 @@
       # Laptop screen only
       {
         profile.name = "vnpc-21-only";
-        profile.outputs = [{
-          criteria = "eDP-1";
-          status = "enable";
-          mode = "1920x1080";
-          scale = 1.0;
-        }];
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            status = "enable";
+            mode = "1920x1080";
+            scale = 1.0;
+          }
+        ];
       }
     ];
 
@@ -143,13 +189,13 @@
   cosmic.autoLogin.enable = false;
 
   programs.kdeconnect.enable = true;
-  localsend.enable = true;
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 
   # Secrets management
   secrets.enable = true;
-
-  # Work tools
-  onedrive.enable = false;
 
   # Terminal multiplexer
   tmux.enable = true;
