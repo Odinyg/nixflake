@@ -10,11 +10,13 @@ let
   aiWorkerScript = pkgs.writeShellScript "ai-worker" ''
     set -u
 
-    NTFY_TOPIC="''${NTFY_TOPIC:-https://ntfy.pytt.io/ai-tasks/json}"
     FORGEJO_URL="''${FORGEJO_URL:-https://git.pytt.io}"
     WORK_DIR="''${AI_WORK_DIR:-$HOME/ai-workbench}"
+    POLL_INTERVAL="''${POLL_INTERVAL:-30}"
+    PROCESSED_FILE="$WORK_DIR/.processed-issues"
 
     mkdir -p "$WORK_DIR"
+    touch "$PROCESSED_FILE"
 
     log() { echo "[$(date '+%H:%M:%S')] $*"; }
 
@@ -90,43 +92,38 @@ let
       log "Done - PR created for $repo_full#$issue_number"
     }
 
-    log "AI Worker started - listening on ntfy topic: ai-tasks"
+    log "AI Worker started - polling Forgejo every ''${POLL_INTERVAL}s"
     log "Work directory: $WORK_DIR"
 
     while true; do
-      log "Connecting to ntfy stream..."
-      ${pkgs.curl}/bin/curl -s -N -H "Authorization: Bearer ''${NTFY_TOKEN}" "$NTFY_TOPIC" | while IFS= read -r line; do
-        # Skip ntfy control events (open, keepalive)
-        EVENT_TYPE=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.event // empty' 2>/dev/null || true)
-        if [ "$EVENT_TYPE" = "open" ] || [ "$EVENT_TYPE" = "keepalive" ]; then
-          log "ntfy: $EVENT_TYPE"
-          continue
-        fi
+      # Search all repos the user owns for open issues with ai-task label
+      REPOS=$(${pkgs.curl}/bin/curl -s "''${FORGEJO_URL}/api/v1/user/repos?limit=50" \
+        -H "Authorization: token ''${FORGEJO_TOKEN}" | ${pkgs.jq}/bin/jq -r '.[].full_name' 2>/dev/null || true)
 
-        # Forgejo webhook payload is inside ntfy's .message field as a JSON string
-        PAYLOAD=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.message // empty' 2>/dev/null || true)
-        if [ -z "$PAYLOAD" ]; then continue; fi
+      for repo in $REPOS; do
+        ISSUES=$(${pkgs.curl}/bin/curl -s "''${FORGEJO_URL}/api/v1/repos/$repo/issues?labels=ai-task&state=open&limit=10" \
+          -H "Authorization: token ''${FORGEJO_TOKEN}" 2>/dev/null || true)
 
-        log "Received webhook event"
-        IS_LABEL_EVENT=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r 'select(.action == "label") | .issue.number // empty' 2>/dev/null || true)
+        echo "$ISSUES" | ${pkgs.jq}/bin/jq -c '.[]?' 2>/dev/null | while IFS= read -r issue; do
+          ISSUE_NUM=$(echo "$issue" | ${pkgs.jq}/bin/jq -r '.number')
+          KEY="''${repo}#''${ISSUE_NUM}"
 
-        if [ -n "''${IS_LABEL_EVENT:-}" ]; then
-          LABEL_NAME=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.label.name // empty' 2>/dev/null || true)
-          if [ "$LABEL_NAME" = "ai-task" ]; then
-            REPO=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.repository.full_name' 2>/dev/null)
-            ISSUE_NUM=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.issue.number' 2>/dev/null)
-            ISSUE_TITLE=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.issue.title' 2>/dev/null)
-            ISSUE_BODY=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.issue.body' 2>/dev/null)
-
-            log "AI-TASK: $REPO#$ISSUE_NUM - $ISSUE_TITLE"
-            process_issue "$REPO" "$ISSUE_NUM" "$ISSUE_TITLE" "$ISSUE_BODY" &
+          # Skip already processed issues
+          if ${pkgs.gnugrep}/bin/grep -qF "$KEY" "$PROCESSED_FILE" 2>/dev/null; then
+            continue
           fi
-        fi
-      done
-      log "Stream disconnected, reconnecting in 5s..."
-      sleep 5
-    done
 
+          ISSUE_TITLE=$(echo "$issue" | ${pkgs.jq}/bin/jq -r '.title')
+          ISSUE_BODY=$(echo "$issue" | ${pkgs.jq}/bin/jq -r '.body')
+
+          log "Found: $KEY - $ISSUE_TITLE"
+          echo "$KEY" >> "$PROCESSED_FILE"
+          process_issue "$repo" "$ISSUE_NUM" "$ISSUE_TITLE" "$ISSUE_BODY"
+        done
+      done
+
+      sleep "$POLL_INTERVAL"
+    done
   '';
 in
 {
@@ -142,7 +139,7 @@ in
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.user}.systemd.user.services.ai-worker = {
       Unit = {
-        Description = "AI Task Worker - processes Forgejo issues via Claude";
+        Description = "AI Task Worker - polls Forgejo for ai-task issues and runs Claude";
         After = [ "network-online.target" ];
       };
       Service = {
@@ -152,8 +149,8 @@ in
         RestartSec = 10;
         Environment = [
           "AI_WORK_DIR=${cfg.workDir}"
-          "NTFY_TOPIC=https://ntfy.pytt.io/ai-tasks/json"
           "FORGEJO_URL=https://git.pytt.io"
+          "POLL_INTERVAL=30"
         ];
         EnvironmentFile = "%h/.config/ai-worker/env";
       };
