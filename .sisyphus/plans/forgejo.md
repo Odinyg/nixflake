@@ -610,19 +610,19 @@ Wave FINAL (After deployment — 4 parallel reviews):
 
 > 4 review agents run in PARALLEL. ALL must APPROVE. Present consolidated results to user and get explicit "okay" before completing.
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
+- [x] F1. **Plan Compliance Audit** — `oracle`
   Read the plan end-to-end. For each "Must Have": verify implementation exists (read file, check config). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in .sisyphus/evidence/. Compare deliverables against plan.
   Output: `Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT`
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
+- [x] F2. **Code Quality Review** — `unspecified-high`
   Run `nix eval` for sugar and psychosocial. Review all changed .nix files for: syntax correctness, option types match, proper `lib.mkIf`/`lib.mkEnableOption` usage, no hardcoded secrets, follows codebase naming conventions, proper sops integration. Check for AI slop: excessive comments, over-abstraction.
   Output: `Eval [PASS/FAIL] | Files [N clean/N issues] | VERDICT`
 
-- [ ] F3. **Real Manual QA** — `unspecified-high`
+- [x] F3. **Real Manual QA** — `unspecified-high`
   Execute EVERY QA scenario from EVERY task — run `nix eval` commands, verify secret structure, verify Caddy config syntax. Test cross-task integration: sugar config includes both forgejo enablement AND norish port change AND postgresql database addition. Save evidence to `.sisyphus/evidence/final-qa/`.
   Output: `Scenarios [N/N pass] | Integration [N/N] | VERDICT`
 
-- [ ] F4. **Scope Fidelity Check** — `deep`
+- [x] F4. **Scope Fidelity Check** — `deep`
   For each task: read "What to do", read actual changes. Verify 1:1 — everything in spec was built (no missing), nothing beyond spec was built (no creep). Check "Must NOT do" compliance. Flag unaccounted changes.
   Output: `Tasks [N/N compliant] | VERDICT`
 
