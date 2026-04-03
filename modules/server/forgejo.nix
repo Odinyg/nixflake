@@ -67,6 +67,9 @@ in
         session = {
           COOKIE_SECURE = true;
         };
+        webhook = {
+          ALLOWED_HOST_LIST = "10.10.30.110,10.10.30.112,ntfy.pytt.io";
+        };
         actions = {
           ENABLED = true;
           DEFAULT_ACTIONS_URL = "github";
