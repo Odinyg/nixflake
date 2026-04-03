@@ -11,7 +11,7 @@ in
   };
 
   config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
-    home.sessionVariables.TERMINAL = lib.mkForce "ghostty";
+    home.sessionVariables.TERMINAL = "ghostty";
     programs.ghostty = {
       enable = true;
       enableZshIntegration = true;

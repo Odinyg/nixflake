@@ -47,7 +47,7 @@ in
       package = pkgs.postgresql_16;
       settings = {
         port = cfg.port;
-        listen_addresses = lib.mkForce cfg.listenAddresses;
+        listen_addresses = cfg.listenAddresses;
       };
 
       ensureDatabases = cfg.databases;
@@ -57,8 +57,8 @@ in
         ensureDBOwnership = true;
       }) cfg.databases;
 
-      # Password auth for TCP, peer auth for local socket
-      authentication = lib.mkForce (
+      # Password auth for TCP, peer auth for local socket (mkOverride 900 to beat NixOS default without blocking host overrides)
+      authentication = lib.mkOverride 900 (
         ''
           # Local socket — peer auth (system user = db user)
           local all all              peer
