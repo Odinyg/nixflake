@@ -122,7 +122,8 @@ in
         update.mechanism = "external";
       };
     };
-    # Disable DynamicUser so we can manage data/permissions
+    # Disable DynamicUser so we can manage data/permissions with the shared media group.
+    # mkForce needed here to override NixOS prowlarr module's hardcoded DynamicUser = true.
     users.users.prowlarr = {
       isSystemUser = true;
       group = "media";
