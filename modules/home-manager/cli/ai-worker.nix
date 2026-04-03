@@ -97,22 +97,28 @@ let
       log "Connecting to ntfy stream..."
       ${pkgs.curl}/bin/curl -s -N -H "Authorization: Bearer ''${NTFY_TOKEN}" "$NTFY_TOPIC" | while IFS= read -r line; do
         # Skip ntfy control events (open, keepalive)
-        EVENT_TYPE=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.event // .action // empty' 2>/dev/null || true)
+        EVENT_TYPE=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.event // empty' 2>/dev/null || true)
         if [ "$EVENT_TYPE" = "open" ] || [ "$EVENT_TYPE" = "keepalive" ]; then
           log "ntfy: $EVENT_TYPE"
           continue
         fi
 
-        IS_LABEL_EVENT=$(echo "$line" | ${pkgs.jq}/bin/jq -r 'select(.action == "label") | .issue.number // empty' 2>/dev/null || true)
+        # Forgejo webhook payload is inside ntfy's .message field as a JSON string
+        PAYLOAD=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.message // empty' 2>/dev/null || true)
+        if [ -z "$PAYLOAD" ]; then continue; fi
+
+        log "Received webhook event"
+        IS_LABEL_EVENT=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r 'select(.action == "label") | .issue.number // empty' 2>/dev/null || true)
 
         if [ -n "''${IS_LABEL_EVENT:-}" ]; then
-          LABEL_NAME=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.label.name // empty' 2>/dev/null || true)
+          LABEL_NAME=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.label.name // empty' 2>/dev/null || true)
           if [ "$LABEL_NAME" = "ai-task" ]; then
-            REPO=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.repository.full_name' 2>/dev/null)
-            ISSUE_NUM=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.number' 2>/dev/null)
-            ISSUE_TITLE=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.title' 2>/dev/null)
-            ISSUE_BODY=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.issue.body' 2>/dev/null)
+            REPO=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.repository.full_name' 2>/dev/null)
+            ISSUE_NUM=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.issue.number' 2>/dev/null)
+            ISSUE_TITLE=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.issue.title' 2>/dev/null)
+            ISSUE_BODY=$(echo "$PAYLOAD" | ${pkgs.jq}/bin/jq -r '.issue.body' 2>/dev/null)
 
+            log "AI-TASK: $REPO#$ISSUE_NUM - $ISSUE_TITLE"
             process_issue "$REPO" "$ISSUE_NUM" "$ISSUE_TITLE" "$ISSUE_BODY" &
           fi
         fi
@@ -120,6 +126,7 @@ let
       log "Stream disconnected, reconnecting in 5s..."
       sleep 5
     done
+
   '';
 in
 {
