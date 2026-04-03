@@ -42,6 +42,7 @@
       "nextcloud"
       "norish"
       "wger"
+      "vaultwarden"
     ];
   };
 
@@ -76,6 +77,7 @@
     redisHost = "10.10.10.20";
     redisPort = 30059;
   };
+  server.vaultwarden.enable = true;
   server.freshrss = {
     enable = true;
     defaultUser = "homelab";

@@ -1,4 +1,4 @@
-{
+{ 
   config,
   pkgs,
   lib,
@@ -213,6 +213,11 @@
           import authelia
           reverse_proxy 10.10.30.111:8282
         }
+      }
+
+      @vault host vault.pytt.io
+      handle @vault {
+        reverse_proxy 10.10.30.111:8222
       }
 
       @netboot host netboot.pytt.io

@@ -32,6 +32,7 @@
     ./mealie.nix
     ./norish.nix
     ./wger.nix
+    ./vaultwarden.nix
     ./freshrss.nix
     ./forgejo.nix
     ./forgejo-runner.nix
