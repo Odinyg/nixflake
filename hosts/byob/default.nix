@@ -41,8 +41,6 @@
     ];
   };
 
-  sops.defaultSopsFile = ../../secrets/byob.yaml;
-
   # NAS mounts — remove noauto to activate
   fileSystems."/mnt/nas/media".options = lib.mkForce [
     "defaults"
