@@ -93,7 +93,7 @@ let
     log "AI Worker started - listening on ntfy topic: ai-tasks"
     log "Work directory: $WORK_DIR"
 
-    ${pkgs.curl}/bin/curl -s -N -H "Authorization: Bearer ${NTFY_TOKEN}" "$NTFY_TOPIC" | while read -r line; do
+    ${pkgs.curl}/bin/curl -s -N -H "Authorization: Bearer ''${NTFY_TOKEN}" "$NTFY_TOPIC" | while read -r line; do
       IS_LABEL_EVENT=$(echo "$line" | ${pkgs.jq}/bin/jq -r 'select(.action == "label") | .issue.number // empty' 2>/dev/null || true)
 
       if [ -n "''${IS_LABEL_EVENT:-}" ]; then
