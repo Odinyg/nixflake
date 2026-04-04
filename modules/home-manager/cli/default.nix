@@ -16,7 +16,6 @@
     ./system-tools.nix
     ./prompt.nix
     ./mcp.nix
-    ./ai-worker.nix
   ];
 
 }

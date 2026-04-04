@@ -147,7 +147,6 @@
   styling.opacity.terminal = 0.85;
 
   # Disable lockscreen/idle management (causes crashes on HDMI disconnect)
-  aiWorker.enable = true;
 
   home-manager.users.none = {
     programs.swaylock.enable = lib.mkForce false;
