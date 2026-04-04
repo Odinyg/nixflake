@@ -30,7 +30,7 @@
           "nm-applet --indicator"
           "systemctl --user import-environment"
           "lxqt-policykit-agent"
-          "kanshi -c ~/.config/kanshi/config"
+
           "hyprshade auto"
         ];
 

@@ -64,6 +64,11 @@ Edit the encrypted file:
 sops secrets/secrets.yaml
 ```
 
+For server applications, prefer the host-specific file instead of the shared desktop file:
+```bash
+just secrets-sugar
+```
+
 Add your secrets in the format:
 ```yaml
 ssh_keys:
@@ -107,6 +112,13 @@ The following secrets are currently configured:
 - `ssh_keys/work_key` → `/home/${user}/.ssh/id_work`
 - `ssh_public_keys/personal_key` → `/home/${user}/.ssh/id_personal.pub`
 - `ssh_public_keys/work_key` → `/home/${user}/.ssh/id_work.pub`
+
+Recent server-side examples in `secrets/sugar.yaml`:
+- `postgresql_forgejo_password`
+- `postgresql_vaultwarden_password`
+- `forgejo_admin_password`
+- `forgejo_runner_token`
+- `vaultwarden_admin_token`
 
 ## Troubleshooting
 

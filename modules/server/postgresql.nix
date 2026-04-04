@@ -57,8 +57,8 @@ in
         ensureDBOwnership = true;
       }) cfg.databases;
 
-      # Password auth for TCP, peer auth for local socket (mkOverride 900 to beat NixOS default without blocking host overrides)
-      authentication = lib.mkOverride 900 (
+      # Replace default pg_hba.conf entirely: peer for local socket, scram-sha-256 for TCP
+      authentication = lib.mkForce (
         ''
           # Local socket — peer auth (system user = db user)
           local all all              peer

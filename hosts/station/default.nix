@@ -213,13 +213,14 @@
       profile.outputs = [
         {
           criteria = "DP-1";
-          mode = "1920x1080@120";
+          mode = "2560x1440@59.95";
           position = "0,0";
+          transform = "270";
         }
         {
           criteria = "HDMI-A-1";
           mode = "3840x2160@60";
-          position = "1920,0";
+          position = "1440,200";
         }
       ];
     }
@@ -227,8 +228,8 @@
 
   # Monitor configuration
   hyprland.monitors.extraConfig = ''
-    monitor = HDMI-A-1, 3840x2160@60, 1920x0, 1
-    monitor = DP-1, 1920x1080@120, 0x0, 1
+    monitor = DP-1, 2560x1440@59.95, 0x0, 1, transform, 3
+    monitor = HDMI-A-1, 3840x2160@60, 1440x200, 1
   '';
 
   environment.systemPackages = [

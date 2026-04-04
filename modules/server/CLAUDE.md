@@ -50,11 +50,16 @@ systemd.services.<service>.serviceConfig.EnvironmentFile = config.sops.templates
 - **byob**: media (arr, nzbget, transmission, seerr)
 - **psychosocial**: reverse proxy + auth (caddy, authelia, homepage) — all `*.pytt.io` routes
 - **pulse**: monitoring (prometheus, loki, grafana, gatus, ntfy)
-- **sugar**: apps + DB (n8n, searxng, nextcloud, perplexica, netbootxyz, mealie, norish, wger, freshrss, postgresql)
+- **sugar**: apps + DB (forgejo, forgejo-runner, vaultwarden, n8n, searxng, nextcloud, perplexica, netbootxyz, mealie, norish, wger, freshrss, postgresql)
 - **spiders**: VPN + auth (netbird, authelia) — public VPS, uses nginx not Caddy
 - **all**: base (nfs, monitoring exporters, disko, netbird client)
 
 ## Observability Stack
 - Logs -> Loki, Metrics -> Prometheus, Dashboards -> Grafana, Health -> Gatus
 - Node exporter on port 9100 (all servers), Caddy metrics on 2019
-- All services authenticate via Authelia (OIDC) where supported
+- Prefer native service auth when clients need it (e.g. Forgejo Git/Actions, Vaultwarden apps); use Authelia in front of browser-first services where SSO adds value
+
+## Current App Notes
+- Forgejo lives on `sugar` behind `git.pytt.io` (also `forgejo.pytt.io`), uses PostgreSQL, enables Actions and Git LFS, and provisions the `odin` admin user declaratively
+- Forgejo runner lives on `sugar`, uses `services.gitea-actions-runner`, and depends on Docker labels for job execution
+- Vaultwarden lives on `sugar` behind `vault.pytt.io`, uses PostgreSQL, and expects an Argon2 PHC admin token in secrets rather than plaintext

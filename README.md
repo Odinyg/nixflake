@@ -16,9 +16,9 @@ A modular, reproducible NixOS configuration using flakes with home-manager integ
 
 | Host | Role | Location | Key Services |
 |------|------|----------|--------------|
-| **psychosocial** | Reverse proxy & gateway | LAN (10.10.30.x) | Caddy, Homepage, Authelia SSO integration |
+| **psychosocial** | Reverse proxy & gateway | LAN (10.10.30.x) | Caddy, Homepage, `*.pytt.io` routing, selective Authelia SSO |
 | **pulse** | Monitoring & observability | LAN (10.10.30.x) | Prometheus, Grafana, Loki, Gatus, ntfy |
-| **sugar** | Applications & automation | LAN (10.10.30.x) | Nextcloud, Mealie, n8n, FreshRSS, SearXNG, Perplexica, Norish, wger, Netboot.xyz, PostgreSQL |
+| **sugar** | Applications & automation | LAN (10.10.30.x) | Forgejo, Forgejo Actions runner, Vaultwarden, Nextcloud, Mealie, n8n, FreshRSS, SearXNG, Perplexica, Norish, wger, Netboot.xyz, PostgreSQL |
 | **byob** | Media management | LAN (10.10.50.x) | Sonarr, Radarr, Lidarr, Prowlarr, NZBGet, Transmission, Jellyseerr |
 | **spiders** | Auth & VPN (public VPS) | Cantabo VPS (netbird.pytt.io) | Netbird, Authelia, Nginx, Fail2ban |
 
@@ -55,6 +55,9 @@ A modular, reproducible NixOS configuration using flakes with home-manager integ
 - **Netbird** — WireGuard-based mesh VPN (managed on spiders VPS)
 - **Authelia** — SSO/2FA authentication (hosted on spiders, integrated via psychosocial)
 - **Caddy** — Reverse proxy with automatic TLS via Cloudflare DNS-01, all services exposed via `*.pytt.io` subdomains
+- **Forgejo** — Self-hosted Git forge with Git LFS, backups, declarative admin bootstrap, and Actions enabled
+- **Forgejo runner** — Local Docker-backed Actions runner on `sugar`
+- **Vaultwarden** — Bitwarden-compatible password manager with PostgreSQL backend
 - **Prometheus + Grafana + Loki** — Full monitoring and log aggregation stack
 - **Nextcloud, Mealie, FreshRSS, n8n** — Self-hosted productivity and automation
 - **Perplexica** — AI-powered search engine
@@ -180,6 +183,9 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 │       ├── wger.nix           # Workout manager
 │       ├── perplexica.nix     # AI search engine
 │       ├── freshrss.nix       # RSS reader
+│       ├── forgejo.nix        # Git forge
+│       ├── forgejo-runner.nix # Forgejo Actions runner
+│       ├── vaultwarden.nix    # Password manager
 │       ├── searxng.nix        # Meta search engine
 │       ├── ntfy.nix           # Push notifications
 │       ├── n8n.nix            # Workflow automation
@@ -220,6 +226,11 @@ Servers do **not** use profiles — they use `serverCommonModules` from `parts/l
 ### Host Builders
 - `mkHost` — Desktop machines (includes home-manager, stylix, stable nixpkgs)
 - `mkServer` — Servers (minimal base, no home-manager/stylix, unstable nixpkgs)
+
+### Current Homelab Service Layout
+- `psychosocial` terminates TLS and routes `*.pytt.io` to internal services via Caddy.
+- `sugar` is the main apps host and local PostgreSQL server for app-backed services such as Forgejo and Vaultwarden.
+- Forgejo and Vaultwarden use their own built-in authentication flows; Authelia remains in front of services that benefit from browser SSO.
 
 ### Module Pattern
 All optional features use the enable pattern:
@@ -320,6 +331,8 @@ just secrets-edit <hostname>
 
 Secrets are automatically decrypted at boot and placed in `/run/secrets/`.
 
+Recent examples in `secrets/sugar.yaml` include app-specific PostgreSQL passwords plus service secrets for Forgejo admin bootstrap, the Forgejo runner token, and Vaultwarden admin access.
+
 ## Deployment
 
 Servers are deployed via colmena:
@@ -355,6 +368,11 @@ sudo nixos-rebuild switch --rollback
 ```bash
 journalctl -xe              # System logs
 journalctl -u SERVICE       # Specific service
+```
+
+**Evaluating a single host before deploy**
+```bash
+nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath
 ```
 
 **Hyprland issues**
