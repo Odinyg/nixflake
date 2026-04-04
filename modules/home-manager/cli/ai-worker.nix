@@ -30,13 +30,17 @@ let
 
       log "Processing: $repo_full#$issue_number - $issue_title"
 
+      # Use token for git auth
+      CLONE_URL="https://odin:''${FORGEJO_TOKEN}@git.pytt.io/''${repo_full}.git"
+
       if [ -d "$repo_dir/.git" ]; then
         cd "$repo_dir"
+        ${pkgs.git}/bin/git remote set-url origin "$CLONE_URL"
         ${pkgs.git}/bin/git fetch origin
         ${pkgs.git}/bin/git checkout main
         ${pkgs.git}/bin/git reset --hard origin/main
       else
-        ${pkgs.git}/bin/git clone "''${FORGEJO_URL}/''${repo_full}.git" "$repo_dir"
+        ${pkgs.git}/bin/git clone "$CLONE_URL" "$repo_dir"
         cd "$repo_dir"
       fi
 
