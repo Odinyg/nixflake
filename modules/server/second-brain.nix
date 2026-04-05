@@ -58,6 +58,11 @@ in
         default = "@brain:pytt.io";
         description = "Matrix user ID for the bot";
       };
+      notifyRoom = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+        description = "Matrix room ID for heartbeat notifications (e.g. !abc:example.com)";
+      };
     };
 
     heartbeat = {
@@ -154,6 +159,7 @@ in
       WGER_TOKEN=${config.sops.placeholder.second_brain_wger_token}
       HOMEASSISTANT_URL=${config.sops.placeholder.second_brain_homeassistant_url}
       HOMEASSISTANT_TOKEN=${config.sops.placeholder.second_brain_homeassistant_token}
+      MATRIX_NOTIFY_ROOM=${cfg.matrix.notifyRoom}
       CLAUDE_PROJECT_DIR=${cfg.projectDir}
       CLAUDE_INVOKED_BY=systemd
     '';
@@ -170,6 +176,9 @@ in
       wants = [ "network-online.target" ];
       partOf = [ "homelab.target" ];
       wantedBy = [ "homelab.target" ];
+
+      # bash in PATH so Agent SDK hooks (#!/usr/bin/env bash) work
+      path = [ pkgs.bash pkgs.coreutils ];
 
       serviceConfig = {
         Type = "simple";
@@ -197,6 +206,8 @@ in
     # --- Heartbeat Service + Timer ---
     systemd.services.second-brain-heartbeat = lib.mkIf cfg.heartbeat.enable {
       description = "Second Brain — Heartbeat check";
+
+      path = [ pkgs.bash pkgs.coreutils ];
 
       serviceConfig = {
         Type = "oneshot";
@@ -231,6 +242,8 @@ in
     # --- Reflection Service + Timer ---
     systemd.services.second-brain-reflection = lib.mkIf cfg.reflection.enable {
       description = "Second Brain — Daily reflection";
+
+      path = [ pkgs.bash pkgs.coreutils ];
 
       serviceConfig = {
         Type = "oneshot";
@@ -271,10 +284,17 @@ in
         WorkingDirectory = cfg.projectDir;
       };
 
-      path = [ pkgs.git pkgs.openssh ];
+      path = [ pkgs.git pkgs.openssh pkgs.coreutils ];
 
       script = ''
-        # Record state before pull
+        # --- Push local changes (daily logs, state files) ---
+        if [ -n "$(git status --porcelain)" ]; then
+          git add -A
+          git commit -m "auto: sync from sugar $(date -Iseconds)" || true
+          git push ${cfg.sync.remote} ${cfg.sync.branch} || echo "Push failed, will retry next cycle"
+        fi
+
+        # --- Pull remote changes ---
         OLD_HEAD=$(git rev-parse HEAD)
         OLD_REQS=$(cat requirements-chat.txt requirements-search.txt 2>/dev/null | md5sum)
 
