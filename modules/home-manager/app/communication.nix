@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
   options = {
     communication = {
@@ -9,19 +15,24 @@
   config.home-manager.users.${config.user} = lib.mkIf config.communication.enable {
     home.packages = with pkgs; [
       # Email & Security
-      protonmail-desktop  # ProtonMail email client
-      proton-pass         # ProtonPass password manager
-      keeweb              # Password manager
+      protonmail-desktop # ProtonMail email client
+      proton-pass # ProtonPass password manager
+      keeweb # Password manager
 
       # Terminals
-      warp-terminal       # Modern terminal
+      warp-terminal # Modern terminal
 
       # Productivity
-      planify             # Task manager
+      planify # Task manager
 
       # Browsers
-      brave               # Privacy-focused browser
-      kuro                # Minimal browser
+      brave # Privacy-focused browser
+      kuro # Minimal browser
+
+      # Matrix
+      nheko # Native Qt Matrix client
+      gomuks # Terminal Matrix client
+      iamb # Vim-modal terminal Matrix client
     ];
   };
 }

@@ -78,6 +78,7 @@
   development.enable = true;
   media.enable = true;
   security.enable = true;
+  security.insecurePackages.enable = true;
   communication.enable = true;
   utilities.enable = true;
 
