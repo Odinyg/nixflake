@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -88,7 +89,10 @@ in
 
   config = lib.mkIf cfg.enable {
     # --- System packages ---
-    environment.systemPackages = [ pkgs.uv ];
+    environment.systemPackages = [
+      pkgs.uv
+      inputs.claude-code.packages.${pkgs.system}.default
+    ];
 
     # --- nix-ld (required for uv-managed Python on NixOS) ---
     programs.nix-ld.enable = true;
