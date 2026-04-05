@@ -56,6 +56,10 @@ in
           SSH_PORT = 2222;
           START_SSH_SERVER = true;
         };
+        repository = {
+          ENABLE_PUSH_CREATE_USER = true;
+          ENABLE_PUSH_CREATE_ORG = true;
+        };
         service = {
           DISABLE_REGISTRATION = true;
           REQUIRE_SIGNIN_VIEW = true;
