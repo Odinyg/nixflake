@@ -287,18 +287,28 @@ in
       path = [ pkgs.git pkgs.openssh pkgs.coreutils ];
 
       script = ''
-        # --- Push local changes (daily logs, state files) ---
+        # Git identity for auto-commits
+        git config user.name "Second Brain (sugar)" 2>/dev/null || true
+        git config user.email "brain@pytt.io" 2>/dev/null || true
+
+        # --- Commit local changes (daily logs, state files) ---
         if [ -n "$(git status --porcelain)" ]; then
           git add -A
           git commit -m "auto: sync from sugar $(date -Iseconds)" || true
-          git push ${cfg.sync.remote} ${cfg.sync.branch} || echo "Push failed, will retry next cycle"
         fi
 
-        # --- Pull remote changes ---
+        # --- Pull remote changes (rebase local auto-commits on top) ---
         OLD_HEAD=$(git rev-parse HEAD)
         OLD_REQS=$(cat requirements-chat.txt requirements-search.txt 2>/dev/null | md5sum)
 
-        git pull --ff-only ${cfg.sync.remote} ${cfg.sync.branch} || exit 0
+        git pull --rebase ${cfg.sync.remote} ${cfg.sync.branch} || {
+          echo "Pull --rebase failed, aborting rebase and retrying next cycle"
+          git rebase --abort 2>/dev/null || true
+          exit 0
+        }
+
+        # --- Push (local commits + rebased auto-commits) ---
+        git push ${cfg.sync.remote} ${cfg.sync.branch} || echo "Push failed, will retry next cycle"
 
         NEW_HEAD=$(git rev-parse HEAD)
 
