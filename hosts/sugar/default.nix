@@ -83,7 +83,12 @@
     defaultUser = "homelab";
   };
   server.matrix.enable = true;
-  server.brain-bot.enable = true;
+  server.second-brain = {
+    enable = true;
+    projectDir = "/home/odin/projects/Brain";
+    matrix.homeserver = "http://localhost:6167";
+    matrix.userId = "@brain:pytt.io";
+  };
 
   # Docker network for inter-container communication
   virtualisation.docker.autoPrune = {

@@ -313,5 +313,18 @@
     }
   '';
 
+  # Forward Git SSH (port 2222) to sugar's Forgejo built-in SSH server
+  networking.nat = {
+    enable = true;
+    externalInterface = "ens18";
+    forwardPorts = [
+      {
+        destination = "10.10.30.111:2222";
+        proto = "tcp";
+        sourcePort = 2222;
+      }
+    ];
+  };
+
   system.stateVersion = "25.05";
 }

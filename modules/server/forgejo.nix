@@ -52,8 +52,9 @@ in
           ROOT_URL = "https://${cfg.domain}/";
           HTTP_PORT = cfg.port;
           HTTP_ADDR = "0.0.0.0";
-          SSH_DOMAIN = "10.10.30.111";
-          SSH_PORT = 22;
+          SSH_DOMAIN = cfg.domain;
+          SSH_PORT = 2222;
+          START_SSH_SERVER = true;
         };
         service = {
           DISABLE_REGISTRATION = true;
