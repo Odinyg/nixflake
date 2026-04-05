@@ -82,7 +82,10 @@
     enable = true;
     defaultUser = "homelab";
   };
-  server.matrix.enable = true;
+  server.matrix = {
+    enable = true;
+    allowRegistration = true; # TEMPORARY — disable after creating users
+  };
   server.brain-bot.enable = true;
 
   # Docker network for inter-container communication
