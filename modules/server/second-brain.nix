@@ -125,7 +125,7 @@ in
         if [ ! -d .venv ]; then
           uv venv .venv --python 3.12
         fi
-        uv pip install -r requirements-chat.txt -r requirements-search.txt
+        uv pip install -r requirements.txt -r requirements-chat.txt -r requirements-search.txt
       '';
     };
 
