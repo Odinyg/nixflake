@@ -90,6 +90,13 @@ in
     # --- System packages ---
     environment.systemPackages = [ pkgs.uv ];
 
+    # --- nix-ld (required for uv-managed Python on NixOS) ---
+    programs.nix-ld.enable = true;
+    programs.nix-ld.libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+    ];
+
     # --- Venv setup (runs once, then after every sync) ---
     systemd.services.second-brain-venv = {
       description = "Second Brain — Create/update Python venv";
