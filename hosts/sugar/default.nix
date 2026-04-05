@@ -82,6 +82,8 @@
     enable = true;
     defaultUser = "homelab";
   };
+  server.matrix.enable = true;
+  server.brain-bot.enable = true;
 
   # Docker network for inter-container communication
   virtualisation.docker.autoPrune = {

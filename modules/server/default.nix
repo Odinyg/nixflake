@@ -36,6 +36,9 @@
     ./freshrss.nix
     ./forgejo.nix
     ./forgejo-runner.nix
+    # Matrix + bot (sugar)
+    ./matrix.nix
+    ./brain-bot.nix
     # VPN / overlay network (spiders)
     ./netbird.nix
   ];
