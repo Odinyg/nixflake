@@ -10,6 +10,12 @@
     "n8n-1.91.3"
   ];
 
+  # Git credential store for Forgejo (scoped to git.pytt.io only)
+  programs.git.enable = true;
+  programs.git.config = {
+    credential."https://git.pytt.io".helper = "store";
+  };
+
   networking.hostName = "sugar";
 
   # Static IP — staging (change to 10.10.30.11 after cutover)
