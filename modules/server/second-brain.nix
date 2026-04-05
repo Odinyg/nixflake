@@ -87,6 +87,37 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # --- System packages ---
+    environment.systemPackages = [ pkgs.uv ];
+
+    # --- Venv setup (runs once, then after every sync) ---
+    systemd.services.second-brain-venv = {
+      description = "Second Brain — Create/update Python venv";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+
+      unitConfig = {
+        # Only run if projectDir exists
+        ConditionPathExists = "${cfg.projectDir}/requirements-chat.txt";
+      };
+
+      serviceConfig = {
+        Type = "oneshot";
+        User = cfg.user;
+        WorkingDirectory = cfg.projectDir;
+        RemainAfterExit = true;
+      };
+
+      path = [ pkgs.uv pkgs.git ];
+
+      script = ''
+        if [ ! -d .venv ]; then
+          uv venv .venv --python 3.12
+        fi
+        uv pip install -r requirements-chat.txt -r requirements-search.txt
+      '';
+    };
+
     # --- Secrets ---
     sops.secrets = {
       second_brain_matrix_token = { };
@@ -122,8 +153,9 @@ in
       after = [
         "conduit.service"
         "network-online.target"
+        "second-brain-venv.service"
       ];
-      requires = [ "conduit.service" ];
+      requires = [ "conduit.service" "second-brain-venv.service" ];
       wants = [ "network-online.target" ];
       partOf = [ "homelab.target" ];
       wantedBy = [ "homelab.target" ];
@@ -231,16 +263,25 @@ in
       path = [ pkgs.git pkgs.openssh ];
 
       script = ''
-        # Record HEAD before pull
+        # Record state before pull
         OLD_HEAD=$(git rev-parse HEAD)
+        OLD_REQS=$(cat requirements-chat.txt requirements-search.txt 2>/dev/null | md5sum)
 
         git pull --ff-only ${cfg.sync.remote} ${cfg.sync.branch} || exit 0
 
         NEW_HEAD=$(git rev-parse HEAD)
 
-        # Restart bot if code changed
         if [ "$OLD_HEAD" != "$NEW_HEAD" ]; then
-          echo "Code updated ($OLD_HEAD → $NEW_HEAD), restarting bot..."
+          echo "Code updated ($OLD_HEAD → $NEW_HEAD)"
+
+          # Rebuild venv if requirements changed
+          NEW_REQS=$(cat requirements-chat.txt requirements-search.txt 2>/dev/null | md5sum)
+          if [ "$OLD_REQS" != "$NEW_REQS" ]; then
+            echo "Requirements changed, rebuilding venv..."
+            systemctl restart second-brain-venv || true
+          fi
+
+          echo "Restarting bot..."
           systemctl restart second-brain-bot || true
         fi
       '';

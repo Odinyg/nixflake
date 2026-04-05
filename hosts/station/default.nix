@@ -12,8 +12,14 @@
     ../../profiles/hardware/nvidia.nix
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
+  nixpkgs.config.permittedInsecurePackages = lib.mkForce [
     "electron-36.9.5"
+    "libsoup-2.74.3"
+    "electron-19.1.9"
+    "electron-25.9.0"
+    "electron-29.4.6"
+    "openssl-1.1.1w"
+    "olm-3.2.16"
   ];
 
   # ==============================================================================

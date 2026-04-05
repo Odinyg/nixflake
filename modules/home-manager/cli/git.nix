@@ -30,6 +30,7 @@
         ];
         extraConfig = {
           core.editor = "nvim";
+          credential."https://git.pytt.io".helper = "store";
         };
       };
       lazygit = {
