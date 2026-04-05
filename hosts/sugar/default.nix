@@ -94,6 +94,7 @@
     projectDir = "/home/odin/projects/Brain";
     matrix.homeserver = "http://localhost:6167";
     matrix.userId = "@brain:pytt.io";
+    matrix.notifyRoom = "!ExLmjhT_x3E2dLwnd1Ef3dgaWezPJC0-X6Oqk3Tcy_Q";
   };
 
   # Docker network for inter-container communication
