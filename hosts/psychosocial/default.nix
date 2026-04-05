@@ -222,6 +222,15 @@
 
       @matrix host matrix.pytt.io
       handle @matrix {
+        handle /.well-known/matrix/client {
+          header Content-Type "application/json"
+          header Access-Control-Allow-Origin "*"
+          respond `{"m.homeserver":{"base_url":"https://matrix.pytt.io"}}`
+        }
+        handle /.well-known/matrix/server {
+          header Content-Type "application/json"
+          respond `{"m.server":"matrix.pytt.io:443"}`
+        }
         reverse_proxy 10.10.30.111:6167
       }
 
@@ -306,6 +315,17 @@
         dns cloudflare {$CLOUDFLARE_API_TOKEN}
         propagation_delay 2m
         resolvers 1.1.1.1
+      }
+
+      handle /.well-known/matrix/client {
+        header Content-Type "application/json"
+        header Access-Control-Allow-Origin "*"
+        respond `{"m.homeserver":{"base_url":"https://matrix.pytt.io"}}`
+      }
+
+      handle /.well-known/matrix/server {
+        header Content-Type "application/json"
+        respond `{"m.server":"matrix.pytt.io:443"}`
       }
 
       import authelia
