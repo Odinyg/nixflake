@@ -56,6 +56,7 @@ let
     "byob"
     "psychosocial"
     "spiders"
+    "nero"
   ];
 in
 {
@@ -113,6 +114,11 @@ in
     spiders = mkColmenaServer {
       hostPath = ../hosts/spiders;
       targetHost = "netbird.pytt.io"; # Public VPS — update to IP if DNS not ready
+    };
+
+    nero = mkColmenaServer {
+      hostPath = ../hosts/nero;
+      targetHost = "10.10.30.115";
     };
   };
 }

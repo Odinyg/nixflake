@@ -73,7 +73,8 @@
       "WebFetch(domain:netbird.io)",
       "WebFetch(domain:davidjusto.com)",
       "WebFetch(domain:sergiogimenez.com)",
-      "WebFetch(domain:noah.masu.rs)"
+      "WebFetch(domain:noah.masu.rs)",
+      "Bash(sops -d secrets/nero.yaml)"
     ],
     "deny": [],
     "ask": []

@@ -66,6 +66,10 @@ in
       hostPath = ../hosts/spiders;
     };
 
+    nero = mkServer {
+      hostPath = ../hosts/nero;
+    };
+
     # Installer ISO with SSH key baked in
     installer = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
