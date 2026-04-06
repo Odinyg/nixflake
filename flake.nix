@@ -26,6 +26,10 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     colmena.url = "github:zhaofengli/colmena";
+    brain = {
+      url = "git+https://git.pytt.io/odin/Brain";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
   outputs =
     inputs@{ flake-parts, ... }:

@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -38,7 +43,7 @@
     ./forgejo-runner.nix
     # Matrix + Second Brain (sugar)
     ./matrix.nix
-    ./second-brain.nix
+    inputs.brain.nixosModules.default
     # VPN / overlay network (spiders)
     ./netbird.nix
   ];
