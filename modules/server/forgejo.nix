@@ -54,8 +54,6 @@ in
           HTTP_ADDR = "0.0.0.0";
           SSH_DOMAIN = cfg.domain;
           SSH_PORT = 2222;
-          START_SSH_SERVER = true;
-          BUILTIN_SSH_SERVER_USER = "git";
         };
         repository = {
           ENABLE_PUSH_CREATE_USER = true;
