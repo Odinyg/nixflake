@@ -339,7 +339,7 @@
     externalInterface = "ens18";
     forwardPorts = [
       {
-        destination = "10.10.30.111:22";
+        destination = "10.10.30.111:2222";
         proto = "tcp";
         sourcePort = 2222;
       }
