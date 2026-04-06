@@ -73,11 +73,15 @@ secrets-sugar:
 secrets-spiders:
   sops secrets/spiders.yaml
 
+# Edit nero secrets
+secrets-nero:
+  sops secrets/nero.yaml
+
 # --- Homelab deployment ---
 
 # Deploy to all homelab servers
 deploy-all: rebuild-pre
-  nix shell nixpkgs#colmena -c colmena apply --on byob,psychosocial,pulse,sugar,spiders
+  nix shell nixpkgs#colmena -c colmena apply --on byob,psychosocial,pulse,sugar,spiders,nero
 
 # Deploy to a specific server
 deploy server: rebuild-pre
@@ -102,3 +106,7 @@ deploy-sugar: rebuild-pre
 # Deploy to spiders
 deploy-spiders: rebuild-pre
   nix shell nixpkgs#colmena -c colmena apply --on spiders
+
+# Deploy to nero
+deploy-nero: rebuild-pre
+  nix shell nixpkgs#colmena -c colmena apply --on nero
