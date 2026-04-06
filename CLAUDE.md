@@ -14,7 +14,7 @@
 
 ## Hosts
 - **Desktops**: laptop (`none`), vnpc-21 (`odin`), station (`none`)
-- **Servers (homelab)**: pulse, sugar, byob, psychosocial (LAN, 10.10.x.x subnets)
+- **Servers (homelab)**: pulse, sugar, byob, psychosocial, nero (LAN, 10.10.x.x subnets)
 - **Servers (VPS)**: spiders (public Cantabo VPS at netbird.pytt.io — runs netbird + authelia + nginx)
 - **Installer**: minimal ISO with SSH key baked in — for bootstrapping new hosts
 
@@ -38,6 +38,9 @@
 - Secrets managed with sops-nix — `secrets/secrets.yaml` (shared) + per-host files
 - Ollama intentionally binds to `0.0.0.0` with `openFirewall = true` for LAN access — not a security issue
 - All services are exposed via `*.pytt.io` subdomains through Caddy on psychosocial
+
+## External flake-sourced modules
+- **second-brain**: sourced from the `brain` flake input (`git+https://git.pytt.io/odin/Brain`), not vendored locally. Lives on **nero** (`10.10.30.115`); previously hosted on sugar. To upgrade module schema: `nix flake update brain && just deploy nero`. The vendored `modules/server/second-brain.nix` is kept on disk as a fallback during the soak window — delete it once nero has been stable for ≥24h.
 
 ## Gotchas
 - Servers use `nixpkgs-unstable`, desktops use `nixos-25.05` (stable) — server modules get the latest NixOS options/packages
