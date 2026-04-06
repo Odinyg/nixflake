@@ -89,13 +89,10 @@
     defaultUser = "homelab";
   };
   server.matrix.enable = true;
-  server.second-brain = {
-    enable = true;
-    projectDir = "/home/odin/projects/Brain";
-    matrix.homeserver = "http://localhost:6167";
-    matrix.userId = "@brain:pytt.io";
-    matrix.notifyRoom = "!ExLmjhT_x3E2dLwnd1Ef3dgaWezPJC0-X6Oqk3Tcy_Q";
-  };
+  # Migrated to nero — kept declared but disabled. Local checkout under
+  # /home/odin/projects/Brain on sugar is left in place as a backup for
+  # ~1 week per the migration plan, then removed.
+  server.second-brain.enable = false;
 
   # Docker network for inter-container communication
   virtualisation.docker.autoPrune = {
