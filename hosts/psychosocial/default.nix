@@ -333,13 +333,20 @@
     }
   '';
 
-  # Forward Git SSH (port 2222) to sugar's Forgejo built-in SSH server
+  # Forward Git SSH (public port 2222) to sugar's host sshd on port 22.
+  # Forgejo serves git over SSH via the host sshd using a forced-command in
+  # the forgejo user's authorized_keys (not the forgejo built-in SSH server,
+  # which is configured but never actually binds). internalInterfaces is set
+  # to ens18 so hairpin-NAT'd traffic gets masqueraded — without this, return
+  # packets from sugar bypass psychosocial and break the TCP handshake for
+  # any client on the same LAN as sugar.
   networking.nat = {
     enable = true;
     externalInterface = "ens18";
+    internalInterfaces = [ "ens18" ];
     forwardPorts = [
       {
-        destination = "10.10.30.111:2222";
+        destination = "10.10.30.111:22";
         proto = "tcp";
         sourcePort = 2222;
       }
