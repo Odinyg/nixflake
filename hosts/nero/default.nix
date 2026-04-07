@@ -1,9 +1,9 @@
-{
-  ...
-}:
+{ pkgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
+
+  environment.systemPackages = [ pkgs.gh ];
 
   networking = {
     hostName = "nero";
