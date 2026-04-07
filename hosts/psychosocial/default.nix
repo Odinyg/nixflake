@@ -32,6 +32,7 @@
   server.disko.enable = true;
   server.caddy.enable = true;
   server.homepage.enable = true;
+  server.element-web.enable = true;
 
   # Caddy routes — all reverse proxy rules for pytt.io
   services.caddy.extraConfig = ''
@@ -218,6 +219,14 @@
       @vault host vault.pytt.io
       handle @vault {
         reverse_proxy 10.10.30.111:8222
+      }
+
+      @element host element.pytt.io
+      handle @element {
+        root * ${config.server.element-web.package}
+        encode gzip zstd
+        try_files {path} /index.html
+        file_server
       }
 
       @matrix host matrix.pytt.io

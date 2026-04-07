@@ -43,6 +43,7 @@
     ./forgejo-runner.nix
     # Matrix + Second Brain (sugar)
     ./matrix.nix
+    ./element-web.nix
     inputs.brain.nixosModules.default
     # VPN / overlay network (spiders)
     ./netbird.nix
