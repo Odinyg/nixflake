@@ -71,7 +71,7 @@
   # ==============================================================================
   # Note: Station uses direct sops configuration instead of the secrets module
   # because it has different requirements (different user, no SSH key management)
-  sops.defaultSopsFile = ./../../secrets/general.yaml;
+  sops.defaultSopsFile = ./../../secrets/secrets.yaml;
   sops.age.keyFile = "/home/${config.user}/.config/sops/age/keys.txt";
 
   # ==============================================================================
