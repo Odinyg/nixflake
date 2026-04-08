@@ -76,11 +76,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775639030,
-        "narHash": "sha256-+rbIsWtTyRAwQWhQD3nBJjvlRMc+Dqohzr6wO7PA+Tw=",
+        "lastModified": 1775640289,
+        "narHash": "sha256-dKqksaNa6+N8ypLpUA5c/dTARGCd0a5BhYm6vqFkBJY=",
         "ref": "refs/heads/master",
-        "rev": "4073523fcc6649148a730d31478a750cb6fd8fe9",
-        "revCount": 56,
+        "rev": "ba78659ccffae870711f073c2cc7b3524e9a5406",
+        "revCount": 57,
         "type": "git",
         "url": "https://git.pytt.io/odin/Brain"
       },
