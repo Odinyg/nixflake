@@ -1,7 +1,15 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    inputs.hermes-agent.nixosModules.default
+  ];
 
   environment.systemPackages = [ pkgs.gh ];
 
@@ -36,6 +44,29 @@
       enableServer = true;
       port = 8765;
     };
+  };
+
+  sops.secrets."hermes-env" = {
+    owner = "hermes";
+    mode = "0400";
+  };
+
+  services.hermes-agent = {
+    enable = true;
+    addToSystemPackages = true;
+    environmentFiles = [ config.sops.secrets."hermes-env".path ];
+    settings = {
+      model = {
+        base_url = "http://10.10.10.10:11434/v1";
+        default = "gemma4:26b";
+      };
+      matrix = {
+        require_mention = true;
+        auto_thread = true;
+        free_response_rooms = [ "!XXXXXX:pytt.io" ];
+      };
+    };
+    documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
   };
 
   system.stateVersion = "25.05";

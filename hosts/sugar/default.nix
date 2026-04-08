@@ -88,7 +88,10 @@
     enable = true;
     defaultUser = "homelab";
   };
-  server.matrix.enable = true;
+  server.matrix = {
+    enable = true;
+    allowRegistration = true; # TEMP: registering @hermes:pytt.io — flip back to false after
+  };
   # Migrated to nero — kept declared but disabled. Local checkout under
   # /home/odin/projects/Brain on sugar is left in place as a backup for
   # ~1 week per the migration plan, then removed.
