@@ -60,10 +60,8 @@
         base_url = "http://10.10.10.10:11434/v1";
         default = "gemma4:26b";
       };
-      matrix = {
+      discord = {
         require_mention = true;
-        auto_thread = true;
-        free_response_rooms = [ "!RtRRpoYZuqrzsHwYg-on-bAuJw3qxyPcZh6zCxSAFbE:pytt.io" ];
       };
     };
     documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
