@@ -63,7 +63,7 @@
       matrix = {
         require_mention = true;
         auto_thread = true;
-        free_response_rooms = [ "!XXXXXX:pytt.io" ];
+        free_response_rooms = [ "!RtRRpoYZuqrzsHwYg-on-bAuJw3qxyPcZh6zCxSAFbE:pytt.io" ];
       };
     };
     documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
