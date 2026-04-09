@@ -51,21 +51,47 @@
     mode = "0400";
   };
 
-  services.hermes-agent = {
-    enable = true;
-    addToSystemPackages = true;
-    environmentFiles = [ config.sops.secrets."hermes-env".path ];
-    settings = {
-      model = {
-        base_url = "http://10.10.10.10:11434/v1";
-        default = "gemma4:26b";
+  # Override the upstream hermes-agent package to add matrix-nio (no e2e).
+  # The upstream nix build excludes [matrix] because python-olm (libolm
+  # bindings, required only by [e2e]) is broken on macOS. Plain matrix-nio
+  # works fine on Linux. We layer it in via PYTHONPATH from a tiny nixpkgs
+  # python env so the venv built by uv2nix stays untouched.
+  services.hermes-agent =
+    let
+      upstream = inputs.hermes-agent.packages.${pkgs.system}.default;
+      # Use stable nixpkgs for matrix-nio — unstable currently has a broken
+      # dep chain (sphinx-9 incompatible with python 3.11).
+      pkgs-stable = import inputs.nixpkgs { inherit (pkgs) system; };
+      matrixEnv = pkgs-stable.python311.withPackages (ps: [ ps.matrix-nio ]);
+    in
+    {
+      enable = true;
+      addToSystemPackages = true;
+      environmentFiles = [ config.sops.secrets."hermes-env".path ];
+      package = pkgs.symlinkJoin {
+        name = "hermes-agent-with-matrix";
+        paths = [ upstream ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          for bin in hermes hermes-agent hermes-acp; do
+            if [ -e $out/bin/$bin ]; then
+              wrapProgram $out/bin/$bin \
+                --prefix PYTHONPATH : ${matrixEnv}/${pkgs.python311.sitePackages}
+            fi
+          done
+        '';
       };
-      discord = {
-        require_mention = false;
+      settings = {
+        model = {
+          base_url = "http://10.10.10.10:11434/v1";
+          default = "gemma4:26b";
+        };
+        discord = {
+          require_mention = false;
+        };
       };
+      documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
     };
-    documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
-  };
 
   system.stateVersion = "25.05";
 }
