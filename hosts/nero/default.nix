@@ -71,9 +71,10 @@
       OBSIDIAN_VAULT_PATH = "/var/lib/hermes/vault";
       # Hermes runs from the immutable nix-built python env even in container
       # mode (only skills get the writable layer). Inject matrix-nio via
-      # PYTHONPATH from the writable uv venv where the install ExecStartPost
-      # places it. Both pythons are 3.11 so the bytecode is compatible.
-      PYTHONPATH = "/data/home/.venv/lib/python3.11/site-packages";
+      # NIX_PYTHONPATH (the var the nix python wrapper actually honours;
+      # plain PYTHONPATH is filtered) from the writable uv venv where the
+      # install ExecStartPost places it. Both pythons are 3.11.
+      NIX_PYTHONPATH = "/data/home/.venv/lib/python3.11/site-packages";
     };
     settings = {
       model = {
