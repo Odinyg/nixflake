@@ -98,6 +98,43 @@
         };
       };
       documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
+      documents."USER.md" = ''
+        # Operational context for Hermes on nero
+
+        ## Obsidian / Brain vault
+
+        The user's obsidian-style knowledge vault is mounted **read-only** at:
+
+            /var/lib/hermes-vault
+
+        This is also exposed via `$OBSIDIAN_VAULT_PATH`. Brain (a separate
+        agent) owns writes — you must NEVER attempt to write to this path,
+        only read/search it.
+
+        When the user asks about "notes", "the vault", "obsidian", "daily
+        log", or names a file like `HABITS.md`, `MEMORY.md`, `HEARTBEAT.md`,
+        you should look there first using terminal tools, e.g.:
+
+            find "$OBSIDIAN_VAULT_PATH" -iname '*habits*'
+            grep -rli 'keyword' "$OBSIDIAN_VAULT_PATH" --include='*.md'
+            cat "$OBSIDIAN_VAULT_PATH/HABITS.md"
+
+        Top-level layout: `daily/`, `archive/`, `decisions/`, `drafts/`,
+        `knowledge/`, plus root-level `HABITS.md`, `MEMORY.md`,
+        `HEARTBEAT.md`, `README.md`.
+
+        ## Companion services on this host
+
+        - **Brain** (second-brain) owns the vault, runs the matrix bot
+          `@brain:pytt.io`, handles daily logs, GitHub/Todoist/Mealie/
+          HomeAssistant/Wger integrations, and the flush server on :8765.
+        - **You** (`@hermes:pytt.io`) are the broader-purpose agent. You can
+          read the vault but Brain owns the canonical write path.
+
+        Defer to Brain for things in its scope (daily log appends, matrix
+        notifications via second-brain channels, the flush pipeline).
+        Take ownership of everything else.
+      '';
     };
 
   # Read-only bind mount so hermes (which runs as `hermes`, not `odin`) can
