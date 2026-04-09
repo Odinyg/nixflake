@@ -68,6 +68,13 @@
       enable = true;
       addToSystemPackages = true;
       environmentFiles = [ config.sops.secrets."hermes-env".path ];
+      environment = {
+        # Read-only bind mount of Brain-Vault (defined below). Brain owns
+        # writes; hermes only reads. We mount instead of pointing directly
+        # at /home/odin/projects/Brain-Vault because /home/odin is 0700
+        # and hermes can't traverse it.
+        OBSIDIAN_VAULT_PATH = "/var/lib/hermes-vault";
+      };
       package = pkgs.symlinkJoin {
         name = "hermes-agent-with-matrix";
         paths = [ upstream ];
@@ -92,6 +99,19 @@
       };
       documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
     };
+
+  # Read-only bind mount so hermes (which runs as `hermes`, not `odin`) can
+  # read the obsidian/brain vault without needing perms on /home/odin.
+  systemd.tmpfiles.rules = [
+    "d /var/lib/hermes-vault 0755 root root -"
+  ];
+  fileSystems."/var/lib/hermes-vault" = {
+    device = "/home/odin/projects/Brain-Vault";
+    options = [
+      "bind"
+      "ro"
+    ];
+  };
 
   system.stateVersion = "25.05";
 }
