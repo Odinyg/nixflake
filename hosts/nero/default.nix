@@ -69,10 +69,8 @@
       addToSystemPackages = true;
       environmentFiles = [ config.sops.secrets."hermes-env".path ];
       environment = {
-        # Bind-mounted at the obsidian skill's default lookup path
-        # ($HOME/Documents/Obsidian Vault) so subprocesses don't need to
-        # inherit OBSIDIAN_VAULT_PATH — the skill's fallback just works.
-        OBSIDIAN_VAULT_PATH = "/var/lib/hermes/Documents/Obsidian Vault";
+        # No-space path — paths with spaces tripped up the LLM's tool calls.
+        OBSIDIAN_VAULT_PATH = "/var/lib/hermes/vault";
       };
       package = pkgs.symlinkJoin {
         name = "hermes-agent-with-matrix";
@@ -104,10 +102,9 @@
 
         The user's obsidian-style knowledge vault is mounted **read-only** at:
 
-            ~/Documents/Obsidian Vault
+            /var/lib/hermes/vault
 
-        (which is the obsidian skill's default location, also available as
-        `$OBSIDIAN_VAULT_PATH`). Brain (a separate
+        (also available as `$OBSIDIAN_VAULT_PATH`). Brain (a separate
         agent) owns writes — you must NEVER attempt to write to this path,
         only read/search it.
 
@@ -115,10 +112,9 @@
         log", or names a file like `HABITS.md`, `MEMORY.md`, `HEARTBEAT.md`,
         you should look there first using terminal tools, e.g.:
 
-            VAULT="$HOME/Documents/Obsidian Vault"
-            find "$VAULT" -iname '*habits*'
-            grep -rli 'keyword' "$VAULT" --include='*.md'
-            cat "$VAULT/HABITS.md"
+            find /var/lib/hermes/vault -iname '*habits*'
+            grep -rli 'keyword' /var/lib/hermes/vault --include='*.md'
+            cat /var/lib/hermes/vault/HABITS.md
 
         Top-level layout: `daily/`, `archive/`, `decisions/`, `drafts/`,
         `knowledge/`, plus root-level `HABITS.md`, `MEMORY.md`,
@@ -139,15 +135,13 @@
     };
 
   # Read-only bind mount so hermes (which runs as `hermes`, not `odin`) can
-  # read the obsidian/brain vault without needing perms on /home/odin.
-  # Mounted at the obsidian skill's default location ($HOME/Documents/
-  # Obsidian Vault) so the skill works without env-var inheritance.
+  # read the obsidian/brain vault. Path has no space because LLM tool calls
+  # repeatedly tripped on the default "Obsidian Vault" name.
   systemd.tmpfiles.rules = [
     "d /var/lib/hermes 0755 hermes hermes -"
-    "d /var/lib/hermes/Documents 0755 hermes hermes -"
-    "d '/var/lib/hermes/Documents/Obsidian Vault' 0755 root root -"
+    "d /var/lib/hermes/vault 0755 root root -"
   ];
-  fileSystems."/var/lib/hermes/Documents/Obsidian Vault" = {
+  fileSystems."/var/lib/hermes/vault" = {
     device = "/home/odin/projects/Brain-Vault";
     options = [
       "bind"
