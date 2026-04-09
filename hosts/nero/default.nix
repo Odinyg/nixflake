@@ -63,6 +63,7 @@
     container = {
       enable = true;
       backend = "podman";
+      extraVolumes = [ "/var/lib/hermes/vault:/var/lib/hermes/vault:ro" ];
     };
     environmentFiles = [ config.sops.secrets."hermes-env".path ];
     environment = {
@@ -117,6 +118,30 @@
       Take ownership of everything else.
     '';
   };
+
+  # Install matrix-nio inside the hermes container after start. Idempotent:
+  # apt + pip are no-ops once present in the writable layer. Survives container
+  # recreates because the unit re-runs on every start.
+  systemd.services.hermes-agent.serviceConfig.ExecStartPost = [
+    "${pkgs.writeShellScript "hermes-install-matrix-nio" ''
+      set -eu
+      for i in 1 2 3 4 5 6 7 8 9 10; do
+        if ${pkgs.podman}/bin/podman exec hermes-agent true 2>/dev/null; then
+          break
+        fi
+        sleep 2
+      done
+      ${pkgs.podman}/bin/podman exec hermes-agent bash -c '
+        set -eu
+        if ! python3 -c "import nio" 2>/dev/null; then
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update -qq
+          apt-get install -y -qq python3-pip
+          python3 -m pip install --break-system-packages matrix-nio
+        fi
+      '
+    ''}"
+  ];
 
   # Read-only bind mount so hermes (which runs as `hermes`, not `odin`) can
   # read the obsidian/brain vault. Path has no space because LLM tool calls
