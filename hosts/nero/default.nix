@@ -67,14 +67,13 @@
       # services.hermes-agent.environment does NOT propagate into the
       # container — pass the vars we need via podman --env directly.
       # OBSIDIAN_VAULT_PATH: no-space path (LLM tool calls tripped on spaces).
-      # NIX_PYTHONPATH: hermes runs from the immutable nix-built python env
-      # even in container mode (only skills get the writable layer). Inject
+      # PYTHONPATH: hermes runs from the immutable nix-built python env even
+      # in container mode (only skills get the writable layer). Inject
       # matrix-nio from the writable uv venv where the install ExecStartPost
-      # places it. NIX_PYTHONPATH is the var nix's python wrapper honours
-      # (plain PYTHONPATH is filtered). Both pythons are 3.11.
+      # places it. Both pythons are 3.11 so bytecode is compatible.
       extraOptions = [
         "--env=OBSIDIAN_VAULT_PATH=/var/lib/hermes/vault"
-        "--env=NIX_PYTHONPATH=/data/home/.venv/lib/python3.11/site-packages"
+        "--env=PYTHONPATH=/data/home/.venv/lib/python3.11/site-packages"
       ];
     };
     environmentFiles = [ config.sops.secrets."hermes-env".path ];
