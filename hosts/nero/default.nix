@@ -126,11 +126,12 @@
   systemd.services.hermes-agent.serviceConfig.ExecStartPost = [
     "${pkgs.systemd}/bin/systemd-run --no-block --unit=hermes-matrix-nio-install --collect ${pkgs.writeShellScript "hermes-install-matrix-nio" ''
       set -eu
+      export PATH=${pkgs.coreutils}/bin:${pkgs.podman}/bin:$PATH
       for i in 1 2 3 4 5 6 7 8 9 10; do
         if ${pkgs.podman}/bin/podman exec hermes-agent true 2>/dev/null; then
           break
         fi
-        sleep 2
+        ${pkgs.coreutils}/bin/sleep 2
       done
       ${pkgs.podman}/bin/podman exec hermes-agent bash -c '
         set -eu
