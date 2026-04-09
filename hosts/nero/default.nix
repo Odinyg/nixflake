@@ -61,7 +61,7 @@
         default = "gemma4:26b";
       };
       discord = {
-        require_mention = true;
+        require_mention = false;
       };
     };
     documents."SOUL.md" = builtins.readFile ./hermes-soul.md;
