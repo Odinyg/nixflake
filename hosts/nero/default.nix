@@ -69,11 +69,10 @@
       addToSystemPackages = true;
       environmentFiles = [ config.sops.secrets."hermes-env".path ];
       environment = {
-        # Read-only bind mount of Brain-Vault (defined below). Brain owns
-        # writes; hermes only reads. We mount instead of pointing directly
-        # at /home/odin/projects/Brain-Vault because /home/odin is 0700
-        # and hermes can't traverse it.
-        OBSIDIAN_VAULT_PATH = "/var/lib/hermes-vault";
+        # Bind-mounted at the obsidian skill's default lookup path
+        # ($HOME/Documents/Obsidian Vault) so subprocesses don't need to
+        # inherit OBSIDIAN_VAULT_PATH — the skill's fallback just works.
+        OBSIDIAN_VAULT_PATH = "/var/lib/hermes/Documents/Obsidian Vault";
       };
       package = pkgs.symlinkJoin {
         name = "hermes-agent-with-matrix";
@@ -105,9 +104,10 @@
 
         The user's obsidian-style knowledge vault is mounted **read-only** at:
 
-            /var/lib/hermes-vault
+            ~/Documents/Obsidian Vault
 
-        This is also exposed via `$OBSIDIAN_VAULT_PATH`. Brain (a separate
+        (which is the obsidian skill's default location, also available as
+        `$OBSIDIAN_VAULT_PATH`). Brain (a separate
         agent) owns writes — you must NEVER attempt to write to this path,
         only read/search it.
 
@@ -115,9 +115,10 @@
         log", or names a file like `HABITS.md`, `MEMORY.md`, `HEARTBEAT.md`,
         you should look there first using terminal tools, e.g.:
 
-            find "$OBSIDIAN_VAULT_PATH" -iname '*habits*'
-            grep -rli 'keyword' "$OBSIDIAN_VAULT_PATH" --include='*.md'
-            cat "$OBSIDIAN_VAULT_PATH/HABITS.md"
+            VAULT="$HOME/Documents/Obsidian Vault"
+            find "$VAULT" -iname '*habits*'
+            grep -rli 'keyword' "$VAULT" --include='*.md'
+            cat "$VAULT/HABITS.md"
 
         Top-level layout: `daily/`, `archive/`, `decisions/`, `drafts/`,
         `knowledge/`, plus root-level `HABITS.md`, `MEMORY.md`,
@@ -139,10 +140,14 @@
 
   # Read-only bind mount so hermes (which runs as `hermes`, not `odin`) can
   # read the obsidian/brain vault without needing perms on /home/odin.
+  # Mounted at the obsidian skill's default location ($HOME/Documents/
+  # Obsidian Vault) so the skill works without env-var inheritance.
   systemd.tmpfiles.rules = [
-    "d /var/lib/hermes-vault 0755 root root -"
+    "d /var/lib/hermes 0755 hermes hermes -"
+    "d /var/lib/hermes/Documents 0755 hermes hermes -"
+    "d '/var/lib/hermes/Documents/Obsidian Vault' 0755 root root -"
   ];
-  fileSystems."/var/lib/hermes-vault" = {
+  fileSystems."/var/lib/hermes/Documents/Obsidian Vault" = {
     device = "/home/odin/projects/Brain-Vault";
     options = [
       "bind"
