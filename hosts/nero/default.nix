@@ -69,6 +69,11 @@
     environment = {
       # No-space path — paths with spaces tripped up the LLM's tool calls.
       OBSIDIAN_VAULT_PATH = "/var/lib/hermes/vault";
+      # Hermes runs from the immutable nix-built python env even in container
+      # mode (only skills get the writable layer). Inject matrix-nio via
+      # PYTHONPATH from the writable uv venv where the install ExecStartPost
+      # places it. Both pythons are 3.11 so the bytecode is compatible.
+      PYTHONPATH = "/data/home/.venv/lib/python3.11/site-packages";
     };
     settings = {
       model = {
@@ -135,11 +140,8 @@
       done
       ${pkgs.podman}/bin/podman exec hermes-agent bash -c '
         set -eu
-        if ! python3 -c "import nio" 2>/dev/null; then
-          export DEBIAN_FRONTEND=noninteractive
-          apt-get update -qq
-          apt-get install -y -qq python3-pip
-          python3 -m pip install --break-system-packages matrix-nio
+        if ! /data/home/.venv/bin/python -c "import nio" 2>/dev/null; then
+          /data/home/.venv/bin/pip install matrix-nio
         fi
       '
     ''}"
