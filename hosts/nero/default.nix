@@ -119,11 +119,12 @@
     '';
   };
 
-  # Install matrix-nio inside the hermes container after start. Idempotent:
-  # apt + pip are no-ops once present in the writable layer. Survives container
-  # recreates because the unit re-runs on every start.
+  # Install matrix-nio inside the hermes container after start. Runs as a
+  # detached transient unit so it does NOT block hermes-agent's startup
+  # (the apt-get + pip install takes longer than TimeoutStartSec). Idempotent:
+  # apt/pip are no-ops once present. Re-runs on every container recreate.
   systemd.services.hermes-agent.serviceConfig.ExecStartPost = [
-    "${pkgs.writeShellScript "hermes-install-matrix-nio" ''
+    "${pkgs.systemd}/bin/systemd-run --no-block --unit=hermes-matrix-nio-install --collect ${pkgs.writeShellScript "hermes-install-matrix-nio" ''
       set -eu
       for i in 1 2 3 4 5 6 7 8 9 10; do
         if ${pkgs.podman}/bin/podman exec hermes-agent true 2>/dev/null; then
