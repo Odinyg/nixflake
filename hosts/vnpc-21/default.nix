@@ -193,6 +193,23 @@
     }
   ];
 
+  # NVIDIA-specific Hyprland workarounds
+  home-manager.users.odin.wayland.windowManager.hyprland.settings = {
+    cursor = {
+      no_hardware_cursors = true;
+      no_break_fs_vrr = true;
+    };
+    opengl = {
+      nvidia_anti_flicker = true;
+    };
+  };
+
+  # NVIDIA-specific browser environment variables
+  home-manager.users.odin.home.sessionVariables = {
+    MOZ_DISABLE_RDD_SANDBOX = "1";
+    MOZ_X11_EGL = "1";
+  };
+
   # COSMIC desktop environment
   cosmic.enable = true;
   cosmic.autoLogin.enable = false;

@@ -95,17 +95,6 @@
           force_split = 1;
         };
 
-        # NVIDIA-specific cursor configuration
-        cursor = {
-          no_hardware_cursors = true;
-          no_break_fs_vrr = true;
-        };
-
-        # NVIDIA-specific OpenGL settings
-        opengl = {
-          nvidia_anti_flicker = true;
-        };
-
         # Miscellaneous settings
         misc = {
           mouse_move_enables_dpms = true;

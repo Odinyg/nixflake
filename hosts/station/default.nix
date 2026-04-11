@@ -9,7 +9,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/desktop.nix
-    ../../profiles/hardware/nvidia.nix
     inputs.brain.nixosModules.flush-client
   ];
 
@@ -76,16 +75,9 @@
   sops.age.keyFile = "/home/${config.user}/.config/sops/age/keys.txt";
 
   # ==============================================================================
-  # HARDWARE - NVIDIA GPU
+  # HARDWARE - AMD GPU
   # ==============================================================================
-  hardware.nvidia-gpu = {
-    enable = true;
-    driverPackage = "latest"; # Use latest drivers for better OpenGL support
-    open = false; # Use proprietary drivers for better gaming stability
-    prime.enable = false; # Desktop GPU, no hybrid graphics
-  };
-
-  environment.variables.__GL_VRR_ALLOWED = "0";
+  amd-gpu.enable = true;
 
   # ==============================================================================
   # POWER MANAGEMENT - DISABLE SLEEP/SUSPEND
@@ -104,11 +96,6 @@
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "ignore";
   };
-
-  # Disable NVIDIA suspend/resume services (not needed for desktop that never sleeps)
-  systemd.services.nvidia-suspend.enable = false;
-  systemd.services.nvidia-hibernate.enable = false;
-  systemd.services.nvidia-resume.enable = false;
 
   # ==============================================================================
   # DISTRIBUTED BUILDS - BUILD SERVER
@@ -189,20 +176,11 @@
       ];
     };
 
-    # Use extraConfig for workspace gap rules
-    wayland.windowManager.hyprland.extraConfig = ''
-      # Large gaps for HDMI monitor workspaces (1-5)
-      workspace = 1, gapsin:0, gapsout:0 100 200 100
-      workspace = 2, gapsin:0, gapsout:0 100 200 100
-      workspace = 3, gapsin:0, gapsout:0 100 200 100
-      workspace = 4, gapsin:0, gapsout:0 100 200 100
-      workspace = 5, gapsin:0, gapsout:0 100 200 100
-    '';
   };
 
   # AI / LLM Tools
-  ollama.enable = true;
-  lmstudio.enable = true;
+  ollama.enable = false;
+  lmstudio.enable = false;
   mcp.enable = true;
 
   # ProtonVPN
@@ -247,7 +225,7 @@
     package = pkgs.postgresql_17;
   };
 
-  hosted-services.open-webui.enable = true;
+  hosted-services.open-webui.enable = false;
 
   # Second Brain — flush client (POSTs session summaries to nero)
   server.brain-flush-client = {
@@ -264,6 +242,7 @@
     [ -r ${config.server.brain-flush-client.envFilePath} ] && \
       set -a && . ${config.server.brain-flush-client.envFilePath} && set +a
   '';
+
   # ==============================================================================
   # SYSTEM VERSION
   # ==============================================================================
