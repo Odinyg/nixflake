@@ -74,10 +74,33 @@
       "hypr/pyprland.toml".source = ./config/pyprland.toml;
       "hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
       "hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
-      "waybar".source = ./config/waybar;
-      "rofi/config.rasi".source = ./config/rofi.rasi;
-      "rofi/nord.rasi".source = ./config/rofi-nord.rasi;
-      "rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;
+      "waybar-base".source = ./config/waybar;
+      "rofi-base/config.rasi".source = ./config/rofi.rasi;
+      "rofi-base/nord.rasi".source = ./config/rofi-nord.rasi;
+      "rofi-base/rounded-common.rasi".source = ./config/rounded-common.rasi;
+    };
+
+    home.activation.initWaybar = {
+      after = [ "writeBoundary" ];
+      before = [ ];
+      data = ''
+        if [ ! -d "$HOME/.config/waybar" ]; then
+          cp -a "$HOME/.config/waybar-base" "$HOME/.config/waybar"
+          chmod -R u+w "$HOME/.config/waybar"
+        fi
+      '';
+    };
+
+    home.activation.initRofi = {
+      after = [ "writeBoundary" ];
+      before = [ ];
+      data = ''
+        if [ ! -d "$HOME/.config/rofi" ]; then
+          mkdir -p "$HOME/.config/rofi"
+          cp -a "$HOME/.config/rofi-base/." "$HOME/.config/rofi/"
+          chmod -R u+w "$HOME/.config/rofi"
+        fi
+      '';
     };
   };
 }

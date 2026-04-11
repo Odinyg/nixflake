@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs-unstable,
-  ...
-}:
+{ config, lib, pkgs-unstable, ... }:
 {
 
   imports = [
@@ -163,6 +158,36 @@
           "match:class ^(steam_app_.*)$, idle_inhibit always"
         ];
       };
+    };
+
+    wayland.windowManager.hyprland.extraConfig = lib.mkAfter ''
+      # Mutable override layer — edit this file without rebuilding NixOS
+      # Changes take effect on: hyprctl reload
+      source = ~/.config/hypr/overrides.conf
+    '';
+
+    home.activation.initHyprlandOverrides = {
+      after = [ "writeBoundary" ];
+      before = [ ];
+      data = ''
+        if [ ! -f "$HOME/.config/hypr/overrides.conf" ]; then
+          mkdir -p "$HOME/.config/hypr"
+          cat > "$HOME/.config/hypr/overrides.conf" << 'OVERRIDE'
+        # Hyprland mutable overrides — edit freely, no rebuild needed
+        # Changes apply on: hyprctl reload
+        # Later values here override earlier Nix-managed settings.
+        #
+        # Examples:
+        #   general:gaps_in = 8
+        #   general:gaps_out = 12
+        #   decoration:rounding = 15
+        #   decoration:blur:enabled = false
+        #
+        # NOTE: Keybindings (bind=) are ADDITIVE — they add to Nix-managed binds,
+        # they do NOT replace them. Manage keybindings in Nix.
+        OVERRIDE
+        fi
+      '';
     };
   };
 }
