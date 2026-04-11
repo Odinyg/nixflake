@@ -5,6 +5,21 @@
   pkgs-unstable,
   ...
 }:
+let
+  # Extract all frames from dynamic HEIC wallpapers into PNGs at build time
+  dynamicWallpapers =
+    pkgs.runCommand "dynamic-wallpapers"
+      {
+        nativeBuildInputs = [ pkgs.libheif ];
+      }
+      ''
+        mkdir -p $out
+        for heic in ${../Dynamic_wallpaper}/*.heic; do
+          name=$(basename "$heic" .heic | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+          heif-dec "$heic" "$out/$name.png"
+        done
+      '';
+in
 {
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
@@ -65,8 +80,8 @@
 
     # XDG config files
     xdg.configFile = {
-      "wallpaper.png".source = ./wallpaper/wallpaper.png;
-      "hypr/hyprpaper.conf".source = ./config/hyprpaper.conf;
+      # Dynamic wallpapers — extracted from HEIC at build time
+      "wallpapers".source = dynamicWallpapers;
       "hypr/random-wallpaper.sh" = {
         source = ./scripts/random-wallpaper.sh;
         executable = true;
@@ -81,23 +96,25 @@
     };
 
     home.activation.initWaybar = {
-      after = [ "writeBoundary" ];
+      after = [ "linkGeneration" ];
       before = [ ];
       data = ''
-        if [ ! -d "$HOME/.config/waybar" ]; then
-          cp -a "$HOME/.config/waybar-base" "$HOME/.config/waybar"
+        if [ ! -d "$HOME/.config/waybar" ] || [ -L "$HOME/.config/waybar" ]; then
+          rm -rf "$HOME/.config/waybar"
+          cp -rL "$HOME/.config/waybar-base" "$HOME/.config/waybar"
           chmod -R u+w "$HOME/.config/waybar"
         fi
       '';
     };
 
     home.activation.initRofi = {
-      after = [ "writeBoundary" ];
+      after = [ "linkGeneration" ];
       before = [ ];
       data = ''
-        if [ ! -d "$HOME/.config/rofi" ]; then
+        if [ ! -d "$HOME/.config/rofi" ] || [ -L "$HOME/.config/rofi" ]; then
+          rm -rf "$HOME/.config/rofi"
           mkdir -p "$HOME/.config/rofi"
-          cp -a "$HOME/.config/rofi-base/." "$HOME/.config/rofi/"
+          cp -rL "$HOME/.config/rofi-base/." "$HOME/.config/rofi/"
           chmod -R u+w "$HOME/.config/rofi"
         fi
       '';

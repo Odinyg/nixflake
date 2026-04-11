@@ -1,4 +1,9 @@
-{ config, lib, pkgs-unstable, ... }:
+{
+  config,
+  lib,
+  pkgs-unstable,
+  ...
+}:
 {
 
   imports = [
@@ -167,7 +172,7 @@
     '';
 
     home.activation.initHyprlandOverrides = {
-      after = [ "writeBoundary" ];
+      after = [ "linkGeneration" ];
       before = [ ];
       data = ''
         if [ ! -f "$HOME/.config/hypr/overrides.conf" ]; then

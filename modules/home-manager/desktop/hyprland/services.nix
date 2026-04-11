@@ -1,19 +1,43 @@
-{ config, lib, pkgs-unstable, ... }: {
+{
+  config,
+  lib,
+  pkgs-unstable,
+  ...
+}:
+{
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     # Swaylock screen locker
     programs.swaylock = {
       enable = true;
       settings = {
-        # Let Stylix handle color theming
         font-size = 24;
         indicator-idle-visible = false;
         indicator-radius = 100;
         indicator-thickness = 7;
         show-failed-attempts = true;
-        image = lib.mkDefault "~/.config/wallpaper.png";
+        image = lib.mkDefault "~/.config/current-wallpaper.png";
         scaling = "fill";
       };
+    };
+
+    # Wallpaper rotation — picks a random wallpaper every 2 hours
+    systemd.user.services.wallpaper-rotate = {
+      Unit.Description = "Rotate desktop wallpaper";
+      Service = {
+        Type = "oneshot";
+        ExecStart = "%h/.config/hypr/random-wallpaper.sh";
+      };
+    };
+
+    systemd.user.timers.wallpaper-rotate = {
+      Unit.Description = "Rotate wallpaper every 2 hours";
+      Timer = {
+        OnActiveSec = "0";
+        OnUnitActiveSec = "2h";
+        RandomizedDelaySec = "30min";
+      };
+      Install.WantedBy = [ "timers.target" ];
     };
 
     # Hypridle idle management
@@ -45,20 +69,23 @@
     # Kanshi dynamic display configuration
     services.kanshi = {
       enable = true;
-      settings = if (config.hyprland.kanshi.profiles != []) then
-        config.hyprland.kanshi.profiles
-      else
-        # Default fallback profile for hosts without custom configuration
-        [
-          {
-            profile.name = "default";
-            profile.outputs = [{
-              criteria = "eDP-1";
-              mode = "1920x1080";
-              scale = 1.0;
-            }];
-          }
-        ];
+      settings =
+        if (config.hyprland.kanshi.profiles != [ ]) then
+          config.hyprland.kanshi.profiles
+        else
+          # Default fallback profile for hosts without custom configuration
+          [
+            {
+              profile.name = "default";
+              profile.outputs = [
+                {
+                  criteria = "eDP-1";
+                  mode = "1920x1080";
+                  scale = 1.0;
+                }
+              ];
+            }
+          ];
     };
   };
 }
