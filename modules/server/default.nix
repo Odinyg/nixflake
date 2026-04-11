@@ -48,10 +48,7 @@
     # VPN / overlay network (spiders)
     ./netbird.nix
   ];
-
-  options.server.enable = lib.mkEnableOption "headless server profile";
-
-  config = lib.mkIf true {
+  config = {
     nixpkgs.config.allowUnfree = true;
 
     # Nix settings

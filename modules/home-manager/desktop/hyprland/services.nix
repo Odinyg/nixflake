@@ -11,7 +11,7 @@
         indicator-radius = 100;
         indicator-thickness = 7;
         show-failed-attempts = true;
-        image = lib.mkDefault "~/.config/hypr/wallpaper/wallpaper.png";
+        image = lib.mkDefault "~/.config/wallpaper.png";
         scaling = "fill";
       };
     };

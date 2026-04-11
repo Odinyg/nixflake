@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, ... }:
 {
   # ==============================================================================
   # CORE SYSTEM CONFIGURATION — shared by all desktop profiles
@@ -11,7 +6,9 @@
 
   # Nix configuration
   services.envfs.enable = true;
-  home-manager.backupFileExtension = "backup-$(date +%Y%m%d_%H%M%S)";
+  # Home Manager treats this as a literal suffix, so use a unique stable suffix
+  # instead of shell substitution that never executes during activation.
+  home-manager.backupFileExtension = "hm-backup";
 
   # Networking
   networking.firewall.enable = true;

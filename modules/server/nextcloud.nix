@@ -56,6 +56,8 @@ in
     services.nextcloud = {
       enable = true;
       hostName = cfg.domain;
+      # Keep Nextcloud pinned explicitly during the 32 -> 33 upgrade window.
+      # Nextcloud upgrades must be done one major version at a time.
       package = pkgs.nextcloud32;
       maxUploadSize = "1G";
 
