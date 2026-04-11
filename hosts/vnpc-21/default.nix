@@ -184,6 +184,15 @@
     '';
   };
 
+  # Turn screens off 15 minutes after lock
+  home-manager.users.odin.services.hypridle.settings.listener = lib.mkAfter [
+    {
+      timeout = 1500;
+      on-timeout = "hyprctl dispatch dpms off";
+      on-resume = "hyprctl dispatch dpms on";
+    }
+  ];
+
   # COSMIC desktop environment
   cosmic.enable = true;
   cosmic.autoLogin.enable = false;
