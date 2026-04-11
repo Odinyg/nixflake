@@ -76,7 +76,10 @@
       "WebFetch(domain:noah.masu.rs)",
       "Bash(sops -d secrets/nero.yaml)",
       "Read(//home/none/.claude/**)",
-      "Read(//home/none/.claude/projects/**)"
+      "Read(//home/none/.claude/projects/**)",
+      "Bash(curl -fsSL https://raw.githubusercontent.com/outsourc-e/hermes-workspace/__TRACKED_VAR__/docker-compose.yml)",
+      "Bash(break)",
+      "Bash(curl -fsSL https://api.github.com/repos/outsourc-e/hermes-workspace/contents/)"
     ],
     "deny": [],
     "ask": []

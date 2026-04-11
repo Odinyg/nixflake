@@ -1,0 +1,13 @@
+# Large gaps for HDMI monitor workspaces (1-5)
+workspace = 1, gapsin:0, gapsout:0 100 200 100
+workspace = 2, gapsin:0, gapsout:0 100 200 100
+workspace = 3, gapsin:0, gapsout:0 100 200 100
+workspace = 4, gapsin:0, gapsout:0 100 200 100
+workspace = 5, gapsin:0, gapsout:0 100 200 100
+
+monitor = DP-1, 2560x1440@59.95, 0x0, 1, transform, 3
+monitor = HDMI-A-1, 3840x2160@60, 1440x200, 1
+
+# Mutable override layer — edit this file without rebuilding NixOS
+# Changes take effect on: hyprctl reload
+source = ~/.config/hypr/overrides.conf

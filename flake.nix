@@ -30,10 +30,6 @@
       url = "git+https://git.pytt.io/odin/Brain";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    hermes-agent = {
-      url = "github:NousResearch/hermes-agent";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
   outputs =
     inputs@{ flake-parts, ... }:

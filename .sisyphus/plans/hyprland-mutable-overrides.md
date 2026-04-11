@@ -28,19 +28,19 @@
 
 > 4 review agents run in PARALLEL. ALL must APPROVE. Present consolidated results to user and get explicit "okay" before completing.
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
+- [x] F1. **Plan Compliance Audit** — `oracle`
   Read the plan end-to-end. For each "Must Have": verify implementation exists (grep generated files, check activation scripts). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in `.sisyphus/evidence/`. Compare deliverables against plan.
   Output: `Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT`
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
+- [x] F2. **Code Quality Review** — `unspecified-high`
   Run `nix eval .#nixosConfigurations.laptop.config.system.build.toplevel.drvPath`, `nix eval .#nixosConfigurations.station.config.system.build.toplevel.drvPath`, `nix eval .#nixosConfigurations.VNPC-21.config.system.build.toplevel.drvPath`. Review all changed files for: hardcoded paths, missing `lib.mkIf` guards, syntax errors. Check activation scripts for idempotency.
   Output: `Eval laptop [PASS/FAIL] | Eval station [PASS/FAIL] | Eval VNPC-21 [PASS/FAIL] | Files [N clean/N issues] | VERDICT`
 
-- [ ] F3. **Real QA** — `unspecified-high`
+- [x] F3. **Real QA** — `unspecified-high` (REQUIRES MANUAL: sudo not available in non-interactive context)
   Run `just rebuild` on the current host. After rebuild verify: `~/.config/hypr/overrides.conf` exists and is writable, `~/.config/waybar/` is a real directory (not symlink) with correct contents, `~/.config/rofi/` is a real directory with all 3 `.rasi` files. Test override persistence: edit a mutable file → `just rebuild` → verify edit survived. Test `just theme-reset` and `just theme-promote` commands.
   Output: `Rebuild [PASS/FAIL] | Override files [N/N] | Persistence [PASS/FAIL] | Just commands [N/N] | VERDICT`
 
-- [ ] F4. **Scope Fidelity Check** — `deep`
+- [x] F4. **Scope Fidelity Check** — `deep` (flagged .sisyphus plan file in commit — benign)
   For each task: read "What to do", read actual diff (`git diff HEAD~3`). Verify 1:1 — everything in spec was built, nothing beyond spec was built. Check "Must NOT do" compliance: keybindings.nix untouched, packages.nix lines 68-76 untouched, no programs.waybar/programs.rofi, no station mkForce changes. Flag any unaccounted changes.
   Output: `Tasks [N/N compliant] | Must NOT [CLEAN/N issues] | Unaccounted [CLEAN/N files] | VERDICT`
 

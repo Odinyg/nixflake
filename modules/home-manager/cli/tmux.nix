@@ -146,7 +146,14 @@ let
 
   # Layout picker — fzf popup to start a tmuxinator project (prefix+L)
   layoutPicker = pkgs.writeShellScript "tmux-layout-picker" ''
-    export PATH="${lib.makeBinPath [ pkgs.fzf pkgs.gawk pkgs.coreutils pkgs.tmuxinator ]}:$PATH"
+    export PATH="${
+      lib.makeBinPath [
+        pkgs.fzf
+        pkgs.gawk
+        pkgs.coreutils
+        pkgs.tmuxinator
+      ]
+    }:$PATH"
 
     layout=$(printf '%s\n' \
       "dev-claude   nvim + claude + terminal" \
@@ -173,7 +180,15 @@ let
 
   # Sesh session picker (canonical pattern: run-shell + fzf-tmux)
   seshConnect = pkgs.writeShellScript "sesh-smart-connect" ''
-    export PATH="${lib.makeBinPath [ pkgs.sesh pkgs.fzf pkgs.coreutils pkgs.gnused pkgs.tmuxinator ]}:$PATH"
+    export PATH="${
+      lib.makeBinPath [
+        pkgs.sesh
+        pkgs.fzf
+        pkgs.coreutils
+        pkgs.gnused
+        pkgs.tmuxinator
+      ]
+    }:$PATH"
 
     strip_icon() {
       LC_ALL=C sed $'s/^[\xee\xef][\x80-\xbf][\x80-\xbf] //'
@@ -230,11 +245,16 @@ in
 
   config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
 
-    home.packages = with pkgs; [ tmuxinator tmux-xpanes ansifilter debugNew ];
+    home.packages = with pkgs; [
+      tmuxinator
+      tmux-xpanes
+      ansifilter
+      debugNew
+    ];
 
     # Tmuxinator project files
-    xdg.configFile = lib.mapAttrs' (name: layout:
-      lib.nameValuePair "tmuxinator/${name}.yml" { text = layout.yaml; }
+    xdg.configFile = lib.mapAttrs' (
+      name: layout: lib.nameValuePair "tmuxinator/${name}.yml" { text = layout.yaml; }
     ) tmuxinatorLayouts;
 
     # fzf integration (required for sesh tmux popup)
@@ -258,7 +278,8 @@ in
             name = "git";
             startup_command = "lazygit";
           }
-        ] ++ cfg.sessions;
+        ]
+        ++ cfg.sessions;
       };
     };
 
@@ -410,6 +431,11 @@ in
 
         # Don't detach when closing a session — switch to next
         set -g detach-on-destroy off
+
+        # Trim stale unnamed sessions: kill any unattached session whose name
+        # is purely numeric (tmux's default for unnamed) and whose last
+        # activity was more than 5 days ago. Runs on every client-attached.
+        set-hook -g client-attached "run-shell -b \"tmux list-sessions -F '#{session_name} #{session_attached} #{session_activity}' | awk -v now=\\$(date +%s) '\\$1 ~ /^[0-9]+\\$/ && \\$2==0 && (now-\\$3)>432000 {print \\$1}' | xargs -r -n1 tmux kill-session -t\""
       '';
     };
 

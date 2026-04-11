@@ -1,31 +1,10 @@
 {
-  "active_plan": "/home/none/nixflake/.sisyphus/plans/forgejo.md",
-  "started_at": "2026-04-03T15:36:24.432Z",
+  "active_plan": "/home/none/nixflake/.sisyphus/plans/hyprland-mutable-overrides.md",
+  "started_at": "2026-04-11T11:32:58.866Z",
   "session_ids": [
-    "ses_2ac64a375ffe9Ko8bxY79b9oMO",
-    "ses_2abffe063ffeEq9SLi7ceHDC2f",
-    "ses_2ac00032cffe1FSgUF9k0QwSQU",
-    "ses_2abf971b7ffe6PiHI4fCreP64Y",
-    "ses_2abf7e232ffeqphMuZtkUQnAwp",
-    "ses_2abf56c26ffet7riRK0HgI4Oia",
-    "ses_2abf2dc56ffeX7j3bxVNOediUs",
-    "ses_2abf2b36fffemOansUJaKnc2NZ",
-    "ses_2abf27dbbffebj460hystc7hJw",
-    "ses_2abf2395bffesYGchwBogkAX7F",
-    "ses_2abed06b7fferXm5M2TAXteBJs",
-    "ses_2abecd50effe1BrPZK7wlWS2Tg",
-    "ses_2abeca04affejtc4kArFcPmgyr",
-    "ses_2ab76ab44ffeuru5yK0Z0tQ5LQ",
-    "ses_2ab76d46fffeVmdtwRQz54DqMO",
-    "ses_2ab720404ffej6cL4eJHMDdARV",
-    "ses_2ab718864ffeigswkl2agyEyVp",
-    "ses_2ab1201deffeFCrkjcP57YrQB5",
-    "ses_2ab0ee961ffeoWSpXcnNRCN3mc",
-    "ses_2ab0e1b4effeNB5o2mVQ5fO3aB",
-    "ses_2ab0b5f10ffe6iXzxtDQ7B92Az",
-    "ses_2aaf24492ffeYGu6fa8O20UZVS"
+    "ses_283d93961fferwv8Lhw44zIPa5",
+    "ses_283d93961fferwv8Lhw44zIPa5"
   ],
-  "plan_name": "forgejo",
-  "agent": "atlas",
-  "task_sessions": {}
+  "plan_name": "hyprland-mutable-overrides",
+  "agent": "atlas"
 }

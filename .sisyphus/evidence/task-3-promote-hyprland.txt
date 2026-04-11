@@ -1,0 +1,7 @@
+=== Hyprland overrides.conf content ===
+# test line
+
+Hyprland config is Nix attrs — cannot auto-promote.
+Manually move settings you want to keep into:
+  modules/home-manager/desktop/hyprland/default.nix
+Then clear overrides: just theme-reset hyprland
