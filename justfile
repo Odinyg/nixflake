@@ -77,6 +77,72 @@ secrets-spiders:
 secrets-nero:
   sops secrets/nero.yaml
 
+# --- Theme override management ---
+
+# Reset a mutable theme config to the Nix-managed base version
+# Usage: just theme-reset hyprland|waybar|rofi
+theme-reset app:
+	#!/usr/bin/env bash
+	case "{{app}}" in
+	hyprland)
+		cat > "$HOME/.config/hypr/overrides.conf" <<- 'OVERRIDE'
+		# Hyprland mutable overrides — edit freely, no rebuild needed
+		# Changes apply on: hyprctl reload
+		OVERRIDE
+		echo "Reset hyprland overrides to empty"
+		;;
+	waybar)
+		rm -rf "$HOME/.config/waybar"
+		cp -a "$HOME/.config/waybar-base" "$HOME/.config/waybar"
+		chmod -R u+w "$HOME/.config/waybar"
+		echo "Reset waybar config from base"
+		;;
+	rofi)
+		rm -rf "$HOME/.config/rofi"
+		mkdir -p "$HOME/.config/rofi"
+		cp -a "$HOME/.config/rofi-base/." "$HOME/.config/rofi/"
+		chmod -R u+w "$HOME/.config/rofi"
+		echo "Reset rofi config from base"
+		;;
+	*)
+		echo "Unknown app: {{app}}. Use: hyprland, waybar, rofi"
+		exit 1
+		;;
+	esac
+
+# Promote mutable theme changes back to the Nix-managed source files
+# Usage: just theme-promote hyprland|waybar|rofi
+theme-promote app:
+	#!/usr/bin/env bash
+	REPO_CONFIG="modules/home-manager/desktop/hyprland/config"
+	case "{{app}}" in
+	hyprland)
+		echo "=== Hyprland overrides.conf content ==="
+		cat "$HOME/.config/hypr/overrides.conf"
+		echo ""
+		echo "Hyprland config is Nix attrs — cannot auto-promote."
+		echo "Manually move settings you want to keep into:"
+		echo "  modules/home-manager/desktop/hyprland/default.nix"
+		echo "Then clear overrides: just theme-reset hyprland"
+		;;
+	waybar)
+		cp -a "$HOME/.config/waybar/." "$REPO_CONFIG/waybar/"
+		echo "Promoted waybar config to $REPO_CONFIG/waybar/"
+		echo "Review changes: git diff $REPO_CONFIG/waybar/"
+		;;
+	rofi)
+		cp "$HOME/.config/rofi/config.rasi" "$REPO_CONFIG/rofi.rasi"
+		cp "$HOME/.config/rofi/nord.rasi" "$REPO_CONFIG/rofi-nord.rasi"
+		cp "$HOME/.config/rofi/rounded-common.rasi" "$REPO_CONFIG/rounded-common.rasi"
+		echo "Promoted rofi config to $REPO_CONFIG/"
+		echo "Review changes: git diff $REPO_CONFIG/"
+		;;
+	*)
+		echo "Unknown app: {{app}}. Use: hyprland, waybar, rofi"
+		exit 1
+		;;
+	esac
+
 # --- Homelab deployment ---
 
 # Deploy to all homelab servers
