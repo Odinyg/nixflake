@@ -5,6 +5,9 @@
   pkgs-unstable,
   ...
 }:
+let
+  cfg = config.hyprland;
+in
 {
   options = {
     hyprland = {
@@ -17,7 +20,7 @@
       kanshi = {
         profiles = lib.mkOption {
           type = lib.types.listOf lib.types.attrs;
-          default = [];
+          default = [ ];
           description = "Kanshi display profiles for dynamic display configuration";
           example = lib.literalExpression ''
             [
@@ -47,7 +50,7 @@
     };
   };
 
-  config = lib.mkIf config.hyprland.enable {
+  config = lib.mkIf cfg.enable {
 
     programs.hyprland = {
       enable = true;
@@ -64,12 +67,15 @@
       config = {
         common.default = "*";
         hyprland = {
-          default = [ "hyprland" "gtk" ];
+          default = [
+            "hyprland"
+            "gtk"
+          ];
           "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
         };
       };
     };
 
-    security.pam.services.swaylock = {};
+    security.pam.services.swaylock = { };
   };
 }

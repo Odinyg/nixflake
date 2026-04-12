@@ -5,6 +5,9 @@
   config,
   ...
 }:
+let
+  cfg = config.general;
+in
 {
 
   options = {
@@ -16,7 +19,7 @@
       };
     };
   };
-  config = lib.mkIf config.general.enable {
+  config = lib.mkIf cfg.enable {
     nix = {
       package = pkgs.nixVersions.stable;
     };

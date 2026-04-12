@@ -1,4 +1,7 @@
 { config, lib, ... }:
+let
+  cfg = config.syncthing;
+in
 {
 
   options = {
@@ -6,7 +9,7 @@
       enable = lib.mkEnableOption "syncthing";
     };
   };
-  config = lib.mkIf config.syncthing.enable {
+  config = lib.mkIf cfg.enable {
     networking.extraHosts = "127.0.0.1 syncthing.local";
     services = {
       syncthing = {

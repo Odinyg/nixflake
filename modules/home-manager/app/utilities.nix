@@ -1,4 +1,15 @@
-{ config, pkgs, pkgs-unstable, inputs, lib, ... }: {
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  inputs,
+  lib,
+  ...
+}:
+let
+  cfg = config.utilities;
+in
+{
 
   options = {
     utilities = {
@@ -6,7 +17,7 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.utilities.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     # Smart directory navigation
     programs.zoxide = {
       enable = true;
@@ -19,7 +30,10 @@
       exec = "remmina -c /home/odin/.local/share/remmina/group_rdp_quick-connect_win11.remmina";
       icon = "remmina";
       terminal = false;
-      categories = [ "Network" "RemoteAccess" ];
+      categories = [
+        "Network"
+        "RemoteAccess"
+      ];
     };
 
     home.packages = with pkgs; [

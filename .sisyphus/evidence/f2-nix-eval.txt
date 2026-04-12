@@ -1,0 +1,15 @@
+=== laptop ===
+EXIT:0
+"/nix/store/fyb8lr2yj88r8phgm30szbngf81xjhrf-nixos-system-laptop-25.11.20260410.54170c5.drv"
+
+=== station ===
+EXIT:0
+"/nix/store/gcwdw5vkgjynwcy2rxb9k3fcqv2wpbwj-nixos-system-station-25.11.20260410.54170c5.drv"
+
+=== VNPC-21 ===
+EXIT:1
+error: Failed assertions:
+  - `programs.ssh.startAgent` (defined in hosts/vnpc-21) and
+    `services.gnome.gcr-ssh-agent.enable` cannot both be enabled at the same time.
+NOTE: Pre-existing failure unrelated to omarchy-gems changes.
+      None of the reviewed files touch ssh.startAgent or gcr-ssh-agent.

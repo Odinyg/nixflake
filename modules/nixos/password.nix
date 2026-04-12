@@ -4,13 +4,16 @@
   pkgs-unstable,
   ...
 }:
+let
+  cfg = config._1password;
+in
 {
   options = {
     _1password = {
       enable = lib.mkEnableOption "_1password";
     };
   };
-  config = lib.mkIf config._1password.enable {
+  config = lib.mkIf cfg.enable {
     programs._1password = {
       enable = true;
       package = pkgs-unstable._1password-cli;

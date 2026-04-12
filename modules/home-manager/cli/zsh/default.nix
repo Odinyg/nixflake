@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.zsh;
+in
 {
 
   options = {
@@ -12,7 +15,7 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.zsh.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
 
     imports = [
       ./zsh.nix

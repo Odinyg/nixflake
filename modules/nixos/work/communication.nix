@@ -1,4 +1,12 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.work.communication;
+in
 {
   options = {
     work.communication = {
@@ -6,7 +14,7 @@
     };
   };
 
-  config = lib.mkIf config.work.communication.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       anydesk
       teams-for-linux

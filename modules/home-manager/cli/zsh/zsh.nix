@@ -34,6 +34,11 @@
         sshpass -p "$(op item get w4zusfbv3ztnl4flzm2vrga6ki --fields password --reveal)" ssh -o StrictHostKeyChecking=no root@"$1"
       }
 
+      # Omarchy-inspired shell function libraries
+      [[ -f "$HOME/.config/zsh/scripts/compression.zsh" ]] && source "$HOME/.config/zsh/scripts/compression.zsh"
+      [[ -f "$HOME/.config/zsh/scripts/ssh-forwarding.zsh" ]] && source "$HOME/.config/zsh/scripts/ssh-forwarding.zsh"
+      [[ -f "$HOME/.config/zsh/scripts/git-worktrees.zsh" ]] && source "$HOME/.config/zsh/scripts/git-worktrees.zsh"
+
     '';
     envExtra = ''
       export AGE_PUBLIC=age1sy97xhs7my3793xjeyggvam25qhdv63f05h3f3ftevqfkjsh7cpqapg6f2
@@ -63,6 +68,18 @@
   xdg.configFile."zsh/quotes".source = ./scripts/quotes;
   xdg.configFile."zsh/quote.sh" = {
     source = ./scripts/quote.sh;
+    executable = true;
+  };
+  xdg.configFile."zsh/scripts/compression.zsh" = {
+    source = ./scripts/compression.zsh;
+    executable = true;
+  };
+  xdg.configFile."zsh/scripts/ssh-forwarding.zsh" = {
+    source = ./scripts/ssh-forwarding.zsh;
+    executable = true;
+  };
+  xdg.configFile."zsh/scripts/git-worktrees.zsh" = {
+    source = ./scripts/git-worktrees.zsh;
     executable = true;
   };
   home.packages = with pkgs; [

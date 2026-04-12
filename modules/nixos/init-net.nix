@@ -22,29 +22,46 @@ in
         description = "External interface with internet access (e.g. WiFi)";
       };
       subnets = lib.mkOption {
-        type = lib.types.listOf (lib.types.submodule {
-          options = {
-            address = lib.mkOption {
-              type = lib.types.str;
-              description = "IP address for this subnet";
+        type = lib.types.listOf (
+          lib.types.submodule {
+            options = {
+              address = lib.mkOption {
+                type = lib.types.str;
+                description = "IP address for this subnet";
+              };
+              network = lib.mkOption {
+                type = lib.types.str;
+                description = "Network CIDR for this subnet";
+              };
             };
-            network = lib.mkOption {
-              type = lib.types.str;
-              description = "Network CIDR for this subnet";
-            };
-          };
-        });
+          }
+        );
         default = [
-          { address = "192.168.1.99"; network = "192.168.1.0/24"; }
-          { address = "192.168.2.99"; network = "192.168.2.0/24"; }
-          { address = "192.168.105.99"; network = "192.168.105.0/24"; }
-          { address = "192.168.250.99"; network = "192.168.250.0/24"; }
+          {
+            address = "192.168.1.99";
+            network = "192.168.1.0/24";
+          }
+          {
+            address = "192.168.2.99";
+            network = "192.168.2.0/24";
+          }
+          {
+            address = "192.168.105.99";
+            network = "192.168.105.0/24";
+          }
+          {
+            address = "192.168.250.99";
+            network = "192.168.250.0/24";
+          }
         ];
         description = "Subnets to configure on the internal interface";
       };
       dns = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "8.8.8.8" "8.8.4.4" ];
+        default = [
+          "8.8.8.8"
+          "8.8.4.4"
+        ];
         description = "DNS servers for DHCP clients";
       };
     };
@@ -82,13 +99,15 @@ in
       settings = {
         interface = cfg.interface;
         bind-interfaces = true;
-        dhcp-range = lib.concatMap (s:
+        dhcp-range = lib.concatMap (
+          s:
           let
             # Extract base from address (e.g. "192.168.1" from "192.168.1.99")
             parts = lib.splitString "." s.address;
             base = lib.concatStringsSep "." (lib.take 3 parts);
             host = lib.last parts;
-          in [
+          in
+          [
             "${base}.1,${base}.${toString (lib.toInt host - 1)},24h"
             "${base}.${toString (lib.toInt host + 1)},${base}.254,24h"
           ]
@@ -105,8 +124,15 @@ in
     networking.firewall = {
       enable = true;
       interfaces.${cfg.interface} = {
-        allowedTCPPorts = [ 22 53 ];
-        allowedUDPPorts = [ 53 67 68 ];
+        allowedTCPPorts = [
+          22
+          53
+        ];
+        allowedUDPPorts = [
+          53
+          67
+          68
+        ];
       };
     };
   };

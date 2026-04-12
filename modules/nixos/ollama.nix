@@ -5,6 +5,9 @@
   pkgs-unstable,
   ...
 }:
+let
+  cfg = config.ollama;
+in
 {
 
   options = {
@@ -12,7 +15,7 @@
       enable = lib.mkEnableOption "ollama";
     };
   };
-  config = lib.mkIf config.ollama.enable {
+  config = lib.mkIf cfg.enable {
     networking.extraHosts = "127.0.0.1 ollama.local";
 
     # Self-signed TLS cert for LAN HTTPS access

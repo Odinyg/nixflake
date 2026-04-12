@@ -1,6 +1,8 @@
 { config, lib, ... }:
+let
+  cfg = config.git;
+in
 {
-
   options = {
     git = {
       enable = lib.mkEnableOption "Git version control tools and configuration";
@@ -18,13 +20,14 @@
       };
     };
   };
-  config.home-manager.users.${config.user} = lib.mkIf config.git.enable {
+
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
 
     programs = {
       git = {
         enable = true;
-        userName = config.git.userName;
-        userEmail = config.git.userEmail;
+        userName = cfg.userName;
+        userEmail = cfg.userEmail;
         ignores = [
           "docs/rca"
         ];

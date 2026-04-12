@@ -4,10 +4,17 @@
       enable = true;
       settings = {
         enabled = true;
-        file_types = ["markdown"];
+        file_types = [ "markdown" ];
         heading = {
           enabled = true;
-          icons = ["# " "## " "### " "#### " "##### " "###### "];
+          icons = [
+            "# "
+            "## "
+            "### "
+            "#### "
+            "##### "
+            "###### "
+          ];
         };
         code = {
           enabled = true;
@@ -15,7 +22,12 @@
         };
         bullet = {
           enabled = true;
-          icons = ["•" "◦" "▸" "▹"];
+          icons = [
+            "•"
+            "◦"
+            "▸"
+            "▹"
+          ];
         };
         checkbox = {
           enabled = true;

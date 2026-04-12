@@ -1,0 +1,2 @@
+89:      "hypr/screenshot.sh" = {
+90:        source = ./scripts/screenshot.sh;

@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.lmstudio;
+in
 {
   options = {
     lmstudio = {
@@ -11,7 +14,7 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.lmstudio.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     home.packages = [ pkgs.lmstudio ];
   };
 }

@@ -154,16 +154,16 @@
 
       # Assign workspaces to monitors
       workspace = [
-        "1, monitor:HDMI-A-1, default:true"
-        "2, monitor:HDMI-A-1"
-        "3, monitor:HDMI-A-1"
-        "4, monitor:HDMI-A-1"
-        "5, monitor:HDMI-A-1"
-        "6, monitor:DP-1, default:true"
-        "7, monitor:DP-1"
-        "8, monitor:DP-1"
-        "9, monitor:DP-1"
-        "10, monitor:DP-1"
+        "1, monitor:HDMI-A-2, default:true"
+        "2, monitor:HDMI-A-2"
+        "3, monitor:HDMI-A-2"
+        "4, monitor:HDMI-A-2"
+        "5, monitor:HDMI-A-2"
+        "6, monitor:DP-2, default:true"
+        "7, monitor:DP-2"
+        "8, monitor:DP-2"
+        "9, monitor:DP-2"
+        "10, monitor:DP-2"
       ];
 
       windowrule = lib.mkAfter [
@@ -192,13 +192,13 @@
       profile.name = "station-dual";
       profile.outputs = [
         {
-          criteria = "DP-1";
+          criteria = "DP-2";
           mode = "2560x1440@59.95";
           position = "0,0";
           transform = "270";
         }
         {
-          criteria = "HDMI-A-1";
+          criteria = "HDMI-A-2";
           mode = "3840x2160@60";
           position = "1440,200";
         }
@@ -208,8 +208,8 @@
 
   # Monitor configuration
   hyprland.monitors.extraConfig = ''
-    monitor = DP-1, 2560x1440@59.95, 0x0, 1, transform, 3
-    monitor = HDMI-A-1, 3840x2160@60, 1440x200, 1
+    monitor = DP-2, 2560x1440@59.95, 0x0, 1, transform, 3
+    monitor = HDMI-A-2, 3840x2160@60, 1440x200, 1
   '';
 
   environment.systemPackages = [

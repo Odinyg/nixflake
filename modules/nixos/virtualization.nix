@@ -1,4 +1,14 @@
-{ lib, config, pkgs, pkgs-unstable, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+let
+  cfg = config.virtualization;
+in
+{
   options = {
     virtualization = {
       enable = lib.mkEnableOption "virtualization and container support";
@@ -61,82 +71,75 @@
         };
       };
 
-};
+    };
   };
 
-  config = lib.mkIf config.virtualization.enable {
+  config = lib.mkIf cfg.enable {
     # Docker configuration
-    virtualisation.docker = lib.mkIf config.virtualization.docker.enable {
+    virtualisation.docker = lib.mkIf cfg.docker.enable {
       enable = true;
       enableOnBoot = true;
-      rootless = lib.mkIf config.virtualization.docker.rootless {
+      rootless = lib.mkIf cfg.docker.rootless {
         enable = true;
         setSocketVariable = true;
       };
     };
 
-    virtualisation.podman = lib.mkIf config.virtualization.podman.enable {
+    virtualisation.podman = lib.mkIf cfg.podman.enable {
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
     };
 
-    virtualisation.libvirtd = lib.mkIf config.virtualization.qemu.enable {
+    virtualisation.libvirtd = lib.mkIf cfg.qemu.enable {
       enable = true;
       package = pkgs.libvirt;
       qemu = {
         package = pkgs.qemu;
         runAsRoot = true;
         swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [ pkgs.OVMFFull.fd ];
-        };
       };
       onBoot = "start";
       onShutdown = "shutdown";
     };
 
-    virtualisation.spiceUSBRedirection.enable =
-      lib.mkIf config.virtualization.qemu.spice true;
-    services.spice-vdagentd.enable =
-      lib.mkIf config.virtualization.qemu.spice true;
+    virtualisation.spiceUSBRedirection.enable = lib.mkIf cfg.qemu.spice true;
+    services.spice-vdagentd.enable = lib.mkIf cfg.qemu.spice true;
 
-    programs.virt-manager = lib.mkIf config.virtualization.qemu.virt-manager {
+    programs.virt-manager = lib.mkIf cfg.qemu.virt-manager {
       enable = true;
       package = pkgs.virt-manager;
     };
 
-    virtualisation.virtualbox.host =
-      lib.mkIf config.virtualization.virtualbox.enable {
-        enable = true;
-        enableExtensionPack = true;
-      };
+    virtualisation.virtualbox.host = lib.mkIf cfg.virtualbox.enable {
+      enable = true;
+      enableExtensionPack = true;
+    };
 
-    virtualisation.waydroid.enable =
-      lib.mkIf config.virtualization.waydroid.enable true;
+    virtualisation.waydroid.enable = lib.mkIf cfg.waydroid.enable true;
 
     users.users.${config.user}.extraGroups = lib.flatten [
-      (lib.optional config.virtualization.docker.enable "docker")
-      (lib.optional config.virtualization.qemu.enable "libvirtd")
-      (lib.optional config.virtualization.qemu.enable "kvm")
-      (lib.optional config.virtualization.virtualbox.enable "vboxusers")
+      (lib.optional cfg.docker.enable "docker")
+      (lib.optional cfg.qemu.enable "libvirtd")
+      (lib.optional cfg.qemu.enable "kvm")
+      (lib.optional cfg.virtualbox.enable "vboxusers")
     ];
 
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       lib.flatten [
-        (lib.optionals config.virtualization.docker.enable [
+        (lib.optionals cfg.docker.enable [
           docker
           docker-compose
         ])
 
-        (lib.optionals config.virtualization.podman.enable [
+        (lib.optionals cfg.podman.enable [
           podman-compose
           buildah
           skopeo
         ])
 
-        (lib.optionals config.virtualization.qemu.enable [
+        (lib.optionals cfg.qemu.enable [
           virtiofsd
           swtpm
         ])

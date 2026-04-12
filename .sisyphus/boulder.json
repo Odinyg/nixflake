@@ -1,10 +1,12 @@
 {
-  "active_plan": "/home/none/nixflake/.sisyphus/plans/hyprland-mutable-overrides.md",
-  "started_at": "2026-04-11T11:32:58.866Z",
+  "active_plan": "/home/none/nixflake/.sisyphus/plans/unify-patterns-and-docs.md",
+  "started_at": "2026-04-12T19:34:37.490Z",
   "session_ids": [
-    "ses_283d93961fferwv8Lhw44zIPa5",
-    "ses_283d93961fferwv8Lhw44zIPa5"
+    "ses_27ce41b60ffe7d0vWeyex3QNaC"
   ],
-  "plan_name": "hyprland-mutable-overrides",
+  "session_origins": {
+    "ses_27ce41b60ffe7d0vWeyex3QNaC": "direct"
+  },
+  "plan_name": "unify-patterns-and-docs",
   "agent": "atlas"
 }

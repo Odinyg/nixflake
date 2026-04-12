@@ -87,7 +87,6 @@ in
       requires = [ "redis-nextcloud.service" ];
     };
 
-
     systemd.services.phpfpm-nextcloud = {
       partOf = [ "homelab.target" ];
       wantedBy = [ "homelab.target" ];

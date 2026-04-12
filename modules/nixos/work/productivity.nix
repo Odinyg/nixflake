@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.work.productivity;
+in
 {
   options = {
     work.productivity = {
@@ -11,7 +14,7 @@
     };
   };
 
-  config = lib.mkIf config.work.productivity.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       insync
       flameshot

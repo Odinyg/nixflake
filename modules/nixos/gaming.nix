@@ -5,6 +5,9 @@
   pkgs-unstable,
   ...
 }:
+let
+  cfg = config.gaming;
+in
 {
   options = {
     gaming = {
@@ -74,15 +77,15 @@
     };
   };
 
-  config = lib.mkIf config.gaming.enable {
-    programs.steam = lib.mkIf config.gaming.steam.enable {
+  config = lib.mkIf cfg.enable {
+    programs.steam = lib.mkIf cfg.steam.enable {
       enable = true;
-      remotePlay.openFirewall = config.gaming.steam.remotePlay;
-      dedicatedServer.openFirewall = config.gaming.steam.dedicatedServer;
-      gamescopeSession.enable = config.gaming.performance.gamescope;
+      remotePlay.openFirewall = cfg.steam.remotePlay;
+      dedicatedServer.openFirewall = cfg.steam.dedicatedServer;
+      gamescopeSession.enable = cfg.performance.gamescope;
     };
 
-    programs.gamemode = lib.mkIf config.gaming.performance.gamemode {
+    programs.gamemode = lib.mkIf cfg.performance.gamemode {
       enable = true;
       enableRenice = true;
       settings = {
@@ -98,35 +101,35 @@
       };
     };
 
-    programs.gamescope = lib.mkIf config.gaming.performance.gamescope {
+    programs.gamescope = lib.mkIf cfg.performance.gamescope {
       enable = true;
       capSysNice = true;
     };
 
-    environment.systemPackages =
-      lib.flatten [
-        (lib.optionals config.gaming.launchers.lutris [ pkgs-unstable.lutris ])
-        (lib.optionals config.gaming.launchers.heroic [ pkgs-unstable.heroic ])
-        (lib.optionals config.gaming.launchers.bottles [ pkgs-unstable.bottles ])
-        (lib.optionals config.gaming.emulation.enable (
-          with pkgs-unstable; [
-            retroarch
-            pcsx2
-            dolphin-emu
-            mupen64plus
-          ]
-        ))
+    environment.systemPackages = lib.flatten [
+      (lib.optionals cfg.launchers.lutris [ pkgs-unstable.lutris ])
+      (lib.optionals cfg.launchers.heroic [ pkgs-unstable.heroic ])
+      (lib.optionals cfg.launchers.bottles [ pkgs-unstable.bottles ])
+      (lib.optionals cfg.emulation.enable (
+        with pkgs-unstable;
+        [
+          retroarch
+          pcsx2
+          dolphin-emu
+          mupen64plus
+        ]
+      ))
 
-        pkgs-unstable.wineWow64Packages.stable
-        pkgs-unstable.winetricks
-        pkgs-unstable.protontricks
+      pkgs-unstable.wineWow64Packages.stable
+      pkgs-unstable.winetricks
+      pkgs-unstable.protontricks
 
-        pkgs.vulkan-tools # vulkaninfo for diagnostics
+      pkgs.vulkan-tools # vulkaninfo for diagnostics
 
-        pkgs.antimicrox # Controller mapping
+      pkgs.antimicrox # Controller mapping
 
-        pkgs.pulseeffects-legacy
-      ];
+      pkgs.pulseeffects-legacy
+    ];
 
     hardware.graphics.enable32Bit = true;
 

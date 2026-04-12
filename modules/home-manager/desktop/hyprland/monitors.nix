@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
 
   config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
     wayland.windowManager.hyprland.extraConfig =

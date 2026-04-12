@@ -1,0 +1,24 @@
+=== modules/nixos/distributed-builds.nix ===
+MISSING CFG BINDING
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+=== modules/nixos/init-net.nix ===
+MISSING CFG BINDING
+  config = lib.mkIf cfg.enable {
+=== modules/nixos/hardware/nas.nix ===
+MISSING CFG BINDING
+  config = lib.mkIf cfg.enable {
+=== modules/nixos/hosted-services/n8n.nix ===
+MISSING CFG BINDING
+  config = lib.mkIf cfg.enable {
+=== modules/nixos/hosted-services/open-webui.nix ===
+MISSING CFG BINDING
+  config = lib.mkIf cfg.enable {
+=== modules/home-manager/cli/tmux.nix ===
+MISSING CFG BINDING
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
+=== modules/home-manager/cli/ghostty.nix ===
+MISSING CFG BINDING
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
+=== modules/home-manager/misc/web-apps.nix ===
+MISSING CFG BINDING
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {

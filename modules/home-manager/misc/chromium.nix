@@ -1,4 +1,7 @@
 { config, lib, ... }:
+let
+  cfg = config.chromium;
+in
 {
 
   options = {
@@ -6,7 +9,7 @@
       enable = lib.mkEnableOption "Chromium browser";
     };
   };
-  config.home-manager.users.${config.user} = lib.mkIf config.chromium.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
 
     programs.google-chrome.enable = true;
     programs.chromium = {

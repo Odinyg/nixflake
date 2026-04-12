@@ -4,13 +4,16 @@
   config,
   ...
 }:
+let
+  cfg = config.greetd;
+in
 {
   options = {
     greetd = {
       enable = lib.mkEnableOption "greetd";
     };
   };
-  config = lib.mkIf config.greetd.enable {
+  config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = true;
       settings = {

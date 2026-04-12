@@ -1,0 +1,4 @@
+$ shellcheck modules/home-manager/misc/scripts/launch-or-focus.sh \
+             modules/home-manager/desktop/hyprland/scripts/screenshot.sh
+(no output — clean)
+EXIT:0

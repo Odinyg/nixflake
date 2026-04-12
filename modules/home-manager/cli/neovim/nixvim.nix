@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.nixvim = {
     enable = true;
     globals.mapleader = " ";
@@ -53,8 +54,12 @@
       nix.enable = true;
       mini.enable = true;
       which-key.enable = true;
-      lualine = { enable = true; };
-      indent-blankline = { enable = true; };
+      lualine = {
+        enable = true;
+      };
+      indent-blankline = {
+        enable = true;
+      };
       treesitter = {
         enable = true;
         nixGrammars = true;

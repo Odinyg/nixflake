@@ -1,5 +1,12 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
+  cfg = config.mcp;
   mcp-nixos = inputs.mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
@@ -7,7 +14,7 @@ in
     enable = lib.mkEnableOption "MCP (Model Context Protocol) server configurations";
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.mcp.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     home.packages = [ mcp-nixos ];
 
     # Load GitHub token from sops-decrypted secret for Claude Code MCP
@@ -27,12 +34,19 @@ in
 
           filesystem = {
             command = "${pkgs.uv}/bin/uvx";
-            args = [ "mcp-server-filesystem" "/home/${config.user}" ];
+            args = [
+              "mcp-server-filesystem"
+              "/home/${config.user}"
+            ];
           };
 
           git = {
             command = "${pkgs.uv}/bin/uvx";
-            args = [ "mcp-server-git" "--repository" "/home/${config.user}" ];
+            args = [
+              "mcp-server-git"
+              "--repository"
+              "/home/${config.user}"
+            ];
           };
 
           sequentialthinking = {
@@ -57,7 +71,11 @@ in
 
           obsidian = {
             command = "${pkgs.uv}/bin/uvx";
-            args = [ "mcp-server-obsidian" "--vault-path" "/home/${config.user}/Documents/Main" ];
+            args = [
+              "mcp-server-obsidian"
+              "--vault-path"
+              "/home/${config.user}/Documents/Main"
+            ];
           };
 
           fetch = {
@@ -67,12 +85,18 @@ in
 
           github = {
             command = "${pkgs.gh}/bin/gh";
-            args = [ "mcp" "serve" ];
+            args = [
+              "mcp"
+              "serve"
+            ];
           };
 
           context7 = {
             command = "${pkgs.nodejs}/bin/npx";
-            args = [ "-y" "@upstash/context7-mcp" ];
+            args = [
+              "-y"
+              "@upstash/context7-mcp"
+            ];
           };
 
           playwright = {

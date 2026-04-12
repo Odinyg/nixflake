@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.communication;
+in
 {
 
   options = {
@@ -12,7 +15,7 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.communication.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       # Email & Security
       protonmail-desktop # ProtonMail email client

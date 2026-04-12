@@ -54,7 +54,7 @@ in
       TRUSTED_ORIGINS=https://norish.${cfg.domain}
       CHROME_WS_ENDPOINT=ws://norish-chrome:3000
       AI_PROVIDER=openai
-      AI_ENDPOINT=http://10.10.10.10:11434/v1
+      AI_ENDPOINT=http://10.10.10.163:11434/v1
       AI_MODEL=gemma3:27b
       AI_API_KEY=ollama
     '';
@@ -102,7 +102,10 @@ in
       requirePassFile = config.sops.secrets.redis_pass.path;
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port cfg.redisPort ];
+    networking.firewall.allowedTCPPorts = [
+      cfg.port
+      cfg.redisPort
+    ];
 
     systemd.tmpfiles.rules = [
       "d /var/lib/homelab/norish 0755 root root -"

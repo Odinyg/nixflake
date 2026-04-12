@@ -68,8 +68,14 @@ in
         datasources.settings = {
           apiVersion = 1;
           deleteDatasources = [
-            { name = "Prometheus"; orgId = 1; }
-            { name = "Loki"; orgId = 1; }
+            {
+              name = "Prometheus";
+              orgId = 1;
+            }
+            {
+              name = "Loki";
+              orgId = 1;
+            }
           ];
           datasources = [
             {

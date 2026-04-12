@@ -4,14 +4,17 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.xdg;
+in
 {
-
   options = {
     xdg = {
       enable = lib.mkEnableOption "XDG base directory specification";
     };
   };
-  config.home-manager.users.${config.user} = lib.mkIf config.xdg.enable {
+
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     home.packages = [
       pkgs.xdg-utils
       pkgs.xdg-user-dirs

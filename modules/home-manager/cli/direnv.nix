@@ -1,12 +1,15 @@
 { config, lib, ... }:
+let
+  cfg = config.direnv;
+in
 {
-
   options = {
     direnv = {
       enable = lib.mkEnableOption "direnv automatic environment switching";
     };
   };
-  config.home-manager.users.${config.user} = lib.mkIf config.direnv.enable {
+
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
 
     programs.direnv = {
       enable = true;

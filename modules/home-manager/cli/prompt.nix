@@ -1,12 +1,15 @@
-{ config, lib, ... }: {
-
+{ config, lib, ... }:
+let
+  cfg = config.prompt;
+in
+{
   options = {
     prompt = {
       enable = lib.mkEnableOption "Starship prompt";
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.prompt.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     programs.starship = {
       enable = true;
       enableZshIntegration = true;

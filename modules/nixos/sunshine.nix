@@ -4,6 +4,9 @@
   config,
   ...
 }:
+let
+  cfg = config.sunshine;
+in
 {
 
   options = {
@@ -11,7 +14,7 @@
       enable = lib.mkEnableOption "sunshine";
     };
   };
-  config = lib.mkIf config.sunshine.enable {
+  config = lib.mkIf cfg.enable {
     networking.extraHosts = "127.0.0.1 sunshine.local";
     services.avahi.publish.enable = true;
     services.avahi.publish.userServices = true;

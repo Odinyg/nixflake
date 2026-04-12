@@ -1,0 +1,2 @@
+$ zsh -n /home/none/nixflake/modules/home-manager/cli/zsh/scripts/git-worktrees.zsh
+exit=0

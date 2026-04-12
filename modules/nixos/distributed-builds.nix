@@ -10,37 +10,37 @@ in
 {
   options.distributedBuilds = {
     enable = lib.mkEnableOption "distributed builds over Tailscale";
-    
+
     isBuilder = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Whether this host acts as a build server";
     };
-    
+
     builderHost = lib.mkOption {
       type = lib.types.str;
       default = "station";
       description = "Hostname of the build server (reachable via Tailscale)";
     };
-    
+
     maxJobs = lib.mkOption {
       type = lib.types.int;
       default = 4;
       description = "Maximum number of parallel jobs on the builder";
     };
-    
+
     cachePort = lib.mkOption {
       type = lib.types.int;
       default = 5000;
       description = "Port for the binary cache server";
     };
-    
+
     sshKey = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
       description = "SSH key path for connecting to builder (auto-detected if null)";
     };
-    
+
     sshUser = lib.mkOption {
       type = lib.types.str;
       default = "none";
@@ -53,89 +53,105 @@ in
       description = "Public signing key for the binary cache (generate with nix-store --generate-binary-cache-key)";
     };
   };
-  
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    # Builder configuration (for station)
-    (lib.mkIf cfg.isBuilder {
-      # Enable SSH for remote builds
-      services.openssh = {
-        enable = true;
-        settings = {
-          PubkeyAuthentication = true;
-          PasswordAuthentication = false;
+
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      # Builder configuration (for station)
+      (lib.mkIf cfg.isBuilder {
+        # Enable SSH for remote builds
+        services.openssh = {
+          enable = true;
+          settings = {
+            PubkeyAuthentication = true;
+            PasswordAuthentication = false;
+          };
         };
-      };
-      
-      # Set up nix-serve for binary cache with signing
-      services.nix-serve = {
-        enable = true;
-        port = cfg.cachePort;
-        openFirewall = true;
-        secretKeyFile = "/var/lib/nix-serve/cache-priv-key.pem";
-      };
-      
-      # Allow builds from trusted users
-      nix.settings = {
-        trusted-users = [ "root" "@wheel" cfg.sshUser ];
-      };
-      
-      # Open firewall for Tailscale subnet only
-      networking.firewall = {
-        trustedInterfaces = [ "tailscale0" ];
-        allowedTCPPorts = [ cfg.cachePort ];
-      };
-    })
-    
-    # Client configuration (for other hosts)
-    (lib.mkIf (!cfg.isBuilder) (let
-      # Auto-detect the primary user and their SSH key with fallback
-      normalUsers = builtins.attrNames (lib.filterAttrs (n: u: u.isNormalUser) config.users.users);
-      primaryUser = if normalUsers != [] then builtins.head normalUsers else cfg.sshUser;
-      actualSshKey = if cfg.sshKey != null then cfg.sshKey else "/home/${primaryUser}/.ssh/id_ed25519";
-    in {
-      # Configure distributed builds
-      nix.distributedBuilds = true;
-      
-      nix.buildMachines = [{
-        hostName = cfg.builderHost;
-        system = "x86_64-linux";
-        maxJobs = cfg.maxJobs;
-        speedFactor = 2;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        mandatoryFeatures = [ ];
-        sshUser = cfg.sshUser;
-        sshKey = actualSshKey;
-      }];
-      
-      # Configure binary cache
-      nix.settings = {
-        substituters = [
-          "http://${cfg.builderHost}:${toString cfg.cachePort}"
-        ];
-        trusted-substituters = [
-          "http://${cfg.builderHost}:${toString cfg.cachePort}"
-        ];
-        trusted-public-keys = lib.optionals (cfg.cachePublicKey != "") [
-          cfg.cachePublicKey
-        ];
-        
-        # Prefer remote builds for large derivations
-        builders-use-substitutes = true;
-        
-        # Fallback to local if builder is unavailable
-        fallback = true;
-        connect-timeout = 5;
-      };
-      
-      # SSH client configuration for builder connection
-      programs.ssh.extraConfig = ''
-        Host ${cfg.builderHost}
-          HostName ${cfg.builderHost}
-          User ${cfg.sshUser}
-          IdentityFile ${actualSshKey}
-          ConnectTimeout 5
-          StrictHostKeyChecking accept-new
-      '';
-    }))
-  ]);
+
+        # Set up nix-serve for binary cache with signing
+        services.nix-serve = {
+          enable = true;
+          port = cfg.cachePort;
+          openFirewall = true;
+          secretKeyFile = "/var/lib/nix-serve/cache-priv-key.pem";
+        };
+
+        # Allow builds from trusted users
+        nix.settings = {
+          trusted-users = [
+            "root"
+            "@wheel"
+            cfg.sshUser
+          ];
+        };
+
+        # Open firewall for Tailscale subnet only
+        networking.firewall = {
+          trustedInterfaces = [ "tailscale0" ];
+          allowedTCPPorts = [ cfg.cachePort ];
+        };
+      })
+
+      # Client configuration (for other hosts)
+      (lib.mkIf (!cfg.isBuilder) (
+        let
+          # Auto-detect the primary user and their SSH key with fallback
+          normalUsers = builtins.attrNames (lib.filterAttrs (n: u: u.isNormalUser) config.users.users);
+          primaryUser = if normalUsers != [ ] then builtins.head normalUsers else cfg.sshUser;
+          actualSshKey = if cfg.sshKey != null then cfg.sshKey else "/home/${primaryUser}/.ssh/id_ed25519";
+        in
+        {
+          # Configure distributed builds
+          nix.distributedBuilds = true;
+
+          nix.buildMachines = [
+            {
+              hostName = cfg.builderHost;
+              system = "x86_64-linux";
+              maxJobs = cfg.maxJobs;
+              speedFactor = 2;
+              supportedFeatures = [
+                "nixos-test"
+                "benchmark"
+                "big-parallel"
+                "kvm"
+              ];
+              mandatoryFeatures = [ ];
+              sshUser = cfg.sshUser;
+              sshKey = actualSshKey;
+            }
+          ];
+
+          # Configure binary cache
+          nix.settings = {
+            substituters = [
+              "http://${cfg.builderHost}:${toString cfg.cachePort}"
+            ];
+            trusted-substituters = [
+              "http://${cfg.builderHost}:${toString cfg.cachePort}"
+            ];
+            trusted-public-keys = lib.optionals (cfg.cachePublicKey != "") [
+              cfg.cachePublicKey
+            ];
+
+            # Prefer remote builds for large derivations
+            builders-use-substitutes = true;
+
+            # Fallback to local if builder is unavailable
+            fallback = true;
+            connect-timeout = 5;
+          };
+
+          # SSH client configuration for builder connection
+          programs.ssh.extraConfig = ''
+            Host ${cfg.builderHost}
+              HostName ${cfg.builderHost}
+              User ${cfg.sshUser}
+              IdentityFile ${actualSshKey}
+              ConnectTimeout 5
+              StrictHostKeyChecking accept-new
+          '';
+        }
+      ))
+    ]
+  );
 }

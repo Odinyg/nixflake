@@ -1,4 +1,7 @@
 { config, lib, ... }:
+let
+  cfg = config.secrets;
+in
 {
   options = {
     secrets = {
@@ -10,7 +13,7 @@
     };
   };
 
-  config = lib.mkIf config.secrets.enable {
+  config = lib.mkIf cfg.enable {
     # Configure sops-nix
     sops = {
       age.keyFile = "/home/${config.user}/.config/sops/age/keys.txt";
@@ -44,7 +47,8 @@
           owner = config.user;
           mode = "0400";
         };
-      } // lib.optionalAttrs config.smbmount.enable {
+      }
+      // lib.optionalAttrs config.smbmount.enable {
         # SMB credentials for NAS mounting (only when smbmount is enabled)
         "smb/credentials" = {
           owner = "root";

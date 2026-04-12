@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.security;
+in
 {
   options = {
     security = {
@@ -17,7 +20,7 @@
 
   config = lib.mkMerge [
     # Insecure packages configuration
-    (lib.mkIf config.security.insecurePackages.enable {
+    (lib.mkIf cfg.insecurePackages.enable {
       nixpkgs.config.permittedInsecurePackages = [
         # GUI/Desktop related
         "libsoup-2.74.3" # Required for various GNOME/GTK applications
@@ -36,7 +39,7 @@
     })
 
     # Security tools configuration (Wireshark, etc.)
-    (lib.mkIf config.security.enable {
+    (lib.mkIf cfg.enable {
       # Enable Wireshark with proper capabilities for packet capture and USB monitoring
       programs.wireshark = {
         enable = true;

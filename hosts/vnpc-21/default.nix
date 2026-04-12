@@ -269,6 +269,10 @@
     '';
   };
 
+  # Disable GNOME GCR SSH agent — conflicts with programs.ssh.startAgent above.
+  # google-chrome enables it transitively; we use ssh-agent directly instead.
+  services.gnome.gcr-ssh-agent.enable = false;
+
   # ==============================================================================
   # SYSTEM PACKAGES
   # ==============================================================================

@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.work.remoteAccess;
+in
 {
   options = {
     work.remoteAccess = {
@@ -11,7 +14,7 @@
     };
   };
 
-  config = lib.mkIf config.work.remoteAccess.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       openvpn
     ];

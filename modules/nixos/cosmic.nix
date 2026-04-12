@@ -5,6 +5,9 @@
   pkgs-unstable,
   ...
 }:
+let
+  cfg = config.cosmic;
+in
 {
   options = {
     cosmic = {
@@ -28,14 +31,14 @@
     };
   };
 
-  config = lib.mkIf config.cosmic.enable {
+  config = lib.mkIf cfg.enable {
     # Enable the COSMIC login manager
     services.displayManager.cosmic-greeter.enable = true;
 
     # Auto-login (safe with disk encryption)
-    services.displayManager.autoLogin = lib.mkIf config.cosmic.autoLogin.enable {
+    services.displayManager.autoLogin = lib.mkIf cfg.autoLogin.enable {
       enable = true;
-      user = config.cosmic.autoLogin.user;
+      user = cfg.autoLogin.user;
     };
 
     # Enable the COSMIC desktop environment

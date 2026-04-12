@@ -54,6 +54,7 @@
   thunar.enable = true;
   chromium.enable = true;
   zen-browser.enable = true;
+  web-apps.enable = true;
   discord.enable = true;
 
   # ==============================================================================

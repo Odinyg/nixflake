@@ -1,0 +1,25 @@
+=== bash -n ===
+PASS
+
+=== shellcheck ===
+PASS
+
+=== Mode coverage checks ===
+3
+--region: present
+2
+--window: present
+4
+--fullscreen: present
+2
+--edit: present
+
+=== Transform/rotation handling ===
+3
+transform: present
+
+=== No tee-pipe (file-first capture) ===
+PASS: no tee pipe
+
+=== wl-copy uses file redirect ===
+  wl-copy < "$FILEPATH"

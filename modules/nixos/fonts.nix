@@ -4,6 +4,9 @@
   config,
   ...
 }:
+let
+  cfg = config.fonts;
+in
 {
   options = {
     fonts = {
@@ -14,7 +17,7 @@
       };
     };
   };
-  config = lib.mkIf config.fonts.enable {
+  config = lib.mkIf cfg.enable {
     fonts = {
       packages = with pkgs; [
         noto-fonts

@@ -6,8 +6,14 @@
 
   # Nix configuration
   services.envfs.enable = true;
-  # Home Manager treats this as a literal suffix, so use a unique stable suffix
-  # instead of shell substitution that never executes during activation.
+  # Clean up stale .hm-backup files before home-manager activation so backups
+  # from a previous generation don't block the current one.
+  system.activationScripts.cleanupHmBackups = {
+    text = ''
+      find /home -name '*.hm-backup' -delete 2>/dev/null || true
+    '';
+    deps = [ ];
+  };
   home-manager.backupFileExtension = "hm-backup";
 
   # Networking

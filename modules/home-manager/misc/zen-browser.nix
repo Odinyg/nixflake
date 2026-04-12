@@ -5,6 +5,9 @@
   inputs,
   ...
 }:
+let
+  cfg = config.zen-browser;
+in
 {
 
   options = {
@@ -13,7 +16,7 @@
     };
   };
 
-  config = lib.mkIf config.zen-browser.enable {
+  config = lib.mkIf cfg.enable {
     # Install zen-browser as a system package (from flake input)
     environment.systemPackages = [
       inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default

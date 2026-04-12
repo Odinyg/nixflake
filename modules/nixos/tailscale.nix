@@ -1,11 +1,19 @@
-{ lib, config, pkgs-unstable, ... }:
+{
+  lib,
+  config,
+  pkgs-unstable,
+  ...
+}:
+let
+  cfg = config.tailscale;
+in
 {
   options = {
     tailscale = {
       enable = lib.mkEnableOption "tailscale";
     };
   };
-  config = lib.mkIf config.tailscale.enable {
+  config = lib.mkIf cfg.enable {
     services.tailscale = {
       enable = true;
       package = pkgs-unstable.tailscale;

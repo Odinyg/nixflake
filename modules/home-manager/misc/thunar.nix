@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.thunar;
+in
 {
 
   options = {
@@ -11,7 +14,7 @@
       enable = lib.mkEnableOption "Thunar file manager";
     };
   };
-  config = lib.mkIf config.thunar.enable {
+  config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
       xfce.exo

@@ -1,5 +1,13 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
+let
+  cfg = config.fail2ban-security;
+in
 {
   options = {
     fail2ban-security = {
@@ -7,7 +15,7 @@
     };
   };
 
-  config = lib.mkIf config.fail2ban-security.enable {
+  config = lib.mkIf cfg.enable {
     services.fail2ban = {
       enable = true;
       maxretry = lib.mkDefault 5;

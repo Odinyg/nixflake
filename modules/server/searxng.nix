@@ -51,7 +51,6 @@ in
       wantedBy = [ "homelab.target" ];
     };
 
-
     networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

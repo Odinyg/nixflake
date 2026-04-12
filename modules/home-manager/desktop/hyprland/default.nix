@@ -4,6 +4,9 @@
   pkgs-unstable,
   ...
 }:
+let
+  cfg = config.hyprland;
+in
 {
 
   imports = [
@@ -14,7 +17,7 @@
     ./monitors.nix
   ];
 
-  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
       package = pkgs-unstable.hyprland;

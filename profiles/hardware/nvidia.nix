@@ -10,7 +10,12 @@
       enable = lib.mkEnableOption "NVIDIA GPU support with prime and optimizations";
 
       driverPackage = lib.mkOption {
-        type = lib.types.enum [ "stable" "beta" "latest" "production" ];
+        type = lib.types.enum [
+          "stable"
+          "beta"
+          "latest"
+          "production"
+        ];
         default = "stable";
         description = "NVIDIA driver package to use (stable, beta, latest, or production)";
       };

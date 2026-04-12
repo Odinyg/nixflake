@@ -4,13 +4,16 @@
   config,
   ...
 }:
+let
+  cfg = config.wireless;
+in
 {
   options = {
     wireless = {
       enable = lib.mkEnableOption "wireless";
     };
   };
-  config = lib.mkIf config.wireless.enable {
+  config = lib.mkIf cfg.enable {
     networking.networkmanager = {
       enable = true;
       plugins = with pkgs; [

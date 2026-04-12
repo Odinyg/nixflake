@@ -1,5 +1,8 @@
-{ config, lib, ... }: {
-
+{ config, lib, ... }:
+let
+  cfg = config.neovim;
+in
+{
   options = {
     neovim = {
       enable = lib.mkOption {
@@ -10,7 +13,7 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.neovim.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     imports = [
       ./nixvim.nix
       ./lsp.nix

@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.work.development;
+in
 {
   options = {
     work.development = {
@@ -11,7 +14,7 @@
     };
   };
 
-  config = lib.mkIf config.work.development.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       dbeaver-bin
       rpiboot

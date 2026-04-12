@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.styling;
+in
 {
   options = {
     styling = {
@@ -66,24 +69,24 @@
     };
   };
 
-  config = lib.mkIf config.styling.enable {
+  config = lib.mkIf cfg.enable {
     stylix.enable = true;
 
-    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${config.styling.theme}.yaml";
+    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/${cfg.theme}.yaml";
 
-    stylix.image = config.styling.wallpaper;
+    stylix.image = cfg.wallpaper;
 
-    stylix.polarity = config.styling.polarity;
+    stylix.polarity = cfg.polarity;
 
-    stylix.opacity.terminal = config.styling.opacity.terminal;
+    stylix.opacity.terminal = cfg.opacity.terminal;
 
     stylix.cursor = {
-      package = config.styling.cursor.package;
-      name = config.styling.cursor.name;
-      size = config.styling.cursor.size;
+      package = cfg.cursor.package;
+      name = cfg.cursor.name;
+      size = cfg.cursor.size;
     };
 
-    stylix.autoEnable = config.styling.autoEnable;
+    stylix.autoEnable = cfg.autoEnable;
 
     home-manager.users.${config.user} = {
       gtk = {

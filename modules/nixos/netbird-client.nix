@@ -4,10 +4,17 @@
   pkgs-unstable,
   ...
 }:
+let
+  cfg = config.netbird-client;
+in
 {
-  options.netbird-client.enable = lib.mkEnableOption "Netbird VPN client";
+  options = {
+    netbird-client = {
+      enable = lib.mkEnableOption "Netbird VPN client";
+    };
+  };
 
-  config = lib.mkIf config.netbird-client.enable {
+  config = lib.mkIf cfg.enable {
     services.netbird.enable = true;
     services.netbird.package = pkgs-unstable.netbird;
 

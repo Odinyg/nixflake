@@ -1,13 +1,15 @@
 { config, lib, ... }:
+let
+  cfg = config.kitty;
+in
 {
-
   options = {
     kitty = {
       enable = lib.mkEnableOption "Kitty terminal emulator";
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.kitty.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     home.sessionVariables.TERMINAL = lib.mkDefault "kitty";
     programs.kitty = {
       enable = true;

@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.discord;
+in
 {
   options = {
     discord = {
@@ -11,7 +14,7 @@
     };
   };
 
-  config.home-manager.users.${config.user} = lib.mkIf config.discord.enable {
+  config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       vesktop
     ];

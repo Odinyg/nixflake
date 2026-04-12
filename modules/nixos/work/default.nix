@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  cfg = config.work;
+in
 {
   imports = [
     ./communication.nix
@@ -18,7 +21,7 @@
     };
   };
 
-  config = lib.mkIf config.work.enable {
+  config = lib.mkIf cfg.enable {
     # Enable all submodules when work.enable is true
     work.communication.enable = lib.mkDefault true;
     work.development.enable = lib.mkDefault true;

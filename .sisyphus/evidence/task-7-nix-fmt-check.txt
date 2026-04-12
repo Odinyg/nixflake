@@ -1,0 +1,20 @@
+=== nix fmt check ===
+warning: Git tree '/home/none/nixflake' is dirty
+[33mPassing directories or non-Nix files (such as ".") is deprecated and will be unsupported soon. Please use the `pkgs.nixfmt-tree` wrapper instead, or https://github.com/numtide/treefmt-nix for more flexibility[0m
+./modules/home-manager/desktop/hyprland/hyprpanel.nix: not formatted
+./modules/home-manager/desktop/hyprland/monitors.nix: not formatted
+./modules/home-manager/cli/neovim/nixvim.nix: not formatted
+./modules/home-manager/cli/neovim/render-markdown.nix: not formatted
+./modules/home-manager/cli/neovim/auto-save.nix: not formatted
+./modules/home-manager/cli/neovim/conform.nix: not formatted
+./modules/nixos/hosted-services/default.nix: not formatted
+./modules/nixos/hosted-services/n8n.nix: not formatted
+./modules/nixos/distributed-builds.nix: not formatted
+./modules/nixos/init-net.nix: not formatted
+./modules/server/nextcloud.nix: not formatted
+./modules/server/searxng.nix: not formatted
+./modules/server/grafana.nix: not formatted
+./profiles/hardware/nvidia.nix: not formatted
+./hosts/laptop/hardware-configuration.nix: not formatted
+./hosts/vnpc-21/hardware-configuration.nix: not formatted
+Exit: 1
