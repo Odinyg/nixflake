@@ -703,7 +703,7 @@ Max Concurrent: 6 (Waves 1 & 3)
 
   **Commit**: NO (verification only — no file changes. If nix fmt needed, that's a fix-up before committing Wave 1)
 
-- [ ] 8. Update root CLAUDE.md with canonical module template
+- [x] 8. Update root CLAUDE.md with canonical module template
 
   **What to do**:
   - Rewrite `CLAUDE.md` (currently 51 lines) to be comprehensive but concise. Must include:
@@ -779,7 +779,7 @@ Max Concurrent: 6 (Waves 1 & 3)
   **Commit**: YES (groups with Tasks 9-13 in one Wave 3 commit)
   - Message: `docs: update all documentation with canonical module patterns and refresh content`
 
-- [ ] 9. Create modules/home-manager/CLAUDE.md
+- [x] 9. Create modules/home-manager/CLAUDE.md
 
   **What to do**:
   - Create NEW file `modules/home-manager/CLAUDE.md` following the style of existing `modules/nixos/CLAUDE.md` (34 lines) and `modules/server/CLAUDE.md` (65 lines)
@@ -848,7 +848,7 @@ Max Concurrent: 6 (Waves 1 & 3)
 
   **Commit**: YES (groups with Wave 3 commit)
 
-- [ ] 10. Update modules/nixos/CLAUDE.md
+- [x] 10. Update modules/nixos/CLAUDE.md
 
   **What to do**:
   - Update existing `modules/nixos/CLAUDE.md` (currently 34 lines) to reflect the standardized patterns:
@@ -899,7 +899,7 @@ Max Concurrent: 6 (Waves 1 & 3)
 
   **Commit**: YES (groups with Wave 3 commit)
 
-- [ ] 11. Update modules/server/CLAUDE.md
+- [x] 11. Update modules/server/CLAUDE.md
 
   **What to do**:
   - Update existing `modules/server/CLAUDE.md` (currently 65 lines) to:
@@ -950,7 +950,7 @@ Max Concurrent: 6 (Waves 1 & 3)
 
   **Commit**: YES (groups with Wave 3 commit)
 
-- [ ] 12. Update README.md (refresh structure + profile docs)
+- [x] 12. Update README.md (refresh structure + profile docs)
 
   **What to do**:
   - Update existing `README.md` (currently 403 lines) to:
@@ -1024,7 +1024,7 @@ Max Concurrent: 6 (Waves 1 & 3)
 
   **Commit**: YES (groups with Wave 3 commit)
 
-- [ ] 13. Update parts/README.md + secrets/README.md
+- [x] 13. Update parts/README.md + secrets/README.md
 
   **What to do**:
   - **parts/README.md** (currently 42 lines):
@@ -1092,19 +1092,19 @@ Max Concurrent: 6 (Waves 1 & 3)
 
 > 4 review agents run in PARALLEL. ALL must APPROVE. Present consolidated results to user and get explicit "okay" before completing.
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
+- [x] F1. **Plan Compliance Audit** — `oracle`
   Read the plan end-to-end. For each "Must Have": verify implementation exists (grep for cfg patterns, check file existence). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in .sisyphus/evidence/. Compare deliverables against plan.
   Output: `Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT`
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
+- [x] F2. **Code Quality Review** — `unspecified-high`
   Run `nix fmt -- --check .` + `nix eval` on all 10 hosts. Review all changed module files for: broken cross-module refs (config.user → cfg.user would be BAD), inconsistent cfg binding placement, remaining inline `config.<namespace>.enable` patterns. Check that no module behavior changed.
   Output: `Fmt [PASS/FAIL] | Eval [N/10 pass] | Pattern Check [N clean/N issues] | VERDICT`
 
-- [ ] F3. **Real Manual QA** — `unspecified-high`
+- [x] F3. **Real Manual QA** — `unspecified-high`
   Start from clean state. For each documentation file: verify all code examples are syntactically valid Nix, verify all referenced file paths exist, verify canonical template matches actual module patterns. For modules: spot-check 5 random nixos + 5 random home-manager modules for correct pattern application. Save evidence to `.sisyphus/evidence/final-qa/`.
   Output: `Docs [N/N accurate] | Modules Spot-Check [N/N correct] | VERDICT`
 
-- [ ] F4. **Scope Fidelity Check** — `deep`
+- [x] F4. **Scope Fidelity Check** — `deep`
   For each task: read "What to do", read actual diff (git log/diff). Verify 1:1 — everything in spec was built (no missing), nothing beyond spec was built (no creep). Check "Must NOT do" compliance: no server modules touched, no option renames, no mkMerge restructuring, no `with lib;` changes. Flag unaccounted changes.
   Output: `Tasks [N/N compliant] | Scope Creep [CLEAN/N issues] | VERDICT`
 
