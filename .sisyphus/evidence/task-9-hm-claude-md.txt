@@ -1,0 +1,3 @@
+39 /home/none/nixflake/modules/home-manager/CLAUDE.md
+- `let cfg = config.<name>;` binding required in every module with an enable option
+- Sub-module files (neovim/lsp.nix, hyprland/keybindings.nix, etc.) have NO enable options — config-only, no `let cfg` needed; reference the parent's option directly (e.g., `lib.mkIf config.hyprland.enable`)

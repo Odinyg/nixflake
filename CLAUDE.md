@@ -13,7 +13,7 @@
 - `profiles/` — shared presets (laptop, desktop, workstation) that enable groups of modules
 
 ## Hosts
-- **Desktops**: laptop (`none`), vnpc-21 (`odin`), station (`none`)
+- **Desktops**: laptop (`none`), VNPC-21 (`odin`), station (`none`)
 - **Servers (homelab)**: pulse, sugar, byob, psychosocial, nero (LAN, 10.10.x.x subnets)
 - **Servers (VPS)**: spiders (public Cantabo VPS at netbird.pytt.io — runs netbird + authelia + nginx)
 - **Installer**: minimal ISO with SSH key baked in — for bootstrapping new hosts
@@ -38,6 +38,53 @@
 - Secrets managed with sops-nix — `secrets/secrets.yaml` (shared) + per-host files
 - Ollama intentionally binds to `0.0.0.0` with `openFirewall = true` for LAN access — not a security issue
 - All services are exposed via `*.pytt.io` subdomains through Caddy on psychosocial
+- `let cfg = config.<name>;` binding is MANDATORY in all modules with an enable option
+- Config guard is ALWAYS `lib.mkIf cfg.enable` — never inline `config.<name>.enable`
+- nixos/home-manager: root namespace (`options.<name>`); server: nested (`options.server.<name>`)
+- Single file default; directory with `default.nix` only when 3+ sub-modules needed
+- Cross-module refs (`config.user`, `config.sops.*`, `config.home-manager.*`, `config.smbmount.*`) stay as `config.X` — never replace with `cfg`
+
+## Module Patterns
+**nixos** — `options.<name>`, root namespace:
+```nix
+{ lib, config, pkgs, ... }:
+let cfg = config.<name>; in
+{
+  options.<name>.enable = lib.mkEnableOption "<description>";
+  config = lib.mkIf cfg.enable {
+    # system-level config
+  };
+}
+```
+
+**home-manager** — `options.<name>`, wraps user:
+```nix
+{ lib, config, pkgs, ... }:
+let cfg = config.<name>; in
+{
+  options.<name>.enable = lib.mkEnableOption "<description>";
+  config = lib.mkIf cfg.enable {
+    home-manager.users.${config.user} = {
+      # user-level config
+    };
+  };
+}
+```
+
+**server** — `options.server.<name>`, nested namespace:
+```nix
+{ lib, config, pkgs, ... }:
+let cfg = config.server.<name>; in
+{
+  options.server.<name> = {
+    enable = lib.mkEnableOption "<description>";
+    port = lib.mkOption { type = lib.types.port; default = XXXX; };
+  };
+  config = lib.mkIf cfg.enable {
+    # service config
+  };
+}
+```
 
 ## External flake-sourced modules
 - **second-brain**: sourced from the `brain` flake input (`git+https://git.pytt.io/odin/Brain`), not vendored locally. Lives on **nero** (`10.10.30.115`); previously hosted on sugar. To upgrade module schema: `nix flake update brain && just deploy nero`. The vendored `modules/server/second-brain.nix` is kept on disk as a fallback during the soak window — delete it once nero has been stable for ≥24h.

@@ -120,6 +120,23 @@ Recent server-side examples in `secrets/sugar.yaml`:
 - `forgejo_runner_token`
 - `vaultwarden_admin_token`
 
+### Per-Host Secrets Files
+
+| File | Host(s) | Key group |
+|------|---------|-----------|
+| `secrets.yaml` | All desktops | laptop + station + vnpc21 |
+| `laptop.yaml` | laptop | laptop |
+| `station.yaml` | station | station |
+| `vnpc-21.yaml` | vnpc-21 | vnpc21 |
+| `byob.yaml` | byob | homelab_low |
+| `psychosocial.yaml` | psychosocial | homelab_critical |
+| `pulse.yaml` | pulse | homelab_general + pulse |
+| `sugar.yaml` | sugar | homelab_general |
+| `spiders.yaml` | spiders | spiders (isolated) |
+| `nero.yaml` | nero | homelab_general + nero |
+
+Edit via `just secrets-<hostname>` (e.g. `just secrets-nero`) or `just secrets-edit <hostname>`.
+
 ## Troubleshooting
 
 ### Check if secrets are being decrypted

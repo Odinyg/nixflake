@@ -29,6 +29,8 @@ in {
 ## Rules
 - IMPORTANT: Servers use `nixpkgs-unstable` — all NixOS module options and packages are from unstable, no `pkgs-unstable` overlay needed
 - IMPORTANT: Every service with a systemd unit MUST join `homelab.target` via `partOf` + `wantedBy`
+- IMPORTANT: All server options use `options.server.<name>` namespace (e.g. `server.caddy.enable`) — NEVER root-level
+- IMPORTANT: Server modules are ALWAYS single .nix files — never directories with sub-modules
 - Use `lib.types.port` for port options, `lib.types.str` for domains
 - Name port options as `<service>Port` (e.g., `sonarrPort`, `metricsPort`)
 - Services behind Caddy should NOT open firewall ports directly — Caddy routes traffic
@@ -48,9 +50,10 @@ systemd.services.<service>.serviceConfig.EnvironmentFile = config.sops.templates
 
 ## Server Assignments (from default.nix imports + host configs)
 - **byob**: media (arr, nzbget, transmission, seerr)
-- **psychosocial**: reverse proxy + auth (caddy, authelia, homepage) — all `*.pytt.io` routes
+- **psychosocial**: reverse proxy + auth (caddy, authelia, homepage, element-web) — all `*.pytt.io` routes
 - **pulse**: monitoring (prometheus, loki, grafana, gatus, ntfy)
-- **sugar**: apps + DB (forgejo, forgejo-runner, vaultwarden, n8n, searxng, nextcloud, perplexica, netbootxyz, mealie, norish, wger, freshrss, postgresql)
+- **sugar**: apps + DB (forgejo, forgejo-runner, vaultwarden, n8n, searxng, nextcloud, perplexica, netbootxyz, mealie, norish, wger, freshrss, postgresql, matrix)
+- **nero**: knowledge/AI (second-brain — from `inputs.brain` flake, not a local .nix file)
 - **spiders**: VPN + auth (netbird, authelia) — public VPS, uses nginx not Caddy
 - **all**: base (nfs, monitoring exporters, disko, netbird client)
 

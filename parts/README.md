@@ -6,8 +6,8 @@ This directory contains [flake-parts](https://flake.parts) modules that compose 
 
 | File | Purpose |
 |------|---------|
-| `lib.nix` | Shared helpers — `hostModules`, `pkgs-unstable`, `commonModules`. Imported by both `hosts.nix` and `deploy.nix`. |
-| `hosts.nix` | `mkHost` helper + all `nixosConfigurations` |
+| `lib.nix` | Shared helpers — `hostModules`, `serverModules`, `pkgs-unstable`, `commonModules`, `serverCommonModules`. Imported by both `hosts.nix` and `deploy.nix`. |
+| `hosts.nix` | `mkHost`/`mkServer` wrappers + all `nixosConfigurations` |
 | `dev.nix` | `perSystem` config — formatter (`nixfmt-rfc-style`) |
 | `deploy.nix` | Colmena multi-host deployment configuration |
 

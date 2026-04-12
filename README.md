@@ -21,6 +21,7 @@ A modular, reproducible NixOS configuration using flakes with home-manager integ
 | **sugar** | Applications & automation | LAN (10.10.30.x) | Forgejo, Forgejo Actions runner, Vaultwarden, Nextcloud, Mealie, n8n, FreshRSS, SearXNG, Perplexica, Norish, wger, Netboot.xyz, PostgreSQL |
 | **byob** | Media management | LAN (10.10.50.x) | Sonarr, Radarr, Lidarr, Prowlarr, NZBGet, Transmission, Jellyseerr |
 | **spiders** | Auth & VPN (public VPS) | Cantabo VPS (netbird.pytt.io) | Netbird, Authelia, Nginx, Fail2ban |
+| **nero** | Second-brain knowledge management | LAN (10.10.30.x) | Second-brain (external flake) |
 
 ### Other
 | Host | Description |
@@ -139,7 +140,8 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 │   ├── pulse/                 # Monitoring & observability
 │   ├── sugar/                 # Applications & automation
 │   ├── byob/                  # Media management
-│   └── spiders/               # Auth & VPN (public VPS)
+│   ├── spiders/               # Auth & VPN (public VPS)
+│   └── nero/                  # Second-brain knowledge management
 │
 ├── profiles/                   # Layered configuration profiles
 │   ├── base.nix               # Minimal base system
@@ -160,9 +162,9 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 │   │
 │   ├── home-manager/          # User-level modules (desktops)
 │   │   ├── app/               # GUI applications
-│   │   ├── cli/               # Terminal tools (neovim, zsh, git)
+│   │   ├── cli/               # Terminal tools (neovim, zsh, git, scripts)
 │   │   ├── desktop/           # Desktop environment (hyprland)
-│   │   └── misc/              # Browser, file manager configs
+│   │   └── misc/              # Browser, file manager, web-apps, scripts
 │   │
 │   └── server/                # Server modules (homelab + VPS)
 │       ├── caddy.nix          # Reverse proxy
@@ -204,24 +206,26 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
     ├── psychosocial.yaml
     ├── pulse.yaml
     ├── sugar.yaml
-    └── spiders.yaml
+    ├── spiders.yaml
+    └── nero.yaml
 ```
 
 ## Architecture
 
-### Profile System (Desktops)
-Desktop configurations are layered for maximum reusability:
+### Profile System (Desktop Only)
 
-```
-base.nix (core system)
-  ├── laptop.nix (base + laptop hardware)
-  └── desktop.nix (base + desktop hardware)
-       └── workstation.nix (desktop + dev tools)
-```
+Desktop hosts use layered profiles in `profiles/`:
 
-Each desktop host imports a profile and adds host-specific overrides.
+| Profile | Inherits From | What It Adds |
+|---------|--------------|--------------|
+| `base.nix` | — | nix settings, GC, firewall, SSH, envfs |
+| `desktop.nix` | base | Hyprland, fonts, audio, all desktop apps |
+| `laptop.nix` | desktop | Screen lock, lid switch, opacity overrides |
+| `workstation.nix` | desktop | CUPS printing, dconf, multi-monitor |
+| `hardware/nvidia.nix` | — | NVIDIA drivers (imported separately per host) |
 
-Servers do **not** use profiles — they use `serverCommonModules` from `parts/lib.nix`, which provides a minimal base without home-manager or stylix.
+Profiles **enable modules** — they set `<module>.enable = true` for groups of related features.
+Servers do **not** use profiles — they use `serverCommonModules` (minimal base, no home-manager).
 
 ### Host Builders
 - `mkHost` — Desktop machines (includes home-manager, stylix, stable nixpkgs)
