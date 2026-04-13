@@ -1,0 +1,60 @@
+F3 QA complete: Sun Apr 12 2026
+
+=== PART 1: DOCS CHECK ===
+
+1. CLAUDE.md (root)
+   - nixos template: syntactically valid ✓
+   - home-manager template: syntactically valid ✓ (minor: uses wrapping mkIf style vs dotted; functionally equivalent)
+   - server template: syntactically valid ✓
+   - All paths exist: parts/, modules/nixos/, modules/home-manager/, modules/server/, hosts/, profiles/, secrets/ ✓
+
+2. modules/home-manager/CLAUDE.md
+   - Template: syntactically valid ✓
+   - 4 subdirs (cli/, desktop/, app/, misc/) all exist ✓
+
+3. modules/nixos/CLAUDE.md
+   - Template: syntactically valid ✓
+   - hardware/, work/, hosted-services/ all exist ✓
+
+4. modules/server/CLAUDE.md
+   - Template: syntactically valid ✓
+   - Server assignments accurate ✓
+
+5. README.md
+   - Profile table present and accurate ✓
+   - nero in server table ✓ ("nero | Second-brain knowledge management | LAN (10.10.30.x) | Second-brain (external flake)")
+
+6. parts/README.md
+   - All 4 files described: lib.nix, hosts.nix, dev.nix, deploy.nix ✓
+
+7. secrets/README.md
+   - nero.yaml mentioned in Per-Host Secrets Files table ✓
+
+DOCS RESULT: 7/7 accurate
+
+=== PART 2: MODULE SPOT-CHECK ===
+
+NixOS modules (5):
+1. syncthing.nix   - cfg=config.syncthing ✓ | mkIf cfg.enable ✓ | config.user used ✓
+2. gaming.nix      - cfg=config.gaming ✓ | mkIf cfg.enable ✓ | config.user used ✓
+3. ollama.nix      - cfg=config.ollama ✓ | mkIf cfg.enable ✓ | no cross-ref issues ✓
+4. styling.nix     - cfg=config.styling ✓ | mkIf cfg.enable ✓ | config.user used ✓
+5. fail2ban.nix    - cfg=config.fail2ban-security ✓ | mkIf cfg.enable ✓ | no cross-ref issues ✓
+
+Home-manager modules (5):
+1. cli/git.nix          - cfg=config.git ✓ | config.hm.users.${config.user} = mkIf ✓ | config.user ✓
+2. app/discord.nix      - cfg=config.discord ✓ | config.hm.users.${config.user} = mkIf ✓ | config.user ✓
+3. misc/chromium.nix    - cfg=config.chromium ✓ | config.hm.users.${config.user} = mkIf ✓ | config.user ✓
+4. cli/zellij.nix       - cfg=config.zellij ✓ | config.hm.users.${config.user} = mkIf ✓ | config.user ✓
+5. app/communication.nix - cfg=config.communication ✓ | config.hm.users.${config.user} = mkIf ✓ | config.user ✓
+
+MODULES RESULT: 10/10 correct
+
+=== PART 3: EVIDENCE CHECK ===
+task-1-* ✓ | task-2-* ✓ | task-3-* ✓ | task-4-* ✓ | task-5-* ✓ | task-6-* ✓
+task-7-* ✓ | task-8-* ✓ | task-9-* ✓ | task-10-* ✓ | task-11-* ✓ | task-12-* ✓ | task-13-* ✓
+
+EVIDENCE RESULT: all present (tasks 1-13)
+
+=== VERDICT ===
+Docs [7/7 accurate] | Modules Spot-Check [10/10 correct] | Evidence [present] | VERDICT: APPROVE

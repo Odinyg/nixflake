@@ -26,12 +26,14 @@ in
     programs = {
       git = {
         enable = true;
-        userName = cfg.userName;
-        userEmail = cfg.userEmail;
         ignores = [
           "docs/rca"
         ];
-        extraConfig = {
+        settings = {
+          user = {
+            name = cfg.userName;
+            email = cfg.userEmail;
+          };
           core.editor = "nvim";
           credential."https://git.pytt.io".helper = "store";
         };

@@ -2,13 +2,15 @@
   programs.nixvim = {
     plugins.nvim-tree = {
       enable = true;
-      git = {
-        enable = true;
-        ignore = false;
+      settings = {
+        git = {
+          enable = true;
+          ignore = false;
+        };
+        renderer.indent_width = 1;
+        diagnostics.enable = true;
+        update_focused_file.enable = true;
       };
-      renderer.indentWidth = 1;
-      diagnostics.enable = true;
-      updateFocusedFile.enable = true;
     };
 
     keymaps = [

@@ -38,6 +38,7 @@
       "root"
       config.user
     ];
+    warn-dirty = false;
   };
 
   # Automatic garbage collection

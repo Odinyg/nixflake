@@ -75,7 +75,7 @@ in
       duf # Disk usage/free utility
 
       # Development Tools
-      inputs.claude-code.packages.${pkgs.system}.default # Claude Code CLI (latest)
+      inputs.claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default # Claude Code CLI (latest)
       pkgs-unstable.opencode
       pkgs-unstable.opencode-desktop
       pkgs-unstable.opencode-claude-auth
