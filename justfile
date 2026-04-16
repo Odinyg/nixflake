@@ -27,9 +27,11 @@ upgrade: upgrade-pre
 # See diffrence from lock file
 diff:
   git diff ':!flake.lock'
-#Take out trash older then 30 days
+#Take out trash older then 14 days and optimise the store
 gc:
   sudo nix-collect-garbage --delete-older-than 14d
+  nix-collect-garbage --delete-older-than 14d
+  sudo nix-store --optimise
 
 # --- Secrets management ---
 
