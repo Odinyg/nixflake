@@ -95,6 +95,20 @@ in
           ${pkgs.procps}/bin/pkill -x rofi || true
           exec ${pkgs.rofi}/bin/rofi -modi emoji -show emoji
         '')
+        (writeShellScriptBin "omo-power-menu" ''
+          set -eu
+          ${pkgs.procps}/bin/pkill -x rofi || true
+          CHOICE=$(printf 'Lock\nLogout\nSuspend\nReboot\nShutdown' \
+            | ${pkgs.rofi}/bin/rofi -dmenu -p "Power" -theme-str 'window { width: 20%; }')
+          case "''${CHOICE:-}" in
+            Lock) ${pkgs.systemd}/bin/loginctl lock-session ;;
+            Logout) ${pkgs-unstable.hyprland}/bin/hyprctl dispatch exit ;;
+            Suspend) ${pkgs.systemd}/bin/systemctl suspend ;;
+            Reboot) ${pkgs.systemd}/bin/systemctl reboot ;;
+            Shutdown) ${pkgs.systemd}/bin/systemctl poweroff ;;
+            *) exit 0 ;;
+          esac
+        '')
       ];
 
       services.cliphist = {
