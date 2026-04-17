@@ -82,6 +82,14 @@ in
           $HC dispatch centerwindow
           $HC dispatch pin
         '')
+        (writeShellScriptBin "omo-clipboard-pick" ''
+          set -eu
+          ${pkgs.procps}/bin/pkill -x rofi || true
+          PICK=$(${pkgs.cliphist}/bin/cliphist list \
+            | ${pkgs.rofi}/bin/rofi -dmenu -p "Clipboard" -theme-str 'window { width: 50%; }')
+          [ -n "''${PICK:-}" ] \
+            && printf '%s' "$PICK" | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy
+        '')
       ];
 
       services.cliphist = {
