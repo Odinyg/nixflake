@@ -494,7 +494,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix`
   - Pre-commit: `nix eval` on station
 
-- [ ] 5. Add `omo-launch-or-focus` script
+- [x] 5. Add `omo-launch-or-focus` script
 
   **What to do**:
   - Inside `home-manager.users.${config.user}.home.packages` in `omo-helpers.nix`, append `(pkgs.writeShellScriptBin "omo-launch-or-focus" ''...'')`.
@@ -577,7 +577,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix`
   - Pre-commit: `nix eval` on station
 
-- [ ] 6. Add `omo-webapp-install` script
+- [x] 6. Add `omo-webapp-install` script
 
   **What to do**:
   - Append to `home.packages` in `omo-helpers.nix`:
@@ -668,7 +668,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix`
   - Pre-commit: `nix eval` on station
 
-- [ ] 7. Add `omo-window-pop` script
+- [x] 7. Add `omo-window-pop` script
 
   **What to do**:
   - Append script to `home.packages`:
@@ -775,7 +775,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix`
   - Pre-commit: `nix eval` on station
 
-- [ ] 8. Add `omo-clipboard-pick` script
+- [x] 8. Add `omo-clipboard-pick` script
 
   **What to do**:
   - Append script:
@@ -844,7 +844,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix`
   - Pre-commit: `nix eval` on station
 
-- [ ] 9. Add `omo-emoji-pick` script
+- [x] 9. Add `omo-emoji-pick` script
 
   **What to do**:
   - Append script:
@@ -917,7 +917,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix`
   - Pre-commit: `nix eval` on station
 
-- [ ] 10. Add `omo-power-menu` script
+- [x] 10. Add `omo-power-menu` script
 
   **What to do**:
   - Append script:
@@ -998,7 +998,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix`
   - Pre-commit: `nix eval` on station
 
-- [ ] 11. Add Hyprland binds via omo-helpers (station-only; overrides stock Super+W / Super+E without touching shared keybindings.nix)
+- [x] 11. Add Hyprland binds via omo-helpers (station-only; overrides stock Super+W / Super+E without touching shared keybindings.nix)
 
   **What to do**:
   - **DO NOT TOUCH `modules/home-manager/desktop/hyprland/keybindings.nix`.** That file is imported by `modules/home-manager/desktop/hyprland/default.nix:16` and runs on all Hyprland hosts (laptop, VNPC-21, station). Editing it would change behavior on laptop + VNPC-21, violating the "other hosts unaffected" guarantee.
@@ -1111,7 +1111,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix` (ONLY — keybindings.nix is NOT edited)
   - Pre-commit: `nix eval` on all 3 desktop hosts
 
-- [ ] 12. Animation toggle — source line + template + state file activation + `omo-toggle-animations`
+- [x] 12. Animation toggle — source line + template + state file activation + `omo-toggle-animations`
 
   **What to do**:
   - **DO NOT EDIT `modules/home-manager/desktop/hyprland/default.nix`.** Instead, add the source line through `omo-helpers.nix` itself — home-manager's module system merges `extraConfig` strings across all contributing modules. Our `lib.mkAfter` block will concatenate after the shared module's `lib.mkAfter` block; both land after the settings section; order between the two `mkAfter` blocks is non-deterministic but they control independent settings (overrides.conf vs animations.conf) so no conflict.
@@ -1236,7 +1236,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix` (ONLY — shared hyprland/default.nix is NOT edited)
   - Pre-commit: `nix eval` on station + `git diff --name-only HEAD~1 HEAD | grep -v '^modules/home-manager/desktop/omo-helpers.nix$' | wc -l` → 0 (only this one file changed)
 
-- [ ] 13. Waybar power icon — station-only deployment via post-init activation (shared source files UNTOUCHED)
+- [x] 13. Waybar power icon — station-only deployment via post-init activation (shared source files UNTOUCHED)
 
   **What to do**:
   - **DO NOT EDIT `modules/home-manager/desktop/hyprland/config/waybar/config` or `.../style.css`.** Those files are deployed to ALL desktops via `packages.nix:92` (`"waybar-base".source = ./config/waybar;`) and `packages.nix:98-108` (`initWaybar` activation). Editing them changes behavior on laptop + VNPC-21 the next time their waybar config is reset.
@@ -1380,7 +1380,7 @@ Max Concurrent: 6 (Wave 2)
   - Files: `modules/home-manager/desktop/omo-helpers.nix` (ONLY — shared waybar files untouched)
   - Pre-commit: `nix eval` on station + confirm `git diff --name-only HEAD~1 HEAD` shows ONLY `modules/home-manager/desktop/omo-helpers.nix`
 
-- [ ] 14. Cross-host eval regression check
+- [x] 14. Cross-host eval regression check
 
   **What to do**:
   - Run `nix eval` on all 3 desktop host configurations. All must succeed, confirming that:
@@ -1453,19 +1453,19 @@ Max Concurrent: 6 (Wave 2)
 >
 > **Do NOT auto-proceed after verification. Wait for user's explicit approval before marking work complete.**
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
+- [x] F1. **Plan Compliance Audit** — `oracle`
   Read the plan end-to-end. For each "Must Have": verify implementation exists (read file, run command, check hyprctl output on station via tmux). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in `.sisyphus/evidence/`. Compare deliverables against plan.
   Output: `Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT`
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
+- [x] F2. **Code Quality Review** — `unspecified-high`
   Run `nix fmt` check on all edited `.nix` files. Run `nix eval` on all 3 desktop hosts (station, laptop, vnpc-21). Review omo-helpers.nix + scripts for: hardcoded paths (`/home/none/`), missing `cfg` binding, `lib.mkIf` inside lists, missing `home-manager.users.${config.user}` wrapper, scripts exceeding 30 lines, per-feature sub-options, use of forbidden runtime deps. Check AI slop: excessive comments, color output, unused imports, shared helper functions between scripts.
   Output: `Fmt [PASS/FAIL] | Eval station [PASS/FAIL] | Eval laptop [PASS/FAIL] | Eval vnpc-21 [PASS/FAIL] | Scripts [N clean/N issues] | VERDICT`
 
-- [ ] F3. **Real Manual QA on Station** — `unspecified-high`
+- [x] F3. **Real Manual QA on Station** — `unspecified-high`
   SSH or local-exec to station. Execute every QA scenario from every task: verify all 7 `omo-*` scripts in PATH, trigger every new keybind via `hyprctl dispatch`, click the waybar power icon (simulate via `omo-power-menu` direct invocation), cycle `omo-toggle-animations` both ways, verify cliphist writes/reads entries. Test cross-task integration: toggle animations on → open power menu → close → toggle off. Test edge cases: window-pop on tiled window, on floating window, on fullscreen window; power menu on station (lock/suspend should fail gracefully with notification or no-op). Save evidence to `.sisyphus/evidence/final-qa/`.
   Output: `Scenarios [N/N pass] | Integration [N/N] | Edge Cases [N tested] | VERDICT`
 
-- [ ] F4. **Scope Fidelity Check** — `deep`
+- [x] F4. **Scope Fidelity Check** — `deep`
   For each task: read "What to do", read the actual diff (git log + git diff). Verify 1:1 — everything in spec was built, nothing beyond spec was built. Check "Must NOT do" compliance per task (e.g., T6 did NOT download favicons; T11 did NOT touch lines in keybindings.nix other than 34 + 43). Detect cross-task contamination (Task N touching Task M's files). Flag unaccounted-for changes (new `.rasi` files, new CSS files, new modules beyond omo-helpers.nix).
   Output: `Tasks [N/N compliant] | Contamination [CLEAN/N issues] | Unaccounted [CLEAN/N files] | VERDICT`
 

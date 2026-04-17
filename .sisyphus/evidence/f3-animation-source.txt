@@ -1,0 +1,4 @@
+            STATE="''${XDG_STATE_HOME:-$HOME/.local/state}/hypr/animations.conf"
+          source = ~/.local/state/hypr/animations.conf
+            if [ ! -f "$HOME/.local/state/hypr/animations.conf" ]; then
+              touch "$HOME/.local/state/hypr/animations.conf"

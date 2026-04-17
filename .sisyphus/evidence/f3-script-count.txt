@@ -1,0 +1,8 @@
+7
+          (writeShellScriptBin "omo-launch-or-focus" ''
+          (writeShellScriptBin "omo-webapp-install" ''
+          (writeShellScriptBin "omo-window-pop" ''
+          (writeShellScriptBin "omo-clipboard-pick" ''
+          (writeShellScriptBin "omo-emoji-pick" ''
+          (writeShellScriptBin "omo-power-menu" ''
+          (pkgs.writeShellScriptBin "omo-toggle-animations" ''
