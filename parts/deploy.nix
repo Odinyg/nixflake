@@ -5,6 +5,7 @@
 let
   inherit (inputs) nixpkgs nixpkgs-unstable nixos-hardware;
   lib = import ./lib.nix { inherit inputs; };
+  inventory = lib.inventory;
 
   mkColmenaHost =
     {
@@ -66,7 +67,7 @@ in
       nodeNixpkgs = nixpkgs.lib.genAttrs serverHosts (_: serverNixpkgs);
       specialArgs = {
         inherit inputs;
-        inherit (lib) pkgs-unstable;
+        inherit (lib) pkgs-unstable mkServerNetwork inventory;
       };
     };
 
@@ -93,32 +94,32 @@ in
     # Homelab servers
     pulse = mkColmenaServer {
       hostPath = ../hosts/pulse;
-      targetHost = "10.10.30.112";
+      targetHost = inventory.pulse;
     };
 
     sugar = mkColmenaServer {
       hostPath = ../hosts/sugar;
-      targetHost = "10.10.30.111";
+      targetHost = inventory.sugar;
     };
 
     byob = mkColmenaServer {
       hostPath = ../hosts/byob;
-      targetHost = "10.10.50.110";
+      targetHost = inventory.byob;
     };
 
     psychosocial = mkColmenaServer {
       hostPath = ../hosts/psychosocial;
-      targetHost = "10.10.30.110";
+      targetHost = inventory.psychosocial;
     };
 
     spiders = mkColmenaServer {
       hostPath = ../hosts/spiders;
-      targetHost = "netbird.pytt.io"; # Public VPS — update to IP if DNS not ready
+      targetHost = inventory.spiders;
     };
 
     nero = mkColmenaServer {
       hostPath = ../hosts/nero;
-      targetHost = "10.10.30.115";
+      targetHost = inventory.nero;
     };
   };
 }

@@ -21,7 +21,7 @@ let
     nixpkgs-unstable.lib.nixosSystem {
       specialArgs = {
         inherit inputs;
-        inherit (lib) pkgs-unstable;
+        inherit (lib) pkgs-unstable mkServerNetwork inventory;
       };
       modules = lib.serverModules args;
     };

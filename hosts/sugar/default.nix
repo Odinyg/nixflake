@@ -1,10 +1,18 @@
 {
   pkgs,
+  mkServerNetwork,
+  inventory,
   ...
 }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    (mkServerNetwork {
+      ip = inventory.sugar;
+      gateway = "10.10.30.1";
+    })
+  ];
 
   nixpkgs.config.permittedInsecurePackages = [
     "n8n-1.91.3"
@@ -17,24 +25,6 @@
   };
 
   networking.hostName = "sugar";
-
-  # Static IP
-  networking = {
-    useDHCP = false;
-    interfaces.ens18 = {
-      ipv4.addresses = [
-        {
-          address = "10.10.30.111";
-          prefixLength = 24;
-        }
-      ];
-    };
-    defaultGateway = "10.10.30.1";
-    nameservers = [
-      "10.10.30.1"
-      "1.1.1.1"
-    ];
-  };
 
   # --- Services ---
   server.disko.enable = true;

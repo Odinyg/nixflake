@@ -1,30 +1,22 @@
 {
   pkgs,
+  mkServerNetwork,
+  inventory,
   ...
 }:
 
 {
   imports = [
     ./hardware-configuration.nix
+    (mkServerNetwork {
+      ip = inventory.nero;
+      gateway = "10.10.30.1";
+    })
   ];
 
   environment.systemPackages = [ pkgs.gh ];
 
-  networking = {
-    hostName = "nero";
-    useDHCP = false;
-    interfaces.ens18.ipv4.addresses = [
-      {
-        address = "10.10.30.115";
-        prefixLength = 24;
-      }
-    ];
-    defaultGateway = "10.10.30.1";
-    nameservers = [
-      "10.10.30.1"
-      "1.1.1.1"
-    ];
-  };
+  networking.hostName = "nero";
 
   server.disko = {
     enable = true;

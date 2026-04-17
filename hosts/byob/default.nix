@@ -3,11 +3,23 @@
   pkgs,
   pkgs-unstable,
   lib,
+  mkServerNetwork,
+  inventory,
   ...
 }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    (mkServerNetwork {
+      ip = inventory.byob;
+      gateway = "10.10.50.1";
+      nameservers = [
+        "10.10.10.1"
+        "1.1.1.1"
+      ];
+    })
+  ];
 
   # Use unstable packages for ARR stack (Docker :latest tracks unstable)
   nixpkgs.overlays = [
@@ -22,24 +34,6 @@
   ];
 
   networking.hostName = "byob";
-
-  # Static IP
-  networking = {
-    useDHCP = false;
-    interfaces.ens18 = {
-      ipv4.addresses = [
-        {
-          address = "10.10.50.110";
-          prefixLength = 24;
-        }
-      ];
-    };
-    defaultGateway = "10.10.50.1";
-    nameservers = [
-      "10.10.10.1"
-      "1.1.1.1"
-    ];
-  };
 
   # NAS mounts — remove noauto to activate
   fileSystems."/mnt/nas/media".options = lib.mkForce [

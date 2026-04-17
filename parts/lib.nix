@@ -10,6 +10,35 @@ let
     sops-nix
     ;
 
+  inventory = import ./inventory.nix;
+
+  mkServerNetwork =
+    {
+      ip,
+      prefixLength ? 24,
+      gateway,
+      nameservers ? [
+        gateway
+        "1.1.1.1"
+      ],
+      interface ? "ens18",
+    }:
+    {
+      networking = {
+        useDHCP = false;
+        interfaces.${interface} = {
+          ipv4.addresses = [
+            {
+              address = ip;
+              inherit prefixLength;
+            }
+          ];
+        };
+        defaultGateway = gateway;
+        inherit nameservers;
+      };
+    };
+
   system = "x86_64-linux";
 
   pkgs-unstable = import nixpkgs-unstable {
@@ -98,5 +127,7 @@ in
     serverCommonModules
     hostModules
     serverModules
+    mkServerNetwork
+    inventory
     ;
 }
