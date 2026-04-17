@@ -35,6 +35,28 @@ in
             exec "$@"
           fi
         '')
+        (writeShellScriptBin "omo-webapp-install" ''
+          set -eu
+          NAME="''${1:?usage: omo-webapp-install <Name> <URL>}"
+          URL="''${2:?usage: omo-webapp-install <Name> <URL>}"
+          APPDIR="''${XDG_DATA_HOME:-$HOME/.local/share}/applications"
+          SLUG=$(printf '%s' "$NAME" | tr ' ' '-')
+          FILE="$APPDIR/omo-webapp-''${SLUG}.desktop"
+          mkdir -p "$APPDIR"
+          cat > "$FILE" <<EOF
+          [Desktop Entry]
+          Type=Application
+          Name=$NAME
+          Exec=zen-beta --new-window $URL
+          Icon=zen-beta
+          Categories=Network;WebBrowser;
+          StartupWMClass=$NAME
+          NoDisplay=false
+          EOF
+          ${pkgs.desktop-file-utils}/bin/desktop-file-validate "$FILE" \
+            || { ${pkgs.libnotify}/bin/notify-send "omo-webapp-install" "Invalid desktop file" -t 3000; exit 1; }
+          ${pkgs.libnotify}/bin/notify-send "Web App Installed" "$NAME" -t 3000
+        '')
       ];
 
       services.cliphist = {
