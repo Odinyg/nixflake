@@ -132,6 +132,46 @@ in
           "$mainMod SHIFT, O, exec, omo-window-pop"
           "$mainMod SHIFT, E, exec, omo-power-menu"
         ];
+
+        home.packages = [
+          (pkgs.writeShellScriptBin "omo-toggle-animations" ''
+            set -eu
+            STATE="''${XDG_STATE_HOME:-$HOME/.local/state}/hypr/animations.conf"
+            TPL="$HOME/.config/hypr/omo-animations-on.conf"
+            if [ -s "$STATE" ]; then
+              : > "$STATE"
+              ${pkgs.libnotify}/bin/notify-send "Animations" "Off" -t 1500
+            else
+              cat "$TPL" > "$STATE"
+              ${pkgs.libnotify}/bin/notify-send "Animations" "On" -t 1500
+            fi
+            ${pkgs-unstable.hyprland}/bin/hyprctl reload >/dev/null
+          '')
+        ];
+
+        xdg.configFile."hypr/omo-animations-on.conf".text = ''
+          animations {
+            enabled = true
+            bezier = omoBezier, 0.05, 0.9, 0.1, 1.05
+            animation = windows, 1, 4, omoBezier
+            animation = windowsOut, 1, 4, default, popin 80%
+            animation = border, 1, 10, default
+            animation = fade, 1, 7, default
+            animation = workspaces, 1, 2, default
+          }
+        '';
+
+        wayland.windowManager.hyprland.extraConfig = lib.mkAfter ''
+          # omo-helpers: runtime-toggleable animations via sourced state file
+          source = ~/.local/state/hypr/animations.conf
+        '';
+
+        home.activation.ensureOmoAnimationState = ''
+          mkdir -p "$HOME/.local/state/hypr"
+          if [ ! -f "$HOME/.local/state/hypr/animations.conf" ]; then
+            touch "$HOME/.local/state/hypr/animations.conf"
+          fi
+        '';
       })
     ];
   };
