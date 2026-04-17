@@ -8,6 +8,8 @@
 let
   cfg = config.omo-helpers;
   isStation = config.networking.hostName == "station";
+  # rofi bundled with emoji plugin so ROFI_PLUGIN_PATH is set correctly
+  rofi-with-emoji = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
 in
 {
   options.omo-helpers.enable = lib.mkEnableOption "Omarchy-style desktop UX helpers (station testbed)";
@@ -16,7 +18,7 @@ in
       {
         home.packages = with pkgs; [
           hyprpicker
-          rofi-emoji
+          rofi-with-emoji
           wtype
           cliphist
           wl-clipboard
@@ -87,20 +89,20 @@ in
             set -eu
             ${pkgs.procps}/bin/pkill -x rofi || true
             PICK=$(${pkgs.cliphist}/bin/cliphist list \
-              | ${pkgs.rofi}/bin/rofi -dmenu -p "Clipboard" -theme-str 'window { width: 50%; }')
+              | ${rofi-with-emoji}/bin/rofi -dmenu -p "Clipboard" -theme-str 'window { width: 50%; }')
             [ -n "''${PICK:-}" ] \
               && printf '%s' "$PICK" | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy
           '')
           (writeShellScriptBin "omo-emoji-pick" ''
             set -eu
             ${pkgs.procps}/bin/pkill -x rofi || true
-            exec ${pkgs.rofi}/bin/rofi -modi emoji -show emoji
+            exec ${rofi-with-emoji}/bin/rofi -modi emoji -show emoji
           '')
           (writeShellScriptBin "omo-power-menu" ''
             set -eu
             ${pkgs.procps}/bin/pkill -x rofi || true
             CHOICE=$(printf 'Lock\nLogout\nSuspend\nReboot\nShutdown' \
-              | ${pkgs.rofi}/bin/rofi -dmenu -p "Power" -theme-str 'window { width: 20%; }')
+              | ${rofi-with-emoji}/bin/rofi -dmenu -p "Power" -theme-str 'window { width: 20%; }')
             case "''${CHOICE:-}" in
               Lock) ${pkgs.systemd}/bin/loginctl lock-session ;;
               Logout) ${pkgs-unstable.hyprland}/bin/hyprctl dispatch exit ;;
