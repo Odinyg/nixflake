@@ -11,7 +11,17 @@ in
   options.omo-helpers.enable = lib.mkEnableOption "Omarchy-style desktop UX helpers (station testbed)";
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.user} = {
-      # empty for now — T3+ populates this
+      home.packages = with pkgs; [
+        hyprpicker
+        rofi-emoji
+        wtype
+        cliphist
+        wl-clipboard
+        libnotify
+        procps
+        jq
+        desktop-file-utils
+      ];
     };
   };
 }
