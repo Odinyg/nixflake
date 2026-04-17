@@ -57,6 +57,31 @@ in
             || { ${pkgs.libnotify}/bin/notify-send "omo-webapp-install" "Invalid desktop file" -t 3000; exit 1; }
           ${pkgs.libnotify}/bin/notify-send "Web App Installed" "$NAME" -t 3000
         '')
+        (writeShellScriptBin "omo-window-pop" ''
+          set -eu
+          HC=${pkgs-unstable.hyprland}/bin/hyprctl
+          JQ=${pkgs.jq}/bin/jq
+          ACT=$($HC activewindow -j)
+          FLOATING=$(printf '%s' "$ACT" | $JQ -r '.floating')
+          PINNED=$(printf '%s' "$ACT" | $JQ -r '.pinned')
+          FULLSCREEN=$(printf '%s' "$ACT" | $JQ -r '.fullscreen')
+          MON=$(printf '%s' "$ACT" | $JQ -r '.monitor')
+          RES=$($HC monitors -j | $JQ -r --argjson m "$MON" '.[] | select(.id == $m) | "\(.width)x\(.height)"')
+          W=$(printf '%s' "$RES" | cut -dx -f1)
+          H=$(printf '%s' "$RES" | cut -dx -f2)
+          TW=$((W * 75 / 100))
+          TH=$((H * 75 / 100))
+          if [ "$FULLSCREEN" != "0" ] && [ "$FULLSCREEN" != "null" ] && [ "$FULLSCREEN" != "false" ]; then
+            $HC dispatch fullscreen 0
+          fi
+          if [ "$FLOATING" = "true" ] && [ "$PINNED" = "true" ]; then
+            $HC dispatch pin; $HC dispatch togglefloating; exit 0
+          fi
+          [ "$FLOATING" = "false" ] && $HC dispatch togglefloating
+          $HC dispatch resizeactive exact "$TW" "$TH"
+          $HC dispatch centerwindow
+          $HC dispatch pin
+        '')
       ];
 
       services.cliphist = {
