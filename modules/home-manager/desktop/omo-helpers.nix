@@ -57,7 +57,6 @@ in
             EOF
             ${pkgs.desktop-file-utils}/bin/desktop-file-validate "$FILE" \
               || { ${pkgs.libnotify}/bin/notify-send "omo-webapp-install" "Invalid desktop file" -t 3000; exit 1; }
-            ${pkgs.libnotify}/bin/notify-send "Web App Installed" "$NAME" -t 3000
           '')
           (writeShellScriptBin "omo-window-pop" ''
             set -eu
@@ -69,8 +68,8 @@ in
             FULLSCREEN=$(printf '%s' "$ACT" | $JQ -r '.fullscreen')
             MON=$(printf '%s' "$ACT" | $JQ -r '.monitor')
             RES=$($HC monitors -j | $JQ -r --argjson m "$MON" '.[] | select(.id == $m) | "\(.width)x\(.height)"')
-            W=$(printf '%s' "$RES" | cut -dx -f1)
-            H=$(printf '%s' "$RES" | cut -dx -f2)
+            W=$(printf '%s' "$RES" | ${pkgs.coreutils}/bin/cut -dx -f1)
+            H=$(printf '%s' "$RES" | ${pkgs.coreutils}/bin/cut -dx -f2)
             TW=$((W * 75 / 100))
             TH=$((H * 75 / 100))
             if [ "$FULLSCREEN" != "0" ] && [ "$FULLSCREEN" != "null" ] && [ "$FULLSCREEN" != "false" ]; then
@@ -140,10 +139,8 @@ in
             TPL="$HOME/.config/hypr/omo-animations-on.conf"
             if [ -s "$STATE" ]; then
               : > "$STATE"
-              ${pkgs.libnotify}/bin/notify-send "Animations" "Off" -t 1500
             else
               cat "$TPL" > "$STATE"
-              ${pkgs.libnotify}/bin/notify-send "Animations" "On" -t 1500
             fi
             ${pkgs-unstable.hyprland}/bin/hyprctl reload >/dev/null
           '')
