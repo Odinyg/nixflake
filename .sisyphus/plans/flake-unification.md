@@ -760,7 +760,7 @@ Wave FINAL (After ALL tasks):
   Read the plan end-to-end. For each "Must Have": verify implementation exists (read file, run command). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in .sisyphus/evidence/. Compare deliverables against plan.
   Output: `Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT`
 
-- [ ] F2. **Code Quality Review** — `unspecified-high`
+- [x] F2. **Code Quality Review** — `unspecified-high`
   Run `nix flake check` + `nix fmt -- --check .`. Review all changed files for: hardcoded IPs outside inventory, inconsistent module patterns, missing `let cfg` bindings, unused imports. Check for AI slop: excessive comments, over-abstraction.
   Output: `Flake Check [PASS/FAIL] | Format [PASS/FAIL] | Files [N clean/N issues] | VERDICT`
 
@@ -768,7 +768,7 @@ Wave FINAL (After ALL tasks):
   Run `nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath` for ALL 9 hosts: laptop, VNPC-21, station, pulse, sugar, byob, psychosocial, spiders, nero. Capture derivation paths. Grep all .nix files for raw IP patterns `\b\d+\.\d+\.\d+\.\d+\b` — only `parts/inventory.nix` and `hosts/spiders/default.nix` should contain them. Save to `.sisyphus/evidence/final-qa/`.
   Output: `Hosts [N/9 eval pass] | IP Leaks [N files] | VERDICT`
 
-- [ ] F4. **Scope Fidelity Check** — `deep`
+- [x] F4. **Scope Fidelity Check** — `deep`
   For each task: read "What to do", read actual diff (git diff). Verify 1:1 — everything in spec was built, nothing beyond spec. Check "Must NOT do" compliance. Detect unaccounted changes.
   Output: `Tasks [N/N compliant] | Unaccounted [CLEAN/N files] | VERDICT`
 

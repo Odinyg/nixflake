@@ -1,0 +1,145 @@
+F4 Scope Fidelity Check — flake-unification
+Date: 2026-04-17
+Repo: /home/odin/nixflake
+
+Spec source:
+- .sisyphus/plans/flake-unification.md
+
+Commit window reviewed (cd00a5c..HEAD):
+- 0ef44e3 chore: remove outdated staging IP cutover comments
+- 74cf375 feat(infra): add parts/inventory.nix as centralized IP registry
+- cbd2a4c feat(postgresql): add daily pg_dumpall backup with 7-day retention
+- f525a5c refactor(server): extract media group to standalone module
+- 19ff39e refactor(infra): add mkServerNetwork helper and deduplicate host networking
+- 768911c refactor(psychosocial): use inventory IPs in Caddy config
+- 1e21b0f fix(hosts): replace remaining hardcoded IPs with inventory references
+- fb95964 style: run nix fmt on changed files
+
+Task-by-task fidelity
+=====================
+
+T1 (security.nix namespace nesting): COMPLIANT
+- Implemented nesting under options.security.insecurePackages in commit 0ef44e3.
+- File evidence: modules/nixos/security.nix:11-18.
+- Config logic path remains valid (cfg.insecurePackages.enable still used): modules/nixos/security.nix:23.
+- Note: later fix commit also removed comments in config block (modules/nixos/security.nix:49-53), but no logic change.
+
+T2 (staging comments cleanup): COMPLIANT (task files), WITH COMMIT SCOPE CREEP
+- Comment-only changes are correct in target files:
+  - hosts/psychosocial/default.nix (staging labels removed)
+  - hosts/pulse/default.nix
+  - hosts/sugar/default.nix
+  - hosts/byob/default.nix
+  - parts/deploy.nix ("Homelab servers" comment)
+- No value changes in those target files.
+- However, same commit (0ef44e3) also changed unrelated files (see Unaccounted Changes).
+
+T3 (create parts/inventory.nix): COMPLIANT
+- Inventory created as plain attrset (not a module): parts/inventory.nix:1-21.
+- Required keys present incl. external infra and spiders DNS name.
+- Correct IPs preserved.
+
+T4 (media-group extraction): COMPLIANT
+- New file: modules/server/media-group.nix:1-23.
+- arr inline media group removed: modules/server/arr.nix (no users.groups.media in cfg.enable block).
+- default import added: modules/server/default.nix:15.
+- byob enable added: hosts/byob/default.nix:64.
+- GID remains 1000: modules/server/media-group.nix:15.
+
+T5 (mkServerNetwork + 5 hosts, spiders untouched): COMPLIANT
+- mkServerNetwork added and exported: parts/lib.nix:15-40,130-131.
+- inventory exported/imported: parts/lib.nix:13,131.
+- Updated hosts: psychosocial, pulse, sugar, byob, nero (all use mkServerNetwork in imports).
+- byob keeps distinct gateway/nameservers: hosts/byob/default.nix:16-20.
+- spiders host not modified.
+
+T6 (psychosocial Caddy inventory refs, routing unchanged): COMPLIANT
+- Caddy reverse_proxy destinations replaced with inventory refs throughout:
+  hosts/psychosocial/default.nix:59-305.
+- NAT destination updated: hosts/psychosocial/default.nix:348.
+- 127.0.0.1 preserved (e.g. lines 52, 331).
+- Handle/matcher/routing structure retained.
+
+T7 (deploy.nix inventory targetHost): DEVIATION
+- Required replacements done: parts/deploy.nix:97,102,107,112,117,122.
+- Desktop host targetHost values unchanged.
+- Extra non-targetHost logic changed in same file:
+  - Added inventory binding: parts/deploy.nix:8.
+  - Added mkServerNetwork/inventory in colmena specialArgs: parts/deploy.nix:70.
+- This exceeds strict T7 "Do NOT change any other deploy.nix logic" wording.
+
+T8 (postgres backup add-only + sugar enable): DEVIATION
+- Backup options and service/timer implemented correctly:
+  - options.server.postgresql.backup: modules/server/postgresql.nix:42-54
+  - write-then-rename + retention cleanup: lines 145-149
+  - timer 03:00: lines 153-159
+  - sugar enable: hosts/sugar/default.nix:43
+- But existing postgresql config was structurally refactored from plain attrset to lib.mkMerge block:
+  - modules/server/postgresql.nix:57-163
+- Spec said "Do NOT modify existing postgresql.nix options or config — only ADD backup section."
+
+Fix commits check
+=================
+
+Fix set requested: sugar redisHost, nero matrix.homeserver, media-group comment, security comments.
+
+Result: COMPLIANT
+- sugar redisHost switched to inventory.truenas: hosts/sugar/default.nix:74
+- nero matrix.homeserver switched to inventory.sugar: hosts/nero/default.nix:29
+- media-group artifact comment removed (plus whitespace normalization): modules/server/media-group.nix:6-8
+- security verbose comments removed with logic preserved: modules/nixos/security.nix:49-53
+
+Must-NOT guardrails
+===================
+
+1) Caddy routing logic restructure forbidden: NO VIOLATION
+- Only IP substitutions/interpolation observed in Caddy blocks.
+
+2) No IP/port/network behavior changes: NO VIOLATION FOUND in plan-scoped infra files
+- Literal IP values preserved semantically via inventory references.
+
+3) No off-host backup/monitoring/alerting: NO VIOLATION
+
+4) Do not normalize spiders networking: NO VIOLATION
+
+5) No new options beyond strict need: NO CLEAR VIOLATION
+- Added options are backup/media-group and mkServerNetwork params as planned.
+
+6) Do not change media gid: NO VIOLATION
+- Still 1000.
+
+7) Do not touch out-of-scope items: VIOLATION
+- Unrelated files changed in implementation window (below).
+
+Unaccounted / out-of-scope changes
+==================================
+
+Changed outside task scope:
+- flake.lock
+- modules/home-manager/cli/zsh/scripts/git-worktrees.zsh
+- modules/home-manager/misc/chromium.nix
+- modules/home-manager/misc/web-apps.nix
+
+Process/meta files also changed (not implementation scope):
+- .sisyphus/boulder.json
+- .sisyphus/plans/flake-unification.md
+- .sisyphus/evidence/*
+
+Verdict summary
+===============
+
+Tasks [6/8 compliant]:
+- T1: COMPLIANT
+- T2: COMPLIANT (task files), commit contained scope creep
+- T3: COMPLIANT
+- T4: COMPLIANT
+- T5: COMPLIANT
+- T6: COMPLIANT
+- T7: DEVIATION (extra deploy logic changes at parts/deploy.nix:8,70)
+- T8: DEVIATION (existing config refactor at modules/server/postgresql.nix:57-163)
+
+Fix commits: COMPLIANT
+Unaccounted Changes: NOT CLEAN (files listed above)
+Must NOT Do Violations: out-of-scope changes present
+
+FINAL VERDICT: REJECT

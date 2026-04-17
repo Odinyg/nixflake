@@ -1,0 +1,104 @@
+F2 Final Re-run Evidence — 2026-04-17
+======================================
+
+## Format Check
+Command: nix fmt -- --check .
+Result: PASS (EXIT:0)
+Note: Deprecation warning about passing "." directly — non-blocking, format is clean.
+
+## IP Leak Check
+Command: grep -rn '\b10\.[0-9]\+\.[0-9]\+\.[0-9]\+\b' --include='*.nix' . | grep -v 'parts/inventory.nix' | grep -v 'hosts/spiders'
+
+All IPs found — categorized:
+
+TOLERABLE (pre-existing, not introduced by this plan):
+  - modules/server/default.nix:114-123  networking.hosts entries (pre-existing, noted TOLERABLE)
+  - modules/server/postgresql.nix:37    "10.10.0.0/16" CIDR in pg_hba (noted TOLERABLE)
+  - modules/server/gatus.nix            hardcoded monitoring URLs (pre-existing)
+  - modules/server/homepage.nix         hardcoded dashboard URLs (pre-existing)
+  - modules/server/prometheus.nix       hardcoded scrape targets (pre-existing)
+  - modules/server/n8n.nix:19           default dbHost IP (pre-existing)
+  - modules/server/monitoring.nix:15    Loki endpoint (pre-existing)
+  - modules/server/norish.nix:24,57     default + env IP (pre-existing)
+  - modules/server/forgejo.nix:75       ALLOWED_HOST_LIST (pre-existing)
+  - modules/server/nextcloud.nix:20,25  dbHost + trusted proxy (pre-existing)
+  - modules/server/nfs.nix              NAS mount devices (pre-existing)
+  - modules/server/mealie.nix:24        default dbHost (pre-existing)
+  - hosts/station/default.nix           static IP + urlFallback (pre-existing)
+  - hosts/byob/default.nix              gateway + DNS IPs (infrastructure config)
+  - hosts/pulse/default.nix:12          gateway IP (infrastructure config)
+  - modules/nixos/ollama.nix:36         SAN cert IP for TLS (pre-existing)
+
+PLAN-CHANGED FILES — gateway IPs only (infrastructure config, not host refs):
+  - hosts/sugar/default.nix:13          gateway = "10.10.30.1" — OK (gateway, not a host ref)
+  - hosts/nero/default.nix:13           gateway = "10.10.30.1" — OK
+  - hosts/psychosocial/default.nix:15   gateway = "10.10.30.1" — OK
+
+NO leaked host IPs in plan-changed files. CLEAN.
+
+## File Reviews
+
+### modules/server/media-group.nix (23 lines)
+- No artifact comments
+- No trailing whitespace
+- Correct server module pattern: options.server.media-group, cfg binding, lib.mkIf cfg.enable
+- CLEAN
+
+### modules/nixos/security.nix (56 lines)
+- No redundant restatement comments
+- Inline comments are descriptive/explanatory (e.g., "Required for..."), not redundant
+- lib.mkMerge with two guarded blocks, correct cfg = config.security binding
+- CLEAN
+
+### hosts/sugar/default.nix (111 lines)
+- Line 12: ip = inventory.sugar ✓
+- Line 13: gateway = "10.10.30.1" — infrastructure config, fine
+- Line 74: redisHost = inventory.truenas ✓ (plan requirement met)
+- Line 75: redisPort = 30059 ✓
+- Proper indentation throughout
+- CLEAN
+
+### hosts/nero/default.nix (39 lines)
+- Line 12: ip = inventory.nero ✓
+- Line 29: matrix.homeserver = "http://${inventory.sugar}:6167" ✓ (plan requirement met)
+- Proper indentation throughout
+- CLEAN
+
+### modules/server/postgresql.nix (164 lines)
+- backup options at lines 42-53: enable, dir, retention ✓
+- lib.mkMerge structure: outer lib.mkIf cfg.enable wraps lib.mkMerge [...] ✓
+- Backup block at lines 129-161 guarded by lib.mkIf cfg.backup.enable ✓
+- CIDR "10.10.0.0/16" at line 37 — noted TOLERABLE (pg_hba network range)
+- CLEAN
+
+### parts/lib.nix (133 lines)
+- mkServerNetwork defined at lines 15-40 ✓
+- inventory imported from ./inventory.nix at line 13 ✓
+- Both mkServerNetwork and inventory exported at lines 130-131 ✓
+- CLEAN
+
+### parts/deploy.nix (125 lines)
+- inventory = lib.inventory at line 8 ✓
+- inventory passed in specialArgs at line 70 ✓
+- All 6 server targetHosts use inventory.X references:
+  pulse:         targetHost = inventory.pulse        (line 97)  ✓
+  sugar:         targetHost = inventory.sugar        (line 102) ✓
+  byob:          targetHost = inventory.byob         (line 107) ✓
+  psychosocial:  targetHost = inventory.psychosocial (line 112) ✓
+  spiders:       targetHost = inventory.spiders      (line 117) ✓
+  nero:          targetHost = inventory.nero         (line 122) ✓
+- CLEAN
+
+### hosts/psychosocial/default.nix (356 lines)
+- ip = inventory.psychosocial at line 14 ✓
+- All Caddy reverse_proxy targets use ${inventory.X} interpolation:
+  byob: lines 59, 64, 69, 74, 79, 84, 89, 94
+  pulse: lines 106, 110, 115, 121, 126, 132
+  sugar: lines 139, 144, 149, 154, 162, 173, 178, 184, 189, 200, 205, 211, 233, 239, 246
+  + jellyfin, pve1, pve2, truenas, craftbeerpi, homeassistant, openwebui, ollama
+- NAT forwardPorts destination uses ${inventory.sugar}:22 at line 348 ✓
+- CLEAN
+
+## Issues Found: 0
+
+## VERDICT: APPROVE
