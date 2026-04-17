@@ -67,6 +67,7 @@
   server.nfs.enable = true;
   server.disko.enable = true;
   server.arr.enable = true;
+  server.media-group.enable = true;
   server.nzbget.enable = true;
   server.transmission.enable = true;
   server.seerr.enable = true;
