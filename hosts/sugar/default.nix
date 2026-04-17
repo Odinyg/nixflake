@@ -63,17 +63,17 @@
     enable = true;
     dbHost = "172.18.0.1";
   };
-    server.norish = {
-      enable = true;
-      dbHost = "172.18.0.1";
-      redisHost = "172.18.0.1";
-    };
-    server.wger = {
-      enable = true;
-      dbHost = "172.18.0.1";
-      redisHost = inventory.truenas;
-      redisPort = 30059;
-    };
+  server.norish = {
+    enable = true;
+    dbHost = "172.18.0.1";
+    redisHost = "172.18.0.1";
+  };
+  server.wger = {
+    enable = true;
+    dbHost = "172.18.0.1";
+    redisHost = inventory.truenas;
+    redisPort = 30059;
+  };
   server.vaultwarden.enable = true;
   server.freshrss = {
     enable = true;

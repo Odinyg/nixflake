@@ -3,7 +3,7 @@
   lib,
   ...
 }:
- 
+
 let
   cfg = config.server.media-group;
 in

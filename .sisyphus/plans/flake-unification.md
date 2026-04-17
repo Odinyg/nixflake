@@ -162,7 +162,7 @@ Wave FINAL (After ALL tasks):
 
 ## TODOs
 
-- [ ] 1. Fix security.nix namespace nesting
+- [x] 1. Fix security.nix namespace nesting
 
   **What to do**:
   - In `modules/nixos/security.nix`, restructure lines 11-19 so `insecurePackages` is nested inside the `options.security` block instead of being a sibling path
@@ -205,7 +205,7 @@ Wave FINAL (After ALL tasks):
   - Message: `fix(security): nest insecurePackages under security options block`
   - Files: `modules/nixos/security.nix`
 
-- [ ] 2. Clean up outdated staging IP cutover comments
+- [x] 2. Clean up outdated staging IP cutover comments
 
   **What to do**:
   - Remove the staging cutover comments from these files (the cutover is done/no longer planned):
@@ -259,7 +259,7 @@ Wave FINAL (After ALL tasks):
   - Message: `chore: remove outdated staging IP cutover comments`
   - Files: `hosts/{psychosocial,pulse,sugar,byob}/default.nix`, `parts/deploy.nix`
 
-- [ ] 3. Create parts/inventory.nix — centralized IP registry
+- [x] 3. Create parts/inventory.nix — centralized IP registry
 
   **What to do**:
   - Create `parts/inventory.nix` as a plain Nix file (like `parts/lib.nix`) that returns an attrset of host/service IPs
@@ -341,7 +341,7 @@ Wave FINAL (After ALL tasks):
   - Message: `feat(infra): add parts/inventory.nix as centralized IP registry`
   - Files: `parts/inventory.nix`
 
-- [ ] 4. Extract media group to standalone module
+- [x] 4. Extract media group to standalone module
 
   **What to do**:
   - Create `modules/server/media-group.nix` following server module conventions:
@@ -421,7 +421,7 @@ Wave FINAL (After ALL tasks):
   - Message: `refactor(server): extract media group to standalone module`
   - Files: `modules/server/media-group.nix`, `modules/server/arr.nix`, `modules/server/default.nix`, `hosts/byob/default.nix`
 
-- [ ] 5. Add mkServerNetwork to lib.nix + update all server host configs
+- [x] 5. Add mkServerNetwork to lib.nix + update all server host configs
 
   **What to do**:
   - Add a `mkServerNetwork` function to `parts/lib.nix` that generates the networking block for LAN servers
@@ -516,7 +516,7 @@ Wave FINAL (After ALL tasks):
   - Message: `refactor(infra): add mkServerNetwork helper and deduplicate host networking`
   - Files: `parts/lib.nix`, `hosts/{psychosocial,pulse,sugar,byob,nero}/default.nix`
 
-- [ ] 6. Update psychosocial Caddy config to use inventory IPs
+- [x] 6. Update psychosocial Caddy config to use inventory IPs
 
   **What to do**:
   - In `hosts/psychosocial/default.nix`, add a `let` binding at the top to import inventory:
@@ -586,7 +586,7 @@ Wave FINAL (After ALL tasks):
   - Message: `refactor(psychosocial): use inventory IPs in Caddy config`
   - Files: `hosts/psychosocial/default.nix`
 
-- [ ] 7. Update deploy.nix to use inventory IPs
+- [x] 7. Update deploy.nix to use inventory IPs
 
   **What to do**:
   - In `parts/deploy.nix`, import inventory at the top of the let block:
@@ -646,7 +646,7 @@ Wave FINAL (After ALL tasks):
   - Message: `refactor(deploy): use inventory IPs for colmena targetHost`
   - Files: `parts/deploy.nix`
 
-- [ ] 8. Add PostgreSQL daily backup with 7-day retention
+- [x] 8. Add PostgreSQL daily backup with 7-day retention
 
   **What to do**:
   - Add backup functionality to `modules/server/postgresql.nix` as new options under `server.postgresql`:
@@ -756,7 +756,7 @@ Wave FINAL (After ALL tasks):
 
 > 4 review agents run in PARALLEL. ALL must APPROVE. Present consolidated results to user and get explicit "okay" before completing.
 
-- [ ] F1. **Plan Compliance Audit** — `oracle`
+- [x] F1. **Plan Compliance Audit** — `oracle`
   Read the plan end-to-end. For each "Must Have": verify implementation exists (read file, run command). For each "Must NOT Have": search codebase for forbidden patterns — reject with file:line if found. Check evidence files exist in .sisyphus/evidence/. Compare deliverables against plan.
   Output: `Must Have [N/N] | Must NOT Have [N/N] | Tasks [N/N] | VERDICT: APPROVE/REJECT`
 
@@ -764,7 +764,7 @@ Wave FINAL (After ALL tasks):
   Run `nix flake check` + `nix fmt -- --check .`. Review all changed files for: hardcoded IPs outside inventory, inconsistent module patterns, missing `let cfg` bindings, unused imports. Check for AI slop: excessive comments, over-abstraction.
   Output: `Flake Check [PASS/FAIL] | Format [PASS/FAIL] | Files [N clean/N issues] | VERDICT`
 
-- [ ] F3. **Real QA — nix eval all 9 hosts** — `unspecified-high`
+- [x] F3. **Real QA — nix eval all 9 hosts** — `unspecified-high`
   Run `nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath` for ALL 9 hosts: laptop, VNPC-21, station, pulse, sugar, byob, psychosocial, spiders, nero. Capture derivation paths. Grep all .nix files for raw IP patterns `\b\d+\.\d+\.\d+\.\d+\b` — only `parts/inventory.nix` and `hosts/spiders/default.nix` should contain them. Save to `.sisyphus/evidence/final-qa/`.
   Output: `Hosts [N/9 eval pass] | IP Leaks [N files] | VERDICT`
 

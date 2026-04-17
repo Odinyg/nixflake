@@ -23,7 +23,7 @@
     disk = "/dev/sda";
   };
 
-    server.second-brain = {
+  server.second-brain = {
     enable = true;
     projectDir = "/home/odin/projects/Brain";
     matrix.homeserver = "http://${inventory.sugar}:6167";
