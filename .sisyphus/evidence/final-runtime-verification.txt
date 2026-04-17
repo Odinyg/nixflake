@@ -1,0 +1,36 @@
+=== FINAL RUNTIME VERIFICATION ===
+
+1. Scripts in PATH:
+  OK: omo-launch-or-focus
+  OK: omo-webapp-install
+  OK: omo-window-pop
+  OK: omo-power-menu
+  OK: omo-toggle-animations
+  OK: omo-clipboard-pick
+  OK: omo-emoji-pick
+
+2. cliphist service:
+active
+
+3. Animation state file (0 bytes = off by default):
+0
+
+4. Animation source in deployed hyprland.conf:
+source = ~/.local/state/hypr/animations.conf
+
+5. Waybar power module:
+format= on-click=omo-power-menu
+
+6. Waybar CSS rule:
+#custom-power {
+
+7. Live Hyprland binds (omo-*):
+  W: omo-launch-or-focus zen-beta zen-beta
+  E: omo-launch-or-focus Thunar thunar
+  C: /nix/store/gm7c3r0nj2k9flwnyq1cnhv78cz52jys-hyprpicker-0.4.5
+  V: omo-clipboard-pick
+  period: omo-emoji-pick
+  O: omo-window-pop
+  E: omo-power-menu
+
+ALL CHECKS PASSED
