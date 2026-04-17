@@ -56,45 +56,45 @@
 
       @sonarr host sonarr.pytt.io
       handle @sonarr {
-        reverse_proxy 10.10.50.110:8989
+        reverse_proxy ${inventory.byob}:8989
       }
 
       @radarr host radarr.pytt.io
       handle @radarr {
-        reverse_proxy 10.10.50.110:7878
+        reverse_proxy ${inventory.byob}:7878
       }
 
       @lidarr host lidarr.pytt.io
       handle @lidarr {
-        reverse_proxy 10.10.50.110:8686
+        reverse_proxy ${inventory.byob}:8686
       }
 
       @prowlarr host prowlarr.pytt.io
       handle @prowlarr {
-        reverse_proxy 10.10.50.110:9696
+        reverse_proxy ${inventory.byob}:9696
       }
 
       @nzbget host nzbget.pytt.io
       handle @nzbget {
-        reverse_proxy 10.10.50.110:6789
+        reverse_proxy ${inventory.byob}:6789
       }
 
       @transmission host transmission.pytt.io
       handle @transmission {
-        reverse_proxy 10.10.50.110:9091
+        reverse_proxy ${inventory.byob}:9091
       }
 
       @jellyseerr host jellyseerr.pytt.io
       handle @jellyseerr {
-        reverse_proxy 10.10.50.110:5055
+        reverse_proxy ${inventory.byob}:5055
       }
 
       @huntarr host huntarr.pytt.io
       handle @huntarr {
-        reverse_proxy 10.10.50.110:9705
+        reverse_proxy ${inventory.byob}:9705
       }
 
-      # --- pulse (10.10.30.112) ---
+      # --- pulse (${inventory.pulse}) ---
 
       @ntfy host ntfy.pytt.io
       handle @ntfy {
@@ -103,55 +103,55 @@
           not method GET HEAD OPTIONS
         }
         handle @ntfy_api {
-          reverse_proxy 10.10.30.112:2586
+          reverse_proxy ${inventory.pulse}:2586
         }
         @ntfy_paths path /v1/* /*.json /*/json /*/sse /*/raw /*/ws /*/auth
         handle @ntfy_paths {
-          reverse_proxy 10.10.30.112:2586
+          reverse_proxy ${inventory.pulse}:2586
         }
         # Web UI (GET) uses Authelia SSO
         handle {
           import authelia
-          reverse_proxy 10.10.30.112:2586
+          reverse_proxy ${inventory.pulse}:2586
         }
       }
 
       @gatus host gatus.pytt.io
       handle @gatus {
-        reverse_proxy 10.10.30.112:8080
+        reverse_proxy ${inventory.pulse}:8080
       }
 
       @grafana host grafana.pytt.io
       handle @grafana {
-        reverse_proxy 10.10.30.112:3000
+        reverse_proxy ${inventory.pulse}:3000
       }
 
       @prometheus host prometheus.pytt.io
       handle @prometheus {
         import authelia
-        reverse_proxy 10.10.30.112:9090
+        reverse_proxy ${inventory.pulse}:9090
       }
 
       # --- sugar ---
 
       @n8n host n8n.pytt.io
       handle @n8n {
-        reverse_proxy 10.10.30.111:5678
+        reverse_proxy ${inventory.sugar}:5678
       }
 
       @nextcloud host nextcloud.pytt.io
       handle @nextcloud {
-        reverse_proxy 10.10.30.111:80
+        reverse_proxy ${inventory.sugar}:80
       }
 
       @mealie host mealie.pytt.io
       handle @mealie {
-        reverse_proxy 10.10.30.111:9925
+        reverse_proxy ${inventory.sugar}:9925
       }
 
       @norish host norish.pytt.io
       handle @norish {
-        reverse_proxy 10.10.30.111:3100
+        reverse_proxy ${inventory.sugar}:3100
       }
 
       @forgejo host forgejo.pytt.io git.pytt.io
@@ -159,7 +159,7 @@
         request_body {
           max_size 1G
         }
-        reverse_proxy 10.10.30.111:3000
+        reverse_proxy ${inventory.sugar}:3000
       }
 
       @wger host wger.pytt.io
@@ -170,23 +170,23 @@
         # API paths bypass Authelia — use wger's own token auth
         @wger_api path /api/*
         handle @wger_api {
-          reverse_proxy 10.10.30.111:8000
+          reverse_proxy ${inventory.sugar}:8000
         }
         # Web UI uses Authelia SSO via proxy auth header
         handle {
           import authelia
-          reverse_proxy 10.10.30.111:8000
+          reverse_proxy ${inventory.sugar}:8000
         }
       }
 
       @searxng host searxng.pytt.io
       handle @searxng {
-        reverse_proxy 10.10.30.111:8888
+        reverse_proxy ${inventory.sugar}:8888
       }
 
       @perplexica host perplexica.pytt.io
       handle @perplexica {
-        reverse_proxy 10.10.30.111:3001
+        reverse_proxy ${inventory.sugar}:3001
       }
 
       @freshrss host freshrss.pytt.io
@@ -197,18 +197,18 @@
         # API paths bypass Authelia — use FreshRSS's own API password auth
         @freshrss_api path /api/*
         handle @freshrss_api {
-          reverse_proxy 10.10.30.111:8282
+          reverse_proxy ${inventory.sugar}:8282
         }
         # Web UI uses Authelia SSO via forward auth
         handle {
           import authelia
-          reverse_proxy 10.10.30.111:8282
+          reverse_proxy ${inventory.sugar}:8282
         }
       }
 
       @vault host vault.pytt.io
       handle @vault {
-        reverse_proxy 10.10.30.111:8222
+        reverse_proxy ${inventory.sugar}:8222
       }
 
       @element host element.pytt.io
@@ -230,27 +230,27 @@
           header Content-Type "application/json"
           respond `{"m.server":"matrix.pytt.io:443"}`
         }
-        reverse_proxy 10.10.30.111:6167
+        reverse_proxy ${inventory.sugar}:6167
       }
 
       @netboot host netboot.pytt.io
       handle @netboot {
         import authelia
-        reverse_proxy 10.10.30.111:3003
+        reverse_proxy ${inventory.sugar}:3003
       }
 
       # --- TrueNAS / Kubernetes ---
 
       @jellyfin host jellyfin.pytt.io
       handle @jellyfin {
-        reverse_proxy 10.10.10.20:30013
+        reverse_proxy ${inventory.jellyfin}:30013
       }
 
       # --- Infrastructure ---
 
       @pve1 host pve1.pytt.io
       handle @pve1 {
-        reverse_proxy https://10.10.10.227:8006 {
+        reverse_proxy https://${inventory.pve1}:8006 {
           transport http {
             tls
             tls_insecure_skip_verify
@@ -260,7 +260,7 @@
 
       @pve2 host pve2.pytt.io
       handle @pve2 {
-        reverse_proxy https://10.10.10.228:8006 {
+        reverse_proxy https://${inventory.pve2}:8006 {
           transport http {
             tls
             tls_insecure_skip_verify
@@ -270,7 +270,7 @@
 
       @truenas host truenas.pytt.io
       handle @truenas {
-        reverse_proxy https://10.10.10.20 {
+        reverse_proxy https://${inventory.truenas} {
           transport http {
             tls
             tls_insecure_skip_verify
@@ -282,22 +282,22 @@
 
       @craftbeerpi host craftbeerpi.pytt.io
       handle @craftbeerpi {
-        reverse_proxy 10.10.20.174:8000
+        reverse_proxy ${inventory.craftbeerpi}:8000
       }
 
       @homeassistant host homeassistant.pytt.io
       handle @homeassistant {
-        reverse_proxy 10.10.20.205:8123
+        reverse_proxy ${inventory.homeassistant}:8123
       }
 
       @openwebui host openwebui.pytt.io
       handle @openwebui {
-        reverse_proxy 10.10.10.10:3000
+        reverse_proxy ${inventory.openwebui}:3000
       }
 
       @ollama host ollama.pytt.io
       handle @ollama {
-        reverse_proxy https://10.10.10.163:11434 {
+        reverse_proxy https://${inventory.ollama}:11434 {
           transport http {
             tls_insecure_skip_verify
           }
@@ -345,7 +345,7 @@
     internalInterfaces = [ "ens18" ];
     forwardPorts = [
       {
-        destination = "10.10.30.111:22";
+        destination = "${inventory.sugar}:22";
         proto = "tcp";
         sourcePort = 2222;
       }
