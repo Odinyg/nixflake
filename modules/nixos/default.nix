@@ -12,6 +12,7 @@
     ./polkit.nix
     ./greetd.nix
     ./sunshine.nix
+    ./localsend.nix
     ./general.nix
     ./ollama.nix
     ./styling.nix

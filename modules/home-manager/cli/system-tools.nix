@@ -33,8 +33,6 @@ in
 
       # System Utilities
       usbutils # USB device utilities (lsusb)
-      bc # Calculator
-      gum # TUI confirm/input dialogs for shell scripts
 
       # File Management
       trash-cli # FreeDesktop trash (safe rm replacement)

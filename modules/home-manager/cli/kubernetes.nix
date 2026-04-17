@@ -17,12 +17,9 @@ in
   config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       k9s # Kubernetes TUI
-      kubectx # Switch between clusters/namespaces
-      fluxcd # GitOps toolkit
       kubernetes-helm # Package manager for Kubernetes
       kubernetes # Kubernetes CLI (kubectl)
       talosctl # Talos Linux CLI
-      rke2 # Rancher Kubernetes Engine 2
     ];
 
     # Kubernetes shell aliases

@@ -21,18 +21,12 @@ in
       # Code Editors & IDEs
       pkgs-unstable.code-cursor # AI-powered code editor
 
-      # API Development
-      postman # API development platform
-      atac # API testing tool (TUI)
-
       # Security Testing
       burpsuite # Web security testing
 
       # Database
       pgcli # PostgreSQL CLI client
 
-      # Version Control
-      github-desktop # GitHub GUI client
     ];
   };
 }

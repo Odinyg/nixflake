@@ -71,6 +71,7 @@
   netbird-client.enable = true;
   sunshine.enable = true;
   syncthing.enable = true;
+  localsend.enable = true;
   polkit.enable = true;
   xdg.enable = true;
 

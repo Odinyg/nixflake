@@ -19,18 +19,14 @@ in
     home.packages = with pkgs; [
       # Email & Security
       protonmail-desktop # ProtonMail email client
-      proton-pass # ProtonPass password manager
-      keeweb # Password manager
 
       # Terminals
-      warp-terminal # Modern terminal
 
       # Productivity
       planify # Task manager
 
       # Browsers
       brave # Privacy-focused browser
-      kuro # Minimal browser
 
       # Matrix
       nheko # Native Qt Matrix client

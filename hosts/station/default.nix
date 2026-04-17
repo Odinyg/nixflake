@@ -180,7 +180,6 @@
 
   # AI / LLM Tools
   ollama.enable = false;
-  lmstudio.enable = false;
   mcp.enable = true;
 
   # ProtonVPN
