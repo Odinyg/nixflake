@@ -29,10 +29,7 @@ in
         { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # pass
         { id = "ankepacjgoajhjpenegknbefpmfffdic"; } # hide shorts
         { id = "ijaabbaphikljkkcbgpbaljfjpflpeoo"; } # Favicon changer
-        { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1password
         { id = "hgenngnjgfkdggambccohomebieocekm"; } # open list
-        { id = "nbdfpcokndmapcollfpjdpjlabnibjdi"; } # saka
-        { id = "bfhkfdnddlhfippjbflipboognpdpoeh"; } # reMarkable
         { id = "ponfpcnoihfmfllpaingbgckeeldkhle"; } # youtube enhancer
 
       ];

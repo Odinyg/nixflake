@@ -18,7 +18,7 @@
 
   networking.hostName = "sugar";
 
-  # Static IP — staging (change to 10.10.30.11 after cutover)
+  # Static IP
   networking = {
     useDHCP = false;
     interfaces.ens18 = {

@@ -1,0 +1,12 @@
+{
+  "active_plan": "/home/odin/nixflake/.sisyphus/plans/flake-unification.md",
+  "started_at": "2026-04-17T13:17:27.744Z",
+  "session_ids": [
+    "ses_264ed34b4ffeZKQ3FoLm7DMWZ2"
+  ],
+  "session_origins": {
+    "ses_264ed34b4ffeZKQ3FoLm7DMWZ2": "direct"
+  },
+  "plan_name": "flake-unification",
+  "agent": "atlas"
+}

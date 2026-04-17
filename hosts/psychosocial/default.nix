@@ -10,7 +10,7 @@
 
   networking.hostName = "psychosocial";
 
-  # Static IP — staging (change to 10.10.30.10 after cutover)
+  # Static IP
   networking = {
     useDHCP = false;
     interfaces.ens18 = {
@@ -62,7 +62,7 @@
         reverse_proxy 127.0.0.1:3000
       }
 
-      # --- byob (staging: 10.10.50.110) ---
+      # --- byob ---
 
       @sonarr host sonarr.pytt.io
       handle @sonarr {
@@ -142,7 +142,7 @@
         reverse_proxy 10.10.30.112:9090
       }
 
-      # --- sugar (staging: 10.10.30.111) ---
+      # --- sugar ---
 
       @n8n host n8n.pytt.io
       handle @n8n {

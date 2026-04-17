@@ -4,7 +4,9 @@
 #   gwtd <branch-name>
 #   gwtl
 
-gwt() {
+unalias gwt gwtd gwtl 2>/dev/null
+
+function gwt {
   if [[ -z "$1" ]]; then
     echo "Usage: gwt <branch-name>" >&2
     return 1
@@ -16,7 +18,7 @@ gwt() {
     cd "../${branch}"
 }
 
-gwtd() {
+function gwtd {
   if [[ -z "$1" ]]; then
     echo "Usage: gwtd <branch-name>" >&2
     return 1
@@ -30,6 +32,6 @@ gwtd() {
   fi
 }
 
-gwtl() {
+function gwtl {
   git worktree list
 }

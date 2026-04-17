@@ -90,7 +90,7 @@ in
       targetHost = "station";
     };
 
-    # Homelab servers (staging IPs — update to production after cutover)
+    # Homelab servers
     pulse = mkColmenaServer {
       hostPath = ../hosts/pulse;
       targetHost = "10.10.30.112";

@@ -11,10 +11,10 @@ in
   options = {
     security = {
       enable = lib.mkEnableOption "security tools like Wireshark";
-    };
 
-    security.insecurePackages = {
-      enable = lib.mkEnableOption "Allow specific insecure packages that are required for compatibility";
+      insecurePackages = {
+        enable = lib.mkEnableOption "Allow specific insecure packages that are required for compatibility";
+      };
     };
   };
 

@@ -23,7 +23,7 @@
 
   networking.hostName = "byob";
 
-  # Static IP — staging (change to 10.10.50.10 after cutover)
+  # Static IP
   networking = {
     useDHCP = false;
     interfaces.ens18 = {

@@ -96,6 +96,28 @@ in
           "WebBrowser"
         ];
       };
+      webapp-outlook = {
+        name = "Outlook";
+        exec = ''launch-or-focus chrome-outlook "chromium --app=https://outlook.office.com"'';
+        icon = "chromium";
+        type = "Application";
+        terminal = false;
+        categories = [
+          "Network"
+          "Email"
+        ];
+      };
+      webapp-teams = {
+        name = "Teams";
+        exec = ''launch-or-focus chrome-teams "chromium --app=https://teams.cloud.microsoft/"'';
+        icon = "chromium";
+        type = "Application";
+        terminal = false;
+        categories = [
+          "Network"
+          "Chat"
+        ];
+      };
 
       # --- TEMPLATE: Add new web apps ---
       # Copy a webapp-NAME block above and customize:
