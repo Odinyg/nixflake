@@ -135,6 +135,8 @@
   # Terminal opacity
   styling.opacity.terminal = 0.85;
 
+  omo-helpers.enable = true;
+
   # Disable lockscreen/idle management (causes crashes on HDMI disconnect)
 
   home-manager.users.none = {
