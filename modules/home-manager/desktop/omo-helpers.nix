@@ -98,6 +98,7 @@ in
             set -eu
             ${pkgs.procps}/bin/pkill -x rofi || true
             export ROFI_PLUGIN_PATH="${rofiEmojiPluginDir}"
+            export XDG_DATA_DIRS="${pkgs.rofi-emoji}/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
             exec ${pkgs.rofi}/bin/rofi -modi emoji -show emoji
           '')
           (writeShellScriptBin "omo-power-menu" ''
