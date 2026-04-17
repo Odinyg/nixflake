@@ -172,6 +172,40 @@ in
             touch "$HOME/.local/state/hypr/animations.conf"
           fi
         '';
+
+        home.activation.omoWaybarPatchConfig = ''
+          WAYBAR_CFG="$HOME/.config/waybar/config"
+          if [ -f "$WAYBAR_CFG" ] && ! ${pkgs.jq}/bin/jq -e '."modules-right" | index("custom/power")' "$WAYBAR_CFG" >/dev/null 2>&1; then
+            TMP=$(mktemp)
+            ${pkgs.jq}/bin/jq '
+              ."modules-right" += ["custom/power"] |
+              ."custom/power" = {
+                "format": "\u{f011}",
+                "tooltip": true,
+                "tooltip-format": "Power Menu",
+                "on-click": "omo-power-menu"
+              }
+            ' "$WAYBAR_CFG" > "$TMP" && mv "$TMP" "$WAYBAR_CFG"
+            chmod u+w "$WAYBAR_CFG"
+          fi
+        '';
+
+        home.activation.omoWaybarPatchStyle = ''
+                    WAYBAR_CSS="$HOME/.config/waybar/style.css"
+                    if [ -f "$WAYBAR_CSS" ] && ! grep -q "#custom-power" "$WAYBAR_CSS"; then
+                      cat >> "$WAYBAR_CSS" <<'CSSEOF'
+
+          #custom-power {
+            color: @red;
+            padding: 0 10px;
+          }
+          CSSEOF
+                    fi
+        '';
+
+        home.activation.omoWaybarReload = ''
+          ${pkgs.procps}/bin/pkill -SIGUSR2 -x waybar 2>/dev/null || true
+        '';
       })
     ];
   };
