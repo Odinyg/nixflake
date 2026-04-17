@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-# extracted: standalone media group module
+ 
 let
   cfg = config.server.media-group;
 in

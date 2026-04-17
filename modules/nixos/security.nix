@@ -46,12 +46,9 @@ in
         package = pkgs.wireshark;
       };
 
-      # Add the configured user to wireshark group for packet capture permissions
       users.users.${config.user}.extraGroups = [ "wireshark" ];
 
-      # Add udev rules to allow wireshark group access to USB monitoring devices
       services.udev.extraRules = ''
-        # Allow wireshark group to access usbmon devices for USB packet capture
         SUBSYSTEM=="usbmon", GROUP="wireshark", MODE="0640"
       '';
     })

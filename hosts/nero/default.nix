@@ -23,10 +23,10 @@
     disk = "/dev/sda";
   };
 
-  server.second-brain = {
+    server.second-brain = {
     enable = true;
     projectDir = "/home/odin/projects/Brain";
-    matrix.homeserver = "http://10.10.30.111:6167";
+    matrix.homeserver = "http://${inventory.sugar}:6167";
     matrix.userId = "@brain:pytt.io";
     matrix.notifyRoom = "!ExLmjhT_x3E2dLwnd1Ef3dgaWezPJC0-X6Oqk3Tcy_Q";
     flush = {
