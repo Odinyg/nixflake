@@ -50,6 +50,7 @@
       "wger"
       "vaultwarden"
     ];
+    backup.enable = true;
   };
 
   server.n8n = {

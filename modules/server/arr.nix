@@ -32,9 +32,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Shared media group for filesystem access across all services
-    users.groups.media.gid = 1000;
-
     # Sops secrets for exportarr API keys
     sops.secrets.sonarr_api_key = { };
     sops.secrets.radarr_api_key = { };

@@ -12,6 +12,7 @@
     ./monitoring.nix
     ./disko.nix
     # Media (byob)
+    ./media-group.nix
     ./arr.nix
     ./nzbget.nix
     ./transmission.nix
