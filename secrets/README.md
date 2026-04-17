@@ -133,9 +133,8 @@ Recent server-side examples in `secrets/sugar.yaml`:
 | `pulse.yaml` | pulse | homelab_general + pulse |
 | `sugar.yaml` | sugar | homelab_general |
 | `spiders.yaml` | spiders | spiders (isolated) |
-| `nero.yaml` | nero | homelab_general + nero |
 
-Edit via `just secrets-<hostname>` (e.g. `just secrets-nero`) or `just secrets-edit <hostname>`.
+Edit via `just secrets-<hostname>` (e.g. `just secrets-sugar`) or `just secrets-edit <hostname>`.
 
 ## Troubleshooting
 

@@ -75,10 +75,6 @@ secrets-sugar:
 secrets-spiders:
   sops secrets/spiders.yaml
 
-# Edit nero secrets
-secrets-nero:
-  sops secrets/nero.yaml
-
 # --- Theme override management ---
 
 # Reset a mutable theme config to the Nix-managed base version
@@ -149,7 +145,7 @@ theme-promote app:
 
 # Deploy to all homelab servers
 deploy-all: rebuild-pre
-  nix shell nixpkgs#colmena -c colmena apply --on byob,psychosocial,pulse,sugar,spiders,nero
+  nix shell nixpkgs#colmena -c colmena apply --on byob,psychosocial,pulse,sugar,spiders
 
 # Deploy to a specific server
 deploy server: rebuild-pre
@@ -174,7 +170,3 @@ deploy-sugar: rebuild-pre
 # Deploy to spiders
 deploy-spiders: rebuild-pre
   nix shell nixpkgs#colmena -c colmena apply --on spiders
-
-# Deploy to nero
-deploy-nero: rebuild-pre
-  nix shell nixpkgs#colmena -c colmena apply --on nero

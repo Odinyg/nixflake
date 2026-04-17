@@ -57,7 +57,6 @@ let
     "byob"
     "psychosocial"
     "spiders"
-    "nero"
   ];
 in
 {
@@ -115,11 +114,6 @@ in
     spiders = mkColmenaServer {
       hostPath = ../hosts/spiders;
       targetHost = inventory.spiders;
-    };
-
-    nero = mkColmenaServer {
-      hostPath = ../hosts/nero;
-      targetHost = inventory.nero;
     };
   };
 }

@@ -80,9 +80,6 @@
     defaultUser = "homelab";
   };
   server.matrix.enable = true;
-  # Migrated to nero — kept declared but disabled. Local checkout under
-  # /home/odin/projects/Brain on sugar is left in place as a backup for
-  # ~1 week per the migration plan, then removed.
   server.second-brain.enable = false;
 
   # Docker network for inter-container communication

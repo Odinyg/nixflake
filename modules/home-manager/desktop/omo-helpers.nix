@@ -90,6 +90,11 @@ in
           [ -n "''${PICK:-}" ] \
             && printf '%s' "$PICK" | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy
         '')
+        (writeShellScriptBin "omo-emoji-pick" ''
+          set -eu
+          ${pkgs.procps}/bin/pkill -x rofi || true
+          exec ${pkgs.rofi}/bin/rofi -modi emoji -show emoji
+        '')
       ];
 
       services.cliphist = {

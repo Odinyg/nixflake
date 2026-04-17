@@ -10,7 +10,6 @@ keys:
   - &pulse age1pxp8l64sgske7kqqedst69pzufwjark5n3dxcl3u5crkfvzcffzsrxlmlu
   - &homelab_critical age1l4q60pec49kr6cphaj80kunh7n6jt8cxan042lhac4herj0pqywquzxw5x
   - &spiders age1wzsxtp6lsz8kun683eky3rfx5c5m9z8fwn0g547dtqfmaajs75vq7xs5an
-  - &nero age1y98j9synt9940j7xgakskrg6ercpw3k0kghqauq4pmnem2aceflq4dgexz
 
 creation_rules:
   # Shared desktop secrets (all PCs)
@@ -57,8 +56,3 @@ creation_rules:
     key_groups:
       - age:
           - *homelab_general
-  - path_regex: secrets/nero\.yaml$
-    key_groups:
-      - age:
-          - *homelab_general
-          - *nero

@@ -5,7 +5,6 @@
   psychosocial = "10.10.30.110";
   sugar = "10.10.30.111";
   pulse = "10.10.30.112";
-  nero = "10.10.30.115";
   byob = "10.10.50.110";
   spiders = "netbird.pytt.io"; # Public VPS — DNS name
 

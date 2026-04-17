@@ -228,22 +228,6 @@
 
   hosted-services.open-webui.enable = false;
 
-  # Second Brain — flush client (POSTs session summaries to nero)
-  server.brain-flush-client = {
-    enable = true;
-    user = "none";
-    enableBootstrap = true;
-    urlPrimary = "http://nero.netbird.pytt.io:8765/flush";
-    urlFallback = "http://10.10.30.115:8765/flush";
-  };
-
-  # Source the rendered env file in interactive shells so Claude Code's
-  # SessionEnd hook inherits BRAIN_FLUSH_* + FLUSH_TOKEN
-  environment.interactiveShellInit = ''
-    [ -r ${config.server.brain-flush-client.envFilePath} ] && \
-      set -a && . ${config.server.brain-flush-client.envFilePath} && set +a
-  '';
-
   # ==============================================================================
   # SYSTEM VERSION
   # ==============================================================================

@@ -135,6 +135,7 @@ in
           description = "PostgreSQL daily backup";
           partOf = [ "homelab.target" ];
           wantedBy = [ "homelab.target" ];
+          path = [ pkgs.gzip ];
           serviceConfig = {
             Type = "oneshot";
             User = "postgres";

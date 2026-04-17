@@ -1,12 +1,12 @@
 {
-  "active_plan": "/home/odin/nixflake/.sisyphus/plans/flake-unification.md",
-  "started_at": "2026-04-17T13:17:27.744Z",
+  "active_plan": "/home/none/nixflake/.sisyphus/plans/omarchy-cherry-pick-station.md",
+  "started_at": "2026-04-17T18:12:09.205Z",
   "session_ids": [
-    "ses_264ed34b4ffeZKQ3FoLm7DMWZ2"
+    "ses_26395677effeQWgQd89mirEkJj"
   ],
   "session_origins": {
-    "ses_264ed34b4ffeZKQ3FoLm7DMWZ2": "direct"
+    "ses_26395677effeQWgQd89mirEkJj": "direct"
   },
-  "plan_name": "flake-unification",
+  "plan_name": "omarchy-cherry-pick-station",
   "agent": "atlas"
 }

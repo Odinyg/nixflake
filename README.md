@@ -21,7 +21,6 @@ A modular, reproducible NixOS configuration using flakes with home-manager integ
 | **sugar** | Applications & automation | LAN (10.10.30.x) | Forgejo, Forgejo Actions runner, Vaultwarden, Nextcloud, Mealie, n8n, FreshRSS, SearXNG, Perplexica, Norish, wger, Netboot.xyz, PostgreSQL |
 | **byob** | Media management | LAN (10.10.50.x) | Sonarr, Radarr, Lidarr, Prowlarr, NZBGet, Transmission, Jellyseerr |
 | **spiders** | Auth & VPN (public VPS) | Cantabo VPS (netbird.pytt.io) | Netbird, Authelia, Nginx, Fail2ban |
-| **nero** | Second-brain knowledge management | LAN (10.10.30.x) | Second-brain (external flake) |
 
 ### Other
 | Host | Description |
@@ -140,8 +139,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 │   ├── pulse/                 # Monitoring & observability
 │   ├── sugar/                 # Applications & automation
 │   ├── byob/                  # Media management
-│   ├── spiders/               # Auth & VPN (public VPS)
-│   └── nero/                  # Second-brain knowledge management
+│   └── spiders/               # Auth & VPN (public VPS)
 │
 ├── profiles/                   # Layered configuration profiles
 │   ├── base.nix               # Minimal base system
@@ -206,8 +204,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
     ├── psychosocial.yaml
     ├── pulse.yaml
     ├── sugar.yaml
-    ├── spiders.yaml
-    └── nero.yaml
+    └── spiders.yaml
 ```
 
 ## Architecture
