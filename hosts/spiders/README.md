@@ -14,18 +14,20 @@ eth0_network: |
   Name=eth0
 
   [Network]
-  Address=95.111.255.104/20
-  Address=2a02:c207:2318:6493::1/64
-  Gateway=95.111.240.1
-  DNS=213.136.95.10
-  DNS=213.136.95.11
-  DNS=2a02:c207::1:53
+  Address=<IPv4>/<prefix>
+  Address=<IPv6>/<prefix>
+  Gateway=<IPv4 gateway>
+  DNS=<DNS1>
+  DNS=<DNS2>
+  DNS=<DNS3>
   IPv6AcceptRA=no
 
   [Route]
   Gateway=fe80::1
   GatewayOnLink=yes
 ```
+
+Fill in the actual values from your VPS provider's control panel.
 
 ## Verifying before deploy
 

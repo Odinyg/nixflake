@@ -1,40 +1,24 @@
-{ lib, ... }:
+{ lib, config, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "spiders";
 
-  # Static IP — Cantabo VPS
+  # Static IP — Cantabo VPS, sourced from sops-encrypted spiders.yaml
+  # key `eth0_network` holds the full systemd-networkd .network file contents
   networking.useDHCP = false;
+  networking.useNetworkd = true;
   networking.enableIPv6 = lib.mkForce true;
-  networking.interfaces.eth0 = {
-    ipv4.addresses = [
-      {
-        address = "95.111.255.104";
-        prefixLength = 20;
-      }
-    ];
-    ipv6.addresses = [
-      {
-        address = "2a02:c207:2318:6493::1";
-        prefixLength = 64;
-      }
-    ];
+  services.resolved.enable = true;
+
+  sops.secrets.eth0_network = { };
+  sops.templates."20-eth0.network" = {
+    content = config.sops.placeholder.eth0_network;
+    path = "/etc/systemd/network/20-eth0.network";
+    mode = "0644";
+    restartUnits = [ "systemd-networkd.service" ];
   };
-  networking.defaultGateway = {
-    address = "95.111.240.1";
-    interface = "eth0";
-  };
-  networking.defaultGateway6 = {
-    address = "fe80::1";
-    interface = "eth0";
-  };
-  networking.nameservers = [
-    "213.136.95.10"
-    "213.136.95.11"
-    "2a02:c207::1:53"
-  ];
 
   # --- Services ---
   server.disko.enable = true;

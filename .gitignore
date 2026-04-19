@@ -1,3 +1,11 @@
 result*
 .direnv
 .env
+
+# Planning / architectural docs — keep private, not part of the flake
+plans/
+.claude/plans/
+.sisyphus/plans/
+.sisyphus/evidence/
+.sisyphus/notepads/
+.agents/plans/
