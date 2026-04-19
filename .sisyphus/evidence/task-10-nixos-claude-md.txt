@@ -1,2 +1,0 @@
-- IMPORTANT: `let cfg = config.<name>;` is MANDATORY in every module with an enable option
-50 /home/none/nixflake/modules/nixos/CLAUDE.md

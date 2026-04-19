@@ -1,9 +1,0 @@
-Verification results for Norish port change
-
-Command: grep "default = 3100" modules/server/norish.nix
-Output:
-      default = 3100;
-
-Command: grep -c "default = 3000" modules/server/norish.nix
-Output:
-0

@@ -28,7 +28,7 @@ in
     home-manager.users.${config.user} = {
       xdg.configFile."xfce4/helpers.rc".text = ''
         [Default]
-        TerminalEmulator=kitty
+        TerminalEmulator=ghostty
       '';
     };
   };

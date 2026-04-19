@@ -65,28 +65,20 @@
   environment.systemPackages = [ pkgs.protonvpn-gui ];
   services.resolved.enable = true;
 
-  # Hyprland display configuration
-  hyprland = {
-    kanshi.profiles = [
-      {
-        profile.name = "laptop-only";
-        profile.outputs = [
-          {
-            criteria = "eDP-1";
-            status = "enable";
-            mode = "1920x1200";
-            scale = 1.0;
-          }
-        ];
-      }
-    ];
-  };
-
-  # Lock keybinding and display-off timeout (laptop only)
+  # Lock keybinding, display-off timeout, and native Hyprland monitor config.
+  # Native rules auto-activate on hotplug; the wildcard line catches any
+  # unknown external display that gets plugged in.
   home-manager.users.${config.user} = {
-    wayland.windowManager.hyprland.settings.bind = [
-      "SUPER SHIFT, L, exec, loginctl lock-session"
-    ];
+    wayland.windowManager.hyprland.settings = {
+      bind = [
+        "SUPER SHIFT, L, exec, loginctl lock-session"
+      ];
+
+      monitor = [
+        "eDP-1, 1920x1200, 0x0, 1"
+        ", preferred, auto, 1"
+      ];
+    };
 
     services.hypridle.settings.listener = [
       {

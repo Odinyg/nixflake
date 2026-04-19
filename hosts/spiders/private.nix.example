@@ -1,0 +1,16 @@
+{
+  ipv4 = {
+    address = "0.0.0.0";
+    prefixLength = 20;
+  };
+  ipv6 = {
+    address = "::";
+    prefixLength = 64;
+  };
+  gateway4 = "0.0.0.0";
+  gateway6 = "fe80::1";
+  nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
+}

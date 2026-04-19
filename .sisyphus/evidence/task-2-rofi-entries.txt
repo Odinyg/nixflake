@@ -1,9 +1,0 @@
-BEFORE:
-78:       "rofi/config.rasi".source = ./config/rofi.rasi;
-79:       "rofi/nord.rasi".source = ./config/rofi-nord.rasi;
-80:       "rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;
-
-AFTER:
-78:       "rofi-base/config.rasi".source = ./config/rofi.rasi;
-79:       "rofi-base/nord.rasi".source = ./config/rofi-nord.rasi;
-80:       "rofi-base/rounded-common.rasi".source = ./config/rounded-common.rasi;

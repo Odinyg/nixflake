@@ -44,8 +44,9 @@ button:hover {
 
 #workspaces button.focused,
 #workspaces button.active {
-    background-color: @lavender;
-    color: @base;
+    background-color: #88c0d0; /* Nord Frost cyan */
+    color: #2e3440;            /* Nord Polar Night darkest */
+    font-weight: bold;
 }
 
 #workspaces button.urgent {
@@ -63,6 +64,18 @@ button:hover {
 #pulseaudio
 {
     padding: 0 10px;
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
 }
 
 #pulseaudio {

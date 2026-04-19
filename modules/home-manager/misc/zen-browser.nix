@@ -30,11 +30,6 @@ in
         MOZ_USE_XINPUT2 = "1";
       };
 
-      # FirefoxPWA native messaging host
-      home.packages = [ pkgs.firefoxpwa ];
-      home.file.".mozilla/native-messaging-hosts/firefoxpwa.json".source =
-        "${pkgs.firefoxpwa}/lib/mozilla/native-messaging-hosts/firefoxpwa.json";
-
       # XDG desktop integration
       xdg.desktopEntries.zen-browser = {
         name = "Zen Browser";
@@ -54,6 +49,7 @@ in
           "application/vnd.mozilla.xul+xml"
           "application/rss+xml"
           "application/rdf+xml"
+          "application/pdf"
           "x-scheme-handler/http"
           "x-scheme-handler/https"
         ];

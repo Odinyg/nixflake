@@ -47,7 +47,7 @@ in
             office = [ "onlyoffice-desktopeditors.desktop" ];
             audio = [ "vlc.desktop" ];
             archive = [ "xarchiver.desktop" ];
-            terminal = [ "kitty.desktop" ];
+            terminal = [ "com.mitchellh.ghostty.desktop" ];
             fileManager = [ "thunar.desktop" ];
           in
           {

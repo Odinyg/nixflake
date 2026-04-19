@@ -1,2 +1,0 @@
-Modules in default.nix: 31
-Line count: 68

@@ -1,4 +1,0 @@
-    work.communication.enable = lib.mkDefault true;
-    work.development.enable = lib.mkDefault true;
-    work.productivity.enable = lib.mkDefault true;
-    work.remoteAccess.enable = lib.mkDefault true;

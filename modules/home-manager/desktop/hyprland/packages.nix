@@ -86,7 +86,7 @@ in
         source = ./scripts/random-wallpaper.sh;
         executable = true;
       };
-      "hypr/pyprland.toml".source = ./config/pyprland.toml;
+      "pypr/config.toml".source = ./config/pyprland.toml;
       "hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
       "hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
       "waybar-base".source = ./config/waybar;

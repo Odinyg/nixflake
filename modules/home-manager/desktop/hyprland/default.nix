@@ -14,7 +14,6 @@ in
     ./hyprpanel.nix
     ./services.nix
     ./keybindings.nix
-    ./monitors.nix
   ];
 
   config.home-manager.users.${config.user} = lib.mkIf cfg.enable {
@@ -63,7 +62,7 @@ in
         general = {
           gaps_in = 3;
           gaps_out = 5;
-          border_size = 1;
+          border_size = 2;
           layout = "dwindle";
         };
 

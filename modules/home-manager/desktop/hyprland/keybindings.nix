@@ -31,12 +31,10 @@
       bind = [
         # Wallpaper & Browser
         "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
-        "$mainMod, W, exec, zen-beta"
+        "$mainMod, W, exec, zen-beta --new-window"
 
         # Screenshots — region to clipboard + file + notification
         ''ALT CTRL, S, exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp -d)" - | tee ~/Pictures/screenshots/screenshot-$(date '+%Y%m%d-%H%M%S').png | wl-copy && notify-send "Screenshot" "Copied to clipboard and saved" -t 2000''
-        # Screenshots — region with satty annotation editor
-        ''CTRL SUPER, S, exec, grim -g "$(slurp -d)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png''
 
         # Applications
         "$mainMod, return, exec, ghostty"
@@ -49,6 +47,7 @@
         "$mainMod SHIFT, F, togglefloating,"
         "$mainMod, P, pseudo,"
         "$mainMod, O, togglesplit,"
+        "$mainMod, U, togglesplit,"
 
         # Focus window bindings (Arrow keys)
         "$mainMod, left, movefocus, l"
@@ -61,6 +60,12 @@
         "$mainMod, L, movefocus, r"
         "$mainMod, K, movefocus, u"
         "$mainMod, J, movefocus, d"
+
+        # Move window bindings (Vim keys)
+        "$mainMod SHIFT, H, movewindow, l"
+        "$mainMod SHIFT, L, movewindow, r"
+        "$mainMod SHIFT, K, movewindow, u"
+        "$mainMod SHIFT, J, movewindow, d"
 
         # Resize window bindings (Arrow keys)
         "SUPER CTRL, left, resizeactive, -20 0"

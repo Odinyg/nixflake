@@ -1,3 +1,0 @@
-Unknown app: invalid-app. Use: hyprland, waybar, rofi
-error: Recipe `theme-promote` failed with exit code 1
-exit: 1

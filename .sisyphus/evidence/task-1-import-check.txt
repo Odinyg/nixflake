@@ -1,2 +1,0 @@
-$ grep "forgejo" modules/server/default.nix
-./forgejo.nix

@@ -144,15 +144,22 @@
     services.hypridle.enable = lib.mkForce false;
 
     wayland.windowManager.hyprland.settings = {
-      # Default gaps (for DP-1 monitor)
       general = {
-        gaps_in = lib.mkForce 0;
-        gaps_out = lib.mkForce 0;
+        gaps_in = lib.mkForce 5;
+        gaps_out = lib.mkForce 10;
       };
 
       decoration.blur.enabled = lib.mkForce false;
       misc.vrr = lib.mkForce 0;
       render.direct_scanout = lib.mkForce 0;
+
+      # Native monitor config — rules only activate when output is connected.
+      # The empty-name wildcard catches any new monitor plugged in.
+      monitor = [
+        "DP-2, 2560x1440@59.95, 0x0, 1, transform, 3"
+        "HDMI-A-2, 3840x2160@60, 1440x200, 1"
+        ", preferred, auto, 1"
+      ];
 
       # Assign workspaces to monitors
       workspace = [
@@ -186,32 +193,6 @@
 
   # ProtonVPN
   services.resolved.enable = true;
-
-  # Monitor Configuration
-  hyprland.kanshi.profiles = [
-    {
-      profile.name = "station-dual";
-      profile.outputs = [
-        {
-          criteria = "DP-2";
-          mode = "2560x1440@59.95";
-          position = "0,0";
-          transform = "270";
-        }
-        {
-          criteria = "HDMI-A-2";
-          mode = "3840x2160@60";
-          position = "1440,200";
-        }
-      ];
-    }
-  ];
-
-  # Monitor configuration
-  hyprland.monitors.extraConfig = ''
-    monitor = DP-2, 2560x1440@59.95, 0x0, 1, transform, 3
-    monitor = HDMI-A-2, 3840x2160@60, 1440x200, 1
-  '';
 
   environment.systemPackages = [
     pkgs.protonvpn-gui

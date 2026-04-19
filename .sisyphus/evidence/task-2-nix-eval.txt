@@ -1,6 +1,0 @@
-laptop:
-"/nix/store/7y6hfrlm4lqyal2cjb6bc7lpfnsrigx9-nixos-system-laptop-25.05.20260102.ac62194.drv"
-station:
-"/nix/store/qafg4gh0fcmk7kx26j1fl46qw615c5m8-nixos-system-station-25.05.20260102.ac62194.drv"
-VNPC-21:
-"/nix/store/dwfxpbskh7p5nc35dk18612zm6ma3ia1-nixos-system-VNPC-21-25.05.20260102.ac62194.drv"

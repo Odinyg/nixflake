@@ -27,6 +27,7 @@ in
         source-han-sans
         source-han-serif
         nerd-fonts.droid-sans-mono
+        nerd-fonts.jetbrains-mono
         # Microsoft fonts (Calibri, Times New Roman, Arial)
         corefonts
         vista-fonts

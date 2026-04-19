@@ -1,1 +1,0 @@
-Forgejo handler added without import authelia.

@@ -41,6 +41,17 @@ in
           "WebBrowser"
         ];
       };
+      webapp-ytmusic = {
+        name = "YouTube Music";
+        exec = ''launch-or-focus chrome-music.youtube.com "chromium --app=https://music.youtube.com"'';
+        icon = "chromium";
+        type = "Application";
+        terminal = false;
+        categories = [
+          "Network"
+          "Audio"
+        ];
+      };
       webapp-claude = {
         name = "Claude";
         exec = ''launch-or-focus chrome-claude "chromium --app=https://claude.ai"'';

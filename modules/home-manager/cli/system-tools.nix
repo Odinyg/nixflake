@@ -43,6 +43,9 @@ in
       lnav # Interactive log navigator with SQL queries
       tailspin # Auto-colorizing log tail (replaces tail -f)
       moreutils # ts (timestamps), sponge, and other unix gems
+
+      # Documents
+      rendercv # Typst-based CV/resume generator from YAML
     ];
 
     # Convenient shell aliases

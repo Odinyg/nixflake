@@ -1,2 +1,0 @@
-modules/home-manager/cli/neovim/default.nix
-modules/home-manager/cli/zsh/default.nix

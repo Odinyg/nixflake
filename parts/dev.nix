@@ -14,6 +14,7 @@
           nixos-anywhere
           nil
           nixfmt-rfc-style
+          gitleaks
         ];
       };
     };

@@ -1,1 +1,0 @@
-"/nix/store/qk9nzbxxwhdp30mszzk07vk03jfyyycm-nixos-system-laptop-25.11.20260410.54170c5.drv"

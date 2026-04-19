@@ -27,6 +27,10 @@ upgrade: upgrade-pre
 # See diffrence from lock file
 diff:
   git diff ':!flake.lock'
+
+# Scan the repo for leaked secrets (staged + history)
+scan:
+  nix run nixpkgs#gitleaks -- detect --source . --verbose --no-banner --redact
 #Take out trash older then 14 days and optimise the store
 gc:
   sudo nix-collect-garbage --delete-older-than 14d

@@ -1,5 +1,0 @@
-BEFORE:
-77:       "waybar".source = ./config/waybar;
-
-AFTER:
-77:       "waybar-base".source = ./config/waybar;

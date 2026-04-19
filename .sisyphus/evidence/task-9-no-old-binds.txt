@@ -1,2 +1,0 @@
-CLEAN - no old bind= attributes
-CLEAN - no old bindm=/bindel=/bindl= attributes

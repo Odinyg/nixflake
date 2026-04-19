@@ -1,6 +1,0 @@
-5
-        home.activation.omoWaybarPatchConfig = {
-        home.activation.omoWaybarPatchStyle = {
-          after = [ "omoWaybarPatchConfig" ];
-        home.activation.omoWaybarReload = {
-          after = [ "omoWaybarPatchStyle" ];

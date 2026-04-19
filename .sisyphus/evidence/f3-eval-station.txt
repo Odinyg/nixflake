@@ -1,2 +1,0 @@
-error (ignored): SQLite database '/home/none/.cache/nix/eval-cache-v6/8afc618e7a8791e7b81711bc73262a4a47d828483957b042e33d8ee58ae548ed.sqlite' is busy
-"/nix/store/byxx4pns2i5bs4j28vnsrv9ah1bkcm07-nixos-system-station-25.11.20260415.1766437.drv"

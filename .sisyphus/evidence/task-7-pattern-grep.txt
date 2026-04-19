@@ -1,7 +1,0 @@
-=== nixos modules ===
-=== home-manager modules ===
-modules/home-manager/desktop/hyprland/packages.nix:25:  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
-modules/home-manager/desktop/hyprland/hyprpanel.nix:9:  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
-modules/home-manager/desktop/hyprland/monitors.nix:4:  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
-modules/home-manager/desktop/hyprland/services.nix:9:  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {
-modules/home-manager/desktop/hyprland/keybindings.nix:4:  config.home-manager.users.${config.user} = lib.mkIf config.hyprland.enable {

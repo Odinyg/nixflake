@@ -1,4 +1,5 @@
 {
+    "output": ["!DP-2", "!DP-5", "!HDMI-A-1"],
     "margin-top": 5,
     "margin-left": 10,
     "margin-right": 10,
@@ -27,13 +28,10 @@
         "separate-outputs": true
     },
     "hyprland/workspaces": {
-        "format": "{icon}",
+        "format": "{name}",
         "all-outputs": false,
         "show-special": false,
         "on-click": "activate",
-        "format-icons": {
-            "active": " "
-        },
         "sort-by-number": true,
         "persistent-workspaces": {
             "*": 4
@@ -60,8 +58,8 @@
         }
     },
     "tray": {
-        "icon-size": 16,
-        "spacing": 5
+        "icon-size": 18,
+        "spacing": 12
     },
     "battery": {
         "states": {
@@ -74,7 +72,7 @@
         "format-plugged": "󰚥  {capacity}%",
         "format-alt": "{time} {icon}",
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e bash -c 'upower -i $(upower -e | grep battery) && read -p \"Press enter to close\"'"
+        "on-click": "ghostty --class=waybar-popup -e bash -c 'upower -i $(upower -e | grep battery) && read -p \"Press enter to close\"'"
     },
     "network": {
         "format-wifi": "󰤨  {signalStrength}%",
@@ -83,7 +81,7 @@
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "󰤭 ",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e nmtui"
+        "on-click": "ghostty --class=waybar-popup -e nmtui"
     },
     "pulseaudio": {
         "format": "{icon}  {volume}%",
@@ -99,7 +97,7 @@
             "car": "󰄋",
             "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e pulsemixer",
+        "on-click": "ghostty --class=waybar-popup -e pulsemixer",
         "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
@@ -111,7 +109,7 @@
         "tooltip-format": "{controller_alias}\n{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}",
-        "on-click": "kitty --class waybar-popup -o remember_window_size=no -o initial_window_width=800 -o initial_window_height=500 -e bluetuith"
+        "on-click": "ghostty --class=waybar-popup -e bluetuith"
     },
     "backlight": {
         "device": "intel_backlight",

@@ -65,27 +65,5 @@
       enable = true;
       topMargin = 0.85;
     };
-
-    # Kanshi dynamic display configuration
-    services.kanshi = {
-      enable = true;
-      settings =
-        if (config.hyprland.kanshi.profiles != [ ]) then
-          config.hyprland.kanshi.profiles
-        else
-          # Default fallback profile for hosts without custom configuration
-          [
-            {
-              profile.name = "default";
-              profile.outputs = [
-                {
-                  criteria = "eDP-1";
-                  mode = "1920x1080";
-                  scale = 1.0;
-                }
-              ];
-            }
-          ];
-    };
   };
 }

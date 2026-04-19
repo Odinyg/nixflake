@@ -88,6 +88,21 @@ in
 
     stylix.autoEnable = cfg.autoEnable;
 
+    stylix.fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font Mono";
+      };
+      sansSerif = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+      serif = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+    };
+
     home-manager.users.${config.user} = {
       gtk = {
         iconTheme = {

@@ -1,4 +1,0 @@
-$ grep -c gum confirm /home/none/nixflake/modules/home-manager/cli/zsh/scripts/git-worktrees.zsh
-exit=0
-stdout:
-1

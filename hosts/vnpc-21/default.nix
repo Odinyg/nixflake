@@ -126,63 +126,7 @@
   # HOST-SPECIFIC OVERRIDES
   # ==============================================================================
   # Desktop environments
-  hyprland = {
-    enable = true;
-
-    # Kanshi display profiles for dynamic monitor configuration
-    kanshi.profiles = [
-      # External triple monitor setup
-      {
-        profile.name = "external-monitors";
-        profile.outputs = [
-          {
-            criteria = "eDP-1";
-            position = "0,0";
-            scale = 1.25;
-          }
-          {
-            criteria = "DP-4";
-            mode = "2560x1440";
-            position = "1536,0";
-          }
-          {
-            criteria = "DP-5";
-            mode = "2560x1440";
-            position = "4096,0";
-          }
-        ];
-      }
-      # Laptop screen only
-      {
-        profile.name = "vnpc-21-only";
-        profile.outputs = [
-          {
-            criteria = "eDP-1";
-            status = "enable";
-            mode = "1920x1080";
-            scale = 1.0;
-          }
-        ];
-      }
-    ];
-
-    # Hyprland workspace assignments
-    monitors.extraConfig = ''
-      # VNPC-21: Triple monitor workspace setup
-      workspace = 1, monitor:DP-4, default:true
-      workspace = 2, monitor:DP-4
-      workspace = 3, monitor:DP-4
-      workspace = 4, monitor:DP-4
-      workspace = 5, monitor:DP-4
-
-      workspace = 6, monitor:DP-5, default:true
-      workspace = 7, monitor:DP-5
-      workspace = 8, monitor:DP-5
-
-      workspace = 9, monitor:HDMI-A-1
-      workspace = 0, monitor:HDMI-A-1
-    '';
-  };
+  hyprland.enable = true;
 
   # Turn screens off 15 minutes after lock
   home-manager.users.odin.services.hypridle.settings.listener = lib.mkAfter [
@@ -193,7 +137,10 @@
     }
   ];
 
-  # NVIDIA-specific Hyprland workarounds
+  # NVIDIA workarounds + native Hyprland monitor config. Rules only activate
+  # when the named output is connected, so docking/undocking is transparent.
+  # eDP-1 at 0,0 (1920 wide); DP-4 at 1920,0; DP-5 at 4480,0. Wildcard catches
+  # any unknown external plugged in later.
   home-manager.users.odin.wayland.windowManager.hyprland.settings = {
     cursor = {
       no_hardware_cursors = true;
@@ -202,6 +149,27 @@
     opengl = {
       nvidia_anti_flicker = true;
     };
+
+    monitor = [
+      "eDP-1, 1920x1080, 0x0, 1"
+      "DP-4, 2560x1440, 1920x0, 1"
+      "DP-5, 2560x1440, 4480x0, 1"
+      "HDMI-A-1, preferred, auto-right, 1"
+      ", preferred, auto, 1"
+    ];
+
+    workspace = [
+      "1, monitor:DP-4, default:true"
+      "2, monitor:DP-4"
+      "3, monitor:DP-4"
+      "4, monitor:DP-4"
+      "5, monitor:DP-4"
+      "6, monitor:DP-5, default:true"
+      "7, monitor:DP-5"
+      "8, monitor:DP-5"
+      "9, monitor:HDMI-A-1"
+      "0, monitor:HDMI-A-1"
+    ];
   };
 
   # NVIDIA-specific browser environment variables
@@ -300,7 +268,29 @@
   ];
 
   # ==============================================================================
+  # WINDOWS VM (dockur/windows, KVM-accelerated, web viewer on :8006)
+  # ==============================================================================
+  hosted-services.windows-vm = {
+    enable = true;
+    version = "11"; # Windows 11 Pro
+  };
+
+  # Webapp for the Windows VM web viewer — local to this host since the
+  # container binds to localhost.
+  home-manager.users.odin.xdg.desktopEntries.webapp-windows = {
+    name = "Windows";
+    exec = ''launch-or-focus chrome-127.0.0.1 "chromium --app=http://127.0.0.1:8006"'';
+    icon = "chromium";
+    type = "Application";
+    terminal = false;
+    categories = [
+      "Network"
+      "System"
+    ];
+  };
+
+  # ==============================================================================
   # SYSTEM VERSION
   # ==============================================================================
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

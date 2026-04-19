@@ -1,1 +1,0 @@
-zsh -n exit status: 0

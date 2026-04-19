@@ -1,3 +1,0 @@
-SSH OK: station
-omo-launch-or-focus not found
-SCRIPTS_IN_PATH=no (rebuild needed)

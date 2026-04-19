@@ -81,6 +81,7 @@ in
       hostPath = ../hosts/vnpc-21;
       user = "odin";
       targetHost = "vnpc-21";
+      stateVersion = "25.11";
       extraModules = [ nixos-hardware.nixosModules.lenovo-thinkpad-p53 ];
     };
 

@@ -1,4 +1,0 @@
-9:      binddm = [
-15:      binddel = [
-23:      binddl = [
-31:      bindd = [
