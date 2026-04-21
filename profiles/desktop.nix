@@ -84,6 +84,13 @@
   communication.enable = true;
   utilities.enable = true;
 
+  # rustdesk (in utilities) needs /dev/uinput to inject keystrokes on Wayland
+  hardware.uinput.enable = true;
+  users.users.${config.user}.extraGroups = [
+    "input"
+    "uinput"
+  ];
+
   # ==============================================================================
   # VIRTUALIZATION
   # ==============================================================================
