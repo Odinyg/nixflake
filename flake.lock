@@ -707,6 +707,22 @@
         "type": "github"
       }
     },
+    "rendercv-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774054014,
+        "narHash": "sha256-Clo+8IUdRUHw5hhepC4pgsx9+wHSvo6GbfbxFaSHKq0=",
+        "owner": "rendercv",
+        "repo": "rendercv-skill",
+        "rev": "fc14e727b2d4a36c612ef0989726bd18411218d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rendercv",
+        "repo": "rendercv-skill",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "brain": "brain",
@@ -720,6 +736,7 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
+        "rendercv-skill": "rendercv-skill",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "zen-browser": "zen-browser"

@@ -21,6 +21,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-code.url = "github:sadjow/claude-code-nix";
+    rendercv-skill = {
+      url = "github:rendercv/rendercv-skill";
+      flake = false;
+    };
     mcp-nixos.url = "github:utensils/mcp-nixos";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";

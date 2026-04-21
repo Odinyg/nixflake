@@ -15,6 +15,7 @@
     ./system-tools.nix
     ./prompt.nix
     ./mcp.nix
+    ./claude-skills.nix
   ];
 
 }

@@ -17,6 +17,11 @@ in
         description = "Enable Hyprland window manager";
       };
 
+      idleLockTimeout = lib.mkOption {
+        type = lib.types.int;
+        default = 600;
+        description = "Seconds of user inactivity before the session is locked via hypridle/swaylock";
+      };
     };
   };
 

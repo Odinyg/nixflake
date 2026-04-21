@@ -53,7 +53,7 @@
 
         listener = [
           {
-            timeout = 600;
+            timeout = config.hyprland.idleLockTimeout;
             on-timeout = "loginctl lock-session";
           }
         ];

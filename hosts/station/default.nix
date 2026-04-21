@@ -137,12 +137,10 @@
 
   omo-helpers.enable = true;
 
-  # Disable lockscreen/idle management (causes crashes on HDMI disconnect)
+  # Lock after 2h idle (longer timeout than default to reduce HDMI-disconnect lock loops)
+  hyprland.idleLockTimeout = 7200;
 
   home-manager.users.none = {
-    programs.swaylock.enable = lib.mkForce false;
-    services.hypridle.enable = lib.mkForce false;
-
     wayland.windowManager.hyprland.settings = {
       general = {
         gaps_in = lib.mkForce 5;

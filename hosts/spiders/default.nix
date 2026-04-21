@@ -68,7 +68,7 @@
   # ACME / Let's Encrypt for nginx TLS
   security.acme = {
     acceptTerms = true;
-    defaults.email = "admin@pytt.io";
+    defaults.email = "hostmaster@pytt.io";
   };
   services.nginx.virtualHosts."netbird.pytt.io" = {
     forceSSL = true;

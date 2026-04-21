@@ -83,6 +83,7 @@
   security.insecurePackages.enable = true;
   communication.enable = true;
   utilities.enable = true;
+  claudeSkills.enable = true;
 
   # rustdesk (in utilities) needs /dev/uinput to inject keystrokes on Wayland
   hardware.uinput.enable = true;

@@ -31,7 +31,7 @@
       bind = [
         # Wallpaper & Browser
         "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
-        "$mainMod, W, exec, zen-beta --new-window"
+        "$mainMod, W, exec, zen-beta"
 
         # Screenshots — region to clipboard + file + notification
         ''ALT CTRL, S, exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp -d)" - | tee ~/Pictures/screenshots/screenshot-$(date '+%Y%m%d-%H%M%S').png | wl-copy && notify-send "Screenshot" "Copied to clipboard and saved" -t 2000''
