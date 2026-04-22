@@ -270,24 +270,26 @@
   # ==============================================================================
   # WINDOWS VM (dockur/windows, KVM-accelerated, web viewer on :8006)
   # ==============================================================================
+  # Disabled for now — flip enable back to true and uncomment the desktop entry
+  # below to bring the VM back up.
   hosted-services.windows-vm = {
-    enable = true;
+    enable = false;
     version = "11"; # Windows 11 Pro
   };
 
   # Webapp for the Windows VM web viewer — local to this host since the
   # container binds to localhost.
-  home-manager.users.odin.xdg.desktopEntries.webapp-windows = {
-    name = "Windows";
-    exec = ''launch-or-focus chrome-127.0.0.1 "chromium --app=http://127.0.0.1:8006"'';
-    icon = "chromium";
-    type = "Application";
-    terminal = false;
-    categories = [
-      "Network"
-      "System"
-    ];
-  };
+  # home-manager.users.odin.xdg.desktopEntries.webapp-windows = {
+  #   name = "Windows";
+  #   exec = ''launch-or-focus chrome-127.0.0.1 "chromium --app=http://127.0.0.1:8006"'';
+  #   icon = "chromium";
+  #   type = "Application";
+  #   terminal = false;
+  #   categories = [
+  #     "Network"
+  #     "System"
+  #   ];
+  # };
 
   # ==============================================================================
   # SYSTEM VERSION
