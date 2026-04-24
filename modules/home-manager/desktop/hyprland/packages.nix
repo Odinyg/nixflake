@@ -78,7 +78,7 @@ in
     # XDG config files
     xdg.configFile = {
       # Dynamic wallpapers — extracted from HEIC at build time
-      "wallpapers".source = dynamicWallpapers;
+      "hypr/wallpapers".source = dynamicWallpapers;
       "pypr/config.toml".source = ./config/pyprland.toml;
       "rofi-base/config.rasi".source = ./config/rofi.rasi;
       "rofi-base/nord.rasi".source = ./config/rofi-nord.rasi;

@@ -69,7 +69,6 @@
   fail2ban-security.enable = lib.mkDefault false;
   tailscale.enable = true;
   netbird-client.enable = true;
-  sunshine.enable = true;
   syncthing.enable = true;
   localsend.enable = true;
   polkit.enable = true;
