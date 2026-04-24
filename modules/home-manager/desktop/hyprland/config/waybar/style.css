@@ -61,9 +61,11 @@ button:hover {
 #clock,
 #battery,
 #network,
-#pulseaudio
+#pulseaudio,
+#bluetooth,
+#backlight
 {
-    padding: 0 10px;
+    padding: 0 7px;
 }
 
 #tray {
@@ -141,4 +143,22 @@ label:focus {
 #pulseaudio.muted {
     color: @text;
 }
+
+/* Gradient separator bars between modules */
+#custom-sepL,
+#custom-sep1,
+#custom-sep2,
+#custom-sep3,
+#custom-sep4,
+#custom-sep5 {
+    padding: 0 2px;
+    font-weight: bold;
+    font-size: 20px;
+}
+#custom-sepL { color: @mauve; }
+#custom-sep1 { color: @peach; }
+#custom-sep2 { color: @yellow; }
+#custom-sep3 { color: @green; }
+#custom-sep4 { color: @sky; }
+#custom-sep5 { color: @blue; }
 

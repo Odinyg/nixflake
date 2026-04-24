@@ -30,7 +30,7 @@
       # Keyboard bindings
       bind = [
         # Wallpaper & Browser
-        "$mainMod SHIFT, W, exec, ~/.config/hypr/random-wallpaper.sh"
+        "$mainMod SHIFT, W, exec, wayle wallpaper next"
         "$mainMod, W, exec, zen-beta"
 
         # Screenshots — region to clipboard + file + notification

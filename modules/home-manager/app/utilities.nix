@@ -24,10 +24,10 @@ in
       enableZshIntegration = true;
     };
 
-    xdg.desktopEntries.win11-rdp = {
-      name = "Win11 RDP";
-      comment = "Connect to Windows 11 via RDP";
-      exec = "remmina -c /home/odin/.local/share/remmina/group_rdp_quick-connect_win11.remmina";
+    xdg.desktopEntries.win12-rdp = {
+      name = "Win12 RDP";
+      comment = "Connect to Windows via RDP";
+      exec = "remmina -c /home/odin/.local/share/remmina/group_rdp_quick-connect_win12.remmina";
       icon = "remmina";
       terminal = false;
       categories = [

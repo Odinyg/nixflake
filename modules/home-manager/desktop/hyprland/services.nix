@@ -21,25 +21,6 @@
       };
     };
 
-    # Wallpaper rotation — picks a random wallpaper every 2 hours
-    systemd.user.services.wallpaper-rotate = {
-      Unit.Description = "Rotate desktop wallpaper";
-      Service = {
-        Type = "oneshot";
-        ExecStart = "%h/.config/hypr/random-wallpaper.sh";
-      };
-    };
-
-    systemd.user.timers.wallpaper-rotate = {
-      Unit.Description = "Rotate wallpaper every 2 hours";
-      Timer = {
-        OnActiveSec = "0";
-        OnUnitActiveSec = "2h";
-        RandomizedDelaySec = "30min";
-      };
-      Install.WantedBy = [ "timers.target" ];
-    };
-
     # Hypridle idle management
     services.hypridle = {
       enable = true;
@@ -64,6 +45,24 @@
     services.swayosd = {
       enable = true;
       topMargin = 0.85;
+    };
+
+    # Hyprsunset — blue-light filter with day/night schedule
+    services.hyprsunset = {
+      enable = true;
+      settings = {
+        max-gamma = 100;
+        profile = [
+          {
+            time = "6:00";
+            identity = true;
+          }
+          {
+            time = "20:00";
+            temperature = 4000;
+          }
+        ];
+      };
     };
   };
 }

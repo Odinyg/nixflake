@@ -11,7 +11,6 @@ in
 
   imports = [
     ./packages.nix
-    ./hyprpanel.nix
     ./services.nix
     ./keybindings.nix
   ];
@@ -26,14 +25,12 @@ in
         # Startup applications
         exec-once = [
           "pypr"
-          "waybar & ~/.config/hypr/random-wallpaper.sh & swaync"
+          "awww-daemon & wayle shell & swaync"
           "hyprctl setcursor Bibata-Modern-Ice 18"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "nm-applet --indicator"
           "systemctl --user import-environment"
           "lxqt-policykit-agent"
-
-          "hyprshade auto"
         ];
 
         # Environment variables

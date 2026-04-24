@@ -1,11 +1,11 @@
 {
-    "output": ["!DP-2", "!DP-5", "!HDMI-A-1"],
     "margin-top": 5,
     "margin-left": 10,
     "margin-right": 10,
     "height": 30,
     "modules-left": [
         "hyprland/workspaces",
+        "custom/sepL",
         "hyprland/window"
     ],
     "modules-center": [
@@ -13,12 +13,23 @@
     ],
     "modules-right": [
         "backlight",
+        "custom/sep1",
         "pulseaudio",
+        "custom/sep2",
         "bluetooth",
+        "custom/sep3",
         "network",
+        "custom/sep4",
         "battery",
+        "custom/sep5",
         "tray"
     ],
+    "custom/sepL": { "format": "|", "tooltip": false },
+    "custom/sep1": { "format": "|", "tooltip": false },
+    "custom/sep2": { "format": "|", "tooltip": false },
+    "custom/sep3": { "format": "|", "tooltip": false },
+    "custom/sep4": { "format": "|", "tooltip": false },
+    "custom/sep5": { "format": "|", "tooltip": false },
     "hyprland/window": {
         "format": "{}",
         "max-length": 35,
@@ -66,16 +77,16 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon}  {capacity}%",
-        "format-full": "󰁹  {capacity}%",
-        "format-charging": "󰂄  {capacity}%",
-        "format-plugged": "󰚥  {capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-full": "󰁹 {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
         "format-alt": "{time} {icon}",
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "on-click": "ghostty --class=waybar-popup -e bash -c 'upower -i $(upower -e | grep battery) && read -p \"Press enter to close\"'"
     },
     "network": {
-        "format-wifi": "󰤨  {signalStrength}%",
+        "format-wifi": "󰤨 {signalStrength}%",
         "format-ethernet": "󰈀 {cidr}",
         "tooltip-format": "{ifname} via {gwaddr} \n{ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP) ",
@@ -84,10 +95,10 @@
         "on-click": "ghostty --class=waybar-popup -e nmtui"
     },
     "pulseaudio": {
-        "format": "{icon}  {volume}%",
+        "format": "{icon} {volume}%",
         "format-bluetooth": "󰂯 {volume}% {format_source}",
         "format-bluetooth-muted": "󰂲 {format_source}",
-        "format-muted": "󰝟  muted",
+        "format-muted": "󰝟 muted",
         "format-icons": {
             "headphone": "󰋋",
             "hands-free": "󰋎",
@@ -113,7 +124,7 @@
     },
     "backlight": {
         "device": "intel_backlight",
-        "format": "{icon}  {percent}%",
+        "format": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
         "on-scroll-up": "brightnessctl set 5%+",
         "on-scroll-down": "brightnessctl set 5%-"

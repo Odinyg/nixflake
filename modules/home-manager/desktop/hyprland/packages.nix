@@ -26,11 +26,9 @@ in
     home.packages =
       (with pkgs-unstable; [
         # Core Hyprland ecosystem (from unstable for latest features)
-        waybar # Status bar
-        hyprpanel # Alternative panel
-        hyprpaper # Wallpaper daemon
+        wayle # Wayland Elements — bar, notifications, OSD, wallpaper (HyprPanel successor)
+        awww # Wallpaper daemon (wayle's wallpaper backend; was swww, renamed upstream)
         pyprland # Scratchpad & window manager plugins
-        hyprshade # Shader control
         pulsemixer # TUI volume control
         bluetuith # TUI bluetooth manager
         gnome-calendar # Calendar app
@@ -65,7 +63,6 @@ in
 
         # Notifications & UI
         swaynotificationcenter # Notification daemon
-        eww # ElKowar's Wacky Widgets
         rofi # Application launcher
         brightnessctl # Brightness control
 
@@ -82,29 +79,10 @@ in
     xdg.configFile = {
       # Dynamic wallpapers — extracted from HEIC at build time
       "wallpapers".source = dynamicWallpapers;
-      "hypr/random-wallpaper.sh" = {
-        source = ./scripts/random-wallpaper.sh;
-        executable = true;
-      };
       "pypr/config.toml".source = ./config/pyprland.toml;
-      "hypr/hyprshade.toml".source = ./config/shader/hyprshade.toml;
-      "hypr/shader/blue-light-filter.glsl".source = ./config/shader/blue-light-filter.glsl;
-      "waybar-base".source = ./config/waybar;
       "rofi-base/config.rasi".source = ./config/rofi.rasi;
       "rofi-base/nord.rasi".source = ./config/rofi-nord.rasi;
       "rofi-base/rounded-common.rasi".source = ./config/rounded-common.rasi;
-    };
-
-    home.activation.initWaybar = {
-      after = [ "linkGeneration" ];
-      before = [ ];
-      data = ''
-        if [ ! -d "$HOME/.config/waybar" ] || [ -L "$HOME/.config/waybar" ]; then
-          rm -rf "$HOME/.config/waybar"
-          cp -rL "$HOME/.config/waybar-base" "$HOME/.config/waybar"
-          chmod -R u+w "$HOME/.config/waybar"
-        fi
-      '';
     };
 
     home.activation.initRofi = {
