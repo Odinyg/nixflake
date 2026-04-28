@@ -107,7 +107,24 @@ in
     };
 
     environment.systemPackages = lib.flatten [
-      (lib.optionals cfg.launchers.lutris [ pkgs-unstable.lutris ])
+      (lib.optionals cfg.launchers.lutris [
+        (pkgs-unstable.lutris.override {
+          extraPkgs = p: [
+            p.gamemode
+            p.gamescope
+            p.mangohud
+            p.umu-launcher
+            p.winetricks
+            p.python3
+          ];
+          extraLibraries = p: [
+            p.gamemode.lib
+            p.libgcrypt
+            p.libgpg-error
+          ];
+        })
+        pkgs-unstable.umu-launcher
+      ])
       (lib.optionals cfg.launchers.heroic [ pkgs-unstable.heroic ])
       (lib.optionals cfg.launchers.bottles [ pkgs-unstable.bottles ])
       (lib.optionals cfg.emulation.enable (
@@ -141,5 +158,58 @@ in
 
     # Enable nix-ld for dynamically linked binaries (umu-run/pressure-vessel)
     programs.nix-ld.enable = true;
+    programs.nix-ld.libraries = with pkgs; [
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      fuse3
+      gdk-pixbuf
+      glib
+      gtk3
+      icu
+      libGL
+      libappindicator-gtk3
+      libdrm
+      libglvnd
+      libnotify
+      libpulseaudio
+      libunwind
+      libusb1
+      libuuid
+      libxkbcommon
+      libxml2
+      mesa
+      nspr
+      nss
+      openssl
+      pango
+      pipewire
+      stdenv.cc.cc
+      systemd
+      vulkan-loader
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxcb
+      xorg.libxkbfile
+      xorg.libxshmfence
+      zlib
+    ];
   };
 }

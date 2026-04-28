@@ -16,7 +16,7 @@
     ./ollama.nix
     ./styling.nix
     ./hyprland.nix
-    ./cosmic.nix
+    ./plasma.nix
     ./virtualization.nix
     ./security.nix
     ./distributed-builds.nix

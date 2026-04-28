@@ -15,7 +15,7 @@
 
 ## Desktop Environments
 - **Hyprland** (primary): system backend in `nixos/hyprland.nix`, user config in `home-manager/desktop/hyprland/`
-- **COSMIC**: system-only in `nixos/cosmic.nix`, no home-manager config needed
+- **KDE Plasma 6**: system-only in `nixos/plasma.nix`, alternative session at greetd login
 - Status bars: both **Waybar** and **HyprPanel** — waybar config in `hyprland/config/waybar/`, hyprpanel in `hyprpanel.nix`
 
 ## Theming

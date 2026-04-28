@@ -38,6 +38,16 @@ in
           "XDG_SESSION_TYPE,wayland"
           "WAYLAND_DISPLAY,wayland-1"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          # Qt
+          "QT_QPA_PLATFORM,wayland;xcb"
+          "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+          # GTK / SDL / Firefox
+          "GDK_BACKEND,wayland,x11,*"
+          "SDL_VIDEODRIVER,wayland"
+          "MOZ_ENABLE_WAYLAND,1"
+          # Cursor — matches the hyprctl setcursor in exec-once above
+          "XCURSOR_THEME,Bibata-Modern-Ice"
+          "XCURSOR_SIZE,18"
         ];
 
         # Input configuration

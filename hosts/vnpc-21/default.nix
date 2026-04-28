@@ -178,10 +178,6 @@
     MOZ_X11_EGL = "1";
   };
 
-  # COSMIC desktop environment
-  cosmic.enable = true;
-  cosmic.autoLogin.enable = false;
-
   programs.kdeconnect.enable = true;
   programs.localsend = {
     enable = true;

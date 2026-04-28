@@ -20,7 +20,7 @@ in
       pkgs.xdg-user-dirs
     ];
 
-    home.sessionVariables.BROWSER = "zen";
+    home.sessionVariables.BROWSER = "zen-beta";
 
     xdg = {
       enable = true;

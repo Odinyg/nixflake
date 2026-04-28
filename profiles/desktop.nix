@@ -12,6 +12,9 @@
   # ==============================================================================
   general.enable = true;
   hyprland.enable = true;
+  plasma.enable = true;
+  greetd.enable = true;
+  greetd.autoLogin.enable = false;
   fonts.enable = true;
 
   # ==============================================================================

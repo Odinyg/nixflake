@@ -15,11 +15,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.xserver = {
-      enable = true;
-      videoDrivers = [ "amdgpu" ];
-    };
-
     hardware.graphics = {
       enable = true;
       enable32Bit = true;

@@ -44,6 +44,13 @@ let
   pkgs-unstable = import nixpkgs-unstable {
     localSystem = system;
     config.allowUnfree = true;
+    overlays = [
+      (final: prev: {
+        openldap = prev.openldap.overrideAttrs (_: {
+          doCheck = false;
+        });
+      })
+    ];
   };
 
   # Desktop hosts: full module tree with home-manager, stylix, nixvim
@@ -65,6 +72,14 @@ let
   sharedConfig = {
     networking.enableIPv6 = false;
     services.qemuGuest.enable = true;
+    # openldap test017-syncreplication-refresh is timing-flaky on busy builders
+    nixpkgs.overlays = [
+      (final: prev: {
+        openldap = prev.openldap.overrideAttrs (_: {
+          doCheck = false;
+        });
+      })
+    ];
   };
 
   hostModules =

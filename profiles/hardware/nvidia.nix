@@ -49,9 +49,6 @@
   };
 
   config = lib.mkIf config.hardware.nvidia-gpu.enable {
-    # NVIDIA drivers
-    services.xserver.videoDrivers = [ "nvidia" ];
-
     hardware.nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.${config.hardware.nvidia-gpu.driverPackage};
       modesetting.enable = true;
