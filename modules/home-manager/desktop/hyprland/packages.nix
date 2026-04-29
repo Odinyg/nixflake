@@ -39,7 +39,6 @@ in
         # khard # TUI contacts — disabled: upstream build broken (sphinx-argparse incompatibility)
         calcurse # TUI calendar with built-in CalDAV
         endeavour # GNOME Tasks with CalDAV sync
-        evolution # Mail, calendar, contacts (GNOME Online Accounts)
         onedrive # OneDrive sync client
         onedrivegui # GUI for OneDrive client
         nextcloud-client # Nextcloud file sync

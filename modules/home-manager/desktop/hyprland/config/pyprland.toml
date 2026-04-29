@@ -14,34 +14,37 @@ plugins = [
 [pyprland.variables]
 term_classed = "ghostty --class"
 
+# Ghostty 1.3+ (GTK4) requires --class to be a valid GApplication ID
+# (reverse-DNS with dots). Plain hyphenated names are rejected silently
+# and the window falls back to com.mitchellh.ghostty.
 [scratchpads.term]
 animation = "fromTop"
-command = "ghostty --class main-dropterm -e zsh -c 'tmux has-session -t dropdown 2>/dev/null && tmux attach -t dropdown || tmuxinator start dropdown'"
-class = "main-dropterm"
+command = "ghostty --class=org.pypr.dropterm -e zsh -c 'tmux has-session -t dropdown 2>/dev/null && tmux attach -t dropdown || tmuxinator start dropdown'"
+class = "org.pypr.dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"
 
 [scratchpads.notes]
+animation = "fromTop"
 command = "obsidian --disable-gpu"
 class = "obsidian"
-animation = "fromTop"
 size = "75% 60%"
 max_size = "1920px 100%"
 lazy = true
 
 [scratchpads.todo]
+animation = "fromTop"
 command = "io.github.alainm23.planify"
 class = "io.github.alainm23.planify"
-animation = "fromTop"
 size = "75% 60%"
 max_size = "1920px 100%"
 lazy = true
 
 # Quick scratchpad for temporary notes
 [scratchpads.scratch]
-command = "ghostty --class scratch-notes -e zsh -c '~/.config/nixvim/scripts/scratchpad.sh'"
-class = "scratch-notes"
 animation = "fromTop"
+command = "ghostty --class=org.pypr.scratch -e zsh -c '~/.config/nixvim/scripts/scratchpad.sh'"
+class = "org.pypr.scratch"
 size = "65% 50%"
 max_size = "1920px 100%"
 margin = 50
@@ -51,9 +54,9 @@ lazy = true
 
 # Daily notes in Main vault
 [scratchpads.daily]
-command = "ghostty --class daily-notes -e nvim ~/Documents/Main/dailyNotes/$(date +%Y-%m-%d).md"
-class = "daily-notes"
 animation = "fromTop"
+command = "ghostty --class=org.pypr.daily -e nvim ~/Documents/Main/dailyNotes/$(date +%Y-%m-%d).md"
+class = "org.pypr.daily"
 size = "80% 70%"
 max_size = "1400px 100%"
 lazy = true
@@ -61,16 +64,22 @@ margin = 50
 
 # Full Main vault access
 [scratchpads.vault]
-command = "ghostty --class vault-notes -e nvim ~/Documents/Main"
-class = "vault-notes"
+animation = "fromTop"
+command = "ghostty --class=org.pypr.vault -e nvim ~/Documents/Main"
+class = "org.pypr.vault"
 size = "85% 80%"
-animation = "fromRight"
 lazy = true
 
 # Cheatsheet search with vimiv-qt
 [scratchpads.cheatsheet-search]
+animation = "fromTop"
 command = "vimiv ~/Pictures/cheatsheets"
 class = "vimiv"
-animation = "fromTop"
 size = "75% 75%"
 lazy = true
+
+# Brave PWA shortcuts (music/claude/teams) intentionally moved out of pypr —
+# Brave is single-instance, so `brave --app=...` exits immediately after
+# messaging the running daemon, breaking pypr's PID-based window tracking.
+# Instead they're bound directly via `launch-or-focus` (see web-apps.nix +
+# keybindings.nix), which focuses the existing PWA window or launches it.

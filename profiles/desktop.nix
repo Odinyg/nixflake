@@ -56,6 +56,7 @@
   # ==============================================================================
   thunar.enable = true;
   chromium.enable = true;
+  brave.enable = true;
   zen-browser.enable = true;
   web-apps.enable = true;
   discord.enable = true;
@@ -127,5 +128,6 @@
       nssmdns4 = true;
       openFirewall = true;
     };
+    gnome.gnome-remote-desktop.enable = true;
   };
 }

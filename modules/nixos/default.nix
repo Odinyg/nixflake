@@ -25,5 +25,6 @@
     ./secrets.nix
     ./netbird-client.nix
     ./fail2ban.nix
+    ./brave.nix
   ];
 }

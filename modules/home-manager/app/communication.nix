@@ -19,6 +19,8 @@ in
     home.packages = with pkgs; [
       # Email & Security
       protonmail-desktop # ProtonMail email client
+      evolution # GNOME email/calendar/contacts client
+      evolution-ews # Microsoft Exchange / Office 365 backend for Evolution
 
       # Terminals
 

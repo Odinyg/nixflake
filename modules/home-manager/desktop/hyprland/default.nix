@@ -115,7 +115,7 @@ in
         # Window rules (new syntax: match:prop value, effect value)
         windowrule = [
           # Force remote desktop clients to tile
-          "match:class ^(xfreerdp)$, float off"
+          "match:class ^(xfreerdp|FreeRDP)$, float off"
           # 1Password Quick Access - stay focused and visible
           "match:title ^Quick Access, float on"
           "match:title ^Quick Access, stay_focused on"

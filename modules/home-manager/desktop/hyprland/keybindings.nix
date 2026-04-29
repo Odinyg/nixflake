@@ -31,7 +31,7 @@
       bind = [
         # Wallpaper & Browser
         "$mainMod SHIFT, W, exec, wayle wallpaper next"
-        "$mainMod, W, exec, zen-beta"
+        "$mainMod, W, exec, brave"
 
         # Screenshots — region to clipboard + file + notification
         ''ALT CTRL, S, exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp -d)" - | tee ~/Pictures/screenshots/screenshot-$(date '+%Y%m%d-%H%M%S').png | wl-copy && notify-send "Screenshot" "Copied to clipboard and saved" -t 2000''
@@ -113,6 +113,11 @@
         "$mainMod SHIFT, G, exec, pypr toggle daily"
         "$mainMod, V, exec, pypr toggle vault"
         "$mainMod, R, exec, pypr toggle cheatsheet-search"
+        # Brave PWA launch/focus (uses launch-or-focus from web-apps.nix —
+        # focuses existing window, otherwise launches PWA).
+        ''$mainMod, Y, exec, launch-or-focus brave-music.youtube.com "brave --app=https://music.youtube.com"''
+        ''$mainMod, C, exec, launch-or-focus brave-claude "brave --app=https://claude.ai"''
+        ''$mainMod SHIFT, T, exec, launch-or-focus brave-teams "brave --app=https://teams.cloud.microsoft/"''
       ];
 
     };

@@ -21,8 +21,8 @@ in
     xdg.desktopEntries = {
       webapp-github = {
         name = "GitHub";
-        exec = ''launch-or-focus chrome-github "chromium --app=https://github.com"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-github "brave --app=https://github.com"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -32,8 +32,8 @@ in
       };
       webapp-youtube = {
         name = "YouTube";
-        exec = ''launch-or-focus chrome-youtube "chromium --app=https://youtube.com"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-youtube "brave --app=https://youtube.com"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -43,8 +43,8 @@ in
       };
       webapp-ytmusic = {
         name = "YouTube Music";
-        exec = ''launch-or-focus chrome-music.youtube.com "chromium --app=https://music.youtube.com"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-music.youtube.com "brave --app=https://music.youtube.com"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -54,8 +54,8 @@ in
       };
       webapp-claude = {
         name = "Claude";
-        exec = ''launch-or-focus chrome-claude "chromium --app=https://claude.ai"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-claude "brave --app=https://claude.ai"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -65,8 +65,8 @@ in
       };
       webapp-protonmail = {
         name = "ProtonMail";
-        exec = ''launch-or-focus chrome-protonmail "chromium --app=https://mail.proton.me"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-protonmail "brave --app=https://mail.proton.me"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -76,8 +76,8 @@ in
       };
       webapp-homeassistant = {
         name = "Home Assistant";
-        exec = ''launch-or-focus chrome-homeassistant "chromium --app=https://homeassistant.pytt.io"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-homeassistant "brave --app=https://homeassistant.pytt.io"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -87,8 +87,8 @@ in
       };
       webapp-tradingview = {
         name = "TradingView";
-        exec = ''launch-or-focus chrome-tradingview "chromium --app=https://tradingview.com/chart/EWLeEGVs/"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-tradingview "brave --app=https://tradingview.com/chart/EWLeEGVs/"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -98,8 +98,8 @@ in
       };
       webapp-element = {
         name = "Element";
-        exec = ''launch-or-focus chrome-element "chromium --app=https://element.pytt.io"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-element "brave --app=https://element.pytt.io"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -109,8 +109,8 @@ in
       };
       webapp-outlook = {
         name = "Outlook";
-        exec = ''launch-or-focus chrome-outlook "chromium --app=https://outlook.office.com"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-outlook "brave --app=https://outlook.office.com"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -120,8 +120,8 @@ in
       };
       webapp-teams = {
         name = "Teams";
-        exec = ''launch-or-focus chrome-teams "chromium --app=https://teams.cloud.microsoft/"'';
-        icon = "chromium";
+        exec = ''launch-or-focus brave-teams "brave --app=https://teams.cloud.microsoft/"'';
+        icon = "brave-browser";
         type = "Application";
         terminal = false;
         categories = [
@@ -134,8 +134,8 @@ in
       # Copy a webapp-NAME block above and customize:
       #   webapp-NAME = {
       #     name = "Display Name";
-      #     exec = ''launch-or-focus chrome-DOMAIN "chromium --app=https://DOMAIN"'';
-      #     icon = "chromium";
+      #     exec = ''launch-or-focus brave-DOMAIN "brave --app=https://DOMAIN"'';
+      #     icon = "brave-browser";
       #     type = "Application";
       #     terminal = false;
       #     categories = [ "Network" "WebBrowser" ];

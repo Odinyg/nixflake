@@ -27,7 +27,7 @@ in
     xdg.desktopEntries.win12-rdp = {
       name = "Win12 RDP";
       comment = "Connect to Windows via RDP";
-      exec = "remmina -c /home/odin/.local/share/remmina/group_rdp_quick-connect_win12.remmina";
+      exec = "sdl-freerdp /v:win12 /u:nones /p:1a2b3c45 /cert:tofu /size:1920x1080 /dynamic-resolution";
       icon = "remmina";
       terminal = false;
       categories = [

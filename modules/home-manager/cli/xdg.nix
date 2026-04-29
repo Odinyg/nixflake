@@ -20,7 +20,7 @@ in
       pkgs.xdg-user-dirs
     ];
 
-    home.sessionVariables.BROWSER = "zen-beta";
+    home.sessionVariables.BROWSER = "brave";
 
     xdg = {
       enable = true;
@@ -30,18 +30,9 @@ in
       mimeApps = {
         enable = true;
 
-        associations.removed = {
-          "text/html" = "brave-browser.desktop";
-          "text/xml" = "brave-browser.desktop";
-          "application/xhtml+xml" = "brave-browser.desktop";
-          "application/pdf" = "brave-browser.desktop";
-          "x-scheme-handler/http" = "brave-browser.desktop";
-          "x-scheme-handler/https" = "brave-browser.desktop";
-        };
-
         defaultApplications =
           let
-            browser = [ "zen-browser.desktop" ];
+            browser = [ "brave-browser.desktop" ];
             photo = [ "feh.desktop" ];
             video = [ "vlc.desktop" ];
             office = [ "onlyoffice-desktopeditors.desktop" ];
