@@ -34,12 +34,12 @@
         "$mainMod, W, exec, brave"
 
         # Screenshots — region to clipboard + file + notification
-        ''ALT CTRL, S, exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp -d)" - | tee ~/Pictures/screenshots/screenshot-$(date '+%Y%m%d-%H%M%S').png | wl-copy && notify-send "Screenshot" "Copied to clipboard and saved" -t 2000''
+        ''$mainMod SHIFT, S, exec, mkdir -p ~/Pictures/screenshots && grim -g "$(slurp -d)" - | satty --filename - --output-filename ~/Pictures/screenshots/screenshot-$(date '+%Y%m%d-%H%M%S').png --early-exit --copy-command wl-copy --save-after-copy --actions-on-enter save-to-clipboard''
 
         # Applications
         "$mainMod, return, exec, ghostty"
         "$mainMod, E, exec, thunar"
-        "$mainMod, D, exec, pgrep rofi >/dev/null 2>&1 && killall rofi || rofi -show drun -hshow-icons"
+        "$mainMod, D, exec, pgrep rofi >/dev/null 2>&1 && killall rofi || rofi -show drun"
 
         # Window Management
         "$mainMod, Q, killactive,"

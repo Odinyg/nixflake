@@ -8,7 +8,6 @@ let
     "khncfooichmfjbepaaaebmommgaepoid" # Unhook — Remove YouTube Recommended & Shorts
     "ijaabbaphikljkkcbgpbaljfjpflpeoo" # Favicon Switcher
     "hlepfoohegkhhmjieoechaddaejaokhf" # Refined GitHub
-    "logpjaacgmcbpdkdchjiaagddngobkck" # Shortkeys — remap Ctrl+Shift+C to copy
   ];
 in
 {
@@ -21,6 +20,9 @@ in
       BraveWalletDisabled = true;
       BraveVPNDisabled = true;
       BraveRewardsDisabled = true;
+      PasswordManagerEnabled = false;
+      AutofillAddressEnabled = false;
+      AutofillCreditCardEnabled = false;
     };
   };
 }

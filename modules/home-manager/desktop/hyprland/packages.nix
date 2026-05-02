@@ -62,7 +62,6 @@ in
 
         # Notifications & UI
         swaynotificationcenter # Notification daemon
-        rofi # Application launcher
         brightnessctl # Brightness control
 
         # Authentication & Security
@@ -79,22 +78,33 @@ in
       # Dynamic wallpapers — extracted from HEIC at build time
       "hypr/wallpapers".source = dynamicWallpapers;
       "pypr/config.toml".source = ./config/pyprland.toml;
-      "rofi-base/config.rasi".source = ./config/rofi.rasi;
-      "rofi-base/nord.rasi".source = ./config/rofi-nord.rasi;
-      "rofi-base/rounded-common.rasi".source = ./config/rounded-common.rasi;
+      # Companion theme imported by rofi-nord.rasi (resolved relative to ~/.config/rofi/)
+      "rofi/rounded-common.rasi".source = ./config/rounded-common.rasi;
     };
 
-    home.activation.initRofi = {
-      after = [ "linkGeneration" ];
-      before = [ ];
-      data = ''
-        if [ ! -d "$HOME/.config/rofi" ] || [ -L "$HOME/.config/rofi" ]; then
-          rm -rf "$HOME/.config/rofi"
-          mkdir -p "$HOME/.config/rofi"
-          cp -rL "$HOME/.config/rofi-base/." "$HOME/.config/rofi/"
-          chmod -R u+w "$HOME/.config/rofi"
-        fi
-      '';
+    # Custom Nord/rounded theme — opt out of stylix's auto-generated rofi theme.
+    stylix.targets.rofi.enable = false;
+    programs.rofi = {
+      enable = true;
+      terminal = "${pkgs.ghostty}/bin/ghostty";
+      font = "Roboto 12";
+      theme = ./config/rofi-nord.rasi;
+      extraConfig = {
+        modes = "combi";
+        combi-modes = [
+          "window"
+          "drun"
+          "run"
+        ];
+        drun-match-fields = [
+          "name"
+          "generic"
+          "keywords"
+          "categories"
+        ];
+        run-shell-command = "{terminal} -e {cmd}";
+        show-icons = true;
+      };
     };
   };
 }

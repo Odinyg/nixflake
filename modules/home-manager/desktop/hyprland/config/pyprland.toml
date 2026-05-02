@@ -19,7 +19,7 @@ term_classed = "ghostty --class"
 # and the window falls back to com.mitchellh.ghostty.
 [scratchpads.term]
 animation = "fromTop"
-command = "ghostty --class=org.pypr.dropterm -e zsh -c 'tmux has-session -t dropdown 2>/dev/null && tmux attach -t dropdown || tmuxinator start dropdown'"
+command = "ghostty --class=org.pypr.dropterm -e zsh -c 'tmux has-session -t dropdown 2>/dev/null && tmux attach -t dropdown || tmuxinator start --suppress-tmux-version-warning dropdown'"
 class = "org.pypr.dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"

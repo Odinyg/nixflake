@@ -141,7 +141,7 @@ let
     EOF
 
     echo "Created: $dir"
-    echo "Start session: tmuxinator start debug $host $today-$name"
+    echo "Start session: tmuxinator start --suppress-tmux-version-warning debug $host $today-$name"
   '';
 
   # Layout picker — fzf popup to start a tmuxinator project (prefix+L)
@@ -166,7 +166,7 @@ let
 
     dir="''${1:-$(tmux display-message -p '#{pane_current_path}')}"
     name=$(basename "$dir")
-    tmuxinator start "$layout" "$name" "$dir"
+    tmuxinator start --suppress-tmux-version-warning "$layout" "$name" "$dir"
   '';
 
   # Rename helper for sesh picker (needs explicit /dev/tty for fzf execute)
@@ -216,7 +216,7 @@ let
     dir=$(tmux display-message -p '#{pane_current_path}')
     if tmuxinator list -n | grep -qx "$session"; then
       name=$(basename "$dir")
-      tmuxinator start "$session" "$name" "$dir"
+      tmuxinator start --suppress-tmux-version-warning "$session" "$name" "$dir"
     else
       sesh connect "$session"
     fi
