@@ -7,6 +7,7 @@ let
     nixvim
     stylix
     home-manager
+    plasma-manager
     sops-nix
     ;
 
@@ -116,7 +117,10 @@ let
           useUserPackages = true;
           extraSpecialArgs = { inherit inputs pkgs-unstable; };
           users.${user} = {
-            imports = [ nixvim.homeModules.nixvim ];
+            imports = [
+              nixvim.homeModules.nixvim
+              plasma-manager.homeModules.plasma-manager
+            ];
             home = {
               username = user;
               homeDirectory = "/home/${user}";
